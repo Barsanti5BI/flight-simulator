@@ -13,5 +13,5 @@ Hard Drive: 128 MB
 
 ## Credits
 Grazie per aver acquistato il prodotto.\
-Per ulteriori prodotti collegati al sito: www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley\
+Per ulteriori prodotti collegati al sito: youtube.com/watch?v=dQw4w9WgXcQ\
 5BI.
