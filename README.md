@@ -13,10 +13,10 @@ Hard Drive: 28 MB
 
 # credits
 Grazie per aver acquistato il prodotto.\
-Per ulteriori prodotti collegati al sito: www.youtube.com/watch?v=dQw4w9WgXcQ \
+Per ulteriori prodotti collegati al sito: http://lnkiy.in/sitoAereoporto \
 5BI.
 
-## gruppo 1: Aereopoto 
+## gruppo 1: Aereoporto 
 Meneghetti (capogruppo) \
 Lucon (documentazione) \
 Tila (comunicazione) \
