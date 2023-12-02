@@ -4,12 +4,12 @@
 Utilizza le più innovative tecnologie per lo sviluppo di simulatori del momento quali Java, MultiThreading.\
 Flight simulator 5.0 Enterprise Edition offre micidiali prestazioni, rendendolo accessibile anche dal MS-DOS.
 
-## minimun requirements
+## Requisiti minimi
 OS: WINDOWS 95\
-Processor: Intel Pentium D\
-Memory: 12MB for 32-bit OS or 24MB for 64-bit\
-Graphics: none\
-Hard Drive: 28 MB
+Processore: Intel Pentium D\
+Memoria: 12MB for 32-bit OS or 24MB for 64-bit\
+Scheda grafica: none\
+Disco rigido: 28 MB
 
 # credits
 Grazie per aver acquistato il prodotto.\
