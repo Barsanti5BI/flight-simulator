@@ -8,7 +8,7 @@ Flight simulator 5.0 Enterprise Edition offre micidiali prestazioni, rendendolo 
 OS: WINDOWS 95\
 Processor: Intel Pentium D\
 Memory: 12MB for 32-bit OS or 24MB for 64-bit\
-Graphics: none\
+Graphics: RTX 4090 24GB\
 Hard Drive: 28 MB
 
 # credits
