@@ -1,3 +1,5 @@
+package Aereo;
+
 import java.util.ArrayList;
 
 public class AereoPasseggeri extends Aereo{
