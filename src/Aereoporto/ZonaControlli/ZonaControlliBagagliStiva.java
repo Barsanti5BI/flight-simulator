@@ -1,4 +1,6 @@
 package Aereoporto.ZonaControlli;
 
-public class ZonaControlliBagagliStiva {
+import Aereoporto.Common.ZonaAeroporto;
+
+public class ZonaControlliBagagliStiva extends ZonaAeroporto {
 }

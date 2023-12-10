@@ -1,4 +1,6 @@
 package Aereoporto.ZonaPartenze;
 
-public class ZonaPartenze {
+import Aereoporto.Common.ZonaAeroporto;
+
+public class ZonaPartenze extends ZonaAeroporto {
 }

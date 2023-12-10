@@ -1,6 +1,8 @@
 package Aereoporto.ZonaNegozi;
 
-public class ZonaNegozi {
+import Aereoporto.Common.ZonaAeroporto;
+
+public class ZonaNegozi extends ZonaAeroporto {
    //negozi
    //ristoranti
 }
