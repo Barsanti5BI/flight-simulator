@@ -19,14 +19,14 @@ public class ZonaAeroporto extends Thread {
          turistiEntranti.push(turista);
      }
 
-     protected void entraInZonaSuccessiva(Turista turista) {
+     public void entraInZonaSuccessiva(Turista turista) {
          if(zonaSuccessiva == null) {
              throw new RuntimeException("Non è possibile entrare in una zona successiva se non è stata impostata");
          }
 
          zonaSuccessiva.turistiEntranti.push(turista);
      }
-    protected void entraInZonaSuccessiva(Turista turista, Boolean inUscita) {
+    public void entraInZonaSuccessiva(Turista turista, Boolean inUscita) {
          if(zonaSuccessiva == null) {
              throw new RuntimeException("Non è possibile entrare in una zona successiva se non è stata impostata");
          }
@@ -37,14 +37,14 @@ public class ZonaAeroporto extends Thread {
              zonaSuccessiva.turistiEntranti.push(turista);
          }
      }
-     protected void entraInZonaPrecedente(Turista turista) {
+     public void entraInZonaPrecedente(Turista turista) {
          if(zonaPrecedente == null) {
              throw new RuntimeException("Non è possibile entrare in una zona precedente se non è stata impostata");
          }
 
          zonaPrecedente.turistiEntranti.push(turista);
      }
-     protected void entraInZonaPrecedente(Turista turista, Boolean inUscita) {
+     public void entraInZonaPrecedente(Turista turista, Boolean inUscita) {
          if(zonaPrecedente == null) {
              throw new RuntimeException("Non è possibile entrare in una zona precedente se non è stata impostata");
          }

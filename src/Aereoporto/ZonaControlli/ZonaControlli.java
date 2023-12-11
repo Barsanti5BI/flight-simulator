@@ -2,25 +2,22 @@ package Aereoporto.ZonaControlli;
 
 import Aereoporto.Common.ZonaAeroporto;
 import Persona.Turista;
-import Utils.Coda;
-
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 public class ZonaControlli extends ZonaAeroporto {
    ArrayList<Settore> settori;
-
 
    public ZonaControlli() {
       settori = new ArrayList<>();
       configuraZona();
    }
    public void configuraZona(){
-      for (int i = 0; i < 1; i++){
-         settori.add(new Settore(i));
+      for (int i = 0; i < 3; i++){
+         settori.add(new Settore(i, this));
       }
    }
+
+   // accodo i turisti entrati nella zona verso i settori meno affollati
    public void smistaTuristi(Turista t) {
       Settore s = settori.get(0);
       for (Settore set : settori){
@@ -30,6 +27,7 @@ public class ZonaControlli extends ZonaAeroporto {
       }
       s.codaTuristi.push(t);
    }
+
    public void run(){
          while(true){
             try{
