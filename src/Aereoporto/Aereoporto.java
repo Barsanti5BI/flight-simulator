@@ -50,7 +50,4 @@ public class Aereoporto {
         zonaArrivi.impostaZonaSuccessiva(zonaEntrata);
     }
 
-    public void entraInAereoporto(Turista turista) {
-        zonaEntrata.entraInZona(turista);
-    }
 }

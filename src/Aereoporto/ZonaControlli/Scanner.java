@@ -16,16 +16,46 @@ public class Scanner extends Thread{
       this.bagagliControllati = new ArrayList<>();
    }
 
-    public void entraInCoda(Bagaglio bagaglio){
+    public void run(){
+        while(true) {
+            try {
+                // TODO: controllo a intervalli random i bagagli dalla coda
+                Thread.sleep(1000);
+                Bagaglio bagaglio = codaBagagli.pop();
+                boolean nonPericoloso = scannerizzaBagaglio(bagaglio);
+                if (nonPericoloso) {
+                    bagagliControllati.add(bagaglio);
+                } else {
+
+                }
+                // TODO: mostro risultato al personale che decide se far passare il turista o meno
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public void mettiSuNastroTrasportatore(Bagaglio bagaglio) {
+       // TODO: implementare in base al modo in cui i bagagli sono associati al turista
         codaBagagli.push(bagaglio);
     }
 
-    public void run(){
-        // TODO: controllo a intervalli i bagagli dalla coda
-        // TODO: mostro risultato al personale che decide se far passare il turista o meno
+    public synchronized ArrayList<Bagaglio> prendiDaNastroTrasportatore(ArrayList<String> ids) {
+        ArrayList<Bagaglio> bagagli = new ArrayList<>();
+        for (String id : ids) {
+            for (Bagaglio bagaglio : bagagliControllati) {
+                if (bagaglio.id.equals(id)) {
+                    bagagli.add(bagaglio);
+                    bagagliControllati.remove(bagaglio);
+                }
+            }
+        }
+        return bagagli;
     }
 
-    public void mettiSuNastroTrasportatore(Turista t) {
-       // TODO: implementare in base al modo in cui i bagagli sono associati al turista
+    // ritorna true se il bagaglio è stato controllato e non contiene oggetti pericolosi
+    public boolean scannerizzaBagaglio(Bagaglio bagaglio) {
+       // TODO: implementare
+        return true;
     }
 }

@@ -11,34 +11,10 @@ public class ZonaControlli extends ZonaAeroporto {
       settori = new ArrayList<>();
       configuraZona();
    }
+
    public void configuraZona(){
       for (int i = 0; i < 3; i++){
-         settori.add(new Settore(i, this));
+         settori.add(new Settore(i));
       }
    }
-
-   // accodo i turisti entrati nella zona verso i settori meno affollati
-   public void smistaTuristi(Turista t) {
-      Settore s = settori.get(0);
-      for (Settore set : settori){
-         if (s.codaTuristi.size() > set.codaTuristi.size()){
-            s = set;
-         }
-      }
-      s.codaTuristi.push(t);
-   }
-
-   public void run(){
-         while(true){
-            try{
-               Turista t = turistiEntranti.pop();
-               smistaTuristi(t);
-               Thread.sleep(10);
-            }
-            catch (InterruptedException ex){
-               ex.printStackTrace();
-            }
-         }
-   }
-
 }

@@ -1,11 +1,9 @@
 package Aereoporto.ZonaControlli;
 
-import Aereoporto.Common.ZonaAeroporto;
 import Persona.Turista;
 import Utils.Coda;
 
 public class Settore {
-   ZonaControlli zonaControlli;
    MetalDetector metalDetector;
    Scanner scanner;
    String name;
@@ -13,27 +11,23 @@ public class Settore {
 
    // TODO: aggiungere campi per il personale di controllo
 
-   public Settore(int numero, ZonaControlli zonaDiAppartenenza){
+   public Settore(int numero){
       metalDetector = new MetalDetector();
       scanner = new Scanner();
       name = "Settore " + numero;
    }
 
-    public void run(){
+    public void run() {
         while(true){
             try{
-                // TODO: immettere un tempo di intervallo tra un controllo e l'altro
+                // TODO: immettere un tempo di intervallo random tra un controllo e l'altro
                 Thread.sleep(1000);
-                Turista t = codaTuristi.pop();
-                // TODO: il turista poggia i bagagli sul nastro trasportatore dello scanner
-                scanner.mettiSuNastroTrasportatore(t);
-                metalDetector.controllaTurista(t);
-                // TODO: anche il personale controlla il turista di persona
-                // TODO: una volta terminato il controllo, il turista riprende i bagagli dal nastro trasportatore
-                //  se sono passati tutti
+                Turista turista = codaTuristi.pop();
 
-                // il turista può procedere verso la zona successiva
-                zonaControlli.entraInZonaSuccessiva(t);
+                // il turista è pronto per mettere i bagagli sul nastro trasportatore
+                // ed è pronto passare alla coda specifica del metal detector
+                turista.devePoggiareBagagliAiControlli = true;
+                turista.deveFareControlliAlMetalDetector = true;
             }
             catch (InterruptedException ex){
                 ex.printStackTrace();
