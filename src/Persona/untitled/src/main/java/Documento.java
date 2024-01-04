@@ -10,9 +10,9 @@ public class Documento {
     private String sesso;
     private String nazionalita;
     private String indirizzo;
-    private String dataScadenza;
+    private Date dataScadenza;
 
-    public Documento(String tipoDocumento,String nome,String cognome,Date dataNascita,String sesso,String nazionalita,String indirizzo,String dataScadenza){
+    public Documento(String tipoDocumento, String nome, String cognome, Date dataNascita, String sesso, String nazionalita, String indirizzo, Date dataScadenza){
         this.tipoDocumento = tipoDocumento;
         this.nazionalita = nazionalita;
         this.cognome = cognome;
