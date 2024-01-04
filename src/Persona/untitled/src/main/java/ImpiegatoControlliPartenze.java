@@ -1,5 +1,7 @@
 package Persona.untitled.src.main.java;
 
+import java.time.LocalDate;
+
 public class ImpiegatoControlliPartenze extends Persona{
     public ImpiegatoControlliPartenze(Documento doc){
         super(doc);
@@ -7,10 +9,26 @@ public class ImpiegatoControlliPartenze extends Persona{
     public void run(){
 
     }
-    public void ControlloBagaglio(Bagaglio bag){
-
+    public boolean ControlloBagaglio(Bagaglio bag){
+        if (bag.getPeso() < 15)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
-    public void ControlloPasseggero(){
+    public boolean ControlloPasseggero(Documento doc){
+        LocalDate expirationDate = doc.getDataScadenza();
 
+        if (expirationDate.isBefore(LocalDate.now()))
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 }

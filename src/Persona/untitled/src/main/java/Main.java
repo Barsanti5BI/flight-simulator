@@ -1,5 +1,7 @@
 package Persona.untitled.src.main.java;
 
+import java.util.Date;
+
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
@@ -15,5 +17,8 @@ public class Main {
             // for you, but you can always add more by pressing Ctrl+F8.
             System.out.println("i = " + i);
         }
+        Documento d = new Documento("", "", "", new Date(), "", "", "", new Date());
+        ImpiegatoCheckIn i = new ImpiegatoCheckIn(d);
+        System.out.println(i.GeneraCartaImbarco("VCE", "HND", 10));
     }
 }
