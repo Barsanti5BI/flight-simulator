@@ -19,4 +19,8 @@ public class Bagaglio {
 
     //metodi get
 
+    public int getPeso()
+    {
+        return peso;
+    }
 }
