@@ -1,3 +1,5 @@
+package Persona.untitled.src.main.java;
+
 import java.util.LinkedList;
 public class Coda<T> {
     private LinkedList<T> list;
