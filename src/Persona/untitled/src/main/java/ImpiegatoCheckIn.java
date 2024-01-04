@@ -8,11 +8,11 @@ public class ImpiegatoCheckIn extends Persona{
         super(doc);
     }
     public void run(){
-
+        System.out.println(GeneraEtichetta("partenza", "arrivo"));
     }
     public String GeneraEtichetta(String AeroportoPartenza, String AeroportoArrivo){
-        String codUnivoco = "";
-        String etichetta = AeroportoPartenza +" "+ AeroportoArrivo + " CODICE UNIVOCO QUI";
+        String codUnivoco = generaCodiceUnivoco(15);
+        String etichetta = AeroportoPartenza +" "+ AeroportoArrivo + " " + codUnivoco;
 
         return etichetta;
     }
