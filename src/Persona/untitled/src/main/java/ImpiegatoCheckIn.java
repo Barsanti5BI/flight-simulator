@@ -1,3 +1,5 @@
+package Persona.untitled.src.main.java;
+
 import java.security.SecureRandom;
 
 public class ImpiegatoCheckIn extends Persona{

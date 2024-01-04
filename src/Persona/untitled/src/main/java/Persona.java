@@ -1,3 +1,5 @@
+package Persona.untitled.src.main.java;
+
 public class Persona extends Thread{
     private Documento doc;
     public Persona(Documento doc){
