@@ -13,11 +13,12 @@ public class Manutentore extends Persona{
 
     }
     public void ControlloStatiApparecchiature(){
-    if(stato){
-        System.out.println("Sistemi OK");
-    } else{
-        System.out.println("Sistemi KO");
-    }
+        if(stato){
+            System.out.println("Sistemi OK");
+        }
+        else{
+            System.out.println("Sistemi KO");
+        }
     }
     public void ControlloCarburante(){
         if (livelloCarburante > 0) {
