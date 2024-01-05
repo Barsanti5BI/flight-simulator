@@ -1,4 +1,4 @@
-package Persona.untitled.src.main.java;
+package Persona;
 
 public class Prodotto {
     private String nome;

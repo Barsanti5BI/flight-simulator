@@ -1,4 +1,4 @@
-package Persona.untitled.src.main.java;
+package Persona;
 
 public class Pilota extends Persona{
     public Pilota(Documento doc){

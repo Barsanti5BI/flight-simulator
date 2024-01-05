@@ -1,7 +1,6 @@
-package Persona.untitled.src.main.java;
+package Persona;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Documento {
     private String tipoDocumento;

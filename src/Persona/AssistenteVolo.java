@@ -1,6 +1,4 @@
-package Persona.untitled.src.main.java;
-
-import javax.print.Doc;
+package Persona;
 
 public class AssistenteVolo extends Persona{
     public AssistenteVolo(Documento doc){

@@ -1,6 +1,5 @@
-package Persona.untitled.src.main.java;
+package Persona;
 
-import javax.print.Doc;
 import java.time.LocalDate;
 
 public class ImpiegatoControlli extends Persona{

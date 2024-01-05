@@ -1,4 +1,4 @@
-package Persona.untitled.src.main.java;
+package Persona;
 
 public class Turista extends Persona{
     private Bagaglio bag;
