@@ -2,7 +2,6 @@ package Aereoporto.ZonaControlli;
 
 import Persona.Turista;
 import Utils.Coda;
-import org.jetbrains.annotations.Nullable;
 
 public class MetalDetector extends Thread {
    Coda<Turista> codaTuristi;
