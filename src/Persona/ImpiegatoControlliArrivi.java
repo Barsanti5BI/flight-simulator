@@ -2,10 +2,10 @@ package Persona;
 
 import java.time.LocalDate;
 
-public class ImpiegatoControlli extends Persona{
+public class ImpiegatoControlliArrivi extends Persona{
 
     private Coda<Turista> CodaTuristi;
-    public ImpiegatoControlli(Documento doc, Coda<Turista> coda) {super(doc);}
+    public ImpiegatoControlliArrivi(Documento doc, Coda<Turista> coda) {super(doc);}
 
     public void run(){
 
