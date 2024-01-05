@@ -17,6 +17,8 @@ public class ImpiegatoNegozi extends Persona{
     public void run(){
 
     }
+
+    //Topic Squizzato -> superato un determinato importo applicare uno sconto
     public void Vendi(){
         if(prodottoInVendita != null && !prodottoInVendita.isEmpty()){
             double importo = prezzo.getPrezzo();
