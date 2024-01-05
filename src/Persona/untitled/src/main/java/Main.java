@@ -1,5 +1,6 @@
 package Persona.untitled.src.main.java;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
@@ -17,8 +18,11 @@ public class Main {
             // for you, but you can always add more by pressing Ctrl+F8.
             System.out.println("i = " + i);
         }
-        Documento d = new Documento("", "", "", new Date(), "", "", "", new Date());
+        Documento d = new Documento("", "", "", LocalDate.of(2000, 10, 1), "", "", "", LocalDate.of(2030, 10, 1));
         ImpiegatoCheckIn i = new ImpiegatoCheckIn(d);
+        ImpiegatoControlliPartenze i1 = new ImpiegatoControlliPartenze(d);
+
+        System.out.println(i1.ControlloPasseggero(d));
         System.out.println(i.GeneraCartaImbarco("VCE", "HND", 10));
     }
 }
