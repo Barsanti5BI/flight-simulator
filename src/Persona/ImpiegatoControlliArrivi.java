@@ -1,5 +1,7 @@
 package Persona;
 
+import Utils.Coda;
+
 import java.time.LocalDate;
 
 public class ImpiegatoControlliArrivi extends Persona{

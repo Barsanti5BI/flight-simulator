@@ -1,5 +1,7 @@
 package Persona;
 
+import Utils.Coda;
+
 public class Autista extends Persona{
     public Autista(Documento doc){
         super(doc);
@@ -11,7 +13,7 @@ public class Autista extends Persona{
             //SpostaTuristi(codaGate, codaAereo);
         }
     }
-    private void SpostaTuristi(Coda<Persona>codaGate, Coda<Persona>codaAereo){
+    private void SpostaTuristi(Coda<Persona> codaGate, Coda<Persona>codaAereo){
         //modificare aggiungengo capienza gate e aereo
         Persona p = codaGate.pop();
         codaAereo.push(p);

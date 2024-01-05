@@ -1,5 +1,7 @@
 package Persona;
 
+import Utils.Coda;
+
 public class Persona extends Thread{
     private Documento doc;
     public Persona(Documento doc){
