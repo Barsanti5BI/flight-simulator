@@ -18,9 +18,12 @@ public class Bagaglio {
     }
 
     //metodi get
-
+    public Boolean getDaStiva(){ return daStiva;}
     public int getPeso()
     {
         return peso;
     }
+    public String getMisure(){ return misure;}
+    public String getEtichetta(){ return etichetta;}
+    public List<String> getOggettiContenuti(){return oggettiContenuti;}
 }
