@@ -8,15 +8,15 @@ Flight simulator 5.0 Enterprise Edition offre micidiali prestazioni, rendendolo 
 OS: WINDOWS 95\
 Processor: Intel Pentium D\
 Memory: 12MB for 32-bit OS or 24MB for 64-bit\
-Graphics: none\
+Graphics: RTX 4090 24GB\
 Hard Drive: 28 MB
 
 # credits
 Grazie per aver acquistato il prodotto.\
-Per ulteriori prodotti collegati al sito: www.youtube.com/watch?v=dQw4w9WgXcQ \
+Per ulteriori prodotti collegati al sito: http://lnkiy.in/sitoAereoporto \
 5BI.
 
-## gruppo 1: Aereopoto 
+## gruppo 1: Aereoporto 
 Meneghetti (capogruppo) \
 Lucon (documentazione) \
 Tila (comunicazione) \
