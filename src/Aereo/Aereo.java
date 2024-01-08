@@ -3,7 +3,6 @@ package Aereo;
 import java.util.ArrayList;
 
 public abstract class Aereo{
-
     public String nome;
     public String destinazione;
     public Gate gate;
@@ -21,7 +20,7 @@ public abstract class Aereo{
         scatolaNera = new ScatolaNera ();
        
         turbine = new ArrayList<Turbina>();
-        stiva = new Stiva();
+        stiva = new Stiva(new AereoPasseggeri(nome, piloti, 4, 30, 4*30));
         serbatoio = new Serbatoio();
         pilotaAutomatico = false;
         
