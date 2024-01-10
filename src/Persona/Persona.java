@@ -16,4 +16,8 @@ public class Persona extends Thread{
     public void PopCoda(Coda coda){
         coda.pop();
     }
+
+    public Documento getDoc(){
+        return doc;
+    }
 }

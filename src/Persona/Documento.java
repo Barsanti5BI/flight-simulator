@@ -23,6 +23,35 @@ public class Documento {
         this.dataScadenza = dataScadenza;
     }
 
+    public String getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    public LocalDate getDataNascita() {
+        return dataNascita;
+    }
+
+    public String getSesso() {
+        return sesso;
+    }
+
+    public String getNazionalita() {
+        return nazionalita;
+    }
+
+    public String getIndirizzo() {
+        return indirizzo;
+    }
+
+
     public LocalDate getDataScadenza()
     {
         return dataScadenza;

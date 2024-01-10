@@ -1,5 +1,7 @@
 package Persona;
 
+import Aereoporto.ZonaCheckIn.CartaImbarco;
+
 public class Turista extends Persona{
     private Bagaglio bag;
     private CartaImbarco cartaImbarco;
