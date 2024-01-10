@@ -32,10 +32,10 @@ public class Bagno extends Thread{
 //serve nome del turista
 
             System.out.println("il bagno è occupato da "+c.pop());
-            Thread.sleep(2000);
-
-
-
+            random r = new random();
+            int k= r.nextInt(5000);
+            
+            Thread.sleep(k);
 
         }
         catch (InterruptedException e) {}
