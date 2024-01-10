@@ -2,39 +2,41 @@ package Aereo;
 
 public class Entrata extends Thread{
 
-    private coda economy;
-    private coda firstclass;
+    private Coda<Turista> entranti;
 
-    private coda salito;
+
+    private Coda<Turista> salito;
 
     int i=0;
 
-    public Entrata(coda e,coda f)
+    public Entrata(Coda<Turista> e)
     {
-        economy=new coda();
-        firstclass = new coda();
+        entranti=new Coda<Turista>();
 
-        this.economy=e;
-        this.firstclass=f;
 
-        salito=new coda();
+        this.entranti=e;
+
+
+        salito=new Coda<Turista>();
+        i=entranti.size();
     }
     public void run()
     {
-        if(firstclass.size!=0)
-        {
-         salito.add(firstclass.pop);
-         i++;
+        try{
+            while(entranti.size>0)
+            {
+                salito.add(entranti.pop);
+                thread.sleep(1);
+            }
+
         }
-        else
-        {
-            salito.add(economy.pop);
-        }
+        catch (exception e){};
+
 
     }
 
 
-    public coda Getsaliti()
+    public Coda<Turista> Getsaliti()
     {
     return  salito;
     }
