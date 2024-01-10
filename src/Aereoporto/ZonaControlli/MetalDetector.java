@@ -1,6 +1,7 @@
 package Aereoporto.ZonaControlli;
 
 import Persona.ImpiegatoControlliPartenze;
+import Persona.Oggetto;
 import Persona.Turista;
 import Utils.Coda;
 
@@ -35,10 +36,11 @@ public class MetalDetector extends Thread {
    // ritorna true se il turista è stato controllato senza problemi
    public boolean controllaTurista(Turista turista) {
       ArrayList<String> oggettiPericolosi = new ArrayList<>();
-        for (String oggetto : turista.GetListaOggetti()) {
-             if (oggettiPericolosi.contains(oggetto)) {
+        for (Oggetto oggetto : turista.GetListaOggetti()) {
+             if (oggettiPericolosi.contains(oggetto.getNome())) {
                 return false;
              }
         }
+        return true;
    }
 }

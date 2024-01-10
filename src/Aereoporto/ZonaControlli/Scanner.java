@@ -1,5 +1,6 @@
 package Aereoporto.ZonaControlli;
 import Persona.Bagaglio;
+import Persona.Oggetto;
 import Utils.Coda;
 
 import java.util.ArrayList;
@@ -38,8 +39,8 @@ public class Scanner extends Thread{
        oggettiPericolosi.add("Coltello");
        oggettiPericolosi.add("Pistola");
        oggettiPericolosi.add("Bastone");
-       for (String oggetto : bagaglio.getOggettiContenuti()) {
-           if (oggettiPericolosi.contains(oggetto)) {
+       for (Oggetto oggetto : bagaglio.getOggettiContenuti()) {
+           if (oggettiPericolosi.contains(oggetto.getNome())) {
                return false;
            }
        }
