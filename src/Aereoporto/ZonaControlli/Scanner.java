@@ -34,12 +34,10 @@ public class Scanner extends Thread{
             }
         }
     }
-
     public void mettiSuNastroTrasportatore(Bagaglio bagaglio) {
        // TODO: implementare in base al modo in cui i bagagli sono associati al turista
         codaBagagli.push(bagaglio);
     }
-
     public synchronized ArrayList<Bagaglio> prendiDaNastroTrasportatore(ArrayList<String> ids) {
         ArrayList<Bagaglio> bagagli = new ArrayList<>();
         for (String id : ids) {
@@ -52,7 +50,6 @@ public class Scanner extends Thread{
         }
         return bagagli;
     }
-
     // ritorna true se il bagaglio è stato controllato e non contiene oggetti pericolosi
     public boolean scannerizzaBagaglio(Bagaglio bagaglio) {
        // TODO: implementare
