@@ -1,21 +1,18 @@
 package Aereoporto.ZonaControlli;
-
 import Persona.Bagaglio;
-import Persona.Turista;
 import Utils.Coda;
 
 import java.util.ArrayList;
-
 public class Scanner extends Thread{
    // TODO: persona che controlla i bagagli sul nastro per controllare se sono presenti oggetti pericolosi
    Coda<Bagaglio> codaBagagli;
-   ArrayList<Bagaglio> bagagliControllati;
+   Coda<Bagaglio> codaBagagliPericolosi;
+   Coda<Bagaglio> codabagagliControllati;
 
    public Scanner(){
       this.codaBagagli = new Coda<>();
-      this.bagagliControllati = new ArrayList<>();
+      this.codaBagagliPericolosi = new Coda<>();
    }
-
     public void run(){
         while(true) {
             try {
@@ -24,9 +21,9 @@ public class Scanner extends Thread{
                 Bagaglio bagaglio = codaBagagli.pop();
                 boolean nonPericoloso = scannerizzaBagaglio(bagaglio);
                 if (nonPericoloso) {
-                    bagagliControllati.add(bagaglio);
+                    codabagagliControllati.push(bagaglio);
                 } else {
-
+                     codaBagagliPericolosi.push(bagaglio);
                 }
                 // TODO: mostro risultato al personale che decide se far passare il turista o meno
             } catch (InterruptedException e) {
@@ -34,25 +31,18 @@ public class Scanner extends Thread{
             }
         }
     }
-    public void mettiSuNastroTrasportatore(Bagaglio bagaglio) {
-       // TODO: implementare in base al modo in cui i bagagli sono associati al turista
-        codaBagagli.push(bagaglio);
-    }
-    public synchronized ArrayList<Bagaglio> prendiDaNastroTrasportatore(ArrayList<String> ids) {
-        ArrayList<Bagaglio> bagagli = new ArrayList<>();
-        for (String id : ids) {
-            for (Bagaglio bagaglio : bagagliControllati) {
-                if (bagaglio.id.equals(id)) {
-                    bagagli.add(bagaglio);
-                    bagagliControllati.remove(bagaglio);
-                }
-            }
-        }
-        return bagagli;
-    }
+
     // ritorna true se il bagaglio è stato controllato e non contiene oggetti pericolosi
     public boolean scannerizzaBagaglio(Bagaglio bagaglio) {
-       // TODO: implementare
+       ArrayList<String> oggettiPericolosi = new ArrayList<>();
+       oggettiPericolosi.add("Coltello");
+       oggettiPericolosi.add("Pistola");
+       oggettiPericolosi.add("Bastone");
+       for (String oggetto : bagaglio.getOggettiContenuti()) {
+           if (oggettiPericolosi.contains(oggetto)) {
+               return false;
+           }
+       }
         return true;
     }
 }
