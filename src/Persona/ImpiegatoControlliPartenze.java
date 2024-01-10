@@ -1,69 +1,81 @@
 package Persona;
-import java.util.ArrayList;
+import Utils.Coda;
+
 import java.util.List;
-import java.time.LocalDate;
 
 public class ImpiegatoControlliPartenze extends Persona{
 
-    private List<String> OggettiProibiti = new ArrayList<>();
-    public ImpiegatoControlliPartenze(Documento doc){
+    private Coda<Bagaglio> codaScanner;
+    private Coda<Turista> codaTurista;
+    private List<Oggetto> oggettiProibiti;
+    public ImpiegatoControlliPartenze(Documento doc, Coda<Bagaglio> codaScanner, Coda<Turista> codaTurista, List<Oggetto> oggettiProibiti){
         super(doc);
-
-        //Lista oggetti proibiti dell'imbarco:
-
-        OggettiProibiti.add("Dinamite");
-        OggettiProibiti.add("Pistola");
-        OggettiProibiti.add("Granata");
-        OggettiProibiti.add("Coltello");
-        OggettiProibiti.add("Pugnale");
-        OggettiProibiti.add("Polvere da sparo");
-        OggettiProibiti.add("Bottiglia d'acqua");
-        OggettiProibiti.add("Sostanza allucinogena");
-        OggettiProibiti.add("Oggetto metallico");
+        this.codaScanner = codaScanner;
+        this.codaTurista = codaTurista;
+        this.oggettiProibiti = oggettiProibiti; // lista fornita dall'aereoporto
     }
-
-
     public void run(){
-
-    }
-    public boolean ControlloBagaglio(Bagaglio bag){
-        Boolean BagaglioSicuro = true;
-
-        for(int i = 0; i < bag.getOggettiContenuti().size(); i++)
+        while(true)
         {
-            for(int j = 0; j < OggettiProibiti.size(); j++)
+            if (codaScanner != null)
             {
-                if(bag.getOggettiContenuti().get(i) == OggettiProibiti.get(j))
+                // controllore dei bagagli sospetti
+                Bagaglio b = codaScanner.pop();
+                System.out.println("Attenzione turista " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è sospetto e viene controllato");
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+                String controllo = ControlloApprofondito(b.getOggettiContenuti());
+                System.out.println("Bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è bloccato poichè contiene: " + controllo);
+                System.out.println("In attesa del proprietario...");
+
+                while(!b.getRitirato())
                 {
-                    System.out.println("Oggetto proibito trovato, il cliente non potrà salire sull'aereo");
-                    BagaglioSicuro = false;
+                    try {
+                        Thread.sleep(5);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
+                // cercare proprietario nella lista dei passeggeri che hanno completato i controlli
+            }
+            else if (codaTurista != null)
+            {
+                // controllore delle persone sospette
+                Turista t = codaTurista.pop();
+                System.out.println("Attenzione turista " + t.getName() + " è sospetto e viene controllato");
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                String controllo = ControlloApprofondito(t.GetListaOggetti());
+                System.out.println("Turista " + t.getName() + " è arrestato poichè in possesso di: " + controllo);
+            }
+        }
+    }
+
+    public String ControlloApprofondito(List<Oggetto> ogg)
+    {
+        String oggettiTrovati = "";
+
+        for(Oggetto o : ogg)
+        {
+            for(Oggetto o1 : oggettiProibiti)
+            {
+                if (o.getNome() == o1.getNome())
+                {
+                    oggettiTrovati += " " + o.getNome();
                 }
             }
         }
-        if(BagaglioSicuro)
-        {
-            if (bag.getPeso() < 15)
-            {
-                System.out.println("Il bagaglio è sicuro, il passeggero potrà salire sull'aereo");
-                BagaglioSicuro = true;
-            }
-            else
-            {
-                BagaglioSicuro = false;
-            }
-        }
-        return BagaglioSicuro;
-    }
-    public boolean ControlloPasseggero(Documento doc){
-        LocalDate expirationDate = doc.getDataScadenza();
 
-        if (expirationDate.isBefore(LocalDate.now()))
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return oggettiTrovati;
     }
 }

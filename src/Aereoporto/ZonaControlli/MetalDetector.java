@@ -3,7 +3,6 @@ package Aereoporto.ZonaControlli;
 import Persona.ImpiegatoControlliPartenze;
 import Persona.Turista;
 import Utils.Coda;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 
