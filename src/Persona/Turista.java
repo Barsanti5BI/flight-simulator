@@ -3,6 +3,7 @@ package Persona;
 import java.util.List;
 
 public class Turista extends Persona{
+    private List<Bagaglio> listaBagagli;
     private Bagaglio bag;
     private CartaImbarco cartaImbarco;
     private String destinazione;
@@ -22,5 +23,9 @@ public class Turista extends Persona{
     public List<Oggetto> GetListaOggetti()
     {
         return oggetti;
+    }
+
+    public List<Bagaglio> GetBagagli(){
+        return listaBagagli;
     }
 }
