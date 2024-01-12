@@ -17,11 +17,20 @@ public class Turista extends Persona{
     }
 
     public void run(){
+    }
 
+    public String getDestinazione(){
+        return destinazione;
+    }
+
+    public Bagaglio getBag() {
+        return bag;
     }
 
     public List<Oggetto> GetListaOggetti()
     {
         return oggetti;
     }
-}
+
+    public void setCartaImbarco(CartaImbarco c) { cartaImbarco = c; }
+ }
