@@ -1,4 +1,6 @@
 package Aereo;
+import  Utils.Coda;
+
 
 public class Entrata extends Thread{
 
@@ -25,18 +27,18 @@ public class Entrata extends Thread{
     public void run()
     {
         try{
-            while(entranti.size>0&& entranti.size % 2==0)
+            while(entranti.size()>0&& entranti.size() % 2==0)
             {
-                salitoant.add(entranti.pop);
-                thread.sleep(1);
+                salitoant.push(entranti.pop());
+                Thread.sleep(1);
             }
-            while(entranti.size>0&& entranti.size % 2==1)
+            while(entranti.size()>0&& entranti.size() % 2==1)
             {
-                salitopost.add(entranti.pop);
-                thread.sleep(1);
+                salitopost.push(entranti.pop());
+                Thread.sleep(1);
             }
         }
-        catch (exception e){};
+        catch (Exception e){};
 
 
     }
@@ -52,7 +54,7 @@ public class Entrata extends Thread{
         return i;
     }
     public int GetNpersonedavanti(){return salitoant.size();}
-    public int GetNpersoneDietro(){return; salitopost.size();}
+    public int GetNpersoneDietro(){ return salitopost.size();}
 
 }
 

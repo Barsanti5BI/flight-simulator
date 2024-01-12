@@ -2,6 +2,8 @@
 
 package Aereo;
 
+import Utils.Coda;
+
 import java.util.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -34,7 +36,7 @@ public class Bagno extends Thread{
 //serve nome del turista
 
             System.out.println("il bagno è occupato da "+c.pop());
-            random r = new random();
+            Random r = new Random();
             int k= r.nextInt(5000);
 
             Thread.sleep(k);
