@@ -5,7 +5,8 @@ public class Entrata extends Thread{
     private Coda<Turista> entranti;
 
 
-    private Coda<Turista> salito;
+    private Coda<Turista> salitoant;
+    private Coda<Turista> salitopost;
 
     int i=0;
 
@@ -17,18 +18,23 @@ public class Entrata extends Thread{
         this.entranti=e;
 
 
-        salito=new Coda<Turista>();
+        salitoant=new Coda<Turista>();
+        salitopost=new Coda<Turista>();
         i=entranti.size();
     }
     public void run()
     {
         try{
-            while(entranti.size>0)
+            while(entranti.size>0&& entranti.size % 2==0)
             {
-                salito.add(entranti.pop);
+                salitoant.add(entranti.pop);
                 thread.sleep(1);
             }
-
+            while(entranti.size>0&& entranti.size % 2==1)
+            {
+                salitopost.add(entranti.pop);
+                thread.sleep(1);
+            }
         }
         catch (exception e){};
 
@@ -36,14 +42,17 @@ public class Entrata extends Thread{
     }
 
 
-    public Coda<Turista> Getsaliti()
+    public Coda<Turista> GetsalitiDavanti() {return  salitoant;}
+    public Coda<Turista> GetsalitiDietro()
     {
-    return  salito;
+        return  salitopost;
     }
     public int Getnperson()
     {
         return i;
     }
+    public int GetNpersonedavanti(){return salitoant.size();}
+    public int GetNpersoneDietro(){return; salitopost.size();}
 
 }
 
