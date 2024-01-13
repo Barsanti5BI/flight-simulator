@@ -37,12 +37,16 @@ public class MetalDetector extends Thread {
    // ritorna true se il turista è stato controllato senza problemi
    public boolean controllaTurista(Turista turista) {
       ArrayList<String> oggettiPericolosi = new ArrayList<>();
-        for (Oggetto oggetto : turista.GetListaOggetti()) {
-             if (oggettiPericolosi.contains(oggetto.getNome())) {
-                return false;
-             }
-        }
-        return true;
+      oggettiPericolosi.add("Coltello");
+      oggettiPericolosi.add("Pistola");
+      oggettiPericolosi.add("Bastone");
+      oggettiPericolosi.add("Dildo");
+      for (Oggetto oggetto : turista.GetListaOggetti()) {
+          if (oggettiPericolosi.contains(oggetto.getNome())) {
+              return false;
+          }
+      }
+      return true;
    }
 
 }
