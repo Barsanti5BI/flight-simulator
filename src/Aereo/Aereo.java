@@ -20,7 +20,7 @@ public abstract class Aereo{
         scatolaNera = new ScatolaNera ();
        
         turbine = new ArrayList<Turbina>();
-        stiva = new Stiva(new AereoPasseggeri(nome, piloti, 4, 30, 4*30));
+        stiva = new Stiva(this);
         serbatoio = new Serbatoio();
         pilotaAutomatico = false;
         
