@@ -4,7 +4,6 @@ import Utils.Coda;
 import java.util.List;
 
 public class ImpiegatoControlliPartenze extends Persona{
-
     private Coda<Bagaglio> codaScanner;
     private Coda<Turista> codaTurista;
     private List<Oggetto> oggettiProibiti;
