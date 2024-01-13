@@ -20,8 +20,8 @@ public class AereoPasseggeri extends Aereo{
     }
 
     public void ImbarcaPasseggieri(){
-        Imbarca(entrata.GetsalitiDavanti());
-        Imbarca(entrata.GetsalitiDavanti());
+        Imbarca(entrata.GetsalitiDavanti);
+        Imbarca(entrata.GetsalitiDavanti);
     }
 
     public void Imbarca(Coda<Turista> c){
