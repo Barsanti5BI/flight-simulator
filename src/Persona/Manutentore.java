@@ -1,16 +1,19 @@
 package Persona;
 
-import javax.print.Doc;
-
-public class Manutentore extends Persona{
-
+public class Manutentore{
     public Aereo a;
+
     public Manutentore(Aereo a){
         this.a = a;
     }
-    public void run(){
 
+    public void Manutenzione()
+    {
+        ControlloStatiApparecchiature();
+        ControlloCarburante();
+        ControlloTurbine();
     }
+
     public void ControlloStatiApparecchiature(){
         if(a.percentualeApp == 100){
             System.out.println("Sistemi OK");

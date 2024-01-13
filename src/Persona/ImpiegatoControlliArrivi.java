@@ -26,6 +26,6 @@ public class ImpiegatoControlliArrivi extends Persona{
         }
     }
     public void ControlloCartaImbarco(Documento doc){
-
+        
     }
 }
