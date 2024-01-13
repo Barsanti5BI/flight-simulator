@@ -79,7 +79,7 @@ public class Turista extends Persona{
         return destinazione;
     }
 
-    public Bagaglio getBagagli() {
+    public Bagaglio GetBagaglio() {
         return bag;
     }
 
@@ -91,5 +91,6 @@ public class Turista extends Persona{
         return doc;
     }
 
+    public CartaImbarco GetCartaImbarco(){return cartaImbarco;}
     public void setCartaImbarco(CartaImbarco c) { cartaImbarco = c; }
 }
