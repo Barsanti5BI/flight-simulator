@@ -52,4 +52,7 @@ public class ImpiegatoControlliArrivi extends Persona{
             return true;
         }
     }
+    public void ControlloCartaImbarco(Documento doc){
+        
+    }
 }

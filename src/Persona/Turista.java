@@ -42,7 +42,7 @@ public class Turista extends Persona{
         return destinazione;
     }
 
-    public Bagaglio getBag() {
+    public Bagaglio GetBagaglio() {
         return bag;
     }
 

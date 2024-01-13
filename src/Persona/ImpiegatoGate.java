@@ -8,8 +8,7 @@ public class ImpiegatoGate extends Persona {
     Coda<Turista>codaNormale;
     Gate gate;
 
-    public ImpiegatoGate(Documento doc, Gate gate){
-        super(doc);
+    public ImpiegatoGate(Gate gate){
         codaPrioritaria = new Coda<Turista>();
         codaNormale = new Coda<Turista>();
         this.gate = gate;
