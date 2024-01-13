@@ -13,7 +13,7 @@ public class Entrata extends Thread{
 
     int i=0;
 
-    public void dareentranti(Coda<Turista> e)
+    public void DareEntranti(Coda<Turista> e)
     {
         while (e.size()>0){
 
