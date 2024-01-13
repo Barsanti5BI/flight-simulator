@@ -6,7 +6,6 @@ import java.security.SecureRandom;
 import java.util.List;
 
 public class ImpiegatoCheckIn extends Persona{
-
     public ImpiegatoCheckIn(){
     }
     public void run(){
