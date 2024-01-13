@@ -16,8 +16,9 @@ public class ImpiegatoNegozi extends Persona{
         this.id = id;
         this.prodottoInVendita = prodottoInVendita;
     }
-    
+
     public void run(){
+        //Aggiungere sconto se si supera un determinato importo
         System.out.println("Nuovo cliente entrato nel negozio");
         int numeroProdottiAcquistati = new Random().nextInt(19) + 1;
         for (int i = 0; i < numeroProdottiAcquistati; i++) {
@@ -58,18 +59,28 @@ public class ImpiegatoNegozi extends Persona{
     }
 
     //Topic Squizzato -> superato un determinato importo applicare uno sconto
-    public void Vendi(){
-        if(prodottoInVendita != null && !prodottoInVendita.isEmpty()){
-            double importo = prezzo.getPrezzo();
+    public void Vendi() {
+        if (prodottoInVendita != null && !prodottoInVendita.isEmpty()) {
+            double importo = 0.0;
             for (Prodotto prodotto : prodottoInVendita) {
                 System.out.println("Prodotto venduto: " + prodotto.getNome());
                 System.out.println("Prezzo: " + prodotto.getPrezzo());
                 importo += prodotto.getPrezzo();
             }
+
             System.out.println("Importo totale della vendita: " + importo);
-        }
-        else {
+
+            // Applica uno sconto del 10% se l'importo supera i 100 euro
+            if (importo > 100.0) {
+                double sconto = importo * 0.10;
+                importo -= sconto;
+                System.out.println("Sconto applicato: " + sconto);
+            }
+
+            System.out.println("Importo totale della vendita dopo lo sconto: " + importo);
+        } else {
             System.out.println("Nessun prodotto in vendita o lista prodotti non disponibile.");
         }
     }
+
 }
