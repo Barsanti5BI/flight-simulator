@@ -7,7 +7,7 @@ public class Entrata extends Thread{
 
     private Coda<Turista> entranti;
 
-    private Aereo a;
+  
 
     private Coda<Turista> salitoant;
     private Coda<Turista> salitopost;
