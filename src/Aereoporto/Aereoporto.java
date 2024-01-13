@@ -25,7 +25,7 @@ public class Aereoporto {
         zonaEntrata = new ZonaEntrata();
         zonaCheckIn = new ZonaCheckIn(nastroTrasportatore);
         zonaControlli = new ZonaControlli();
-        zonaControlliBagagliStiva = new ZonaControlliBagagliStiva();
+        zonaControlliBagagliStiva = new ZonaControlliBagagliStiva(nastroTrasportatore);
         zonaNegozi = new ZonaNegozi();
         zonaPartenze = new ZonaPartenze();
         zonaArrivi = new ZonaArrivi();

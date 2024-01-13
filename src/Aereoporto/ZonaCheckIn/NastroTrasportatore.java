@@ -7,23 +7,10 @@ public class NastroTrasportatore {
    //Lista di bagagli che sono stati caricati sul nastro trasportatore iseriti a indice in base alla posizione
    //del banco di check-in da cui sono stati caricati
 
-    Coda<Bagaglio> codaBagagli;
-
-    public Bagaglio prendiBagaglio() {
-        return codaBagagli.pop();
-    }
-
-    public void aggiungiBagaglio(Bagaglio b, int indiceBanco) {
-        codaBagagli.inserisciInMezzo(indiceBanco, b);
-    }
-
-   Coda<Bagaglio> bagagliCaricati;
-
-   public void  CaricaBagaglio(Bagaglio b) {
-        bagagliCaricati.push(b);
-   }
-
-    public Bagaglio ScaricaBagaglio(){
-         return bagagliCaricati.pop();
+    public Coda<Bagaglio> codaBagagli;
+   public Coda<Bagaglio> bagagliCaricati;
+    public NastroTrasportatore(){
+       codaBagagli = new Coda<>();
+       bagagliCaricati = new Coda<>();
     }
 }

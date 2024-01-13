@@ -10,6 +10,7 @@ public class CartaImbarco {
     private LocalDate orario;
     private String viaggio;
     private String idRiconoscimentoBagaglio;
+    private String codicePosto; // esempio 1-4 Colonna , 1-10 Riga (1-4)
 
     public CartaImbarco(String nomePasseggero, String cognomePasseggero, int gate, LocalDate orario, String viaggio, String idRiconoscimentoBagaglio, boolean prioritario) {
         this.nomePasseggero = nomePasseggero;

@@ -39,6 +39,7 @@ public class Scanner extends Thread{
        oggettiPericolosi.add("Coltello");
        oggettiPericolosi.add("Pistola");
        oggettiPericolosi.add("Bastone");
+       oggettiPericolosi.add("Righello");
        for (Oggetto oggetto : bagaglio.getOggettiContenuti()) {
            if (oggettiPericolosi.contains(oggetto.getNome())) {
                return false;
