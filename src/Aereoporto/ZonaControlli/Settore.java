@@ -24,8 +24,6 @@ public class Settore {
                 Thread.sleep(1000);
                 Turista turista = codaTuristi.pop();
 
-                // il turista è pronto per mettere i bagagli sul nastro trasportatore
-                // ed è pronto passare alla coda specifica del metal detector
                 turista.devePoggiareBagagliAiControlli = true;
                 turista.deveFareControlliAlMetalDetector = true;
             }

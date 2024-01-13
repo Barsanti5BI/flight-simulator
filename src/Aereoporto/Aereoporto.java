@@ -1,6 +1,7 @@
 package Aereoporto;
 
 import Aereoporto.ZonaArrivi.ZonaArrivi;
+import Aereoporto.ZonaCheckIn.NastroTrasportatore;
 import Aereoporto.ZonaCheckIn.ZonaCheckIn;
 import Aereoporto.ZonaControlli.ZonaControlli;
 import Aereoporto.ZonaControlli.ZonaControlliBagagliStiva;
@@ -17,10 +18,12 @@ public class Aereoporto {
     ZonaNegozi zonaNegozi;
     ZonaPartenze zonaPartenze;
     ZonaArrivi zonaArrivi;
+    NastroTrasportatore nastroTrasportatore;
 
     public Aereoporto() {
+        nastroTrasportatore = new NastroTrasportatore();
         zonaEntrata = new ZonaEntrata();
-        zonaCheckIn = new ZonaCheckIn();
+        zonaCheckIn = new ZonaCheckIn(nastroTrasportatore);
         zonaControlli = new ZonaControlli();
         zonaControlliBagagliStiva = new ZonaControlliBagagliStiva();
         zonaNegozi = new ZonaNegozi();

@@ -3,11 +3,12 @@ package Persona;
 import java.util.List;
 
 public class Bagaglio {
+
     private boolean daStiva;
     private int peso;
     private String misure;
     private Etichetta etichetta;
-    private List<Oggetto>oggettiContenuti;
+    private List<Oggetto> oggettiContenuti;
     private boolean ritirato;
 
     public Bagaglio(boolean daStiva,int peso,String misure,Etichetta etichetta,List<Oggetto>oggettiContenuti){
