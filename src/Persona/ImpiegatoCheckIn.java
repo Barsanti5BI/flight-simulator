@@ -11,10 +11,14 @@ public class ImpiegatoCheckIn extends Persona{
         this.nT = nT;
     }
     public void run() {
+        while(!banco.GetCodaTuristi().isEmpty())
+        {
+            EseguiCheckIn();
+        }
     }
 
     public void EseguiCheckIn(){
-        Turista t = banco.GetCodaTuristi.pop();
+        Turista t = banco.GetCodaTuristi().pop();
         t.GetBagaglio().setEtichetta(banco.generaEtichetta());
         t.setCartaImbarco(banco.generaCartaImbarco(t));
 

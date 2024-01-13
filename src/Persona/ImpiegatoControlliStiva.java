@@ -3,18 +3,19 @@ package Persona;
 import Aereoporto.ZonaCheckIn.NastroTrasportatore;
 
 public class ImpiegatoControlliStiva extends Persona{
-    NastroTrasportatore nastroTrasportatore;
+    private NastroTrasportatore nT;
+
     public ImpiegatoControlliStiva(NastroTrasportatore n){
-        nastroTrasportatore = n;
+        nT = n;
     }
     public void run(){
         while(true)
         {
-            if (CodaScanner != null)
+            if (nT != null)
             {
                 // controllore dei bagagli da stiva sospetti
 
-                Bagaglio b = CodaScanner.pop();
+                Bagaglio b = nT.CodaScanner.pop();
 
                 String controllo = ControlloApprofondito(b.getOggettiContenuti());
 

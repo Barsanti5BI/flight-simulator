@@ -2,34 +2,28 @@ package Persona;
 
 import Utils.Coda;
 
-import javax.naming.ldap.Control;
 import java.time.LocalDate;
 
 public class ImpiegatoControlliArrivi extends Persona{
+    private Coda<Turista> codaArrivi;
+    private Coda<Turista> CodaDopoControlli;
 
-    CartaImbarco CartaImbarco;
-    private Coda<Turista> CodaTuristi;
-
-    private Coda<Turista> CodaArrivo;
-    public ImpiegatoControlliArrivi(Coda<Turista> coda, CartaImbarco cartaImbarco, Coda<Turista> codaTurista) {
-        this.CartaImbarco = cartaImbarco;
-        this.CodaArrivo = codaTurista;
-    ;}
-
-    public ImpiegatoControlliArrivi(Coda<Turista> coda) {CodaTuristi = coda;}
-
+    public ImpiegatoControlliArrivi(Coda<Turista> codaArrivi, Coda<Turista> codaDopoControlli) {
+        this.codaArrivi = codaArrivi;
+        this.CodaDopoControlli = codaDopoControlli;
+    }
 
     public void run(){
         while(true)
         {
-            while(CodaTuristi != null)
+            while(!codaArrivi.isEmpty())
             {
-                Turista t = CodaTuristi.pop();
+                Turista t = codaArrivi.pop();
                 boolean controllo = ControlloDocumento(t.getDoc());
 
                 if(controllo) //se non è scaduto
                 {
-                    CodaArrivo.push(t);
+                    CodaDopoControlli.push(t);
                     System.out.println("Il turista" + t.getDoc().getCognome() + " " + t.getDoc().getNome() + " è passato con successo");
                 }
                 else
@@ -51,8 +45,5 @@ public class ImpiegatoControlliArrivi extends Persona{
         {
             return true;
         }
-    }
-    public void ControlloCartaImbarco(Documento doc){
-        
     }
 }
