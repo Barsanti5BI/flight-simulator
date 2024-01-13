@@ -11,4 +11,6 @@ public class ZonaCheckIn extends ZonaAeroporto {
    //tanti banchi
    //tanti clienti
     //tanti addetti
+    //nastro trasportatore
+    NastroTrasportatore nastroTrasportatore;
 }

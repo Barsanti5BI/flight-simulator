@@ -16,4 +16,14 @@ public class NastroTrasportatore {
     public void aggiungiBagaglio(Bagaglio b, int indiceBanco) {
         codaBagagli.inserisciInMezzo(indiceBanco, b);
     }
+
+   Coda<Bagaglio> bagagliCaricati;
+
+   public void  CaricaBagaglio(Bagaglio b) {
+        bagagliCaricati.push(b);
+   }
+
+    public Bagaglio ScaricaBagaglio(){
+         return bagagliCaricati.pop();
+    }
 }
