@@ -18,12 +18,17 @@ public class Bagno extends Thread{
 
     public void DareBagno(Coda<Turista> a)
     {
-        a = new Coda<Turista>();
-        c=a;
+
+        while (a.size()>0){
+
+            Turista e = a.pop();
+            c.push(e);
+        }
     }
 
     public Bagno()
     {
+        c = new Coda<Turista>();
         l= new ReentrantLock();
     }
 

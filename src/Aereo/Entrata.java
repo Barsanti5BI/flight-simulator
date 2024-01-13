@@ -15,15 +15,19 @@ public class Entrata extends Thread{
 
     public void dareentranti(Coda<Turista> e)
     {
-        entranti=new Coda<Turista>();
-        this.entranti=e;
+        while (e.size()>0){
+
+          Turista a = e.pop();
+          entranti.push(a);
+        }
+
 
     }
 
 
     public Entrata()
     {
-
+        entranti=new Coda<Turista>();
         salitoant=new Coda<Turista>();
         salitopost=new Coda<Turista>();
         i=entranti.size();
