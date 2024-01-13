@@ -3,17 +3,19 @@ package Aereoporto.ZonaCheckIn;
 import Aereoporto.ZonaCheckIn.CartaImbarco;
 import Persona.Persona;
 import Persona.Turista;
-import Persona.Bagaglio;
+import Persona.ImpiegatoCheckIn;
 import Utils.Coda;
 
 import java.time.LocalDate;
 
 public class Banco extends Thread{
     Coda<Turista> codaTuristi;
-   //persona che sta al banco
-   //coda di persone che aspettano di essere servite
-   //nastro traspotaore
-   //bagagli che vengono sul nastro trasportatore
+
+    ImpiegatoCheckIn impiegatoCheckIn;
+    //persona che sta al banco
+    //coda di persone che aspettano di essere servite
+    //nastro traspotaore
+    //bagagli che vengono sul nastro trasportatore
 
     public void run() {
         while(true) {
