@@ -36,7 +36,14 @@ public class Turista extends Persona{
     }
 
     public void run(){
+    }
 
+    public String getDestinazione(){
+        return destinazione;
+    }
+
+    public Bagaglio getBag() {
+        return bag;
     }
 
     public List<Oggetto> GetListaOggetti()
@@ -46,4 +53,6 @@ public class Turista extends Persona{
     public Documento getDoc(){
         return doc;
     }
+
+    public void setCartaImbarco(CartaImbarco c) { cartaImbarco = c; }
 }
