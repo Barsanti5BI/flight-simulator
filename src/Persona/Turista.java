@@ -28,4 +28,6 @@ public class Turista extends Persona{
     public List<Bagaglio> GetBagagli(){
         return listaBagagli;
     }
+
+    public CartaImbarco GetCartaImbarco(){return cartaImbarco;}
 }

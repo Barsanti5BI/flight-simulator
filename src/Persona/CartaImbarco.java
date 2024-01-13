@@ -19,4 +19,5 @@ public class CartaImbarco {
     public String getArrivo(){return arrivo;}
     public String getDestinazione(){return destinazione;}
     public String getIdRiconoscimentoBagaglio(){return idRiconoscimentoBagaglio;}
+    public int GetGate(){return gate;}
 }
