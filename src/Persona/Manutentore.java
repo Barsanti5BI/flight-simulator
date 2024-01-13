@@ -6,7 +6,6 @@ public class Manutentore extends Persona{
 
     public Aereo a;
     public Manutentore(Aereo a){
-        super(doc);
         this.a = a;
     }
     public void run(){

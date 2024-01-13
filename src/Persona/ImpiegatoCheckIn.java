@@ -3,11 +3,14 @@ package Persona;
 import Utils.Coda;
 
 import java.security.SecureRandom;
+import java.util.ArrayDeque;
 import java.util.List;
 
 public class ImpiegatoCheckIn extends Persona{
 
+    Coda<Turista>codaCheckIn;
     public ImpiegatoCheckIn(){
+        codaCheckIn = new Coda<Turista>();
     }
     public void run(){
         System.out.println(GeneraEtichetta("partenza", "arrivo"));
@@ -53,9 +56,7 @@ public class ImpiegatoCheckIn extends Persona{
     public void EseguiCheckIn(){
         Turista t = codaCheckIn.pop();
         //GeneraCartaImbarco(t);
-        List<Bagaglio> bagagli = t.GetBagagli();
-        for (Bagaglio b:bagagli) {
-            if(b.getDaStiva()){}//push nella coda del rullo stiva
-        }
+        Bagaglio b = t.GetBagagli();
+        if(b.getDaStiva()){}//push nella coda del rullo stiva
     }
 }

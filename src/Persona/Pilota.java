@@ -4,8 +4,7 @@ public class Pilota extends Persona{
     public Aereo a;
     public TorreControllo tC;
     public Pista p;
-    public Pilota(Documento doc, Aereo a, TorreControllo tC){
-        super(doc);
+    public Pilota(Aereo a, TorreControllo tC){
         this.a = a;
         this.tC = tC;
         p = null;

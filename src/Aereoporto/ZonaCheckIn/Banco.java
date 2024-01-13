@@ -29,7 +29,7 @@ public class Banco extends Thread{
 
     public CartaImbarco generaCartaImbarco(Turista p) {
         // aggiungere i dati sui voli
-        return new CartaImbarco(p.getDoc().getNome(), p.getDoc().getCognome(), 0, LocalDate.now(), "", p.getDestinazione(), p.getBag().getEtichetta().getIdRiconoscimentoBagaglio());
+        return new CartaImbarco(p.getDoc().getNome(), p.getDoc().getCognome(), 0, LocalDate.now(), "", p.getDestinazione(), p.GetBagagli().getEtichetta().getIdRiconoscimentoBagaglio());
     }
 
 

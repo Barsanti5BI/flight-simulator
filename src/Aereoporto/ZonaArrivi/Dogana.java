@@ -12,7 +12,7 @@ public class Dogana {
     public Dogana() {
         codaTuristiDaControllare = new Coda<>();
         codaTuristiControllatiBuoni = new Coda<>();
-        controllore = new ImpiegatoControlliArrivi(null, codaTuristiDaControllare);
+        controllore = new ImpiegatoControlliArrivi(codaTuristiDaControllare);
     }
     
 }
