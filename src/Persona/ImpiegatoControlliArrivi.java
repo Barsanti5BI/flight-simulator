@@ -6,8 +6,13 @@ import java.time.LocalDate;
 
 public class ImpiegatoControlliArrivi extends Persona{
 
+    CartaImbarco CartaImbarco;
     private Coda<Turista> CodaTuristi;
-    public ImpiegatoControlliArrivi(Documento doc, Coda<Turista> coda) {super(doc);}
+    String caratteri = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    public ImpiegatoControlliArrivi(Documento doc, Coda<Turista> coda, CartaImbarco cartaImbarco) {
+        super(doc);
+        this.CartaImbarco = cartaImbarco;
+    ;}
 
     public void run(){
 
@@ -25,7 +30,11 @@ public class ImpiegatoControlliArrivi extends Persona{
             return true;
         }
     }
-    public void ControlloCartaImbarco(Documento doc){
-
+    public void ControlloCartaImbarco(CartaImbarco CartaImbarco){
+        if(CartaImbarco.getIdRiconoscimentoBagaglio().length() != 15 || !CartaImbarco.getIdRiconoscimentoBagaglio().contains(caratteri))
+        {
+            //controllare il codice della carta d'imbarco
+            //controllare che l'orario sia giusto
+        }
     }
 }
