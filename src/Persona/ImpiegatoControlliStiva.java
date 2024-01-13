@@ -1,22 +1,12 @@
 package Persona;
 
-import Utils.Coda;
-
-import java.util.List;
+import Aereoporto.ZonaCheckIn.NastroTrasportatore;
 
 public class ImpiegatoControlliStiva extends Persona{
-
-    private Coda<Bagaglio> CodaScanner;
-    private Coda<Bagaglio> BagagliSicuri;
-    private List<Oggetto> oggettiProibiti;
-
-    public ImpiegatoControlliStiva(Documento doc, Coda<Bagaglio> codaScanner, Coda<Bagaglio> bagagliSicuri) {
-        super(doc);
-        this.CodaScanner = codaScanner;
-        this.BagagliSicuri = bagagliSicuri;
-        this.oggettiProibiti = oggettiProibiti; // lista fornita dall'aereoporto
+    NastroTrasportatore nastroTrasportatore;
+    public ImpiegatoControlliStiva(NastroTrasportatore n){
+        nastroTrasportatore = n;
     }
-
     public void run(){
         while(true)
         {

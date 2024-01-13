@@ -29,4 +29,12 @@ public class Coda<T> {
    public boolean isEmpty() {
       return list.isEmpty();
    }
+
+   public synchronized void inserisciInMezzo(int indiceBancone, T element) {
+      if (list.size() > indiceBancone) {
+         list.add(indiceBancone, element);
+      } else {
+         push(element);
+      }
+   }
 }
