@@ -11,7 +11,7 @@ Memory: 12MB for 32-bit OS or 24MB for 64-bit\
 Graphics: RTX 4090 24GB\
 Hard Drive: 28 MB
 
-# credits
+## credits
 Grazie per aver acquistato il prodotto.\
 Per ulteriori prodotti collegati al sito: http://lnkiy.in/sitoAereoporto \
 5BI.

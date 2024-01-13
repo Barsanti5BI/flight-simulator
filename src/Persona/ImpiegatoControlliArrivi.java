@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class ImpiegatoControlliArrivi extends Persona{
 
     private Coda<Turista> CodaTuristi;
-    public ImpiegatoControlliArrivi(Documento doc, Coda<Turista> coda) {super(doc);}
+    public ImpiegatoControlliArrivi(Coda<Turista> coda) {CodaTuristi = coda;}
 
     public void run(){
 

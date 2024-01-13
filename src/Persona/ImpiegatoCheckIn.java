@@ -7,10 +7,7 @@ import java.util.List;
 
 public class ImpiegatoCheckIn extends Persona{
 
-    Coda<Turista>codaCheckIn;
-    public ImpiegatoCheckIn(Documento doc){
-        super(doc);
-        codaCheckIn = new Coda<Turista>();
+    public ImpiegatoCheckIn(){
     }
     public void run(){
         System.out.println(GeneraEtichetta("partenza", "arrivo"));
