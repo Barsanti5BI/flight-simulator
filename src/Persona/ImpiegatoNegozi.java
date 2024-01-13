@@ -8,8 +8,7 @@ public class ImpiegatoNegozi extends Persona{
     private List<Prodotto> prodottoInVendita;
     private Prodotto prezzo;
 
-    public ImpiegatoNegozi(Documento doc, String n, int id, List<Prodotto> prodottoInVendita){
-        super(doc);
+    public ImpiegatoNegozi(String n, int id, List<Prodotto> prodottoInVendita){
         this.nome = n;
         this.id = id;
         this.prodottoInVendita = prodottoInVendita;

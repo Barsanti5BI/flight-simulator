@@ -8,8 +8,7 @@ public class ImpiegatoControlliPartenze extends Persona{
     private Coda<Bagaglio> codaScanner;
     private Coda<Turista> codaTurista;
     private List<Oggetto> oggettiProibiti;
-    public ImpiegatoControlliPartenze(Documento doc, Coda<Bagaglio> codaScanner, Coda<Turista> codaTurista, List<Oggetto> oggettiProibiti){
-        super(doc);
+    public ImpiegatoControlliPartenze(Coda<Bagaglio> codaScanner, Coda<Turista> codaTurista, List<Oggetto> oggettiProibiti){
         this.codaScanner = codaScanner;
         this.codaTurista = codaTurista;
         this.oggettiProibiti = oggettiProibiti; // lista fornita dall'aereoporto

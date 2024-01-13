@@ -1,10 +1,12 @@
 package Persona;
 
-public class ImpiegatoControlliStiva extends Persona{
-    public ImpiegatoControlliStiva(Documento doc) {
-        super(doc);
-    }
+import Aereoporto.ZonaCheckIn.NastroTrasportatore;
 
+public class ImpiegatoControlliStiva extends Persona{
+    NastroTrasportatore nastroTrasportatore;
+    public ImpiegatoControlliStiva(NastroTrasportatore n){
+        nastroTrasportatore = n;
+    }
     public void run(){
 
     }

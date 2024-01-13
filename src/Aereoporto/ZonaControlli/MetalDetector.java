@@ -24,6 +24,7 @@ public class MetalDetector extends Thread {
                boolean nonPericoloso = controllaTurista(turista);
                if (nonPericoloso) {
                   codaTuristiBuoni.push(turista);
+
                } else {
                   codaTuristiPericolosi.push(turista);
                }
@@ -43,4 +44,5 @@ public class MetalDetector extends Thread {
         }
         return true;
    }
+
 }

@@ -4,8 +4,7 @@ import java.security.SecureRandom;
 
 public class ImpiegatoCheckIn extends Persona{
 
-    public ImpiegatoCheckIn(Documento doc){
-        super(doc);
+    public ImpiegatoCheckIn(){
     }
     public void run(){
         System.out.println(GeneraEtichetta("partenza", "arrivo"));

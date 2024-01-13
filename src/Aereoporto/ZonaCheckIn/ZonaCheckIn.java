@@ -13,4 +13,7 @@ public class ZonaCheckIn extends ZonaAeroporto {
     //tanti addetti
     //nastro trasportatore
     NastroTrasportatore nastroTrasportatore;
+    public  ZonaCheckIn(NastroTrasportatore n){
+       nastroTrasportatore = n;
+    }
 }

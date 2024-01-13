@@ -3,10 +3,7 @@ package Persona;
 import Utils.Coda;
 
 public class Persona extends Thread{
-    private Documento doc;
-    public Persona(Documento doc){
-        this.doc = doc;
-    }
+
 
     public void run(){
     }
@@ -17,7 +14,5 @@ public class Persona extends Thread{
         coda.pop();
     }
 
-    public Documento getDoc(){
-        return doc;
-    }
+
 }
