@@ -28,7 +28,7 @@ public class ImpiegatoControlliArrivi extends Persona{
                 }
                 else
                 {
-                    System.out.println("Attenzione, turista " + t.getDoc().getCognome() + " " + t.getDoc().getNome() + " non può entrare nel gate perché il documento non è valido");
+                    System.out.println("Attenzione, turista " + t.getDoc().getCognome() + " " + t.getDoc().getNome() + " non è ammesso nel paese poichè ha il documento scaduto");
                 }
             }
         }

@@ -1,39 +1,52 @@
 package Persona;
+
 import Aereoporto.ZonaPartenze.Gate;
-import Utils.Coda;
-import java.util.List;
 
 public class ImpiegatoGate extends Persona {
-    Coda<Turista>codaPrioritaria;
-    Coda<Turista>codaNormale;
     Gate gate;
 
     public ImpiegatoGate(Gate gate){
-        codaPrioritaria = new Coda<Turista>();
-        codaNormale = new Coda<Turista>();
         this.gate = gate;
     }
 
     public void run(){
-
+        while(true)
+        {
+            if (gate.getAperto() && !gate.getCodaPrioritaria().isEmpty() && !gate.getCodaNormale().isEmpty())
+            {
+                GestisciClienti();
+            }
+            else
+            {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
     }
 
     public void GestisciClienti(){
-        while(codaPrioritaria.size() >0){
-            Turista t = codaPrioritaria.pop();
-            //if(ControllaCartaImbarco(t)){push}
-            //else{}
+        while(!gate.getCodaPrioritaria().isEmpty()){
+            Turista t = gate.getCodaPrioritaria().pop();
+
+            if(ControllaCartaImbarco(t))
+            {
+                gate.getCodaNavetta().push(t);
+            }
         }
-        while(codaNormale.size() >0){
-            Turista t = codaNormale.pop();
-            //if(ControllaCartaImbarco(t)){push}
-            //else{}
+        while(!gate.getCodaNormale().isEmpty()){
+            Turista t = gate.getCodaNormale().pop();
+
+            if(ControllaCartaImbarco(t))
+            {
+                gate.getCodaNavetta().push(t);
+            }
         }
     }
 
-//    public boolean ControllaCartaImbarco(Turista t){
-//        return t.GetCartaImbarco().GetGate() == Gate.id
-//    }
-
-    //volo carta imbraco = volo gate
+    public boolean ControllaCartaImbarco(Turista t){
+        return t.GetCartaImbarco().getGate() == gate.getId(); // nel gate serve un id per permettere il controllo
+    }
 }

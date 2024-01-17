@@ -1,9 +1,6 @@
 package Aereoporto.ZonaCheckIn;
 
-import Aereoporto.ZonaCheckIn.CartaImbarco;
-import Persona.Persona;
 import Persona.Turista;
-import Persona.Bagaglio;
 import Utils.Coda;
 
 import java.time.LocalDate;
@@ -29,7 +26,7 @@ public class Banco extends Thread{
 
     public CartaImbarco generaCartaImbarco(Turista p) {
         // aggiungere i dati sui voli
-        return new CartaImbarco(p.getDoc().getNome(), p.getDoc().getCognome(), 0, LocalDate.now(), "", p.getDestinazione(), p.GetBagagli().getEtichetta().getIdRiconoscimentoBagaglio());
+        return new CartaImbarco(p.getDoc().getNome(), p.getDoc().getCognome(), 0, LocalDate.now(), "", p.getDestinazione(), p.GetBagaglio().getEtichetta().getIdRiconoscimentoBagaglio());
     }
 
 

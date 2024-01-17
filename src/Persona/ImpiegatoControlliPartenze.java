@@ -19,7 +19,7 @@ public class ImpiegatoControlliPartenze extends Persona{
             {
                 // controllore dei bagagli sospetti
                 Bagaglio b = codaScanner.pop();
-                System.out.println("Attenzione turista " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è sospetto e viene controllato");
+                System.out.println("Attenzione bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è sospetto e viene controllato");
 
                 try {
                     Thread.sleep(1000);
