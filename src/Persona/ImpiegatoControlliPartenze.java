@@ -17,21 +17,34 @@ public class ImpiegatoControlliPartenze extends Persona{
         {
             if (codaScanner != null)
             {
-                // controllore dei bagagli sospetti
-                Bagaglio b = codaScanner.pop();
-                System.out.println("Attenzione bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è sospetto e viene controllato");
+                if (!codaScanner.isEmpty())
+                {
+                    // controllore dei bagagli sospetti
+                    Bagaglio b = codaScanner.pop();
+                    System.out.println("Attenzione bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è sospetto e viene controllato");
 
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    String controllo = ControlloApprofondito(b.getOggettiContenuti());
+                    System.out.println("Bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è bloccato poichè contiene: " + controllo);
+                    System.out.println("In attesa del proprietario...");
+
+                    while(!b.getRitirato())
+                    {
+                        try {
+                            Thread.sleep(5);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+
+                    // cercare proprietario nella lista dei passeggeri che hanno completato i controlli
                 }
-
-                String controllo = ControlloApprofondito(b.getOggettiContenuti());
-                System.out.println("Bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è bloccato poichè contiene: " + controllo);
-                System.out.println("In attesa del proprietario...");
-
-                while(!b.getRitirato())
+                else
                 {
                     try {
                         Thread.sleep(5);
@@ -40,21 +53,31 @@ public class ImpiegatoControlliPartenze extends Persona{
                     }
                 }
 
-                // cercare proprietario nella lista dei passeggeri che hanno completato i controlli
             }
             else if (codaTurista != null)
             {
-                // controllore delle persone sospette
-                Turista t = codaTurista.pop();
-                System.out.println("Attenzione turista " + t.getName() + " è sospetto e viene controllato");
+                if (!codaTurista.isEmpty())
+                {
+                    // controllore delle persone sospette
+                    Turista t = codaTurista.pop();
+                    System.out.println("Attenzione turista " + t.getName() + " è sospetto e viene controllato");
 
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    String controllo = ControlloApprofondito(t.GetListaOggetti());
+                    System.out.println("Turista " + t.getName() + " è arrestato poichè in possesso di: " + controllo);
                 }
-                String controllo = ControlloApprofondito(t.GetListaOggetti());
-                System.out.println("Turista " + t.getName() + " è arrestato poichè in possesso di: " + controllo);
+                else
+                {
+                    try {
+                        Thread.sleep(5);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
             }
         }
     }

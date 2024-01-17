@@ -15,28 +15,36 @@ public class ImpiegatoControlliStiva extends Persona{
         {
             if (nT != null)
             {
-                // controllore dei bagagli da stiva sospetti
-
-                Bagaglio b = nT.getCodaScanner.pop();
-
-                String controllo = ControlloApprofondito(b.getOggettiContenuti());
-
-                if(controllo == "")
+                if (!nT.codaBagagli.isEmpty())
                 {
-                    System.out.println("Il bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è sicuro, non contiene nessun oggetto proibito");
-                    nT.getBagagliSicuri.push(b);
+                    Bagaglio b = nT.getCodaScanner.pop();
+
+                    String controllo = ControlloApprofondito(b.getOggettiContenuti());
+
+                    if(controllo == "")
+                    {
+                        System.out.println("Il bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è sicuro, non contiene nessun oggetto proibito");
+                        nT.getBagagliSicuri.push(b);
+                    }
+                    else
+                    {
+                        System.out.println("Il bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è bloccato poichè contiene: " + controllo);
+                    }
+
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
                 else
                 {
-                    System.out.println("Il bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è bloccato poichè contiene: " + controllo);
+                    try {
+                        Thread.sleep(5);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
-
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-
                 // cercare proprietario nella lista dei passeggeri che hanno completato i controlli
             }
         }

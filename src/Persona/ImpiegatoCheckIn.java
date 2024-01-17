@@ -11,9 +11,20 @@ public class ImpiegatoCheckIn extends Persona{
         this.nT = nT;
     }
     public void run() {
-        while(!banco.GetCodaTuristi().isEmpty())
+        while(true)
         {
-            eseguiCheckIn();
+            if (!banco.getCodaTuristi().isEmpty())
+            {
+                eseguiCheckIn();
+            }
+            else
+            {
+                try {
+                    Thread.sleep(5);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
     }
 
