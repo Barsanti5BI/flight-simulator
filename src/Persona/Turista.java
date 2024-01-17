@@ -4,9 +4,7 @@ import Aereoporto.ZonaCheckIn.CartaImbarco;
 import Aereoporto.ZonaCheckIn.ZonaCheckIn;
 import Aereoporto.ZonaControlli.ZonaControlli;
 import Aereoporto.ZonaNegozi.ZonaNegozi;
-
 import java.util.List;
-import java.util.Random;
 
 public class Turista extends Persona{
 
@@ -93,10 +91,6 @@ public class Turista extends Persona{
     }
     public Documento getDoc(){
         return doc;
-    }
-
-    public int[] GetPostoAereo(){
-        return postoAereo;
     }
     public CartaImbarco GetCartaImbarco(){return cartaImbarco;}
     public void setCartaImbarco(CartaImbarco c) { cartaImbarco = c; }

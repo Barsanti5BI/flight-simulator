@@ -41,4 +41,11 @@ public class Banco extends Thread{
     public Etichetta generaEtichetta(Turista t){
         return new Etichetta("Codice Veicolo",t.GetBagaglio().getEtichetta().getIdRiconoscimentoBagaglio());
     }
+
+    public Coda<Turista> GetCodaTuristi() {
+        return codaTuristi;
+    }
+
+    public Object getIndice() {
+    }
 }
