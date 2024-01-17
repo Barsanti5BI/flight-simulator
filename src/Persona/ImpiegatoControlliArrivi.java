@@ -16,19 +16,16 @@ public class ImpiegatoControlliArrivi extends Persona{
     public void run(){
         while(true)
         {
-            while(!codaArrivi.isEmpty())
-            {
+            if (!codaArrivi.isEmpty()) {
                 Turista t = codaArrivi.pop();
                 boolean controllo = ControlloDocumento(t.getDoc());
 
-                if(controllo) //se non è scaduto
+                if (controllo) //se non è scaduto
                 {
                     CodaDopoControlli.push(t);
                     System.out.println("Il turista" + t.getDoc().getCognome() + " " + t.getDoc().getNome() + " è passato con successo");
-                }
-                else
-                {
-                    System.out.println("Attenzione, turista " + t.getDoc().getCognome() + " " + t.getDoc().getNome() + " non può entrare nel gate perché il documento non è valido");
+                } else {
+                    System.out.println("Attenzione, turista " + t.getDoc().getCognome() + " " + t.getDoc().getNome() + " non è ammesso nel paese poichè ha il documento scaduto");
                 }
             }
         }

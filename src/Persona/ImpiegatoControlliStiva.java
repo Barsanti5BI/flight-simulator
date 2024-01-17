@@ -2,6 +2,8 @@ package Persona;
 
 import Aereoporto.ZonaCheckIn.NastroTrasportatore;
 
+import java.util.List;
+
 public class ImpiegatoControlliStiva extends Persona{
     private NastroTrasportatore nT;
 
@@ -15,14 +17,14 @@ public class ImpiegatoControlliStiva extends Persona{
             {
                 // controllore dei bagagli da stiva sospetti
 
-                Bagaglio b = nT.CodaScanner.pop();
+                Bagaglio b = nT.getCodaScanner.pop();
 
                 String controllo = ControlloApprofondito(b.getOggettiContenuti());
 
-                if(controllo == null)
+                if(controllo == "")
                 {
                     System.out.println("Il bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è sicuro, non contiene nessun oggetto proibito");
-                    BagagliSicuri.push(b);
+                    nT.getBagagliSicuri.push(b);
                 }
                 else
                 {
