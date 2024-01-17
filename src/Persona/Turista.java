@@ -31,8 +31,7 @@ public class Turista extends Persona{
     public ZonaNegozi zonaNegozi;
     public int indiceNegozio;
     public  boolean vuoleFareAcquisto;
-    private Bagaglio bagStiva;
-    private Bagaglio bagMano;
+    private Bagaglio bag;
     //ZONA PARTENZE
 
 
@@ -41,9 +40,8 @@ public class Turista extends Persona{
     private Documento doc;
     
 
-    public Turista(Documento doc,Bagaglio bagStiva, Bagaglio bagMano, CartaImbarco cartaImbarco, List<Oggetto> oggetti) {
-        this.bagStiva = bagStiva;
-        this.bagMano = bagMano;
+    public Turista(Documento doc,Bagaglio bag,  CartaImbarco cartaImbarco, List<Oggetto> oggetti) {
+        this.bag = bag;
         this.cartaImbarco = cartaImbarco;
         this.oggetti = oggetti;
         this.doc = doc;
@@ -81,20 +79,13 @@ public class Turista extends Persona{
         return destinazione;
     }
 
-    public Bagaglio GetBagaglioMano() {
-        return bagMano;
-    }
-    public Bagaglio GetBagaglioStiva() { return bagStiva;}
-
-    public Bagaglio DaiBagaglioMano() {
-        Bagaglio b = bagMano;
-        bagMano = null;
-        return b;
+    public Bagaglio GetBagaglio() {
+        return bag;
     }
 
-    public Bagaglio DaiBagaglioStiva() {
-        Bagaglio b = bagStiva;
-        bagStiva = null;
+    public Bagaglio DaiBagaglio() {
+        Bagaglio b = bag;
+        bag = null;
         return b;
     }
 
