@@ -6,20 +6,20 @@ public class CartaImbarco {
     private String nomePasseggero;
     private String cognomePasseggero;
     private int gate;
+    private boolean prioritario;
     private LocalDate orario;
-    private String partenza;
-    private String destinazione;
+    private String viaggio;
     private String idRiconoscimentoBagaglio;
     private String codicePosto; // esempio 1-4 Colonna , 1-10 Riga (1-4)
 
-    public CartaImbarco(String nomePasseggero, String cognomePasseggero, int gate, LocalDate orario, String partenza, String destinazione, String idRiconoscimentoBagaglio) {
+    public CartaImbarco(String nomePasseggero, String cognomePasseggero, int gate, LocalDate orario, String viaggio, String idRiconoscimentoBagaglio, boolean prioritario) {
         this.nomePasseggero = nomePasseggero;
         this.cognomePasseggero = cognomePasseggero;
         this.gate = gate;
         this.orario = orario;
-        this.partenza = partenza;
-        this.destinazione = destinazione;
+        this.viaggio = viaggio;
         this.idRiconoscimentoBagaglio = idRiconoscimentoBagaglio;
+        this.prioritario = prioritario;
     }
 
     //Metodi get
@@ -27,7 +27,7 @@ public class CartaImbarco {
     public String getCognomePasseggero(){return cognomePasseggero;}
     public int getGate(){return gate;}
     public LocalDate getOrario(){return orario;}
-    public String getPartenza(){return partenza;}
-    public String getDestinazione(){return destinazione;}
+    public String getViaggio(){return viaggio;}
     public String getIdRiconoscimentoBagaglio(){return idRiconoscimentoBagaglio;}
+    public boolean getPrioritario(){return prioritario;}
 }

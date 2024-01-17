@@ -40,7 +40,7 @@ public class Turista extends Persona{
     private Documento doc;
     
 
-    public Turista(Documento doc,Bagaglio bag, CartaImbarco cartaImbarco, List<Oggetto> oggetti) {
+    public Turista(Documento doc,Bagaglio bag,  CartaImbarco cartaImbarco, List<Oggetto> oggetti) {
         this.bag = bag;
         this.cartaImbarco = cartaImbarco;
         this.oggetti = oggetti;
@@ -81,6 +81,12 @@ public class Turista extends Persona{
 
     public Bagaglio GetBagaglio() {
         return bag;
+    }
+
+    public Bagaglio DaiBagaglio() {
+        Bagaglio b = bag;
+        bag = null;
+        return b;
     }
 
     public List<Oggetto> GetListaOggetti()
