@@ -3,8 +3,8 @@ package Aereoporto.Common;
 import java.util.ArrayList;
 
 public class ListaOggetti {
-    private ArrayList<String> oggetti;
-    private ArrayList<String> oggettiPericolosi;
+    private static ArrayList<String> oggetti;
+    private static ArrayList<String> oggettiPericolosi;
 
     public ListaOggetti(){
         oggetti = new ArrayList<>();
@@ -56,10 +56,10 @@ public class ListaOggetti {
         oggettiPericolosi.add("Materiali per la falsificazione");
     }
 
-    public ArrayList<String> getOggetti(){
+    public static ArrayList<String> getOggetti(){
         return oggetti;
     }
-    public ArrayList<String> getOggettiPericolosi(){
+    public static ArrayList<String> getOggettiPericolosi(){
         return oggettiPericolosi;
     }
 }
