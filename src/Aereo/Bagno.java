@@ -1,25 +1,38 @@
 
-
+//ATTENZIONE ALLA CODA VUOTA CHE CREAZIONE OGGETTO NON CREA
 package Aereo;
+
+import Utils.Coda;
 
 import java.util.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+
+
 public class Bagno extends Thread{
-    private  Coda c;
+    private  Coda<Turista> c;
 
     private Lock l;
 
 
-    public Bagno(Coda a)
+    public void DareBagno(Coda<Turista> a)
     {
-        l= new ReentrantLock();
-        c=a;
 
+        while (a.size()>0){
+
+            Turista e = a.pop();
+            c.push(e);
+        }
     }
 
-    public Coda getC() {
+    public Bagno()
+    {
+        c = new Coda<Turista>();
+        l= new ReentrantLock();
+    }
+
+    public Coda<Turista> getC() {
         return c;
     }
 
@@ -32,10 +45,10 @@ public class Bagno extends Thread{
 //serve nome del turista
 
             System.out.println("il bagno è occupato da "+c.pop());
-            Thread.sleep(2000);
+            Random r = new Random();
+            int k= r.nextInt(5000);
 
-
-
+            Thread.sleep(k);
 
         }
         catch (InterruptedException e) {}

@@ -1,47 +1,69 @@
+//ATTENZIONE ALLA CODA VUOTA CHE CREAZIONE OGGETTO NON CREA
 package Aereo;
+import  Utils.Coda;
+
 
 public class Entrata extends Thread{
 
-    private coda economy;
-    private coda firstclass;
+    private Coda<Turista> entranti;
 
-    private coda salito;
+  
+
+    private Coda<Turista> salitoant;
+    private Coda<Turista> salitopost;
 
     int i=0;
 
-    public Entrata(coda e,coda f)
+    public void DareEntranti(Coda<Turista> e)
     {
-        economy=new coda();
-        firstclass = new coda();
+        while (e.size()>0){
 
-        this.economy=e;
-        this.firstclass=f;
+          Turista a = e.pop();
+          entranti.push(a);
+        }
 
-        salito=new coda();
+
+    }
+
+
+    public Entrata()
+    {
+        entranti=new Coda<Turista>();
+        salitoant=new Coda<Turista>();
+        salitopost=new Coda<Turista>();
+        i=entranti.size();
     }
     public void run()
     {
-        if(firstclass.size!=0)
-        {
-         salito.add(firstclass.pop);
-         i++;
+        try{
+            while(entranti.size()>0&& entranti.size() % 2==0)
+            {
+                salitoant.push(entranti.pop());
+                Thread.sleep(1);
+            }
+            while(entranti.size()>0&& entranti.size() % 2==1)
+            {
+                salitopost.push(entranti.pop());
+                Thread.sleep(1);
+            }
         }
-        else
-        {
-            salito.add(economy.pop);
-        }
+        catch (Exception e){};
+
 
     }
 
 
-    public coda Getsaliti()
+    public Coda<Turista> GetsalitiDavanti() {return  salitoant;}
+    public Coda<Turista> GetsalitiDietro()
     {
-    return  salito;
+        return  salitopost;
     }
     public int Getnperson()
     {
         return i;
     }
+    public int GetNpersonedavanti(){return salitoant.size();}
+    public int GetNpersoneDietro(){ return salitopost.size();}
 
 }
 
