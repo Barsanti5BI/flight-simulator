@@ -1,4 +1,5 @@
 package Aereoporto.ZonaControlli;
+import Aereoporto.Common.ListaOggetti;
 import Persona.Bagaglio;
 import Persona.Oggetto;
 import Utils.Coda;
@@ -35,11 +36,7 @@ public class Scanner extends Thread{
 
     // ritorna true se il bagaglio è stato controllato e non contiene oggetti pericolosi
     public boolean scannerizzaBagaglio(Bagaglio bagaglio) {
-       ArrayList<String> oggettiPericolosi = new ArrayList<>();
-       oggettiPericolosi.add("Coltello");
-       oggettiPericolosi.add("Pistola");
-       oggettiPericolosi.add("Bastone");
-       oggettiPericolosi.add("Righello");
+       ArrayList<String> oggettiPericolosi = ListaOggetti.getOggettiPericolosi();
        for (Oggetto oggetto : bagaglio.getOggettiContenuti()) {
            if (oggettiPericolosi.contains(oggetto.getNome())) {
                return false;

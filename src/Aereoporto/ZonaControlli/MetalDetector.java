@@ -1,5 +1,6 @@
 package Aereoporto.ZonaControlli;
 
+import Aereoporto.Common.ListaOggetti;
 import Persona.ImpiegatoControlliPartenze;
 import Persona.Oggetto;
 import Persona.Turista;
@@ -36,11 +37,7 @@ public class MetalDetector extends Thread {
 
    // ritorna true se il turista è stato controllato senza problemi
    public boolean controllaTurista(Turista turista) {
-      ArrayList<String> oggettiPericolosi = new ArrayList<>();
-      oggettiPericolosi.add("Coltello");
-      oggettiPericolosi.add("Pistola");
-      oggettiPericolosi.add("Bastone");
-      oggettiPericolosi.add("Dildo");
+      ArrayList<String> oggettiPericolosi = ListaOggetti.getOggettiPericolosi();
       for (Oggetto oggetto : turista.GetListaOggetti()) {
           if (oggettiPericolosi.contains(oggetto.getNome())) {
               return false;
