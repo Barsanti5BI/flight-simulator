@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public abstract class Aereo{
     public String nome;
     public String destinazione;
+    public String posizione;
     public Gate gate;
     private ArrayList<Bagno> bagni;
     private ArrayList<Pilota> piloti;
@@ -16,8 +17,9 @@ public abstract class Aereo{
 
     public Aereo(String nome,ArrayList<Pilota> piloti){
         this.nome = nome;
+
         bagni = new ArrayList<Bagno>();
-        scatolaNera = new ScatolaNera ();
+        scatolaNera = new ScatolaNera (this);
        
         turbine = new ArrayList<Turbina>();
         stiva = new Stiva(new AereoPasseggeri(nome, piloti, 4, 30, 4*30));
