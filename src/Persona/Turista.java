@@ -7,6 +7,7 @@ import Aereoporto.ZonaNegozi.Negozio;
 import Aereoporto.ZonaNegozi.ZonaNegozi;
 
 import java.util.List;
+import java.util.Random;
 
 public class Turista extends Persona{
 
@@ -27,7 +28,7 @@ public class Turista extends Persona{
     public  boolean deveRitirareBagli;
     public  boolean controlliFattiConSuccesso;
 
-    //ZONA NEGLOZI
+    //ZONA NEGOZI
     public ZonaNegozi zonaNegozi;
     public int indiceNegozio;
     public  boolean vuoleFareAcquisto;
@@ -38,6 +39,9 @@ public class Turista extends Persona{
     private String destinazione;
     private List<Oggetto> oggetti;
     private Documento doc;
+
+    private Random rand = new Random();
+    private int[] postoAereo;
     
 
     public Turista(Documento doc,Bagaglio bag, CartaImbarco cartaImbarco, List<Oggetto> oggetti) {
@@ -45,6 +49,7 @@ public class Turista extends Persona{
         this.cartaImbarco = cartaImbarco;
         this.oggetti = oggetti;
         this.doc = doc;
+        postoAereo = new int[]{rand.nextInt(4),rand.nextInt(10)};
     }
 
     public void run(){
@@ -91,6 +96,9 @@ public class Turista extends Persona{
         return doc;
     }
 
+    public int[] GetPostoAereo(){
+        return postoAereo;
+    }
     public CartaImbarco GetCartaImbarco(){return cartaImbarco;}
     public void setCartaImbarco(CartaImbarco c) { cartaImbarco = c; }
 }
