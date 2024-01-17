@@ -5,7 +5,6 @@ import Aereoporto.ZonaCheckIn.ZonaCheckIn;
 import Aereoporto.ZonaControlli.ZonaControlli;
 import Aereoporto.ZonaNegozi.Negozio;
 import Aereoporto.ZonaNegozi.ZonaNegozi;
-
 import java.util.List;
 
 public class Turista extends Persona{

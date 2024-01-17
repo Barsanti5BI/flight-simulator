@@ -19,7 +19,7 @@ public class ImpiegatoCheckIn extends Persona{
 
     public void eseguiCheckIn(){
         Turista t = banco.GetCodaTuristi().pop();
-        t.GetBagaglio().setEtichetta(banco.generaEtichetta());
+        t.GetBagaglio().setEtichetta(banco.generaEtichetta(t));
         t.setCartaImbarco(banco.generaCartaImbarco(t));
 
         Bagaglio b = t.GetBagaglio();
