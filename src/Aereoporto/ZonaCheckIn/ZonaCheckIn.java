@@ -9,10 +9,13 @@ public class ZonaCheckIn extends ZonaAeroporto {
 
     Banco b1;
     ImpiegatoCheckIn ib1;
+    NastroTrasportatore nastroTrasportatore;
 
-    public ZonaCheckIn() {
-        ib1 = new ImpiegatoCheckIn();
+    public ZonaCheckIn(NastroTrasportatore nastro) {
         b1 = new Banco();
+        nastroTrasportatore = nastro;
+        ib1 = new ImpiegatoCheckIn(b1, nastroTrasportatore);
+
         b1.impiegatoCheckIn = ib1;
     }
 
@@ -22,8 +25,4 @@ public class ZonaCheckIn extends ZonaAeroporto {
    //tanti clienti
     //tanti addetti
     //nastro trasportatore
-    NastroTrasportatore nastroTrasportatore;
-    public  ZonaCheckIn(NastroTrasportatore n){
-       nastroTrasportatore = n;
-    }
 }
