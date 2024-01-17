@@ -13,11 +13,11 @@ public class Turbina extends Thread{
         r = new Random();
     }
     public void run(){
-        while(funzionante && a.){
+        while(funzionante && a.inVolo){
             percRiparazione -= 0.5;
             if(percRiparazione == 0){
                 Disabilita();
-            }else if(percRiparazione < 50 && ()){
+            }else if(percRiparazione < 50 ){
 
             }
         }
