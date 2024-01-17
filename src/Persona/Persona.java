@@ -3,8 +3,6 @@ package Persona;
 import Utils.Coda;
 
 public class Persona extends Thread{
-
-
     public void run(){
     }
     public void InserimentoCoda(Coda coda){

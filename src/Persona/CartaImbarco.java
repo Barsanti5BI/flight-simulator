@@ -12,12 +12,11 @@ public class CartaImbarco {
     private String idRiconoscimentoBagaglio;
 
     //Metodi get
-    public String getNomePasseggero(){return nomePasseggero;}
-    public String getCognomePasseggero(){return cognomePasseggero;}
-    public int getGate(){return gate;}
-    public LocalDate getOrario(){return orario;}
-    public String getArrivo(){return arrivo;}
-    public String getDestinazione(){return destinazione;}
-    public String getIdRiconoscimentoBagaglio(){return idRiconoscimentoBagaglio;}
+    public String GetNomePasseggero(){return nomePasseggero;}
+    public String GetCognomePasseggero(){return cognomePasseggero;}
+    public LocalDate GetOrario(){return orario;}
+    public String GetArrivo(){return arrivo;}
+    public String GetDestinazione(){return destinazione;}
+    public String GetIdRiconoscimentoBagaglio(){return idRiconoscimentoBagaglio;}
     public int GetGate(){return gate;}
 }
