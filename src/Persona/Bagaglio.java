@@ -33,5 +33,5 @@ public class Bagaglio {
     {
         return ritirato;
     }
-    public void setEtichetta(Etichetta e){etichetta = e};
+    public void setEtichetta(Etichetta e){etichetta = e;}
 }

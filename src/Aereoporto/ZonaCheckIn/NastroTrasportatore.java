@@ -13,4 +13,7 @@ public class NastroTrasportatore {
        codaBagagli = new Coda<>();
        bagagliCaricati = new Coda<>();
     }
+
+    public void aggiungiBagaglio(Bagaglio b, Object indice) {
+    }
 }
