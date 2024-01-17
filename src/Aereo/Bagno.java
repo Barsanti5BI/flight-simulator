@@ -1,5 +1,5 @@
 
-
+//ATTENZIONE ALLA CODA VUOTA CHE CREAZIONE OGGETTO NON CREA
 package Aereo;
 
 import Utils.Coda;
@@ -16,11 +16,20 @@ public class Bagno extends Thread{
     private Lock l;
 
 
-    public Bagno(Coda<Turista> a)
+    public void DareBagno(Coda<Turista> a)
     {
-        l= new ReentrantLock();
-        c=a;
 
+        while (a.size()>0){
+
+            Turista e = a.pop();
+            c.push(e);
+        }
+    }
+
+    public Bagno()
+    {
+        c = new Coda<Turista>();
+        l= new ReentrantLock();
     }
 
     public Coda<Turista> getC() {

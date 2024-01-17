@@ -1,3 +1,4 @@
+//ATTENZIONE ALLA CODA VUOTA CHE CREAZIONE OGGETTO NON CREA
 package Aereo;
 import  Utils.Coda;
 
@@ -6,20 +7,28 @@ public class Entrata extends Thread{
 
     private Coda<Turista> entranti;
 
+  
 
     private Coda<Turista> salitoant;
     private Coda<Turista> salitopost;
 
     int i=0;
 
-    public Entrata(Coda<Turista> e)
+    public void DareEntranti(Coda<Turista> e)
+    {
+        while (e.size()>0){
+
+          Turista a = e.pop();
+          entranti.push(a);
+        }
+
+
+    }
+
+
+    public Entrata()
     {
         entranti=new Coda<Turista>();
-
-
-        this.entranti=e;
-
-
         salitoant=new Coda<Turista>();
         salitopost=new Coda<Turista>();
         i=entranti.size();
