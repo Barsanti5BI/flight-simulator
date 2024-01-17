@@ -12,11 +12,11 @@ public class ZonaCheckIn extends ZonaAeroporto {
     NastroTrasportatore nastroTrasportatore;
 
     public ZonaCheckIn(NastroTrasportatore nastro) {
-        b1 = new Banco();
-        nastroTrasportatore = nastro;
+       nastroTrasportatore = nastro;
+        b1 = new Banco(nastroTrasportatore);
         ib1 = new ImpiegatoCheckIn(b1, nastroTrasportatore);
-
         b1.impiegatoCheckIn = ib1;
+        b1.start();
     }
 
    //tabellone
