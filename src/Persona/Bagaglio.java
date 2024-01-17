@@ -21,7 +21,7 @@ public class Bagaglio {
     }
 
     //metodi get
-    public Boolean getDaStiva(){ return daStiva;}
+    public boolean getDaStiva(){ return daStiva;}
     public int getPeso()
     {
         return peso;
