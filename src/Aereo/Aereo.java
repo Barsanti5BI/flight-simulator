@@ -23,10 +23,9 @@ public abstract class Aereo{
         stiva = new Stiva(this);
         serbatoio = new Serbatoio();
         pilotaAutomatico = false;
-        
-
-
     }
+
+
    
 
 
