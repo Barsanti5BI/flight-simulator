@@ -41,7 +41,7 @@ public class Gate extends Thread{
         try {
             timer.schedule(timerTask, 60000); //Programma il TimerTask per eseguirlo dopo un ritardo specificato
 
-            while (true) {
+            while(true) {
                 if (!GateAperto) {  //controllo che il gate sia aperto
                     System.out.println("gate chiuso " + nomeGate);
                     sleep(100);
@@ -49,15 +49,15 @@ public class Gate extends Thread{
                 else{
                     while(!coda.isEmpty()){   //creo la coda prioritaria e la coda normale
                         Turista t = coda.pop();
-                        if(t.cartaImbarco.getPrioritario() || isPasseggeroInPrioritaria()){
+                        if(t.GetCartaImbarco().getPrioritario() || isPasseggeroInPrioritaria()){
                             codaPrioritaria.push(t);
                             sleep(1000);
-                            System.out.println("Il turista " + t.cartaImbarco.getCognomePasseggero() + " " + t.cartaImbarco.getNomePasseggero() + " è entrato nella coda prioritaria nel gate " + nomeGate);
+                            System.out.println("Il turista "+ t.GetCartaImbarco().getCognomePasseggero() + " " + t.GetCartaImbarco().getNomePasseggero() + " è entrato nella coda prioritaria nel gate " + nomeGate);
                         }
                         else{
                             codaNormale.push(t);
                             sleep(1000);
-                            System.out.println("Il turista " + t.cartaImbarco.getCognomePasseggero() + " " + t.cartaImbarco.getNomePasseggero() + " è entrato nella coda normale nel gate " + nomeGate);
+                            System.out.println("Il turista " + t.GetCartaImbarco().getCognomePasseggero() + " " + t.GetCartaImbarco().getNomePasseggero() + " è entrato nella coda normale nel gate " + nomeGate);
                         }
                     }
                     while (!codaPrioritaria.isEmpty()) {  //prima la coda prioritaria
@@ -74,7 +74,7 @@ public class Gate extends Thread{
                 }
             }
         }catch(InterruptedException ex){
-            System.out.println(ex);
+            System.out.println(ex.getMessage());
         }
 
     }
@@ -83,16 +83,16 @@ public class Gate extends Thread{
     }
     public void EffettuaControllo(Turista t){
         try{
-            if(destinazione.equals(t.cartaImbarco.getViaggio())){
+            if(destinazione.equals(t.GetCartaImbarco().getViaggio())){
                 sleep(1000);
-                System.out.println("    Il turista " + t.cartaImbarco.getCognomePasseggero() + " " + t.cartaImbarco.getNomePasseggero() + " ha effettuato il controllo effettuato nel gate " + nomeGate);
+                System.out.println("    Il turista " + t.GetCartaImbarco().getCognomePasseggero() + " " + t.GetCartaImbarco().getNomePasseggero() + " ha effettuato il controllo effettuato nel gate " + nomeGate);
             }
             else{
                 sleep(1000);
-                System.out.println("    Il turista " + t.cartaImbarco.getCognomePasseggero() + " " + t.cartaImbarco.getNomePasseggero() + " ha sbagliato gate");
+                System.out.println("    Il turista " + t.GetCartaImbarco().getCognomePasseggero() + " " + t.GetCartaImbarco().getNomePasseggero() + " ha sbagliato gate");
             }
         }catch (InterruptedException ex){
-            System.out.println(ex);
+            System.out.println(ex.getMessage());
         }
     }
 

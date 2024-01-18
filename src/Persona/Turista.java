@@ -27,7 +27,7 @@ public class Turista extends Persona{
     public ZonaCheckIn zonaCheckIn;
     public int indiceSettore;
     public  boolean deveFareCheckIn;
-    public CartaImbarco cartaImbarco;
+    private CartaImbarco cartaImbarco;
 
     //ZONA CONTROLLI
     public ZonaControlli zonaControlli;
