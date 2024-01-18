@@ -22,8 +22,21 @@ public class AereoPasseggeri extends Aereo {
         entrata = new Entrata();
         uscita = new Uscita(this);
 
+
     }
 
+    public void run(){
+        avvia();
+        while(einvolo && serbatoio.getStatoSerbatoio()>0){
+
+            try{
+                Thread.sleep(50);
+            }catch (Exception e){}
+            serbatoio.consuma();
+
+
+        }
+    }
     public void ImbarcaPasseggieri() {
         Imbarca(entrata.GetsalitiDavanti());
         Imbarca(entrata.GetsalitiDietro());
@@ -39,7 +52,7 @@ public class AereoPasseggeri extends Aereo {
 
         }
 
-        this.start();
+
 
     }
 
@@ -64,6 +77,12 @@ public class AereoPasseggeri extends Aereo {
 
     public Uscita getUscita(){
         return uscita;
+    }
+
+
+    public void avvia() {
+        super.avvia();
+        ImbarcaPasseggieri();
     }
 }
     

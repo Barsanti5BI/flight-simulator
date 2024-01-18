@@ -7,13 +7,13 @@ public abstract class Aereo extends  Thread{
     public String destinazione;
     public String posizione;
     public Gate gate;
-    private ArrayList<Bagno> bagni;
-    private ArrayList<Pilota> piloti;
-    private ScatolaNera scatolaNera;
-    private ArrayList<Turbina> turbine;
-    private Stiva stiva;
-    private Serbatoio serbatoio;
-    private boolean pilotaAutomatico;
+    public ArrayList<Bagno> bagni;
+    public ArrayList<Pilota> piloti;
+    public ScatolaNera scatolaNera;
+    public ArrayList<Turbina> turbine;
+    public Stiva stiva;
+    public Serbatoio serbatoio;
+    public boolean pilotaAutomatico;
 
 
     public boolean einvolo;
@@ -41,7 +41,7 @@ public abstract class Aereo extends  Thread{
     public void run(){
 
        avvia();
-        while(einvolo){
+        while(einvolo && serbatoio.getStatoSerbatoio()>0){
 
             try{
                 Thread.sleep(50);
@@ -54,6 +54,10 @@ public abstract class Aereo extends  Thread{
     }
 
     public void avvia(){
-        
+
+    }
+
+    public  void atterra(){
+        einvolo = false;
     }
 }
