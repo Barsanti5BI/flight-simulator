@@ -1,5 +1,4 @@
 package Persona;
-
 public class Pilota extends Persona{
     public Aereo a;
     public TorreControllo tC;

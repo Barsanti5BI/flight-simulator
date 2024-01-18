@@ -17,6 +17,9 @@ public class ImpiegatoNegozi extends Persona{
         this.prodottoInVendita = prodottoInVendita;
     }
 
+    // metodo sbagliato, perchè bisogna far gestire la scelta al cliente
+    // l'impiegatoNegozi devi occuparsi solo della cassa
+    // quando il cliente avrà bisogna mettere la variabile boolean pagato su true
     public void run(){
         //Aggiungere sconto se si supera un determinato importo
         System.out.println("Nuovo cliente entrato nel negozio");
@@ -34,6 +37,7 @@ public class ImpiegatoNegozi extends Persona{
         System.out.println("Importo totale della vendita: " + importo);
     }
 
+    // bisogna farla gestire all'aeroporto
     private List<Prodotto> getProdottiDisponibili() {
         List<Prodotto> prodotti = new ArrayList<Prodotto>();
         prodotti.add(new Prodotto("Calzini", 10.0));

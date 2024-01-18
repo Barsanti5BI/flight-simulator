@@ -11,22 +11,37 @@ public class ImpiegatoCheckIn extends Persona{
         this.nT = nT;
     }
     public void run() {
-        while(!banco.GetCodaTuristi().isEmpty())
+        while(true)
         {
-            eseguiCheckIn();
+            if (!banco.getCodaTuristi().isEmpty())
+            {
+                eseguiCheckIn();
+            }
+            else
+            {
+                try {
+                    Thread.sleep(5);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
     }
 
     public void eseguiCheckIn(){
         Turista t = banco.GetCodaTuristi().pop();
-        t.GetBagaglio().setEtichetta(banco.generaEtichetta());
+        t.GetBagaglio().setEtichetta(banco.generaEtichetta(t));
+        t.devePoggiareBagagliAlCheckIn = false;
         t.setCartaImbarco(banco.generaCartaImbarco(t));
+        t.devePrendereBiglietto = false;
 
         Bagaglio b = t.GetBagaglio();
 
         if(b.getDaStiva()){
             nT.aggiungiBagaglio(b, banco.getIndice());
         }
+
         nT.codaBagagli.push(t.GetBagaglio());
+        t.deveFareCheckIn = false;
     }
 }

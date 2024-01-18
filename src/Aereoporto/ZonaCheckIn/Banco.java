@@ -1,7 +1,5 @@
 package Aereoporto.ZonaCheckIn;
 
-import Aereoporto.ZonaCheckIn.CartaImbarco;
-import Persona.Persona;
 import Persona.Turista;
 import Persona.Bagaglio;
 import  Persona.Etichetta;
@@ -44,4 +42,10 @@ public class Banco extends Thread{
         return new Etichetta("Codice Veicolo",t.GetBagaglio().getEtichetta().getIdRiconoscimentoBagaglio());
     }
 
+    public Coda<Turista> GetCodaTuristi() {
+        return codaTuristi;
+    }
+
+    public Object getIndice() {
+    }
 }
