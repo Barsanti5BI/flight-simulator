@@ -26,8 +26,11 @@ public abstract class Aereo extends  Thread{
 
         bagni = new ArrayList<Bagno>();
         scatolaNera = new ScatolaNera (this);
-       
         turbine = new ArrayList<Turbina>();
+        for(int i = 0; i<4;i++){
+            Turbina n = new Turbina(this,i);
+            turbine.add(n);
+        }
         stiva = new Stiva(this);
         serbatoio = new Serbatoio();
         pilotaAutomatico = false;
@@ -47,13 +50,17 @@ public abstract class Aereo extends  Thread{
                 Thread.sleep(50);
             }catch (Exception e){}
             serbatoio.consuma();
-            posizione-=2;
+            posizione+=2;
 
         }
 
     }
 
     public void avvia(){
+        for(int i = 0; i< 4;i++){
+            turbine.get(i).start();
+        }
+        scatolaNera.start();
 
     }
 
