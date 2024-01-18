@@ -1,18 +1,38 @@
 package Aereoporto.ZonaCheckIn;
 
-import Aereoporto.ZonaCheckIn.CartaImbarco;
-import Persona.Persona;
+import Persona.Turista;
+import  Persona.Etichetta;
+import Persona.ImpiegatoCheckIn;
+import Utils.Coda;
+
 import java.time.LocalDate;
 
 public class Banco {
-   //persona che sta al banco
-   //coda di persone che aspettano di essere servite
-   //nastro traspotaore
-   //bagagli che vengono sul nastro trasportatore
+    int numeroBanco;
+    Coda<Turista> codaTuristi;
+    NastroTrasportatore nastroTrasportatore;
+    ImpiegatoCheckIn impiegatoCheckIn;
 
-    public CartaImbarco generaCartaImbarco(Persona p) {
+    public Banco(NastroTrasportatore n, int numeroBanco){
+        codaTuristi = new Coda<>();
+        nastroTrasportatore = n;
+        impiegatoCheckIn.start();
+        this.numeroBanco = numeroBanco;
+    }
 
+    public CartaImbarco generaCartaImbarco(Turista p) {
         // aggiungere i dati sui voli
-        return new CartaImbarco(p.getDoc().getNome(), p.getDoc().getCognome(), 0, LocalDate.now(), "", "", "");
+        return new CartaImbarco(p.getDoc().getNome(), p.getDoc().getCognome(), 0, LocalDate.now(), "", p.getBagaglio().getEtichetta().getIdRiconoscimentoBagaglio(), false);
+    }
+    public Etichetta generaEtichetta(Turista t){
+        return new Etichetta("Codice Veicolo",t.getBagaglio().getEtichetta().getIdRiconoscimentoBagaglio());
+    }
+
+    public Coda<Turista> getCodaTuristi() {
+        return codaTuristi;
+    }
+
+    public int getIndice() {
+        return  numeroBanco;
     }
 }

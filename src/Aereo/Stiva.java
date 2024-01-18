@@ -1,4 +1,5 @@
 package Aereo;
+//aereo deve diventare un thread che entra in un ciclo per un determinato periodo di tempo e nel frattempo il serbatoio inizia a svuotarsi
 
 public class Stiva {
     Stack<Bagaglio> pila_bag;

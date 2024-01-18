@@ -2,7 +2,7 @@ package Aereo;
 
 import java.util.ArrayList;
 
-public abstract class Aereo{
+public abstract class Aereo extends  Thread{
     public String nome;
     public String destinazione;
     public String posizione;
@@ -15,7 +15,11 @@ public abstract class Aereo{
     private Serbatoio serbatoio;
     private boolean pilotaAutomatico;
 
-    public boolean inVolo;
+
+    public boolean einvolo;
+
+
+
 
     public Aereo(String nome,ArrayList<Pilota> piloti){
         this.nome = nome;
@@ -27,11 +31,24 @@ public abstract class Aereo{
         stiva = new Stiva(this);
         serbatoio = new Serbatoio();
         pilotaAutomatico = false;
+
+        einvolo = false;
+
+
+
     }
 
+    public void run(){
 
-   
+        while(einvolo){
+
+            try{
+                Thread.sleep(50);
+            }catch (Exception e){}
+            serbatoio.consuma();
 
 
-    
+        }
+
+    }
 }

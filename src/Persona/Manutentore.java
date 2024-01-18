@@ -1,37 +1,42 @@
 package Persona;
 
-import javax.print.Doc;
+public class Manutentore{
+    public Aereo a;
 
-public class Manutentore extends Persona{
-    int livelloCarburante;
-    boolean inFunzione;
-    boolean stato;
-    public Manutentore(Documento doc){
-        super(doc);
+    public Manutentore(Aereo a){
+        this.a = a;
     }
-    public void run(){
 
+    public void Manutenzione()
+    {
+        ControlloStatiApparecchiature();
+        ControlloCarburante();
+        ControlloTurbine();
     }
+
     public void ControlloStatiApparecchiature(){
-        if(stato){
+        if(a.percentualeApp == 100){
             System.out.println("Sistemi OK");
         }
         else{
             System.out.println("Sistemi KO");
+            a.pecentualeApp = 100;
         }
     }
     public void ControlloCarburante(){
-        if (livelloCarburante > 0) {
+        if (a.livelloCarburante ==  100) {
             System.out.println("Il veicolo ha ancora carburante.");
         } else {
             System.out.println("Il livello di carburante è basso. Rifornire!");
+            a.livelloCarburante = 100;
         }
     }
     public void ControlloTurbine(){
-        if (inFunzione) {
-            System.out.println("La turbina è in funzione.");
+        if (a.percentualeTurbine == 100) {
+            System.out.println("La turbina è buoni condizioni.");
         } else {
-            System.out.println("La turbina è spenta.");
+            System.out.println("La turbina è rotta.");
+            a.percentualeTurbine = 100;
         }
     }
 }
