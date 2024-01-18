@@ -1,6 +1,7 @@
 package Aereo;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public abstract class Aereo extends  Thread{
     public String nome;
@@ -16,6 +17,7 @@ public abstract class Aereo extends  Thread{
     private boolean pilotaAutomatico;
     public boolean inVolo;
     public boolean èinvolo;
+    public Alieni alieni;
 
     public Aereo(String nome,ArrayList<Pilota> piloti){
         this.nome = nome;
@@ -28,19 +30,20 @@ public abstract class Aereo extends  Thread{
         serbatoio = new Serbatoio();
         pilotaAutomatico = false;
         èinvolo = false;
+
+        alieni = new Alieni(this);
+        alieni.start();
     }
 
     public void run(){
-
         while(èinvolo){
-
             try{
+                if (alieni.aereo_rubato){
+                    break;
+                }
                 Thread.sleep(50);
             }catch (Exception e){}
             serbatoio.consuma();
-
-
         }
-
     }
 }
