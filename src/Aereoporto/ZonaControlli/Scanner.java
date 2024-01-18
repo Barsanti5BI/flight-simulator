@@ -52,4 +52,9 @@ public class Scanner extends Thread{
     public Coda<Bagaglio> getCodaBagagliControllati() {
        return codabagagliControllati;
     }
+
+    public Coda<Bagaglio> getCodaBagagliPericolosi()
+    {
+        return codaBagagliPericolosi;
+    }
 }

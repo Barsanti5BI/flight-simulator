@@ -1,8 +1,8 @@
 package Aereoporto.ZonaCheckIn;
 
-import Persona.Turista;
-import  Persona.Etichetta;
+import Persona.Etichetta;
 import Persona.ImpiegatoCheckIn;
+import Persona.Turista;
 import Utils.Coda;
 
 import java.time.LocalDate;
@@ -34,5 +34,10 @@ public class Banco {
 
     public int getIndice() {
         return  numeroBanco;
+    }
+
+    public ImpiegatoCheckIn getImpiegatoCheckIn()
+    {
+        return impiegatoCheckIn;
     }
 }

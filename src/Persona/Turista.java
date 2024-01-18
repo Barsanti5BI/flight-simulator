@@ -93,8 +93,9 @@ public class Turista extends Persona{
                     if(deveFareCheckIn) {
                         synchronized (zonaCheckIn.getBanco()) {
                             zonaCheckIn.getBanco().getCodaTuristi().push(this);
+
                             while(deveFareCheckIn) {
-                                wait();
+                                zonaCheckIn.getBanco().wait();
                             }
                         }
                         deveFareControlli = true;
@@ -119,7 +120,7 @@ public class Turista extends Persona{
 
                             synchronized (metalDetector) {
                                 while (deveFareControlliAlMetalDetector) {
-                                    wait();
+                                    metalDetector.wait();
                                 }
                             }
 
@@ -136,7 +137,7 @@ public class Turista extends Persona{
                             } else {
                                 synchronized (metalDetector.getImpiegatoControlli()) {
                                     while (!perquisizioneTerminata) {
-                                        wait();
+                                        metalDetector.getImpiegatoControlli().wait();
                                     }
                                 }
                                 break;
@@ -172,7 +173,7 @@ public class Turista extends Persona{
                                 {
                                     while(!pagato)
                                     {
-                                        wait();
+                                        n.getImpiegatoNegozi().wait();
                                     }
                                 }
                                 vuoleFareAcquisto = false;
@@ -222,7 +223,7 @@ public class Turista extends Persona{
                         {
                             while(!haPassatoControlliArr)
                             {
-                                wait();
+                                dogana.wait();
                             }
                         }
 

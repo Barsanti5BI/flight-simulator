@@ -5,8 +5,8 @@ public class Etichetta {
     private String idRiconoscimentoBagaglio;
 
     public Etichetta(String codiceVeivolo, String idRiconoscimentoBagaglio) {
-        codiceVeivolo = codiceVeivolo;
-        idRiconoscimentoBagaglio = idRiconoscimentoBagaglio;
+        this.codiceVeivolo = codiceVeivolo;
+        this.idRiconoscimentoBagaglio = idRiconoscimentoBagaglio;
     }
 
     //Metodi get

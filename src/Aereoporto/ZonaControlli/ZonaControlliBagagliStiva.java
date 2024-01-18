@@ -1,16 +1,18 @@
 package Aereoporto.ZonaControlli;
 
+import Aereoporto.Common.ListaOggetti;
 import Aereoporto.Common.ZonaAeroporto;
 import Aereoporto.ZonaCheckIn.NastroTrasportatore;
-import Persona.Documento;
-import Persona.ImpiegatoControlliPartenze;
 import Persona.ImpiegatoControlliStiva;
 
 public class ZonaControlliBagagliStiva extends ZonaAeroporto {
       NastroTrasportatore nastroTrasportatore;
+      Scanner scanner;
       ImpiegatoControlliStiva controllore;
-      public  ZonaControlliBagagliStiva(NastroTrasportatore n){
+
+      public  ZonaControlliBagagliStiva(NastroTrasportatore n, Scanner s){
             nastroTrasportatore = n;
-            controllore = new ImpiegatoControlliStiva(n);
+            scanner = s;
+            controllore = new ImpiegatoControlliStiva(s, ListaOggetti.getOggettiPericolosi());
       }
 }

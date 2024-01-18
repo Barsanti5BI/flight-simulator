@@ -1,30 +1,34 @@
 package Persona;
 
-import Aereoporto.ZonaCheckIn.NastroTrasportatore;
+import Aereoporto.ZonaControlli.Scanner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ImpiegatoControlliStiva extends Persona{
-    private NastroTrasportatore nT;
+    private Scanner s;
+    private ArrayList<String> oggettiProibiti;
 
-    public ImpiegatoControlliStiva(NastroTrasportatore n){
-        nT = n;
+    public ImpiegatoControlliStiva(Scanner s, ArrayList<String> oggettiProibiti){
+        this.s = s;
+        this.oggettiProibiti = oggettiProibiti;
     }
+
     public void run(){
         while(true)
         {
-            if (nT != null)
+            if (s != null)
             {
-                if (!nT.codaBagagli.isEmpty())
+                if (!s.getCodaBagagliPericolosi().isEmpty())
                 {
-                    Bagaglio b = nT.getCodaScanner().pop();
+                    Bagaglio b = s.getCodaBagagliPericolosi().pop();
 
                     String controllo = ControlloApprofondito(b.getOggettiContenuti());
 
                     if(controllo == "")
                     {
                         System.out.println("Il bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è sicuro, non contiene nessun oggetto proibito");
-                        nT.getBagagliSicuri().push(b);
+                        s.getCodaBagagliControllati().push(b);
                     }
                     else
                     {
@@ -57,9 +61,9 @@ public class ImpiegatoControlliStiva extends Persona{
 
         for(Oggetto o : ogg)
         {
-            for(Oggetto o1 : oggettiProibiti)
+            for(String o1 : oggettiProibiti)
             {
-                if (o.getNome() == o1.getNome())
+                if (o.getNome() == o1)
                 {
                     oggettiTrovati += " " + o.getNome();
                 }
