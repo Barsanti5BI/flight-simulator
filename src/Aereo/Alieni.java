@@ -1,0 +1,37 @@
+package Aereo;
+
+import java.util.Random;
+
+public class Alieni extends Thread{
+    boolean aereo_rubato;
+    public Alieni(Aereo a){
+        setDaemon(true);
+        Aereo aereo = a;
+        aereo_rubato = false;
+    }
+
+    public void run(){
+        while (true){
+            try {
+                if(Aereo_Rubato_Alieni()) {
+                    aereo_rubato = true;
+                    break;
+                }
+                this.sleep(45000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        System.out.println("HIHIHIHA!! VI ABBIAMO RUBATO!!!");
+    }
+
+    public boolean Aereo_Rubato_Alieni(){
+        boolean risultato = false;
+        Random rnd = new Random();
+        int rand = rnd.nextInt(0, 100);
+        if(rand == 69){
+            risultato = true;
+        }
+        return  risultato;
+    }
+}
