@@ -91,11 +91,11 @@ public class Turista extends Persona{
                 {
                     // ZONA CHECK-IN
                     if(deveFareCheckIn) {
-                        synchronized (zonaCheckIn.getBanco()) {
-                            zonaCheckIn.getBanco().getCodaTuristi().push(this);
+                        zonaCheckIn.getBanco().getCodaTuristi().push(this);
 
+                        synchronized (zonaCheckIn.getBanco().getImpiegatoCheckIn()) {
                             while(deveFareCheckIn) {
-                                zonaCheckIn.getBanco().wait();
+                                zonaCheckIn.getBanco().getImpiegatoCheckIn().wait();
                             }
                         }
                         deveFareControlli = true;
@@ -219,11 +219,11 @@ public class Turista extends Persona{
                         Dogana dogana = zonaArrivi.getDogana();
                         RitiroBagagli ritiroBagagli = zonaArrivi.getRitiroBagagli();
 
-                        synchronized (dogana)
+                        synchronized (dogana.getControllore())
                         {
                             while(!haPassatoControlliArr)
                             {
-                                dogana.wait();
+                                dogana.getControllore().wait();
                             }
                         }
 
