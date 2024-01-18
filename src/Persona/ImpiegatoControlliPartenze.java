@@ -1,15 +1,14 @@
 package Persona;
 import Utils.Coda;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ImpiegatoControlliPartenze extends Persona{
-
     private Coda<Bagaglio> codaScanner;
     private Coda<Turista> codaTurista;
-    private List<Oggetto> oggettiProibiti;
-    public ImpiegatoControlliPartenze(Documento doc, Coda<Bagaglio> codaScanner, Coda<Turista> codaTurista, List<Oggetto> oggettiProibiti){
-        super(doc);
+    private ArrayList<String> oggettiProibiti;
+    public ImpiegatoControlliPartenze(Coda<Bagaglio> codaScanner, Coda<Turista> codaTurista, ArrayList<String> oggettiProibiti){
         this.codaScanner = codaScanner;
         this.codaTurista = codaTurista;
         this.oggettiProibiti = oggettiProibiti; // lista fornita dall'aereoporto
@@ -19,21 +18,24 @@ public class ImpiegatoControlliPartenze extends Persona{
         {
             if (codaScanner != null)
             {
-                // controllore dei bagagli sospetti
-                Bagaglio b = codaScanner.pop();
-                System.out.println("Attenzione turista " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è sospetto e viene controllato");
+                if (!codaScanner.isEmpty())
+                {
+                    // controllore dei bagagli sospetti
+                    Bagaglio b = codaScanner.pop();
+                    System.out.println("Attenzione bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è sospetto e viene controllato");
 
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    String controllo = ControlloApprofondito(b.getOggettiContenuti());
+                    System.out.println("Bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è bloccato poichè contiene: " + controllo);
+
+                    // manca da ricercare il turista
                 }
-
-                String controllo = ControlloApprofondito(b.getOggettiContenuti());
-                System.out.println("Bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è bloccato poichè contiene: " + controllo);
-                System.out.println("In attesa del proprietario...");
-
-                while(!b.getRitirato())
+                else
                 {
                     try {
                         Thread.sleep(5);
@@ -42,21 +44,32 @@ public class ImpiegatoControlliPartenze extends Persona{
                     }
                 }
 
-                // cercare proprietario nella lista dei passeggeri che hanno completato i controlli
             }
             else if (codaTurista != null)
             {
-                // controllore delle persone sospette
-                Turista t = codaTurista.pop();
-                System.out.println("Attenzione turista " + t.getName() + " è sospetto e viene controllato");
+                if (!codaTurista.isEmpty())
+                {
+                    // controllore delle persone sospette
+                    Turista t = codaTurista.pop();
+                    System.out.println("Attenzione turista " + t.getName() + " è sospetto e viene controllato");
 
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    String controllo = ControlloApprofondito(t.GetListaOggetti());
+                    System.out.println("Turista " + t.getName() + " è arrestato poichè in possesso di: " + controllo);
+                    t.perquisizioneTerminata = true;
                 }
-                String controllo = ControlloApprofondito(t.GetListaOggetti());
-                System.out.println("Turista " + t.getName() + " è arrestato poichè in possesso di: " + controllo);
+                else
+                {
+                    try {
+                        Thread.sleep(5);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
             }
         }
     }
@@ -67,9 +80,9 @@ public class ImpiegatoControlliPartenze extends Persona{
 
         for(Oggetto o : ogg)
         {
-            for(Oggetto o1 : oggettiProibiti)
+            for(String o1 : oggettiProibiti)
             {
-                if (o.getNome() == o1.getNome())
+                if (o.getNome() == o1)
                 {
                     oggettiTrovati += " " + o.getNome();
                 }
