@@ -5,12 +5,33 @@ import Utils.Coda;
 import java.time.LocalDate;
 
 public class ImpiegatoControlliArrivi extends Persona{
+    private Coda<Turista> codaArrivi;
+    private Coda<Turista> CodaDopoControlli;
 
-    private Coda<Turista> CodaTuristi;
-    public ImpiegatoControlliArrivi(Documento doc, Coda<Turista> coda) {super(doc);}
+    public ImpiegatoControlliArrivi(Coda<Turista> codaArrivi, Coda<Turista> codaDopoControlli) {
+        this.codaArrivi = codaArrivi;
+        this.CodaDopoControlli = codaDopoControlli;
+    }
 
     public void run(){
+        while(true)
+        {
+            if (!codaArrivi.isEmpty()) {
+                Turista t = codaArrivi.pop();
+                boolean controllo = ControlloDocumento(t.getDoc());
 
+                if (controllo) //se non è scaduto
+                {
+                    System.out.println("Il turista" + t.getDoc().getCognome() + " " + t.getDoc().getNome() + " è passato con successo");
+                    t.esitoControlli = true;
+                } else {
+                    System.out.println("Attenzione, turista " + t.getDoc().getCognome() + " " + t.getDoc().getNome() + " non è ammesso nel paese poichè ha il documento scaduto");
+                    t.esitoControlli = false;
+                }
+
+                t.haPassatoControlliArr = true;
+            }
+        }
     }
 
     public boolean ControlloDocumento(Documento doc){
@@ -24,8 +45,5 @@ public class ImpiegatoControlliArrivi extends Persona{
         {
             return true;
         }
-    }
-    public void ControlloCartaImbarco(Documento doc){
-
     }
 }

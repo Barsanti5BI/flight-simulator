@@ -1,50 +1,47 @@
 package Persona;
 
-import java.security.SecureRandom;
+import Aereoporto.ZonaCheckIn.Banco;
+import Aereoporto.ZonaCheckIn.NastroTrasportatore;
 
 public class ImpiegatoCheckIn extends Persona{
-
-    public ImpiegatoCheckIn(Documento doc){
-        super(doc);
+    public Banco banco;
+    public NastroTrasportatore nastroTrasportatore;
+    public ImpiegatoCheckIn(Banco banco, NastroTrasportatore nT){
+        this.banco = banco;
+        this.nastroTrasportatore = nT;
     }
-    public void run(){
-        System.out.println(GeneraEtichetta("partenza", "arrivo"));
+    public void run() {
+        while(true)
+        {
+            if (!banco.getCodaTuristi().isEmpty())
+            {
+                Turista t = banco.getCodaTuristi().pop();
+                eseguiCheckIn(t);
+            }
+            else
+            {
+                try {
+                    Thread.sleep(5);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
     }
-    public String GeneraEtichetta(String AeroportoPartenza, String AeroportoArrivo){
-        String codUnivoco = generaCodiceUnivoco(15);
-        String etichetta = AeroportoPartenza +" "+ AeroportoArrivo + " " + codUnivoco;
 
-        return etichetta;
-    }
-    public String generaCodiceUnivoco(int length) {
+    public synchronized void eseguiCheckIn(Turista turista) {
+        turista.getBagaglio().setEtichetta(banco.generaEtichetta(turista));
+        turista.setCartaImbarco(banco.generaCartaImbarco(turista));
 
-        String caratteri = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        Bagaglio bagaglio = turista.getBagaglio();
+        turista.setBagaglio(null);
 
-        SecureRandom random = new SecureRandom();
-        StringBuilder code = new StringBuilder();
-
-        for (int i = 0; i < length; i++) {
-            int randomIndex = random.nextInt(caratteri.length());
-            code.append(caratteri.charAt(randomIndex));
+        if(bagaglio.getDaStiva()){
+            nastroTrasportatore.aggiungiBagaglio(bagaglio, banco.getIndice());
         }
 
-        return code.toString();
-    }
-    public String GeneraCartaImbarco(String partenza, String destinazione, int length){
-        String cartaImbarco = "";
-        String caratteri = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        SecureRandom random = new SecureRandom();
-        StringBuilder code = new StringBuilder();
-
-        for (int i = 0; i < length; i++) {
-            int randomIndex = random.nextInt(caratteri.length());
-            code.append(caratteri.charAt(randomIndex));
-        }
-
-        cartaImbarco = partenza + "-" + code.toString() + "-" + destinazione;
-        return cartaImbarco;
-    }
-    public void SpedicisciBagaglio(/*param*/){
-
+        nastroTrasportatore.codaBagagli.push(turista.getBagaglio());
+        turista.deveFareCheckIn = false;
+        turista.notify();
     }
 }

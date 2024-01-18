@@ -15,9 +15,8 @@ public abstract class Aereo extends  Thread{
     private Stiva stiva;
     private Serbatoio serbatoio;
     private boolean pilotaAutomatico;
-    public boolean inVolo;
-    public boolean èinvolo;
     public Alieni alieni;
+    public boolean einvolo;
 
     public Aereo(String nome,ArrayList<Pilota> piloti){
         this.nome = nome;
@@ -29,14 +28,16 @@ public abstract class Aereo extends  Thread{
         stiva = new Stiva(this);
         serbatoio = new Serbatoio();
         pilotaAutomatico = false;
-        èinvolo = false;
+
+        einvolo = false;
 
         alieni = new Alieni(this);
         alieni.start();
     }
 
     public void run(){
-        while(èinvolo){
+        avvia();
+        while(einvolo){
             try{
                 if (alieni.aereo_rubato){
                     break;
@@ -45,5 +46,9 @@ public abstract class Aereo extends  Thread{
             }catch (Exception e){}
             serbatoio.consuma();
         }
+    }
+
+    public void avvia(){
+        
     }
 }

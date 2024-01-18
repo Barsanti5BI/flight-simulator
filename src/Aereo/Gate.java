@@ -1,5 +1,8 @@
 package Aereo;
 import Utils.Coda;
+import Persona.Turista;
+
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -7,32 +10,31 @@ import java.util.TimerTask;
 public class Gate extends Thread{
     Timer timer;
     TimerTask timerTask;
-    String nomeGate;
-    String nomeAereo;
+    int nomeGate;
+    String destinazione;
     Coda<Turista> codaPrioritaria;
     Coda<Turista> codaNormale;
     Boolean TerminatiIControlli;
     Coda<Turista> codaNavetta;
     Boolean GateAperto;
     Coda<Turista> coda;
-    public Gate(String nomeGate, Coda<Turista> coda, String nomeAereo){
+    public Gate(int nomeGate, Coda<Turista> coda,String destinazione){
         GateAperto = false;
         timer = new Timer();
         timerTask = new TimerTask() {
             @Override
             public void run() {
                 TerminatiIControlli = true;
-                System.out.println("Terminato " + nomeGate);
+                System.out.println("Il gate " + nomeGate + " si è chiuso");
             }
         };
-        GateAperto = false;
         codaPrioritaria = new Coda<>();
         codaNormale = new Coda<>();
         codaNavetta = new Coda<>();
 
         this.coda = coda;
-        this.nomeAereo = nomeAereo;
         TerminatiIControlli = false;
+        this.destinazione = destinazione;
         this.nomeGate = nomeGate;
     }
     public void run(){
@@ -47,15 +49,15 @@ public class Gate extends Thread{
                 else{
                     while(!coda.isEmpty()){   //creo la coda prioritaria e la coda normale
                         Turista t = coda.pop();
-                        if(t.tipoCoda.equals("Prioritaria")){
+                        if(t.cartaImbarco.getPrioritario() || isPasseggeroInPrioritaria()){
                             codaPrioritaria.push(t);
                             sleep(1000);
-                            System.out.println("Il turista " + t.Nome + " è entrato nella coda prioritaria nel gate " + nomeGate);
+                            System.out.println("Il turista " + t.cartaImbarco.getCognomePasseggero() + " " + t.cartaImbarco.getNomePasseggero() + " è entrato nella coda prioritaria nel gate " + nomeGate);
                         }
                         else{
                             codaNormale.push(t);
                             sleep(1000);
-                            System.out.println("Il turista " + t.Nome + " è entrato nella coda normale nel gate " + nomeGate);
+                            System.out.println("Il turista " + t.cartaImbarco.getCognomePasseggero() + " " + t.cartaImbarco.getNomePasseggero() + " è entrato nella coda normale nel gate " + nomeGate);
                         }
                     }
                     while (!codaPrioritaria.isEmpty()) {  //prima la coda prioritaria
@@ -76,18 +78,18 @@ public class Gate extends Thread{
         }
 
     }
-    public Boolean TerminatiIControlli(){
+    public Boolean getTerminatiIControlli(){
         return TerminatiIControlli;
     }
     public void EffettuaControllo(Turista t){
         try{
-            if(nomeAereo.equals(t.nomeAereo)){
+            if(destinazione.equals(t.cartaImbarco.getViaggio())){
                 sleep(1000);
-                System.out.println("    Il turista " + t.Nome + " ha effettuato il controllo effettuato nel gate " + nomeGate);
+                System.out.println("    Il turista " + t.cartaImbarco.getCognomePasseggero() + " " + t.cartaImbarco.getNomePasseggero() + " ha effettuato il controllo effettuato nel gate " + nomeGate);
             }
             else{
                 sleep(1000);
-                System.out.println("    Il turista " + t.Nome + " ha sbagliato gate");
+                System.out.println("    Il turista " + t.cartaImbarco.getCognomePasseggero() + " " + t.cartaImbarco.getNomePasseggero() + " ha sbagliato gate");
             }
         }catch (InterruptedException ex){
             System.out.println(ex);
@@ -101,4 +103,20 @@ public class Gate extends Thread{
         GateAperto = true;
         this.start();
     }
+
+    //FEATURE
+    private boolean isPasseggeroInPrioritaria() {
+        int minRange = 0;
+        int maxRange = 500;
+
+        // Utilizzo una probabilità del 2% per spostare un passeggero nella coda prioritaria
+        double probabilita = 0.02;
+
+        int randomValue = new Random().nextInt(maxRange - minRange + 1) + minRange;
+
+        // Restituisci true se il numero casuale è inferiore alla probabilità desiderata moltiplicata per il range massimo
+        return randomValue < probabilita * maxRange;
+    }
+    public String getDestinazione(){return destinazione;}
+    public boolean getGateAperto(){ return GateAperto;}
 }
