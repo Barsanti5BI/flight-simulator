@@ -1,14 +1,10 @@
 package Persona;
 
-<<<<<<< HEAD
-import java.util.*;
-=======
 import Utils.Coda;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
->>>>>>> 846edf223cf36bfc0059677a2fa185fafad62b01
 
 public class ImpiegatoNegozi extends Persona{
     private String nome;
@@ -16,16 +12,6 @@ public class ImpiegatoNegozi extends Persona{
     private List<Prodotto> prodottoInVendita;
     private Prodotto prezzo;
     private double importo;
-<<<<<<< HEAD
-    private Queue<Persona> codaClienti;
-
-    public ImpiegatoNegozi(String n, int id, List<Prodotto> prodottoInVendita,Queue<Persona> cC){
-        this.nome = n;
-        this.id = id;
-        this.prodottoInVendita = prodottoInVendita;
-        importo = 0.0;
-        this.codaClienti = new LinkedList<>();
-=======
     private Coda<Turista> turisti;
 
     public ImpiegatoNegozi(String n, int id, List<Prodotto> prodottoInVendita, Coda<Turista> turisti){
@@ -33,20 +19,12 @@ public class ImpiegatoNegozi extends Persona{
         this.id = id;
         this.prodottoInVendita = prodottoInVendita;
         this.turisti = turisti;
->>>>>>> 846edf223cf36bfc0059677a2fa185fafad62b01
     }
 
     // metodo sbagliato, perchè bisogna far gestire la scelta al cliente
     // l'impiegatoNegozi devi occuparsi solo della cassa
     // quando il cliente avrà bisogna mettere la variabile boolean pagato su true
     public void run(){
-<<<<<<< HEAD
-        while (!codaClienti.isEmpty()){
-            ImpiegatoNegozi impiegato = codaClienti.poll();
-            if(impiegato != null){
-                impiegato.Vendi();
-            }
-=======
         //Aggiungere sconto se si supera un determinato importo
 //        System.out.println("Nuovo cliente entrato nel negozio");
 //        int numeroProdottiAcquistati = new Random().nextInt(19) + 1;
@@ -67,7 +45,6 @@ public class ImpiegatoNegozi extends Persona{
         synchronized (turista)
         {
             turista.notify();
->>>>>>> 846edf223cf36bfc0059677a2fa185fafad62b01
         }
     }
 
