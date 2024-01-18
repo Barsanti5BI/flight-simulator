@@ -36,6 +36,8 @@ public class AereoPasseggeri extends Aereo {
 
         }
 
+        this.start();
+
     }
 
     public Coda<Turista> FaiScendere() {
