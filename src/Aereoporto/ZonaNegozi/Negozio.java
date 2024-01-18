@@ -32,8 +32,24 @@ public class Negozio extends Thread{
              }
           }
         }
-        public ArrayList<Prodotto> getOggettiInVendita(){
-        	return oggettiInVendita;
+
+        public String getNome()
+        {
+            return nome;
         }
 
+        public Coda<Persona> getCodaCassa()
+        {
+            return personeInAttesa;
+        }
+
+        public ImpiegatoNegozi getImpiegatoNegozi()
+        {
+            return impiegatoNegozi;
+        }
+
+        public ArrayList<Prodotto> getOggettiInVendita()
+        {
+            return oggettiInVendita;
+        }
 }

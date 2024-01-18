@@ -12,8 +12,11 @@ public class MetalDetector extends Thread {
    Coda<Turista> codaTuristiAttesa;
    Coda<Turista> codaTuristiPericolosi;
    Coda<Turista> codaTuristiBuoni;
+   ImpiegatoControlliPartenze impiegato;
+
     public MetalDetector(){
         codaTuristiAttesa = new Coda<>();
+        impiegato = new ImpiegatoControlliPartenze(null, codaTuristiPericolosi, ListaOggetti.getOggettiPericolosi());
     }
 
    public void run() {
@@ -25,9 +28,11 @@ public class MetalDetector extends Thread {
                boolean nonPericoloso = controllaTurista(turista);
                if (nonPericoloso) {
                   codaTuristiBuoni.push(turista);
-
                } else {
                   codaTuristiPericolosi.push(turista);
+               }
+               synchronized (turista) {
+                   turista.notify();
                }
            } catch (InterruptedException e) {
                throw new RuntimeException(e);
@@ -46,4 +51,11 @@ public class MetalDetector extends Thread {
       return true;
    }
 
+   public Coda<Turista> getCodaTuristiAttesa() {
+        return codaTuristiAttesa;
+   }
+
+    public ImpiegatoControlliPartenze getImpiegatoControlli() {
+        return impiegato;
+    }
 }

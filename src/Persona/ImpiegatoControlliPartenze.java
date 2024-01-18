@@ -1,13 +1,14 @@
 package Persona;
 import Utils.Coda;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ImpiegatoControlliPartenze extends Persona{
     private Coda<Bagaglio> codaScanner;
     private Coda<Turista> codaTurista;
-    private List<Oggetto> oggettiProibiti;
-    public ImpiegatoControlliPartenze(Coda<Bagaglio> codaScanner, Coda<Turista> codaTurista, List<Oggetto> oggettiProibiti){
+    private ArrayList<String> oggettiProibiti;
+    public ImpiegatoControlliPartenze(Coda<Bagaglio> codaScanner, Coda<Turista> codaTurista, ArrayList<String> oggettiProibiti){
         this.codaScanner = codaScanner;
         this.codaTurista = codaTurista;
         this.oggettiProibiti = oggettiProibiti; // lista fornita dall'aereoporto
@@ -79,9 +80,9 @@ public class ImpiegatoControlliPartenze extends Persona{
 
         for(Oggetto o : ogg)
         {
-            for(Oggetto o1 : oggettiProibiti)
+            for(String o1 : oggettiProibiti)
             {
-                if (o.getNome() == o1.getNome())
+                if (o.getNome() == o1)
                 {
                     oggettiTrovati += " " + o.getNome();
                 }
