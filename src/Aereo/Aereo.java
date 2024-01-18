@@ -40,6 +40,7 @@ public abstract class Aereo extends  Thread{
 
     public void run(){
 
+       avvia();
         while(einvolo){
 
             try{
@@ -50,5 +51,9 @@ public abstract class Aereo extends  Thread{
 
         }
 
+    }
+
+    public void avvia(){
+        
     }
 }
