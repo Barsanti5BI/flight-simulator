@@ -29,7 +29,10 @@ public abstract class Aereo{
         pilotaAutomatico = false;
     }
 
-
+    public ScatolaNera getScatolaNera()
+    {
+        return scatolaNera;
+    }
    
 
 

@@ -2,15 +2,24 @@ package Persona;
 
 import Aereo.Aereo;
 
-public class Pilota extends Persona{
-    public Aereo a;
-    public TorreControllo tC;
-    public Pista p;
+import java.util.Random;
 
-    public Pilota(Aereo a, TorreControllo tC){
+public class Pilota extends Persona{
+    private Aereo a;
+    private TorreControllo tC;
+    private Pista pista;
+    private boolean deveAtterare; // true --> aereo atterra // false --> aereo decolla // non so se si fa  // non so se serva
+    private Parcheggio parcheggio;
+    private int ritardoArrivo;
+
+    public Pilota(Aereo a, TorreControllo tC, boolean deveAtterare)
+    {
         this.a = a;
         this.tC = tC;
-        p = null;
+        pista = null;
+        parcheggio = null;
+        this.deveAtterare = deveAtterare;
+        ritardoArrivo = 0;
     }
 
     public void run(){
@@ -29,26 +38,103 @@ public class Pilota extends Persona{
 
         while(true)
         {
-            if(comunicaConTorre())
+            tC.getCodaPilotiRichiestePista().push(this);
+
+            synchronized (tC)
             {
-                a.InVolo = true;
-                break;
+                while(pista != null)
+                {
+                    tC.wait();
+                }
+            }
+
+            boolean generatoRitardo = false;
+            while(!verficaCondMeteo())
+            {
+                if (verficaCondMeteo())
+                {
+                    break;
+                }
+                else
+                {
+                    if (!generatoRitardo && !deveAtterare)
+                    {
+                        Random r = new Random();
+                        ritardoArrivo = r.nextInt(100,1001);
+                        daiDatiScatolaNera("Ritardo " + ritardo);
+                        inviaComuncazioneTC("Ritardo " + ritardo);
+                        generatoRitardo = true;
+                    }
+
+                    try {
+                        Thread.sleep(5);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+
+            if(!deveAtterare) // decolla
+            {
+                a.inVolo = true;
+            }
+            else // atterra
+            {
+                try {
+                    Thread.sleep(ritardoArrivo);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+                a.inVolo = false;
+
+                tC.getCodaPilotiRichiesteParcheggio().push(this);
+                synchronized (tC)
+                {
+                    while(parcheggio != null)
+                    {
+                        tC.wait();
+                    }
+                }
             }
         }
     }
 
-    public boolean comunicaConTorre()
+    public boolean verficaCondMeteo()
     {
-        //mi metto in wait sulla torreDiControllo
-        // mi da ok
-        // mi dai pista
-        
+        String meteoAttuale = tC.dimmiMeteoAttuale();
+        daiDatiScatolaNera(meteoAttuale);
+
+        for(String meteoProibiti : tC.getCondMeteoProibite())
+        {
+            if (meteoAttuale == meteoProibiti)
+            {
+                return false;
+            }
+        }
 
         return true;
     }
 
-    public void daiInfo(String azione)
+    public void setPista(Pista p)
     {
-        a.InsersciDati(azione);
+        this.pista = p;
+        daiDatiScatolaNera("Pista" + p.getId());
+    }
+
+    public void daiDatiScatolaNera(String comunicazione)
+    {
+        a.getScatolaNera().InserisciComunicazione(comunicazione);
+    }
+
+    public void inviaComuncazioneTC(String comunicazione)
+    {
+        tC.invioCom(comunicazione);
+    }
+
+    public void setParcheggio(Parcheggio p)
+    {
+        this.parcheggio = p;
+        daiDatiScatolaNera("Parcheggio" + p.getId());
     }
 }
