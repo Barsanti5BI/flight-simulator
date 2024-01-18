@@ -36,15 +36,22 @@ public class Entrata extends Thread{
     public void run()
     {
         try{
-            while(entranti.size()>0&& entranti.size() % 2==0)
+            while(entranti.size()>0)
             {
-                salitoant.push(entranti.pop());
-                Thread.sleep(1);
-            }
-            while(entranti.size()>0&& entranti.size() % 2==1)
-            {
-                salitopost.push(entranti.pop());
-                Thread.sleep(1);
+
+                if( entranti.size() % 2==0)
+                {
+                    salitoant.push(entranti.pop());
+
+                    Thread.sleep(1);
+                }
+                if(  entranti.size() % 2==1)
+                {
+                    salitopost.push(entranti.pop());
+
+                    Thread.sleep(1);
+                }
+
             }
         }
         catch (Exception e){};
