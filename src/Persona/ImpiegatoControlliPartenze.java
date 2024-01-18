@@ -18,18 +18,11 @@ public class ImpiegatoControlliPartenze extends Persona{
         {
             if (codaScanner != null)
             {
-<<<<<<< Updated upstream
                 if (!codaScanner.isEmpty())
                 {
                     // controllore dei bagagli sospetti
                     Bagaglio b = codaScanner.pop();
                     System.out.println("Attenzione bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è sospetto e viene controllato");
-=======
-                // controllore dei bagagli sospetti
-                Bagaglio b = codaScanner.pop();
-
-                System.out.println("Attenzione turista " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è sospetto e viene controllato");
->>>>>>> Stashed changes
 
                     try {
                         Thread.sleep(1000);
@@ -40,7 +33,8 @@ public class ImpiegatoControlliPartenze extends Persona{
                     String controllo = ControlloApprofondito(b.getOggettiContenuti());
                     System.out.println("Bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è bloccato poichè contiene: " + controllo);
 
-                    // manca da ricercare il turista
+                    Turista t = b.getProprietario();
+                    System.out.println("Il turista " + t.getName() +  ", proprietario del bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + ", verrà perquisito e portato all'interrogatorio");
                 }
                 else
                 {
@@ -50,13 +44,6 @@ public class ImpiegatoControlliPartenze extends Persona{
                         throw new RuntimeException(e);
                     }
                 }
-
-<<<<<<< Updated upstream
-=======
-                Turista t = b.getProprietario();
-                System.out.println("Il turista " + t.getName() +  ", proprietario del bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + ", verrà perquisito e portato all'interrogatorio");
-                // cercare proprietario nella lista dei passeggeri che hanno completato i controlli
->>>>>>> Stashed changes
             }
             else if (codaTurista != null)
             {
