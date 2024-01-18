@@ -14,7 +14,7 @@ public abstract class Aereo extends  Thread{
     private Serbatoio serbatoio;
     private boolean pilotaAutomatico;
 
-    public boolean èinvolo;
+    public boolean einvolo;
 
     public Aereo(String nome,ArrayList<Pilota> piloti){
         this.nome = nome;
@@ -25,14 +25,14 @@ public abstract class Aereo extends  Thread{
         stiva = new Stiva(this);
         serbatoio = new Serbatoio();
         pilotaAutomatico = false;
-        èinvolo = false;
+        einvolo = false;
 
 
     }
 
     public void run(){
 
-        while(èinvolo){
+        while(einvolo){
 
             try{
                 Thread.sleep(50);
