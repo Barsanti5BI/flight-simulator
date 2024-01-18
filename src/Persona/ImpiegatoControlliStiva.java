@@ -1,10 +1,15 @@
 package Persona;
 
+<<<<<<< Updated upstream
 import Aereoporto.ZonaControlli.Scanner;
 
 import java.util.ArrayList;
 import java.util.List;
 
+=======
+import Aereoporto.ZonaCheckIn.NastroTrasportatore;
+import java.util.List;
+>>>>>>> Stashed changes
 public class ImpiegatoControlliStiva extends Persona{
     private Scanner s;
     private ArrayList<String> oggettiProibiti;
@@ -19,6 +24,7 @@ public class ImpiegatoControlliStiva extends Persona{
         {
             if (s != null)
             {
+<<<<<<< Updated upstream
                 if (!s.getCodaBagagliPericolosi().isEmpty())
                 {
                     Bagaglio b = s.getCodaBagagliPericolosi().pop();
@@ -49,6 +55,26 @@ public class ImpiegatoControlliStiva extends Persona{
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
+=======
+                // controllore dei bagagli da stiva sospetti
+
+                Bagaglio b = nT.codaBagagli.pop();
+
+                String controllo = ControlloApprofondito(b.getOggettiContenuti());
+
+                Turista proprietario = b.getProprietario();
+
+                if(controllo == null)
+                {
+                    System.out.println("Il bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è sicuro, non contiene nessun oggetto proibito");
+                    nT.bagagliCaricati.push(b);
+                    System.out.println("Il proprietario " + b.getProprietario().getDoc().getNome() + " del bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " non nescessita di ulteriori controlli");
+                }
+                else
+                {
+                    System.out.println("Il bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è bloccato poichè contiene: " + controllo);
+                    System.out.println("Il proprietario " + b.getProprietario().getDoc().getNome() + " verrà portato all'interrogatorio e perquisito");
+>>>>>>> Stashed changes
                 }
                 // cercare proprietario nella lista dei passeggeri che hanno completato i controlli
             }
@@ -61,7 +87,11 @@ public class ImpiegatoControlliStiva extends Persona{
 
         for(Oggetto o : ogg)
         {
+<<<<<<< Updated upstream
             for(String o1 : oggettiProibiti)
+=======
+            for(Oggetto o1 : ogg)
+>>>>>>> Stashed changes
             {
                 if (o.getNome() == o1)
                 {
