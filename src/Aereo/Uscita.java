@@ -26,17 +26,21 @@ public class Uscita extends Thread{
     public void run()
     {
         try{
-            while(uscenti.size()>0&& uscenti.size() % 2==0)
+            while(uscenti.size()>0)
             {
+
+
+             if ( uscenti.size() % 2==0)
+             {
                uscentiAnt.push(uscenti.pop());
                 Thread.sleep(1);
-            }
-            while(uscenti.size()>0&& uscenti.size() % 2==1)
-            {
+             }
+             if( uscenti.size() % 2==1)
+             {
                 uscentiPost.push(uscenti.pop());
                 Thread.sleep(1);
+             }
             }
-
           while (uscentiAnt.size()>0 && uscentiPost.size()>0)
           {
               usciti.push(uscentiAnt.pop());

@@ -44,7 +44,7 @@ public class Bagno extends Thread{
 
 //serve nome del turista
 
-            System.out.println("il bagno è occupato da "+c.pop());
+            System.out.println("il bagno è occupato da "+c.pop().Nome);
             Random r = new Random();
             int k= r.nextInt(5000);
 
