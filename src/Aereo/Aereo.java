@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public abstract class Aereo extends  Thread{
     public String nome;
     public String destinazione;
-    public String posizione;
+    public int posizione;
     public Gate gate;
     public ArrayList<Bagno> bagni;
     public ArrayList<Pilota> piloti;
@@ -33,7 +33,7 @@ public abstract class Aereo extends  Thread{
         pilotaAutomatico = false;
 
         einvolo = false;
-
+        posizione =0;
 
 
     }
@@ -41,13 +41,13 @@ public abstract class Aereo extends  Thread{
     public void run(){
 
        avvia();
-        while(einvolo && serbatoio.getStatoSerbatoio()>0){
+        while(einvolo && serbatoio.getStatoSerbatoio()>0 && posizione<100) {
 
             try{
                 Thread.sleep(50);
             }catch (Exception e){}
             serbatoio.consuma();
-
+            posizione-=2;
 
         }
 

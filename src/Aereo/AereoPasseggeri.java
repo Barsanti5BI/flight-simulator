@@ -17,6 +17,7 @@ public class AereoPasseggeri extends Aereo {
 
     public AereoPasseggeri(String nome, ArrayList<Pilota> piloti) {
         super(nome, piloti);
+
         matricePostiAereo = new Turista[4][10];
         nPosti = 40;
         entrata = new Entrata();
@@ -27,15 +28,8 @@ public class AereoPasseggeri extends Aereo {
 
     public void run(){
         avvia();
-        while(einvolo && serbatoio.getStatoSerbatoio()>0){
+        super.run();
 
-            try{
-                Thread.sleep(50);
-            }catch (Exception e){}
-            serbatoio.consuma();
-
-
-        }
     }
     public void ImbarcaPasseggieri() {
         Imbarca(entrata.GetsalitiDavanti());
