@@ -13,6 +13,7 @@ public class ZonaNegozi extends ZonaAeroporto {
     {
         listaNegozi = new ArrayList<>();
         listaNegozi.add(new Negozio("IPER", "Supermercato", new ArrayList<Prodotto>(), 1));
+        listaNegozi.add(new Negozio("H&M", "Abbigliamento", new ArrayList<Prodotto>(), 2));
     }
 
     public ArrayList<Negozio> getListaNegozi()

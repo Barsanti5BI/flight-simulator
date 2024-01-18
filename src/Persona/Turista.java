@@ -14,8 +14,7 @@ import Aereoporto.ZonaPartenze.ZonaPartenze;
 import Utils.Coda;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Turista extends Persona{
 
@@ -48,6 +47,7 @@ public class Turista extends Persona{
     public List<Prodotto> oggettiDaComprare;
     private @Nullable Bagaglio bagaglio;
     private boolean pagato;
+    private List<String> possibiliInteressi = new ArrayList<>();
 
     // ZONA GATE
     public ZonaPartenze zonaPartenze;
@@ -75,6 +75,7 @@ public class Turista extends Persona{
         this.doc = doc;
         r = new Random();
         vuoleFareAcquisto = r.nextBoolean();
+        getPossibiliInteressi();
     }
 
     public void run(){
@@ -143,24 +144,38 @@ public class Turista extends Persona{
 
                         // ZONA NEGOZI
 
+                        // feature garbui --> i clienti vogliono acquistare in determinate categorie di negozi
                         if (vuoleFareAcquisto) {
-                            indiceNegozio = r.nextInt(0, zonaNegozi.getListaNegozi().size()); // indici impostati dall'aeroporto
-                            Negozio n = zonaNegozi.getListaNegozi().get(indiceNegozio);
-                            Thread.sleep(1000);
 
-                            System.out.println("Il turista " + getName() + " è entrato nel negozio " + n.getNome());
-                            decidiCosaComprare(n);
-                            n.getCodaCassa().push(this);
+                            String interesse = possibiliInteressi.get(r.nextInt(0, possibiliInteressi.size()));
+                            int indice = -1;
 
-                            synchronized (n.getImpiegatoNegozi())
-                            {
-                                while(!pagato)
-                                {
-                                    wait();
+                            for(Negozio negozio:zonaNegozi.getListaNegozi()){
+                                if(negozio.getCategoria() == interesse){
+                                    indice = negozio.getIdNeg();
                                 }
                             }
+                            if(indice != -1){
+                                Negozio n = zonaNegozi.getListaNegozi().get(indiceNegozio);
 
-                            vuoleFareAcquisto = false;
+                                Thread.sleep(1000);
+
+                                System.out.println("Il turista " + getName() + " è entrato nel negozio " + n.getNome());
+                                decidiCosaComprare(n);
+                                n.getCodaCassa().push(this);
+
+                                synchronized (n.getImpiegatoNegozi())
+                                {
+                                    while(!pagato)
+                                    {
+                                        wait();
+                                    }
+                                }
+                                vuoleFareAcquisto = false;
+                            }
+                            else{
+                                System.out.println("Il turista " + getName() + " è triste: nessun negozio nella categoria " + interesse);
+                            }
                         }
 
                         if(prontoPerImbarcarsi)
@@ -236,6 +251,13 @@ public class Turista extends Persona{
 
         }
 
+    }
+
+    public void getPossibiliInteressi(){
+        possibiliInteressi.add("Abbigliamento");
+        possibiliInteressi.add("Supermercato");
+        possibiliInteressi.add("Libreria");
+        possibiliInteressi.add("Farmacia");
     }
 
     public String getDestinazione(){
