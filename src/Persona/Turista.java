@@ -1,21 +1,32 @@
 package Persona;
 
+import Aereo.Gate;
+import Aereoporto.ZonaArrivi.ZonaArrivi;
 import Aereoporto.ZonaCheckIn.CartaImbarco;
 import Aereoporto.ZonaCheckIn.ZonaCheckIn;
+import Aereoporto.ZonaControlli.MetalDetector;
+import Aereoporto.ZonaControlli.Scanner;
+import Aereoporto.ZonaControlli.Settore;
 import Aereoporto.ZonaControlli.ZonaControlli;
 import Aereoporto.ZonaNegozi.Negozio;
 import Aereoporto.ZonaNegozi.ZonaNegozi;
+import Aereoporto.ZonaPartenze.ZonaPartenze;
+import Utils.Coda;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Random;
 
 public class Turista extends Persona{
+
+    // determinazione turista
+    public boolean inPartenza;
+    public boolean inArrivo;
 
     //ZONA CHECKIN
     public ZonaCheckIn zonaCheckIn;
     public int indiceSettore;
     public  boolean deveFareCheckIn;
-    public boolean devePrendereBiglietto;
-    public  boolean devePoggiareBagagliAlCheckIn;
     private CartaImbarco cartaImbarco;
 
     //ZONA CONTROLLI
@@ -24,47 +35,199 @@ public class Turista extends Persona{
     public boolean deveFareControlli;
     public boolean devePoggiareBagagliAiControlli;
     public boolean deveFareControlliAlMetalDetector;
-    public  boolean deveRitirareBagli;
+    public  boolean deveRitirareBagagliAiControlli;
     public  boolean controlliFattiConSuccesso;
+    public  boolean bagaglioSospetto;
+    public  boolean controlloMetalDetectorSospetto;
+    public  boolean perquisizioneTerminata;
 
-    //ZONA NEGLOZI
+    //ZONA NEGOZI
     public ZonaNegozi zonaNegozi;
     public int indiceNegozio;
     public  boolean vuoleFareAcquisto;
-    private Bagaglio bag;
-    //ZONA PARTENZE
+    public List<Prodotto> oggettiDaComprare;
+    private @Nullable Bagaglio bagaglio;
+    private boolean pagato;
 
+    // ZONA GATE
+    public ZonaPartenze zonaPartenze;
+    public boolean prontoPerImbarcarsi;
 
-    private String destinazione;
+    // ZONA ARRIVI
+
+    public ZonaArrivi zonaArrivi;
+    public boolean arrivatoAreaArrivi;
+    public boolean haPassatoControlliArr;
+    public boolean esitoControlli;
+    public boolean haRitiratoBagagliArr;
+    public boolean haFinitoArr;
+
+    // elementi utili
     private List<Oggetto> oggetti;
     private Documento doc;
-    
+    private Random r;
+    private String destinazione;
 
     public Turista(Documento doc,Bagaglio bag, CartaImbarco cartaImbarco, List<Oggetto> oggetti) {
-        this.bag = bag;
+        this.bagaglio = bag;
         this.cartaImbarco = cartaImbarco;
         this.oggetti = oggetti;
         this.doc = doc;
+        r = new Random();
+        vuoleFareAcquisto = r.nextBoolean();
     }
 
     public void run(){
         while (true){
             try{
-                if(deveFareCheckIn) {
-                    if (devePrendereBiglietto) {
-                        //ottieni biglietto
-                        if (devePoggiareBagagliAlCheckIn) {
-                            //controllo e spèostamento bagagli sul nastro trasportatore
-                            devePoggiareBagagliAlCheckIn = false;
+
+                // IL TURISTA DEVE PARTIRE
+                if (inPartenza)
+                {
+                    // ZONA CHECK-IN
+                    if(deveFareCheckIn) {
+                        synchronized (zonaCheckIn.getBanco()) {
+                            zonaCheckIn.getBanco().getCodaTuristi().push(this);
+                            while(deveFareCheckIn) {
+                                wait();
+                            }
                         }
-                        devePrendereBiglietto = false;
+                        deveFareControlli = true;
                     }
-                    deveFareCheckIn = false;
-                    deveFareControlli = true;
+
+                    // ZONA CONTROLLI
+                    if (deveFareControlli) {
+                        Settore settore = zonaControlli.getSettore(0);
+                        MetalDetector metalDetector = settore.getMetalDetector();
+                        Scanner scanner = settore.getScannerBagagali();
+                        if (devePoggiareBagagliAiControlli) {
+                            if (bagaglio != null) {
+                                scanner.getCodaBagagli().push(bagaglio);
+                                devePoggiareBagagliAiControlli = false;
+                                bagaglio = null;
+                                deveRitirareBagagliAiControlli = true;
+                            }
+                        }
+
+                        if (deveFareControlliAlMetalDetector) {
+                            metalDetector.getCodaTuristiAttesa().push(this);
+
+                            synchronized (metalDetector) {
+                                while (deveFareControlliAlMetalDetector) {
+                                    wait();
+                                }
+                            }
+
+                            if (!controlloMetalDetectorSospetto) {
+                                if (deveRitirareBagagliAiControlli) {
+                                    if (bagaglioSospetto) {
+                                        System.out.println("Turista arrestato!");
+                                        break;
+                                    } else {
+                                        // il turista continua a cercare il bagaglio finchè non lo trova
+                                        cercaBagaglio(scanner.getCodaBagagliControllati(), settore);
+                                    }
+                                }
+                            } else {
+                                synchronized (metalDetector.getImpiegatoControlli()) {
+                                    while (!perquisizioneTerminata) {
+                                        wait();
+                                    }
+                                }
+                                break;
+                            }
+
+                            deveFareControlli = false;
+                            controlliFattiConSuccesso = true;
+                        }
+
+                        // ZONA NEGOZI
+
+                        if (vuoleFareAcquisto) {
+                            indiceNegozio = r.nextInt(0, zonaNegozi.getListaNegozi().size()); // indici impostati dall'aeroporto
+                            Negozio n = zonaNegozi.getListaNegozi().get(indiceNegozio);
+                            Thread.sleep(1000);
+
+                            System.out.println("Il turista " + getName() + " è entrato nel negozio " + n.getNome());
+                            decidiCosaComprare(n);
+                            n.getCodaCassa().push(this);
+
+                            synchronized (n.getImpiegatoNegozi())
+                            {
+                                while(!pagato)
+                                {
+                                    wait();
+                                }
+                            }
+
+                            vuoleFareAcquisto = false;
+                        }
+
+                        if(prontoPerImbarcarsi)
+                        {
+                            List<Gate> gates = zonaPartenze.getListaGate();
+                            Gate mioGate = null;
+
+                            for(Gate g : gates)
+                            {
+                                if (g.getId() == cartaImbarco.getGate())
+                                {
+                                    mioGate = g;
+                                    break;
+                                }
+                            }
+
+                            inserisciTuristaGate(mioGate);
+                        }
+                    }
+                } else if (inArrivo) // IL TURISTA E' ARRIVATO
+                {
+                    while(!arrivatoAreaArrivi)
+                    {
+                        if(arrivatoAreaArrivi)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            Thread.sleep(5);
+                        }
+                    }
+
+                    if(!haPassatoControlliArr)
+                    {
+                        zonaArrivi.getCodaControlli().push(this);
+
+                        while(!haPassatoControlliArr)
+                        {
+                            if (haPassatoControlliArr)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                Thread.sleep(5);
+                            }
+                        }
+
+                        if(esitoControlli)
+                        {
+                            if (bagaglio == null)
+                            {
+                                cercaBagaglio(zonaArrivi.getRitiroBagagli().getCodaBagagli());
+                            }
+
+                            haRitiratoBagagliArr = true;
+                            haFinitoArr = true;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
                 }
-                if (deveFareControlli){
-                    //continuare
-                }
+
                 Thread.sleep(2);
             }
             catch (InterruptedException ex){
@@ -79,8 +242,11 @@ public class Turista extends Persona{
         return destinazione;
     }
 
-    public Bagaglio GetBagaglio() {
-        return bag;
+    public Bagaglio getBagaglio() {
+        return bagaglio;
+    }
+    public void setBagaglio(@Nullable Bagaglio bagaglio) {
+        this.bagaglio = bagaglio;
     }
 
     public List<Oggetto> GetListaOggetti()
@@ -90,7 +256,49 @@ public class Turista extends Persona{
     public Documento getDoc(){
         return doc;
     }
-
     public CartaImbarco GetCartaImbarco(){return cartaImbarco;}
     public void setCartaImbarco(CartaImbarco c) { cartaImbarco = c; }
+
+    public void cercaBagaglio(Coda<Bagaglio> codaBag, Settore settore)
+    {
+        while(true)
+        {
+            Bagaglio b = codaBag.pop();
+
+            if (b.getEtichetta().getIdRiconoscimentoBagaglio() == cartaImbarco.getIdRiconoscimentoBagaglio())
+            {
+                bagaglio = b;
+                break;
+            }
+            else
+            {
+                settore.getScannerBagagali().getCodaBagagliControllati().push(b);
+            }
+        }
+    }
+
+    public void decidiCosaComprare(Negozio n)
+    {
+        List<Prodotto> coseDisponibili = n.getOggettiInVendita();
+
+        for(int i = 0; i <= r.nextInt(0, 11); i++)
+        {
+            int indiceElemento = r.nextInt(0, coseDisponibili.size());
+            oggettiDaComprare.add(coseDisponibili.get(indiceElemento));
+        }
+    }
+
+    public void inserisciTuristaGate(Gate gate)
+    {
+        if(cartaImbarco.getPrioritario())
+        {
+            gate.getCodaPrioritaria().push(this);
+        }
+        else
+        {
+            gate.getCodaNormale().push(this);
+        }
+
+        prontoPerImbarcarsi = false;
+    }
 }

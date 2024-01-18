@@ -17,4 +17,8 @@ public class ZonaControlli extends ZonaAeroporto {
          settori.add(new Settore(i));
       }
    }
+
+   public Settore getSettore(int indice) {
+      return settori.get(indice);
+   }
 }

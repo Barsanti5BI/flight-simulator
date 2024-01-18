@@ -5,27 +5,43 @@ import Aereoporto.ZonaCheckIn.NastroTrasportatore;
 
 public class ImpiegatoCheckIn extends Persona{
     public Banco banco;
-    public NastroTrasportatore nT;
+    public NastroTrasportatore nastroTrasportatore;
     public ImpiegatoCheckIn(Banco banco, NastroTrasportatore nT){
         this.banco = banco;
-        this.nT = nT;
+        this.nastroTrasportatore = nT;
     }
     public void run() {
-        while(!banco.GetCodaTuristi().isEmpty())
+        while(true)
         {
-            EseguiCheckIn();
+            if (!banco.getCodaTuristi().isEmpty())
+            {
+                Turista t = banco.getCodaTuristi().pop();
+                eseguiCheckIn(t);
+            }
+            else
+            {
+                try {
+                    Thread.sleep(5);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
     }
 
-    public void EseguiCheckIn(){
-        Turista t = banco.GetCodaTuristi().pop();
-        t.GetBagaglio().setEtichetta(banco.generaEtichetta());
-        t.setCartaImbarco(banco.generaCartaImbarco(t));
+    public synchronized void eseguiCheckIn(Turista turista) {
+        turista.getBagaglio().setEtichetta(banco.generaEtichetta(turista));
+        turista.setCartaImbarco(banco.generaCartaImbarco(turista));
 
-        Bagaglio b = t.GetBagaglio();
+        Bagaglio bagaglio = turista.getBagaglio();
+        turista.setBagaglio(null);
 
-        if(b.getDaStiva()){
-            nT.aggiungiBagaglio(b, banco.getIndice());
+        if(bagaglio.getDaStiva()){
+            nastroTrasportatore.aggiungiBagaglio(bagaglio, banco.getIndice());
         }
+
+        nastroTrasportatore.codaBagagli.push(turista.getBagaglio());
+        turista.deveFareCheckIn = false;
+        turista.notify();
     }
 }

@@ -1,36 +1,38 @@
 package Aereoporto.ZonaCheckIn;
 
-import Aereoporto.ZonaCheckIn.CartaImbarco;
-import Persona.Persona;
 import Persona.Turista;
-import Persona.Bagaglio;
+import  Persona.Etichetta;
+import Persona.ImpiegatoCheckIn;
 import Utils.Coda;
 
 import java.time.LocalDate;
 
-public class Banco extends Thread{
+public class Banco {
+    int numeroBanco;
     Coda<Turista> codaTuristi;
-   //persona che sta al banco
-   //coda di persone che aspettano di essere servite
-   //nastro traspotaore
-   //bagagli che vengono sul nastro trasportatore
+    NastroTrasportatore nastroTrasportatore;
+    ImpiegatoCheckIn impiegatoCheckIn;
 
-    public void run() {
-        while(true) {
-            try {
-                Thread.sleep(100);
-                Turista t = codaTuristi.pop();
-                t.setCartaImbarco(generaCartaImbarco(t));
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
+    public Banco(NastroTrasportatore n, int numeroBanco){
+        codaTuristi = new Coda<>();
+        nastroTrasportatore = n;
+        impiegatoCheckIn.start();
+        this.numeroBanco = numeroBanco;
     }
 
     public CartaImbarco generaCartaImbarco(Turista p) {
         // aggiungere i dati sui voli
-        return new CartaImbarco(p.getDoc().getNome(), p.getDoc().getCognome(), 0, LocalDate.now(), "", p.getDestinazione(), p.GetBagagli().getEtichetta().getIdRiconoscimentoBagaglio());
+        return new CartaImbarco(p.getDoc().getNome(), p.getDoc().getCognome(), 0, LocalDate.now(), "", p.getBagaglio().getEtichetta().getIdRiconoscimentoBagaglio(), false);
+    }
+    public Etichetta generaEtichetta(Turista t){
+        return new Etichetta("Codice Veicolo",t.getBagaglio().getEtichetta().getIdRiconoscimentoBagaglio());
     }
 
+    public Coda<Turista> getCodaTuristi() {
+        return codaTuristi;
+    }
 
+    public int getIndice() {
+        return  numeroBanco;
+    }
 }

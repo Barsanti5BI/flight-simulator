@@ -1,6 +1,14 @@
 package Persona;
 
+<<<<<<< HEAD
 import java.util.*;
+=======
+import Utils.Coda;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+>>>>>>> 846edf223cf36bfc0059677a2fa185fafad62b01
 
 public class ImpiegatoNegozi extends Persona{
     private String nome;
@@ -8,6 +16,7 @@ public class ImpiegatoNegozi extends Persona{
     private List<Prodotto> prodottoInVendita;
     private Prodotto prezzo;
     private double importo;
+<<<<<<< HEAD
     private Queue<Persona> codaClienti;
 
     public ImpiegatoNegozi(String n, int id, List<Prodotto> prodottoInVendita,Queue<Persona> cC){
@@ -16,17 +25,53 @@ public class ImpiegatoNegozi extends Persona{
         this.prodottoInVendita = prodottoInVendita;
         importo = 0.0;
         this.codaClienti = new LinkedList<>();
+=======
+    private Coda<Turista> turisti;
+
+    public ImpiegatoNegozi(String n, int id, List<Prodotto> prodottoInVendita, Coda<Turista> turisti){
+        this.nome = n;
+        this.id = id;
+        this.prodottoInVendita = prodottoInVendita;
+        this.turisti = turisti;
+>>>>>>> 846edf223cf36bfc0059677a2fa185fafad62b01
     }
 
+    // metodo sbagliato, perchè bisogna far gestire la scelta al cliente
+    // l'impiegatoNegozi devi occuparsi solo della cassa
+    // quando il cliente avrà bisogna mettere la variabile boolean pagato su true
     public void run(){
+<<<<<<< HEAD
         while (!codaClienti.isEmpty()){
             ImpiegatoNegozi impiegato = codaClienti.poll();
             if(impiegato != null){
                 impiegato.Vendi();
             }
+=======
+        //Aggiungere sconto se si supera un determinato importo
+//        System.out.println("Nuovo cliente entrato nel negozio");
+//        int numeroProdottiAcquistati = new Random().nextInt(19) + 1;
+//        for (int i = 0; i < numeroProdottiAcquistati; i++) {
+//            List<Prodotto> prodottiDisponibili = getProdottiDisponibili();
+//            if (!prodottiDisponibili.isEmpty()) {
+//                Prodotto prodottoScelto = prodottiDisponibili.get(new Random().nextInt(prodottiDisponibili.size()));
+//                System.out.println("Prodotto/i venduto/i: " + prodottoScelto.getNome());
+//                System.out.println("Prezzo del prodotto: " + prodottoScelto.getPrezzo());
+//                importo = prezzo.getPrezzo() + prodottoScelto.getPrezzo();
+//                System.out.println("Importo parziale della vendita: " + importo);
+//            }
+//        }
+//        System.out.println("Importo totale della vendita: " + importo);
+        Turista turista = turisti.pop();
+        // mettere in questa parte il codice da sistemare
+
+        synchronized (turista)
+        {
+            turista.notify();
+>>>>>>> 846edf223cf36bfc0059677a2fa185fafad62b01
         }
     }
 
+    // bisogna farla gestire all'aeroporto
     private List<Prodotto> getProdottiDisponibili() {
         List<Prodotto> prodotti = new ArrayList<Prodotto>();
         prodotti.add(new Prodotto("Calzini", 10.0));
