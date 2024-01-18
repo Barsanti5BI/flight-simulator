@@ -1,6 +1,8 @@
 package Persona;
 
 import Aereo.Gate;
+import Aereoporto.ZonaArrivi.Dogana;
+import Aereoporto.ZonaArrivi.RitiroBagagli;
 import Aereoporto.ZonaArrivi.ZonaArrivi;
 import Aereoporto.ZonaCheckIn.CartaImbarco;
 import Aereoporto.ZonaCheckIn.ZonaCheckIn;
@@ -14,7 +16,9 @@ import Aereoporto.ZonaPartenze.ZonaPartenze;
 import Utils.Coda;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Turista extends Persona{
 
@@ -126,7 +130,7 @@ public class Turista extends Persona{
                                         break;
                                     } else {
                                         // il turista continua a cercare il bagaglio finchè non lo trova
-                                        cercaBagaglio(scanner.getCodaBagagliControllati(), settore);
+                                        cercaBagaglio(scanner.getCodaBagagliControllati());
                                     }
                                 }
                             } else {
@@ -211,17 +215,14 @@ public class Turista extends Persona{
 
                     if(!haPassatoControlliArr)
                     {
-                        zonaArrivi.getCodaControlli().push(this);
+                        Dogana dogana = zonaArrivi.getDogana();
+                        RitiroBagagli ritiroBagagli = zonaArrivi.getRitiroBagagli();
 
-                        while(!haPassatoControlliArr)
+                        synchronized (dogana)
                         {
-                            if (haPassatoControlliArr)
+                            while(!haPassatoControlliArr)
                             {
-                                break;
-                            }
-                            else
-                            {
-                                Thread.sleep(5);
+                                wait();
                             }
                         }
 
@@ -229,7 +230,8 @@ public class Turista extends Persona{
                         {
                             if (bagaglio == null)
                             {
-                                cercaBagaglio(zonaArrivi.getRitiroBagagli().getCodaBagagli());
+                                // c'è un while che va avanti finchè non trova il bagaglio
+                                cercaBagaglio(ritiroBagagli.getCodaBagagli());
                             }
 
                             haRitiratoBagagliArr = true;
@@ -281,7 +283,7 @@ public class Turista extends Persona{
     public CartaImbarco GetCartaImbarco(){return cartaImbarco;}
     public void setCartaImbarco(CartaImbarco c) { cartaImbarco = c; }
 
-    public void cercaBagaglio(Coda<Bagaglio> codaBag, Settore settore)
+    public void cercaBagaglio(Coda<Bagaglio> codaBag)
     {
         while(true)
         {
@@ -294,7 +296,7 @@ public class Turista extends Persona{
             }
             else
             {
-                settore.getScannerBagagali().getCodaBagagliControllati().push(b);
+                codaBag.push(b);
             }
         }
     }

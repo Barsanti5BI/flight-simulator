@@ -17,14 +17,14 @@ public class ImpiegatoControlliStiva extends Persona{
             {
                 if (!nT.codaBagagli.isEmpty())
                 {
-                    Bagaglio b = nT.getCodaScanner.pop();
+                    Bagaglio b = nT.getCodaScanner().pop();
 
                     String controllo = ControlloApprofondito(b.getOggettiContenuti());
 
                     if(controllo == "")
                     {
                         System.out.println("Il bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è sicuro, non contiene nessun oggetto proibito");
-                        nT.getBagagliSicuri.push(b);
+                        nT.getBagagliSicuri().push(b);
                     }
                     else
                     {
