@@ -31,18 +31,8 @@ public class ImpiegatoControlliPartenze extends Persona{
 
                     String controllo = ControlloApprofondito(b.getOggettiContenuti());
                     System.out.println("Bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è bloccato poichè contiene: " + controllo);
-                    System.out.println("In attesa del proprietario...");
 
-                    while(!b.getRitirato())
-                    {
-                        try {
-                            Thread.sleep(5);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-
-                    // cercare proprietario nella lista dei passeggeri che hanno completato i controlli
+                    // manca da ricercare il turista
                 }
                 else
                 {
@@ -69,6 +59,7 @@ public class ImpiegatoControlliPartenze extends Persona{
                     }
                     String controllo = ControlloApprofondito(t.GetListaOggetti());
                     System.out.println("Turista " + t.getName() + " è arrestato poichè in possesso di: " + controllo);
+                    t.perquisizioneTerminata = true;
                 }
                 else
                 {

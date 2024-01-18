@@ -31,13 +31,17 @@ public class ImpiegatoCheckIn extends Persona{
     public void eseguiCheckIn(){
         Turista t = banco.GetCodaTuristi().pop();
         t.GetBagaglio().setEtichetta(banco.generaEtichetta(t));
+        t.devePoggiareBagagliAlCheckIn = false;
         t.setCartaImbarco(banco.generaCartaImbarco(t));
+        t.devePrendereBiglietto = false;
 
         Bagaglio b = t.GetBagaglio();
 
         if(b.getDaStiva()){
             nT.aggiungiBagaglio(b, banco.getIndice());
         }
+
         nT.codaBagagli.push(t.GetBagaglio());
+        t.deveFareCheckIn = false;
     }
 }

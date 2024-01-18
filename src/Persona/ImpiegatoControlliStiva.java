@@ -31,6 +31,7 @@ public class ImpiegatoControlliStiva extends Persona{
                         System.out.println("Il bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è bloccato poichè contiene: " + controllo);
                     }
 
+                    // manca da ricercare il turista
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {

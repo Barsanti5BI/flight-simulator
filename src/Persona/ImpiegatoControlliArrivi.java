@@ -22,11 +22,14 @@ public class ImpiegatoControlliArrivi extends Persona{
 
                 if (controllo) //se non è scaduto
                 {
-                    CodaDopoControlli.push(t);
                     System.out.println("Il turista" + t.getDoc().getCognome() + " " + t.getDoc().getNome() + " è passato con successo");
+                    t.esitoControlli = true;
                 } else {
                     System.out.println("Attenzione, turista " + t.getDoc().getCognome() + " " + t.getDoc().getNome() + " non è ammesso nel paese poichè ha il documento scaduto");
+                    t.esitoControlli = false;
                 }
+
+                t.haPassatoControlliArr = true;
             }
         }
     }
