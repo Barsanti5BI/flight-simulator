@@ -1,50 +1,80 @@
 package Aereo;
 import Utils.Coda;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class Gate extends Thread{
+    Timer timer;
+    TimerTask timerTask;
     String nomeGate;
     String nomeAereo;
     Coda<Turista> codaPrioritaria;
     Coda<Turista> codaNormale;
     Boolean TerminatiIControlli;
     Coda<Turista> codaNavetta;
-    public Gate(Coda<Turista> coda, String nomeAereo){
-        try{
-            codaPrioritaria = new Coda<>();
-            codaNormale = new Coda<>();
-            codaNavetta = new Coda<>();
-            while(!coda.isEmpty()){
-                Turista t = coda.pop();
-                if(t.tipoCoda.equals("Prioritaria")){
-                    codaPrioritaria.push(t);
-                    sleep(1000);
-                    System.out.println("Il turista " + t.Nome + " è entrato nella coda prioritaria");
+    Boolean GateAperto;
+    Coda<Turista> coda;
+    public Gate(String nomeGate, Coda<Turista> coda, String nomeAereo){
+        GateAperto = false;
+        timer = new Timer();
+        timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                TerminatiIControlli = true;
+                System.out.println("Terminato " + nomeGate);
+            }
+        };
+        GateAperto = false;
+        codaPrioritaria = new Coda<>();
+        codaNormale = new Coda<>();
+        codaNavetta = new Coda<>();
+
+        this.coda = coda;
+        this.nomeAereo = nomeAereo;
+        TerminatiIControlli = false;
+        this.nomeGate = nomeGate;
+    }
+    public void run(){
+        try {
+            timer.schedule(timerTask, 60000); //Programma il TimerTask per eseguirlo dopo un ritardo specificato
+
+            while (true) {
+                if (!GateAperto) {  //controllo che il gate sia aperto
+                    System.out.println("gate chiuso " + nomeGate);
+                    sleep(100);
                 }
                 else{
-                    codaNormale.push(t);
-                    sleep(1000);
-                    System.out.println("Il turista " + t.Nome + " è entrato nella coda normale");
+                    while(!coda.isEmpty()){   //creo la coda prioritaria e la coda normale
+                        Turista t = coda.pop();
+                        if(t.tipoCoda.equals("Prioritaria")){
+                            codaPrioritaria.push(t);
+                            sleep(1000);
+                            System.out.println("Il turista " + t.Nome + " è entrato nella coda prioritaria nel gate " + nomeGate);
+                        }
+                        else{
+                            codaNormale.push(t);
+                            sleep(1000);
+                            System.out.println("Il turista " + t.Nome + " è entrato nella coda normale nel gate " + nomeGate);
+                        }
+                    }
+                    while (!codaPrioritaria.isEmpty()) {  //prima la coda prioritaria
+                        Turista t = codaPrioritaria.pop();
+                        EffettuaControllo(t);
+                        codaNavetta.push(t);
+                    }
+                    while (!codaNormale.isEmpty()) { //dopo la coda normale
+                        Turista t = codaNormale.pop();
+                        EffettuaControllo(t);
+                        codaNavetta.push(t);
+                    }
+                    // TerminatiIControlli verrà impostato su true dal TimerTask
                 }
             }
-            this.nomeAereo = nomeAereo;
-            TerminatiIControlli = false;
-        }catch (InterruptedException ex){
+        }catch(InterruptedException ex){
             System.out.println(ex);
         }
 
-    }
-    public void run(){
-        while (!codaPrioritaria.isEmpty()){
-            Turista t = codaPrioritaria.pop();
-            EffettuaControllo(t);
-            codaNavetta.push(t);
-        }
-        while (!codaNormale.isEmpty()){
-            Turista t = codaNormale.pop();
-            EffettuaControllo(t);
-            codaNavetta.push(t);
-        }
-        TerminatiIControlli = true;
     }
     public Boolean TerminatiIControlli(){
         return TerminatiIControlli;
@@ -53,7 +83,7 @@ public class Gate extends Thread{
         try{
             if(nomeAereo.equals(t.nomeAereo)){
                 sleep(1000);
-                System.out.println("    Il turista " + t.Nome + " ha effettuato il controllo effettuato");
+                System.out.println("    Il turista " + t.Nome + " ha effettuato il controllo effettuato nel gate " + nomeGate);
             }
             else{
                 sleep(1000);
@@ -66,5 +96,9 @@ public class Gate extends Thread{
 
     public Coda<Turista> getCodaNavetta() {
         return codaNavetta;
+    }
+    public void openGate(){ //mi fa partire il gate
+        GateAperto = true;
+        this.start();
     }
 }
