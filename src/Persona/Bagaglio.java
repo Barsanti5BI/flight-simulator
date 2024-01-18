@@ -34,10 +34,7 @@ public class Bagaglio {
     {
         return ritirato;
     }
-<<<<<<< Updated upstream
     public void setEtichetta(Etichetta e){etichetta = e;}
-=======
     public void setTurista(Turista proprietario) {this.Proprietario = proprietario;}
     public Turista getProprietario() {return Proprietario;}
->>>>>>> Stashed changes
 }
