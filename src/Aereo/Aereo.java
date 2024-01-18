@@ -14,7 +14,6 @@ public abstract class Aereo{
     private Stiva stiva;
     private Serbatoio serbatoio;
     private boolean pilotaAutomatico;
-
     public boolean inVolo;
 
     public Aereo(String nome,ArrayList<Pilota> piloti){
