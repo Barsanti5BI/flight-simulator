@@ -1,5 +1,6 @@
 package Aereo;
 import  Utils.Coda;
+import Persona.Turista;
 
 public class Uscita extends Thread{
 
