@@ -24,7 +24,7 @@ public class ImpiegatoNegozi extends Persona{
         {
             if (!turisti.isEmpty())
             {
-                Turista turista = turisti.pop();
+                Turista turista  = (Turista) (turisti.pop());
                 Vendi(turista);
                 synchronized (turista)
                 {

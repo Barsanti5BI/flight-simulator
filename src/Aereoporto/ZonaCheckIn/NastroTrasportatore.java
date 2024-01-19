@@ -4,7 +4,7 @@ import Persona.Bagaglio;
 import Utils.Coda;
 import Aereoporto.ZonaControlli.Scanner;
 
-public class NastroTrasportatore extends Thread
+public class NastroTrasportatore extends Thread{
 
     public Coda<Bagaglio> codaBagagli;
     public Coda<Bagaglio> bagagliCaricati;

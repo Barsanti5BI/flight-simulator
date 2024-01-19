@@ -16,6 +16,7 @@ public class ZonaCheckIn extends ZonaAeroporto {
         banco = new Banco(nastroTrasportatore, 1);
         impiegato = new ImpiegatoCheckIn(banco, nastroTrasportatore);
         banco.impiegatoCheckIn = impiegato;
+        impiegato.start();
     }
 
     public Banco getBanco() {

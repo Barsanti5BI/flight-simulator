@@ -15,6 +15,10 @@ public class Scanner extends Thread{
       this.codaBagagli = codaBagagli;
       this.codaBagagliPericolosi = new Coda<>();
    }
+   public  Scanner(){
+        this.codaBagagli = new Coda<>();
+        this.codaBagagliPericolosi = new Coda<>();
+   }
     public void run(){
         while(true) {
             try {

@@ -34,6 +34,7 @@ public class ListaOggetti {
         oggettiPericolosi.add("Pistola");
         oggettiPericolosi.add("Bastone");
         oggettiPericolosi.add("Banana");
+        oggettiPericolosi.add("Righello");
         oggettiPericolosi.add("Arma da fuoco");
         oggettiPericolosi.add("Droga illecita");
         oggettiPericolosi.add("Esplosivo");
