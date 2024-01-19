@@ -1,4 +1,5 @@
 package Aereo;
+import Persona.ImpiegatoControlliStiva;
 import Utils.Coda;
 import Persona.Turista;
 
@@ -18,7 +19,8 @@ public class Gate extends Thread{
     Coda<Turista> codaTurista;
     Boolean GateAperto;
     Coda<Turista> codaGenerale;
-    public Gate(int nomeGate, Coda<Turista> codaGenerale,String destinazione){
+    ImpiegatoControlliStiva impiegatoControlliStiva;
+    public Gate(int nomeGate, Coda<Turista> codaGenerale,String destinazione, ImpiegatoControlliStiva impiegatoControlliStiva){
         GateAperto = false;
         timer = new Timer();
         timerTask = new TimerTask() {
@@ -36,6 +38,7 @@ public class Gate extends Thread{
         TerminatiIControlli = false;
         this.destinazione = destinazione;
         this.nomeGate = nomeGate;
+        this.impiegatoControlliStiva = impiegatoControlliStiva;
     }
     public void run(){
         try {
@@ -85,12 +88,36 @@ public class Gate extends Thread{
             if(destinazione.equals(t.GetCartaImbarco().getViaggio())){
                 sleep(1000);
                 System.out.println("    Il turista " + t.GetCartaImbarco().getCognomePasseggero() + " " + t.GetCartaImbarco().getNomePasseggero() + " ha effettuato il controllo effettuato nel gate " + nomeGate);
-                codaTurista.push(t);
+                t.setGateGiusto(true);
             }
             else{
                 sleep(1000);
+                t.setGateGiusto(false);
                 System.out.println("    Il turista " + t.GetCartaImbarco().getCognomePasseggero() + " " + t.GetCartaImbarco().getNomePasseggero() + " ha sbagliato gate");
             }
+
+            boolean controlloTPericoloso = false;
+
+            for(Turista tPericoloso : impiegatoControlliStiva.getTuristiPericolosi())
+            {
+                if (tPericoloso == t) {
+                    controlloTPericoloso = true;
+                    break;
+                }
+            }
+
+            if (!controlloTPericoloso)
+            {
+                t.setEsitoControlloGate(true);
+                codaTurista.push(t);
+            }
+            else
+            {
+                t.setEsitoControlloGate(false);
+            }
+
+            t.setPassatoControlloGate(true);
+            t.notify();
         }catch (InterruptedException ex){
             System.out.println(ex.getMessage());
         }
