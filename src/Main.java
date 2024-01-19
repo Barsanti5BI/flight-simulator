@@ -2,8 +2,7 @@
 import Aereo.Aereo;
 import Aereoporto.ZonaCheckIn.NastroTrasportatore;
 import Persona.*;
-import Utils.Coda;
-
+import TorreDiControllo.Viaggio;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -23,8 +22,5 @@ public class Main {
          AereoPasseggeri a = new AereoPasseggeri(i);
          lista_aerei.add((Aereo) a);
       }
-
-      ImpiegatoControlliStiva impiegatoControlliStiva =  new ImpiegatoControlliStiva(aereoporto.getNastroTrasportatore(), lista_aerei);
-
    }
 }

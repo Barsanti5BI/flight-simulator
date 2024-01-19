@@ -110,7 +110,7 @@ public class Gate extends Thread{
                 t.setEsitoControlloGate(false);
             }
 
-            t.setPassatoControlloGate(true);
+            t.setPassatoControlliGate(true);
             t.notify();
         }catch (InterruptedException ex){
             System.out.println(ex.getMessage());

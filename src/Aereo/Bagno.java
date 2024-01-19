@@ -1,5 +1,3 @@
-
-//ATTENZIONE ALLA CODA VUOTA CHE CREAZIONE OGGETTO NON CREA
 package Aereo;
 
 import Utils.Coda;

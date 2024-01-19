@@ -2,7 +2,7 @@ package Aereo;
 
 import java.util.ArrayList;
 import java.util.Random;
-
+import TorreDiControllo.Parcheggio;
 public abstract class Aereo extends  Thread{
     public int id;
     public String destinazione;

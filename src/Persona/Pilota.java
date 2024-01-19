@@ -1,4 +1,8 @@
 package Persona;
+import TorreDiControllo.TorreControllo;
+import TorreDiControllo.Parcheggio;
+import TorreDiControllo.Pista;
+
 
 import Aereo.Aereo;
 
@@ -35,7 +39,7 @@ public class Pilota extends Thread{
                 }
             }
 
-            pista.setAereo(a);
+            pista.SetAereo(a);
             a.setPista(pista);
 
             boolean generatoRitardo = false;
