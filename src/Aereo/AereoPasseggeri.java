@@ -39,9 +39,10 @@ public class AereoPasseggeri extends Aereo {
     public void Imbarca(Coda<Turista> c) {
         for (int i = 0; i < c.size(); i++) {
             Turista t = c.pop();
-            String posto = t.cartaImbarco.codicePosto;
-            int riga = 0;
-            int colonna =0;
+            String[] posto = t.cartaImbarco.codicePosto.split(",");
+
+            int riga = Integer.parseInt(posto[0]);
+            int colonna =Integer.parseInt(posto[1]);
             matricePostiAereo[colonna][riga] = t;
 
         }

@@ -11,7 +11,7 @@ public class ScatolaNera extends Thread{
     private Dictionary<ZonedDateTime,String> logPosizione;
     private ZonedDateTime ultimaComunicazione;
     private ZonedDateTime ultimaPosizione;
-    private double percBatteria;
+    public double percBatteria;
     private boolean pericolo;
     private int nAllerte;
 
@@ -108,6 +108,8 @@ public class ScatolaNera extends Thread{
                     InserisciPosizione();
                     if(pos == logPosizione.get(ultimaPosizione)){
                         nAllerte++;
+                    }else{
+                        nAllerte = 0;
                     }
                     if(nAllerte > 5){
                         Attiva();

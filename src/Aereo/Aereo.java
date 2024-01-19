@@ -39,15 +39,14 @@ public abstract class Aereo extends  Thread{
     }
 
     public void run(){
-
         avvia();
-        while(einvolo && serbatoio.getStatoSerbatoio()>0 && posizione<100) {
+        while(einvolo && serbatoio.getStatoSerbatoio()>0 && posizione<100 && ControllaTurbine()) {
 
             try{
                 if (alieni.aereo_rubato){
                     break;
                 }
-                Thread.sleep(50);
+                Thread.sleep(1000);
             }catch (Exception e){}
             serbatoio.consuma();
             posizione+=2;
@@ -59,10 +58,36 @@ public abstract class Aereo extends  Thread{
             turbine.get(i).start();
         }
         scatolaNera.start();
+    }
+    public void Ripara(){
+        for(int i = 0; i<4;i++){
+            turbine.get(i).Ripara();
+        }
+        scatolaNera.Ricarica();
+    }
 
+    public void Rifornisci(){
+        serbatoio.riempi();
     }
 
     public  void atterra(){
         einvolo = false;
     }
+
+
+    public boolean ControllaTurbine(){
+        boolean ris = true;
+        int n = 0;
+        for(int i = 0; i<4;i++){
+            if(!turbine.get(i).funzionante){
+                n++;
+            }
+        }
+        if(n>2){
+            ris = false;
+        }
+        return ris;
+
+    }
+
 }
