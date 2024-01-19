@@ -8,6 +8,8 @@ import java.util.List;
 public class ImpiegatoControlliStiva extends Persona{
     private Scanner s;
     private ArrayList<String> oggettiProibiti;
+    private ArrayList<Turista> turistiPericolosi;
+
 
     public ImpiegatoControlliStiva(Scanner s, ArrayList<String> oggettiProibiti){
         this.s = s;
@@ -36,9 +38,8 @@ public class ImpiegatoControlliStiva extends Persona{
                 else
                 {
                     System.out.println("Il bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è bloccato poichè contiene: " + controllo);
-                    System.out.println("Il proprietario " + b.getProprietario().getDoc().getNome() + " verrà portato all'interrogatorio e perquisito");
-
-                    // da gestire domani blocco del turista
+                    System.out.println("Il proprietario " + b.getProprietario().getDoc().getNome() + " verrà bloccato al gate");
+                    turistiPericolosi.add(b.getProprietario());
                 }
             }
         }
@@ -60,5 +61,10 @@ public class ImpiegatoControlliStiva extends Persona{
         }
 
         return oggettiTrovati;
+    }
+
+    public ArrayList<Turista> getTuristiPericolosi()
+    {
+        return turistiPericolosi;
     }
 }

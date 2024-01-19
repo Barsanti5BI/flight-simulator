@@ -56,6 +56,9 @@ public class Turista extends Persona{
     // ZONA GATE
     public ZonaPartenze zonaPartenze;
     public boolean prontoPerImbarcarsi;
+    public boolean passatoControlliGate;
+    public boolean esitoControlloGate;
+    public boolean gateGiusto;
 
     // ZONA ARRIVI
 
@@ -197,7 +200,30 @@ public class Turista extends Persona{
                                 }
                             }
 
-                            inserisciTuristaGate(mioGate);
+                            synchronized (mioGate)
+                            {
+                                while (!passatoControlliGate)
+                                {
+                                    gates.wait();
+                                }
+                            }
+
+                            if(gateGiusto)
+                            {
+                                if(esitoControlloGate)
+                                {
+                                    System.out.println("Turista imbarcato");
+                                }
+                                else
+                                {
+                                    System.out.println("Turista arrestato");
+                                }
+                            }
+                            else
+                            {
+                                System.out.println("Gate sbagliatp");
+                                break;
+                            }
                         }
                     }
                 } else if (inArrivo) // IL TURISTA E' ARRIVATO
@@ -315,15 +341,22 @@ public class Turista extends Persona{
 
     public void inserisciTuristaGate(Gate gate)
     {
-        if(cartaImbarco.getPrioritario())
-        {
-            gate.getCodaPrioritaria().push(this);
-        }
-        else
-        {
-            gate.getCodaNormale().push(this);
-        }
-
+        gate.getCodaGenerale().push(this);
         prontoPerImbarcarsi = false;
+    }
+
+    public void setGateGiusto(boolean var)
+    {
+        gateGiusto = var;
+    }
+
+    public void setEsitoControlloGate(boolean var)
+    {
+        esitoControlloGate = var;
+    }
+
+    public void setPassatoControlliGate(Boolean var)
+    {
+        esitoControlloGate = var;
     }
 }
