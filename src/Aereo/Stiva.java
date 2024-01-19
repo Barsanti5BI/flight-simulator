@@ -28,4 +28,10 @@ public class Stiva {
         }
         return true;
     }
+
+    public boolean Aggiungi_Bagaglio_Stiva(Bagaglio b){
+        pila_bag.push(b);
+        peso_attuale += b.peso;
+        return true;
+    }
 }

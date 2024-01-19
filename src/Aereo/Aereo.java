@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public abstract class Aereo extends  Thread{
-    public String nome;
+    public int id;
     public String destinazione;
     public int posizione;
     public Gate gate;
@@ -18,8 +18,8 @@ public abstract class Aereo extends  Thread{
     public Alieni alieni;
     public boolean einvolo;
 
-    public Aereo(String nome,ArrayList<Pilota> piloti){
-        this.nome = nome;
+    public Aereo(int Id){
+        this.id =Id;
 
         bagni = new ArrayList<Bagno>();
         scatolaNera = new ScatolaNera (this);
@@ -43,6 +43,7 @@ public abstract class Aereo extends  Thread{
         while(einvolo && serbatoio.getStatoSerbatoio()>0 && posizione<100 && ControllaTurbine()) {
 
             try{
+                //Feature Pettenuzzo
                 if (alieni.aereo_rubato){
                     break;
                 }
@@ -90,4 +91,31 @@ public abstract class Aereo extends  Thread{
 
     }
 
+    public int Get_ID(){
+        return this.id;
+    }
+    public int Get_Posizione(){
+        return this.posizione;
+    }
+    public boolean Get_Stato_Aereo(){
+        return this.einvolo;
+    }
+    public Stiva Get_Stiva(){
+        return this.stiva;
+    }
+    public ArrayList<Turbina> Get_Turbine(){
+        return this.turbine;
+    }
+    public String Get_Destinazione(){
+        return this.destinazione;
+    }
+    public Gate Get_Gate(){
+        return this.gate;
+    }
+    public ScatolaNera Get_Scatola_Nera(){
+        return this.scatolaNera;
+    }
+    public Serbatoio Get_Serbatoio(){
+        return this.serbatoio;
+    }
 }

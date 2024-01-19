@@ -15,8 +15,8 @@ public class AereoPasseggeri extends Aereo {
     private Uscita uscita;
 
 
-    public AereoPasseggeri(String nome, ArrayList<Pilota> piloti) {
-        super(nome, piloti);
+    public AereoPasseggeri(int id) {
+        super(id);
 
         matricePostiAereo = new Turista[4][10];
         nPosti = 40;
