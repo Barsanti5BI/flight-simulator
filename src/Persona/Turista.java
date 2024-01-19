@@ -73,7 +73,7 @@ public class Turista extends Thread{
     private Random r;
     private int codAereo;
 
-    public Turista(Documento doc, Bagaglio bag, CartaImbarco cartaImbarco, List<Oggetto> oggetti, int codAereo) {
+    public Turista(Documento doc, Bagaglio bag, CartaImbarco cartaImbarco, List<Oggetto> oggetti, int codAereo, boolean inPartenza) {
         this.bagaglio = bag;
         this.cartaImbarco = cartaImbarco;
         this.oggetti = oggetti;
@@ -82,6 +82,7 @@ public class Turista extends Thread{
         r = new Random();
         vuoleFareAcquisto = r.nextBoolean();
         this.codAereo = codAereo;
+        this.inPartenza = inPartenza;
 
         deveFareCheckIn = true;
         deveFareControlli = false;
