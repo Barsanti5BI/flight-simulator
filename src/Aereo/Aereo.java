@@ -1,25 +1,22 @@
 package Aereo;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public abstract class Aereo extends  Thread{
     public String nome;
     public String destinazione;
     public int posizione;
     public Gate gate;
-    public ArrayList<Bagno> bagni;
-    public ArrayList<Pilota> piloti;
-    public ScatolaNera scatolaNera;
-    public ArrayList<Turbina> turbine;
-    public Stiva stiva;
-    public Serbatoio serbatoio;
-    public boolean pilotaAutomatico;
-
-
+    private ArrayList<Bagno> bagni;
+    private ArrayList<Pilota> piloti;
+    private ScatolaNera scatolaNera;
+    private ArrayList<Turbina> turbine;
+    private Stiva stiva;
+    private Serbatoio serbatoio;
+    private boolean pilotaAutomatico;
+    public Alieni alieni;
     public boolean einvolo;
-
-
-
 
     public Aereo(String nome,ArrayList<Pilota> piloti){
         this.nome = nome;
@@ -36,28 +33,24 @@ public abstract class Aereo extends  Thread{
         pilotaAutomatico = false;
 
         einvolo = false;
-        posizione =0;
 
-
+        alieni = new Alieni(this);
+        alieni.start();
     }
 
     public void run(){
-
-       avvia();
+        avvia();
         while(einvolo && serbatoio.getStatoSerbatoio()>0 && posizione<100 && ControllaTurbine()) {
 
             try{
-
+                if (alieni.aereo_rubato){
+                    break;
+                }
                 Thread.sleep(1000);
-
-
-
             }catch (Exception e){}
             serbatoio.consuma();
             posizione+=2;
-
         }
-
     }
 
     public void avvia(){
@@ -79,6 +72,9 @@ public abstract class Aereo extends  Thread{
 
     public  void atterra(){
         einvolo = false;
+        for(int i = 0; i< 4;i++){
+            turbine.get(i).Disabilita();
+        }
     }
 
 
