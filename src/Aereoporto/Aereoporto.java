@@ -9,6 +9,9 @@ import Aereoporto.ZonaEntrata.ZonaEntrata;
 import Aereoporto.ZonaNegozi.ZonaNegozi;
 import Aereoporto.ZonaPartenze.ZonaPartenze;
 import Persona.Turista;
+import TorreDiControllo.Viaggio;
+
+import java.util.ArrayList;
 
 public class Aereoporto {
     ZonaEntrata zonaEntrata;
@@ -17,19 +20,18 @@ public class Aereoporto {
     ZonaControlliBagagliStiva zonaControlliBagagliStiva;
     ZonaNegozi zonaNegozi;
     ZonaPartenze zonaPartenze;
-    ZonaArrivi zonaArrivi;
     NastroTrasportatore nastroTrasportatore;
+    ZonaArrivi zonaArrivi;
+    public Aereoporto(ArrayList<Viaggio> viaggi) {
 
-    public Aereoporto() {
-        nastroTrasportatore = new NastroTrasportatore();
         zonaEntrata = new ZonaEntrata();
-        zonaCheckIn = new ZonaCheckIn(nastroTrasportatore);
+        zonaCheckIn = new ZonaCheckIn(nastroTrasportatore,viaggi);
         zonaControlli = new ZonaControlli();
-        zonaControlliBagagliStiva = new ZonaControlliBagagliStiva(nastroTrasportatore);
+        nastroTrasportatore = new NastroTrasportatore();
+        zonaControlliBagagliStiva = new ZonaControlliBagagliStiva(nastroTrasportatore,nastroTrasportatore.getScanner());
         zonaNegozi = new ZonaNegozi();
-        zonaPartenze = new ZonaPartenze();
-        zonaArrivi = new ZonaArrivi();
-
+        zonaPartenze = new ZonaPartenze(viaggi);
+        //zonaArrivi = new ZonaArrivi();
         configuraZone();
     }
 
@@ -50,7 +52,6 @@ public class Aereoporto {
         // TODO: imposta zona successiva come uscita alla pista
 
         // TODO: imposta zona precedente come entrata dalla pista
-        zonaArrivi.impostaZonaSuccessiva(zonaEntrata);
     }
 
 }

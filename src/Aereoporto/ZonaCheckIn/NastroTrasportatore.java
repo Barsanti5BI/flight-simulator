@@ -9,13 +9,14 @@ public class NastroTrasportatore extends Thread{
     public Coda<Bagaglio> codaBagagli;
     public Coda<Bagaglio> bagagliCaricati;
     Scanner scanner;
-    public NastroTrasportatore(Scanner scanner){
+    public NastroTrasportatore(){
        codaBagagli = new Coda<>();
        bagagliCaricati = new Coda<>();
-       this.scanner = scanner;
+       this.scanner = new Scanner();
     }
 
-    public void aggiungiBagaglio(Bagaglio b, Object indice) {
+    public void aggiungiBagaglio(Bagaglio b) {
+         codaBagagli.push(b);
     }
     public void run(){
        while(true) {
@@ -28,4 +29,8 @@ public class NastroTrasportatore extends Thread{
            }
        }
     }
+
+   public Scanner getScanner() {
+       return scanner;
+   }
 }

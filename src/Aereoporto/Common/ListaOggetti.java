@@ -1,12 +1,10 @@
 package Aereoporto.Common;
-
 import java.util.ArrayList;
 
 public class ListaOggetti {
-    private static ArrayList<String> oggetti;
-    private static ArrayList<String> oggettiPericolosi;
 
-    public ListaOggetti(){
+    public static ArrayList<String> getOggetti(){
+        ArrayList<String> oggetti;
         oggetti = new ArrayList<>();
         oggetti.add("Abbigliamento");
         oggetti.add("Spazzolino da denti");
@@ -28,7 +26,10 @@ public class ListaOggetti {
         oggetti.add("Telefono");
         oggetti.add("Gomma da masticare");
         oggetti.add("Mappa della destinazione");
-
+        return oggetti;
+    }
+    public static ArrayList<String> getOggettiPericolosi(){
+        ArrayList<String> oggettiPericolosi;
         oggettiPericolosi = new ArrayList<>();
         oggettiPericolosi.add("Coltello");
         oggettiPericolosi.add("Pistola");
@@ -55,12 +56,6 @@ public class ListaOggetti {
         oggettiPericolosi.add("Attrezzatura da hacker");
         oggettiPericolosi.add("Prodotti contraffatti");
         oggettiPericolosi.add("Materiali per la falsificazione");
-    }
-
-    public static ArrayList<String> getOggetti(){
-        return oggetti;
-    }
-    public static ArrayList<String> getOggettiPericolosi(){
         return oggettiPericolosi;
     }
 }

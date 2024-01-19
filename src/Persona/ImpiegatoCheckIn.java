@@ -2,6 +2,7 @@ package Persona;
 
 import Aereoporto.ZonaCheckIn.Banco;
 import Aereoporto.ZonaCheckIn.NastroTrasportatore;
+import TorreDiControllo.Viaggio;
 
 public class ImpiegatoCheckIn extends Persona{
     public Banco banco;
@@ -32,14 +33,15 @@ public class ImpiegatoCheckIn extends Persona{
     }
 
     public synchronized void eseguiCheckIn(Turista turista) {
-        turista.getBagaglio().setEtichetta(banco.generaEtichetta(turista));
-        turista.setCartaImbarco(banco.generaCartaImbarco(turista));
+        Viaggio viaggio = banco.getViaggio();
+        turista.getBagaglio().setEtichetta(banco.generaEtichetta(turista,viaggio));
+        turista.setCartaImbarco(banco.generaCartaImbarco(turista,viaggio));
 
         Bagaglio bagaglio = turista.getBagaglio();
         turista.setBagaglio(null);
 
         if(bagaglio.getDaStiva()){
-            nastroTrasportatore.aggiungiBagaglio(bagaglio, banco.getIndice());
+            nastroTrasportatore.aggiungiBagaglio(bagaglio);
         }
 
         nastroTrasportatore.codaBagagli.push(turista.getBagaglio());

@@ -8,8 +8,6 @@ public class Settore {
    Scanner scanner;
    String name;
 
-   // TODO: aggiungere campi per il personale di controllo
-
    public Settore(int numero){
       metalDetector = new MetalDetector();
       scanner = new Scanner();

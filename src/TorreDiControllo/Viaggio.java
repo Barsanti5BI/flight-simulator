@@ -11,13 +11,36 @@ public class Viaggio // Classe che dovrebbe avere l'aereo
     //Timer,se arriva a 0 atterra
     //
     Boolean finito;
-
     public Aereo a;
     private String destinazione;
     private int durataSecondi;
     private Timer timer;
     private Boolean pa;
     public int numGate;
+    public Boolean getFinito() {
+        return finito;
+    }
+
+    public Aereo getAereo() {
+        return a;
+    }
+
+    public String getDestinazione() {
+        return destinazione;
+    }
+
+    public int getDurataSecondi() {
+        return durataSecondi;
+    }
+
+    public Timer getTimer() {
+        return timer;
+    }
+
+    public int getNumGate() {
+        return numGate;
+    }
+
     public Viaggio(String destinazione,Aereo a, int durataS)
     {
 
