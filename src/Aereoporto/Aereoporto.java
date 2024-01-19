@@ -28,13 +28,14 @@ public class Aereoporto {
     ZonaArrivi zonaArrivi;
     public Aereoporto(ArrayList<Viaggio> viaggi, ArrayList<Aereo> lista_aerei) {
 
-        zonaEntrata = new ZonaEntrata(lista_aerei);
+
         zonaCheckIn = new ZonaCheckIn(nastroTrasportatore,viaggi);
         zonaControlli = new ZonaControlli();
         nastroTrasportatore = new NastroTrasportatore();
         zonaControlliBagagliStiva = new ZonaControlliBagagliStiva(nastroTrasportatore,nastroTrasportatore.getScanner(), lista_aerei);
         zonaNegozi = new ZonaNegozi();
         zonaPartenze = new ZonaPartenze(viaggi, new ImpiegatoControlliStiva(null, ListaOggetti.getOggettiPericolosi(), lista_aerei, 69420));
+        zonaEntrata = new ZonaEntrata(lista_aerei, zonaArrivi, zonaCheckIn, zonaControlli, zonaNegozi, zonaPartenze);
         //zonaArrivi = new ZonaArrivi();
         configuraZone();
     }

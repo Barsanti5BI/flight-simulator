@@ -1,6 +1,12 @@
 package Aereoporto.ZonaEntrata;
 
 import Aereo.Aereo;
+import Aereoporto.Aereoporto;
+import Aereoporto.ZonaArrivi.ZonaArrivi;
+import Aereoporto.ZonaCheckIn.ZonaCheckIn;
+import Aereoporto.ZonaControlli.ZonaControlli;
+import Aereoporto.ZonaNegozi.ZonaNegozi;
+import Aereoporto.ZonaPartenze.ZonaPartenze;
 import Persona.Bagaglio;
 import Persona.Documento;
 import Persona.Turista;
@@ -16,13 +22,24 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ZonaEntrata extends ZonaAeroporto {
+    public ZonaPartenze zonaPartenze;
+    public ZonaCheckIn zonaCheckIn;
+    public ZonaControlli zonaControlli;
+    public ZonaNegozi zonaNegozi;
+    public ZonaArrivi zonaArrivi;
     private ArrayList<Aereo> lista_aerei;
     private Coda<Turista> codaTuristi;
 
     // qui entrano i turisti generati
-    public ZonaEntrata(ArrayList<Aereo> lista_aer) {
+    public ZonaEntrata(ArrayList<Aereo> lista_aer, ZonaArrivi arrivi, ZonaCheckIn checkIn, ZonaControlli controlli, ZonaNegozi negozi, ZonaPartenze partenze) {
         this.lista_aerei = lista_aer;
         codaTuristi = generaTuristi();
+
+        zonaArrivi = arrivi;
+        zonaControlli = controlli;
+        zonaNegozi = negozi;
+        zonaPartenze = partenze;
+        zonaCheckIn = checkIn;
     }
 
     public Coda<Turista> generaTuristi() {
@@ -32,7 +49,8 @@ public class ZonaEntrata extends ZonaAeroporto {
 
             ArrayList<Oggetto> listOggetti = generaListaOggetti(0, 6);
 
-            Turista t = new Turista(generaDocumenti(), generaBagagli(), null, listOggetti, Random_Id_Aereo());
+            Turista t = new Turista(generaDocumenti(), generaBagagli(), null, listOggetti, Random_Id_Aereo(), true, zonaArrivi, zonaCheckIn, zonaControlli, zonaNegozi, zonaPartenze);
+            t.start();
             coda.push(t);
         }
         return coda;

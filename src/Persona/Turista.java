@@ -10,6 +10,7 @@ import Aereoporto.ZonaControlli.MetalDetector;
 import Aereoporto.ZonaControlli.Scanner;
 import Aereoporto.ZonaControlli.Settore;
 import Aereoporto.ZonaControlli.ZonaControlli;
+import Aereoporto.ZonaEntrata.ZonaEntrata;
 import Aereoporto.ZonaNegozi.Negozio;
 import Aereoporto.ZonaNegozi.ZonaNegozi;
 import Aereoporto.ZonaPartenze.ZonaPartenze;
@@ -73,7 +74,7 @@ public class Turista extends Thread{
     private Random r;
     private int codAereo;
 
-    public Turista(Documento doc, Bagaglio bag, CartaImbarco cartaImbarco, List<Oggetto> oggetti, int codAereo, boolean inPartenza) {
+    public Turista(Documento doc, Bagaglio bag, CartaImbarco cartaImbarco, List<Oggetto> oggetti, int codAereo, boolean inPartenza, ZonaArrivi arrivi, ZonaCheckIn checkIn, ZonaControlli controlli, ZonaNegozi negozi, ZonaPartenze partenze) {
         this.bagaglio = bag;
         this.cartaImbarco = cartaImbarco;
         this.oggetti = oggetti;
@@ -102,6 +103,12 @@ public class Turista extends Thread{
         esitoControlli = false;
         haRitiratoBagagliArr = false;
         haFinitoArr = false;
+
+        zonaArrivi = arrivi;
+        zonaControlli = controlli;
+        zonaNegozi = negozi;
+        zonaPartenze = partenze;
+        zonaCheckIn = checkIn;
     }
 
     public void run(){

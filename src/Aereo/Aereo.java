@@ -43,7 +43,6 @@ public abstract class Aereo extends  Thread{
         einvolo = false;
 
         alieni = new Alieni(this);
-        //alieni.start();
     }
 
     public void run(){
@@ -55,7 +54,7 @@ public abstract class Aereo extends  Thread{
         }
         avvia();
         while(einvolo && serbatoio.getStatoSerbatoio()>0 && posizione<100 && ControllaTurbine()) {
-
+            alieni.start();
             try{
                 //Feature Pettenuzzo
                 if (alieni.aereo_rubato){
