@@ -1,7 +1,4 @@
 package TorreDiControllo;
-import Aereo.*;
-import Persona.*;
-import Aereoporto.*;
 
 import Aereo.Aereo;
 
@@ -12,15 +9,53 @@ public class Hangar {
     private List<Aereo> listaDiAerei;
     private int id;
     private int capacitaMax;
+    private String chiaveDiAccesso;
+    private boolean sicurezzaAttiva;
 
-    // Costruttore
     public Hangar(int id) {
         this.id = id;
-        this.capacitaMax = 2; // Impostiamo la capacità massima a 2 aerei per hangar
+        this.capacitaMax = 2;
         this.listaDiAerei = new ArrayList<>();
+        this.sicurezzaAttiva = true; // Sicurezza attiva di default
     }
 
-    // Metodo per aggiungere un aereo all'hangar
+    public void impostaChiaveDiAccesso(String chiave) {
+        if (!sicurezzaAttiva) {
+            this.chiaveDiAccesso = chiave;
+            System.out.println("Chiave di accesso impostata con successo.");
+        } else {
+            System.out.println("Impossibile impostare la chiave di accesso mentre la sicurezza è attiva.");
+        }
+    }
+
+    public void attivaSicurezza() {
+        sicurezzaAttiva = true;
+        System.out.println("Sicurezza attivata per l'hangar " + id);
+    }
+
+    public void disattivaSicurezza() {
+        sicurezzaAttiva = false;
+        System.out.println("Sicurezza disattivata per l'hangar " + id);
+    }
+
+    public void aggiungiAereoConSicurezza(Aereo aereo, String chiave) {
+        if (!sicurezzaAttiva || (chiaveDiAccesso != null && chiave.equals(chiaveDiAccesso))) {
+            aggiungiAereo(aereo);
+            System.out.println("Aereo aggiunto all'hangar " + id);
+        } else {
+            System.out.println("Operazione non consentita. Chiave di accesso non valida o sicurezza attiva.");
+        }
+    }
+
+    public void rimuoviAereoConSicurezza(Aereo aereo, String chiave) {
+        if (!sicurezzaAttiva || (chiaveDiAccesso != null && chiave.equals(chiaveDiAccesso))) {
+            rimuoviAereo(aereo);
+            System.out.println("Aereo rimosso dall'hangar " + id);
+        } else {
+            System.out.println("Operazione non consentita. Chiave di accesso non valida o sicurezza attiva.");
+        }
+    }
+
     public void aggiungiAereo(Aereo aereo) {
         if (listaDiAerei.size() < capacitaMax) {
             listaDiAerei.add(aereo);
@@ -30,7 +65,6 @@ public class Hangar {
         }
     }
 
-    // Metodo per rimuovere un aereo dall'hangar
     public void rimuoviAereo(Aereo aereo) {
         if (listaDiAerei.contains(aereo)) {
             listaDiAerei.remove(aereo);
@@ -40,18 +74,16 @@ public class Hangar {
         }
     }
 
-    // Metodo per ottenere la lista degli aerei nell'hangar
     public List<Aereo> getListaDiAerei() {
         return listaDiAerei;
     }
 
-    // Metodo per ottenere l'ID dell'hangar
     public int getId() {
         return id;
     }
 
-    // Metodo per ottenere la capacità massima dell'hangar
     public int getCapacitaMax() {
         return capacitaMax;
     }
+
 }
