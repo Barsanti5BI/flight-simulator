@@ -18,6 +18,8 @@ public abstract class Aereo extends  Thread{
     public Alieni alieni;
     public boolean einvolo;
 
+    private Parcheggio parcheggio;
+
     public Aereo(String nome,ArrayList<Pilota> piloti){
         this.nome = nome;
 
@@ -36,6 +38,7 @@ public abstract class Aereo extends  Thread{
 
         alieni = new Alieni(this);
         alieni.start();
+        parcheggio = null;
     }
 
     public void run(){
@@ -106,7 +109,12 @@ public abstract class Aereo extends  Thread{
             return true;
         }
         else{return false;}
-        )
+
     }
+
+    public void setParcheggio(Parcheggio p){
+        parcheggio = p;
+    }
+
 
 }
