@@ -1,6 +1,7 @@
-package Coda;
+package Utils;
 
 import java.util.LinkedList;
+
 public class Coda<T> {
    private LinkedList<T> list;
    public Coda() {
@@ -27,5 +28,13 @@ public class Coda<T> {
 
    public boolean isEmpty() {
       return list.isEmpty();
+   }
+
+   public synchronized void inserisciInMezzo(int indiceBancone, T element) {
+      if (list.size() > indiceBancone) {
+         list.add(indiceBancone, element);
+      } else {
+         push(element);
+      }
    }
 }
