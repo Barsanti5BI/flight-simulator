@@ -8,6 +8,7 @@ import Aereoporto.Common.ListaOggetti;
 import Aereoporto.Common.ZonaAeroporto;
 import Persona.Oggetto;
 import Utils.Coda;
+import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,9 +20,9 @@ public class ZonaEntrata extends ZonaAeroporto {
     private Coda<Turista> codaTuristi;
 
     // qui entrano i turisti generati
-    public ZonaEntrata(ArrayList<Aereo> lista) {
+    public ZonaEntrata(ArrayList<Aereo> lista_aer) {
+        this.lista_aerei = lista_aer;
         codaTuristi = generaTuristi();
-        this.lista_aerei = lista;
     }
 
     public Coda<Turista> generaTuristi() {
@@ -31,13 +32,13 @@ public class ZonaEntrata extends ZonaAeroporto {
 
             ArrayList<Oggetto> listOggetti = generaListaOggetti(0, 6);
 
-            Turista t = new Turista(generaDocumenti(), generaBagagli(), null, listOggetti, Random_Id_Aereo(this.lista_aerei));
+            Turista t = new Turista(generaDocumenti(), generaBagagli(), null, listOggetti, Random_Id_Aereo());
             coda.push(t);
         }
         return coda;
     }
 
-    public int Random_Id_Aereo(ArrayList<Aereo> lista_aerei){
+    public int Random_Id_Aereo(){
         Random rand = new Random();
         return lista_aerei.get(rand.nextInt(0, lista_aerei.size())).Get_ID();
     }
@@ -67,18 +68,18 @@ public class ZonaEntrata extends ZonaAeroporto {
     private Documento generaDocumenti() {
         Random rand = new Random();
 
-        ArrayList<String> listTipoDocumento = null;
+        ArrayList<String> listTipoDocumento = new ArrayList<String>();
         listTipoDocumento.add("Carta d'identità");
         listTipoDocumento.add("Passaporto");
         listTipoDocumento.add("Patente");
 
-        ArrayList<String> listNome = null;
+        ArrayList<String> listNome = new ArrayList<String>();
         listNome.add("Mario");
         listNome.add("Luigi");
         listNome.add("Giovanni");
         listNome.add("Giacomo");
 
-        ArrayList<String> listCognome = null;
+        ArrayList<String> listCognome = new ArrayList<String>();
         listCognome.add("Rossi");
         listCognome.add("Verdi");
         listCognome.add("Bianchi");
@@ -89,18 +90,18 @@ public class ZonaEntrata extends ZonaAeroporto {
         listCognome.add("Viola");
         listCognome.add("Rosa");
 
-        ArrayList<String> listSesso = null;
+        ArrayList<String> listSesso = new ArrayList<String>();
         listSesso.add("M");
         listSesso.add("F");
 
-        ArrayList<String> listNazionalita = null;
+        ArrayList<String> listNazionalita = new ArrayList<String>();
         listNazionalita.add("Italiano");
         listNazionalita.add("Francese");
         listNazionalita.add("Spagnolo");
         listNazionalita.add("Inglese");
         listNazionalita.add("Senegalese");
 
-        ArrayList<String> listIndirizzo = null;
+        ArrayList<String> listIndirizzo = new ArrayList<String>();
         listIndirizzo.add("Via Roma");
         listIndirizzo.add("Via Milano");
         listIndirizzo.add("Via Napoli");
@@ -138,7 +139,7 @@ public class ZonaEntrata extends ZonaAeroporto {
     private ArrayList<Oggetto> generaListaOggetti(int numMin, int numMax) {
 
         Random rand = new Random();
-        ArrayList<Oggetto> listOggetti = null;
+        ArrayList<Oggetto> listOggetti = new ArrayList<>();
 
         int i = rand.nextInt(numMin, numMax);
         for (int numero = 0; numero < i; numero++) {

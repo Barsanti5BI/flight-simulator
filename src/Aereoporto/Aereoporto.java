@@ -1,6 +1,7 @@
 package Aereoporto;
 
 import Aereo.Aereo;
+import Aereoporto.Common.ListaOggetti;
 import Aereoporto.ZonaArrivi.ZonaArrivi;
 import Aereoporto.ZonaCheckIn.NastroTrasportatore;
 import Aereoporto.ZonaCheckIn.ZonaCheckIn;
@@ -33,7 +34,7 @@ public class Aereoporto {
         nastroTrasportatore = new NastroTrasportatore();
         zonaControlliBagagliStiva = new ZonaControlliBagagliStiva(nastroTrasportatore,nastroTrasportatore.getScanner(), lista_aerei);
         zonaNegozi = new ZonaNegozi();
-        zonaPartenze = new ZonaPartenze(viaggi, new ImpiegatoControlliStiva(null, null, null, 69420));
+        zonaPartenze = new ZonaPartenze(viaggi, new ImpiegatoControlliStiva(null, ListaOggetti.getOggettiPericolosi(), lista_aerei, 69420));
         //zonaArrivi = new ZonaArrivi();
         configuraZone();
     }

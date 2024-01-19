@@ -13,7 +13,7 @@ import Aereo.AereoPasseggeri;
 
 public class Main {
    public static void main(String[] args) {
-      System.out.println("Hello world!");
+      System.out.println("Benvenuti, l'aereoporto è aperto!");
       ArrayList<Viaggio> viaggi = new ArrayList<Viaggio>();
       ArrayList<Aereo> lista_aerei = new ArrayList<Aereo>();
 
