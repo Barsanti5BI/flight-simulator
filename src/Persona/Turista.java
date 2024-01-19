@@ -18,7 +18,7 @@ import java.util.*;
 
 public class Turista extends Persona{
 
-    // determinazione turista
+    // Determinazione turista
     public boolean inPartenza;
     public boolean inArrivo;
 
