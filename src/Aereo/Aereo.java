@@ -1,7 +1,6 @@
 package Aereo;
-
 import java.util.ArrayList;
-
+import java.util.Random;
 public abstract class Aereo{
     public String nome;
     public String destinazione;
@@ -14,6 +13,8 @@ public abstract class Aereo{
     private Stiva stiva;
     private Serbatoio serbatoio;
     private boolean pilotaAutomatico;
+    private int carburante;
+    private int ID;
 
     public boolean inVolo;
 
@@ -27,6 +28,9 @@ public abstract class Aereo{
         stiva = new Stiva(this);
         serbatoio = new Serbatoio();
         pilotaAutomatico = false;
+        this.ID = id;
+        Random r = new Random();
+        carburante = r.nextInt(0,100);
     }
 
     public ScatolaNera getScatolaNera()
@@ -34,6 +38,13 @@ public abstract class Aereo{
         return scatolaNera;
     }
    
+    public int DammiCarburante() {
+        return carburante;
+    }
+
+    public int DammiID() {
+        return ID;
+    }
 
 
 }
