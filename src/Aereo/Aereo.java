@@ -19,7 +19,7 @@ public abstract class Aereo extends  Thread{
     public boolean einvolo;
     private boolean maltempo;
     private Random r;
-    
+
     public Aereo(int Id){
         this.id =Id;
         maltempo = false;
