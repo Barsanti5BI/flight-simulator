@@ -17,7 +17,7 @@ public class Alieni extends Thread{
                     aereo_rubato = true;
                     break;
                 }
-                this.sleep(45000);
+                this.sleep(3000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
