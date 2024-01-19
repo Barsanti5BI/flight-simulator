@@ -20,7 +20,7 @@ public class Gate extends Thread{
     Boolean GateAperto;
     Coda<Turista> codaGenerale;
     ImpiegatoControlliStiva impiegatoControlliStiva;
-    public Gate(int nomeGate, Coda<Turista> codaGenerale,String destinazione, ImpiegatoControlliStiva impiegatoControlliStiva){
+    public Gate(int nomeGate, Coda<Turista> codaGenerale, String destinazione, ImpiegatoControlliStiva impiegatoControlliStiva){
         timer = new Timer();
         timerTask = new TimerTask() {
             @Override

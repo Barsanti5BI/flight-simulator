@@ -6,16 +6,20 @@ import Persona.ImpiegatoCheckIn;
 import TorreDiControllo.Viaggio;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class ZonaCheckIn extends ZonaAeroporto {
     Banco banco;
     ImpiegatoCheckIn impiegato;
     NastroTrasportatore nastroTrasportatore;
 
+    Random rand;
+
     public ZonaCheckIn(NastroTrasportatore nastro, ArrayList<Viaggio> viaggi) {
+        rand = new Random();
         nastroTrasportatore = nastro;
         banco = new Banco(nastroTrasportatore, 1,viaggi);
-        impiegato = new ImpiegatoCheckIn(banco, nastroTrasportatore);
+        impiegato = new ImpiegatoCheckIn(banco, nastroTrasportatore, rand.nextInt());
         banco.impiegatoCheckIn = impiegato;
         impiegato.start();
     }

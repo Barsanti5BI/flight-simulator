@@ -8,6 +8,7 @@ import Utils.Coda;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Banco {
     int numeroBanco;
@@ -15,11 +16,13 @@ public class Banco {
     NastroTrasportatore nastroTrasportatore;
     ImpiegatoCheckIn impiegatoCheckIn;
     ArrayList<Viaggio> viaggi;
+    Random rand;
 
     public Banco(NastroTrasportatore n, int numeroBanco, ArrayList<Viaggio> viaggi){
+        rand = new Random();
         codaTuristi = new Coda<>();
         nastroTrasportatore = n;
-        impiegatoCheckIn = new ImpiegatoCheckIn(this,nastroTrasportatore);
+        impiegatoCheckIn = new ImpiegatoCheckIn(this,nastroTrasportatore, rand.nextInt(0, 1000));
         impiegatoCheckIn.start();
         this.numeroBanco = numeroBanco;
         this.viaggi = viaggi;

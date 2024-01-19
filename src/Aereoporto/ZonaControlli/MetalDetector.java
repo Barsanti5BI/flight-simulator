@@ -7,6 +7,7 @@ import Persona.Turista;
 import Utils.Coda;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MetalDetector extends Thread {
    Coda<Turista> codaTuristiAttesa;
@@ -14,9 +15,12 @@ public class MetalDetector extends Thread {
    Coda<Turista> codaTuristiBuoni;
    ImpiegatoControlliPartenze impiegato;
 
+   Random rand;
+
     public MetalDetector(){
+        rand = new Random();
         codaTuristiAttesa = new Coda<>();
-        impiegato = new ImpiegatoControlliPartenze(null, codaTuristiPericolosi, ListaOggetti.getOggettiPericolosi());
+        impiegato = new ImpiegatoControlliPartenze(null, codaTuristiPericolosi, ListaOggetti.getOggettiPericolosi(), rand.nextInt(0, 1000));
     }
 
    public void run() {
