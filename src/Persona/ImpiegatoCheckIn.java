@@ -4,13 +4,11 @@ import Aereoporto.ZonaCheckIn.Banco;
 import Aereoporto.ZonaCheckIn.NastroTrasportatore;
 import TorreDiControllo.Viaggio;
 
-import java.util.ArrayList;
-
 public class ImpiegatoCheckIn extends Thread{
     public Banco banco;
     public NastroTrasportatore nastroTrasportatore;
 
-    public ImpiegatoCheckIn(Banco banco, NastroTrasportatore nT, int id{
+    public ImpiegatoCheckIn(Banco banco, NastroTrasportatore nT, int id){
         setName(id+"");
         this.banco = banco;
         this.nastroTrasportatore = nT;
