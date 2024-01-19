@@ -17,9 +17,15 @@ public abstract class Aereo extends  Thread{
     private boolean pilotaAutomatico;
     public Alieni alieni;
     public boolean einvolo;
+    private boolean maltempo;
+    private Random r;
+    private Parcheggio parcheggio;
 
     public Aereo(int Id){
         this.id =Id;
+        r = new Random();
+        maltempo = false;
+
 
         bagni = new ArrayList<Bagno>();
         scatolaNera = new ScatolaNera (this);
@@ -36,6 +42,7 @@ public abstract class Aereo extends  Thread{
 
         alieni = new Alieni(this);
         alieni.start();
+        parcheggio = null;
     }
 
     public void run(){
@@ -56,7 +63,12 @@ public abstract class Aereo extends  Thread{
                 Thread.sleep(1000);
             }catch (Exception e){}
             serbatoio.consuma();
-            posizione+=2;
+            if (maltempo) {
+                posizione+=1;
+            }else{
+                posizione+=2;
+            }
+
         }
     }
 
@@ -97,6 +109,9 @@ public abstract class Aereo extends  Thread{
         }
         return ris;
     }
+    public void CambiaStatoMaltempo(){
+        maltempo = !maltempo;
+    }
 
     public boolean sciopero(){
         Random r = new Random();
@@ -134,4 +149,11 @@ public abstract class Aereo extends  Thread{
     public Serbatoio Get_Serbatoio(){
         return this.serbatoio;
     }
+
+    public void setParcheggio(Parcheggio p){
+        parcheggio = p;
+    }
+
+
+
 }

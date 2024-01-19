@@ -1,4 +1,5 @@
 package Aereo;
+import Persona.ImpiegatoControlliStiva;
 import Utils.Coda;
 import Persona.Turista;
 
@@ -18,8 +19,8 @@ public class Gate extends Thread{
     Coda<Turista> codaTurista;
     Boolean GateAperto;
     Coda<Turista> codaGenerale;
-    public Gate(int nomeGate, Coda<Turista> codaGenerale,String destinazione){
-        GateAperto = false;
+    ImpiegatoControlliStiva impiegatoControlliStiva;
+    public Gate(int nomeGate, Coda<Turista> codaGenerale,String destinazione, ImpiegatoControlliStiva impiegatoControlliStiva){
         timer = new Timer();
         timerTask = new TimerTask() {
             @Override
@@ -36,27 +37,22 @@ public class Gate extends Thread{
         TerminatiIControlli = false;
         this.destinazione = destinazione;
         this.nomeGate = nomeGate;
+        this.impiegatoControlliStiva = impiegatoControlliStiva;
     }
     public void run(){
         try {
             timer.schedule(timerTask, 60000); //Programma il TimerTask per eseguirlo dopo un ritardo specificato
 
-            while(true) {
-                if (!GateAperto) {  //controllo che il gate sia aperto
-                    System.out.println("gate chiuso " + nomeGate);
-                    sleep(100);
-                }
-                else{
                     while(!codaGenerale.isEmpty()){   //creo la coda prioritaria e la coda normale
                         Turista t = codaGenerale.pop();
                         if(t.GetCartaImbarco().getPrioritario() || isPasseggeroInPrioritaria()){
                             codaPrioritaria.push(t);
-                            sleep(1000);
+                            sleep(100);
                             System.out.println("Il turista "+ t.GetCartaImbarco().getCognomePasseggero() + " " + t.GetCartaImbarco().getNomePasseggero() + " è entrato nella coda prioritaria nel gate " + nomeGate);
                         }
                         else{
                             codaNormale.push(t);
-                            sleep(1000);
+                            sleep(100);
                             System.out.println("Il turista " + t.GetCartaImbarco().getCognomePasseggero() + " " + t.GetCartaImbarco().getNomePasseggero() + " è entrato nella coda normale nel gate " + nomeGate);
                         }
                     }
@@ -70,8 +66,6 @@ public class Gate extends Thread{
                         EffettuaControllo(t);
                     }
                     // TerminatiIControlli verrà impostato su true dal TimerTask
-                }
-            }
         }catch(InterruptedException ex){
             System.out.println(ex.getMessage());
         }
@@ -83,14 +77,38 @@ public class Gate extends Thread{
     public void EffettuaControllo(Turista t){
         try{
             if(destinazione.equals(t.GetCartaImbarco().getViaggio())){
-                sleep(1000);
+                sleep(100);
                 System.out.println("    Il turista " + t.GetCartaImbarco().getCognomePasseggero() + " " + t.GetCartaImbarco().getNomePasseggero() + " ha effettuato il controllo effettuato nel gate " + nomeGate);
-                codaTurista.push(t);
+                t.setGateGiusto(true);
             }
             else{
-                sleep(1000);
+                sleep(100);
+                t.setGateGiusto(false);
                 System.out.println("    Il turista " + t.GetCartaImbarco().getCognomePasseggero() + " " + t.GetCartaImbarco().getNomePasseggero() + " ha sbagliato gate");
             }
+
+            boolean controlloTPericoloso = false;
+
+            for(Turista tPericoloso : impiegatoControlliStiva.getTuristiPericolosi())
+            {
+                if (tPericoloso == t) {
+                    controlloTPericoloso = true;
+                    break;
+                }
+            }
+
+            if (!controlloTPericoloso)
+            {
+                t.setEsitoControlloGate(true);
+                codaTurista.push(t);
+            }
+            else
+            {
+                t.setEsitoControlloGate(false);
+            }
+
+            t.setPassatoControlloGate(true);
+            t.notify();
         }catch (InterruptedException ex){
             System.out.println(ex.getMessage());
         }

@@ -1,14 +1,14 @@
 package Aereo;
-
 import java.time.ZonedDateTime;
 import java.util.Dictionary;
 import java.util.Enumeration;
+import java.util.HashMap;
 
 public class ScatolaNera extends Thread{
 
     Aereo a;
-    private Dictionary<ZonedDateTime,String> logComunicazioni;
-    private Dictionary<ZonedDateTime,String> logPosizione;
+    private HashMap<ZonedDateTime,String> logComunicazioni;
+    private HashMap<ZonedDateTime,String> logPosizione;
     private ZonedDateTime ultimaComunicazione;
     private ZonedDateTime ultimaPosizione;
     public double percBatteria;
@@ -20,84 +20,13 @@ public class ScatolaNera extends Thread{
         nAllerte = 0;
         percBatteria = 100;
         pericolo = false;
-        logComunicazioni = new Dictionary<ZonedDateTime, String>() {
-            @Override
-            public int size() {
-                return 0;
-            }
-
-            @Override
-            public boolean isEmpty() {
-                return false;
-            }
-
-            @Override
-            public Enumeration<ZonedDateTime> keys() {
-                return null;
-            }
-
-            @Override
-            public Enumeration<String> elements() {
-                return null;
-            }
-
-            @Override
-            public String get(Object key) {
-                return null;
-            }
-
-            @Override
-            public String put(ZonedDateTime key, String value) {
-                return null;
-            }
-
-            @Override
-            public String remove(Object key) {
-                return null;
-            }
-
-        };
-        logPosizione = new Dictionary<ZonedDateTime, String>() {
-            @Override
-            public int size() {
-                return 0;
-            }
-
-            @Override
-            public boolean isEmpty() {
-                return false;
-            }
-
-            @Override
-            public Enumeration<ZonedDateTime> keys() {
-                return null;
-            }
-
-            @Override
-            public Enumeration<String> elements() {
-                return null;
-            }
-
-            @Override
-            public String get(Object key) {
-                return null;
-            }
-
-            @Override
-            public String put(ZonedDateTime key, String value) {
-                return null;
-            }
-
-            @Override
-            public String remove(Object key) {
-                return null;
-            }
-        };
+        logPosizione = new HashMap<>();
+        logComunicazioni = new HashMap<>();
 
     }
     public void run(){
         try{
-            while(percBatteria > 0){
+            while(percBatteria > 0 && a.einvolo){
                 if(pericolo){
                     percBatteria -= 0.5;
                     System.out.println("ALLARME - BEEEP - BEEEP");
@@ -137,6 +66,14 @@ public class ScatolaNera extends Thread{
     public void InserisciPosizione(){
         ultimaPosizione = ZonedDateTime.now();
         logPosizione.put(ultimaPosizione,""+a.posizione);
+        System.out.println("ScatolaNera " + logPosizione.get(ultimaPosizione));
+    }
+    public HashMap<ZonedDateTime,String> OttieniLogPosizione(){
+        return logPosizione;
+    }
+
+    public HashMap<ZonedDateTime,String> OttieniLogComunicazioni(){
+        return logComunicazioni;
     }
 
     public Dictionary<ZonedDateTime,String> Get_Log_Comunicazioni(){
