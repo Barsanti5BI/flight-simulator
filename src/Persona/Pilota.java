@@ -1,7 +1,7 @@
 package Persona;
 
 import Aereo.Aereo;
-import TorreDiControllo.TorreControllo;
+import TorreDiControllo.*;
 
 import java.util.Random;
 

@@ -5,16 +5,16 @@ import Aereo.Gate;
 import java.util.Random;
 
 public class Parcheggio {
-    public int nome;
-    public Aereo aereo;
-    public Gate gate;
+    public int id;
+    private Aereo aereo;
+    private Gate gate;
     public Boolean distanza;
 
     //public Manutentore manu; ancora da mettere
 
     public Parcheggio(int n, Gate g)
     {
-        this.nome = n;
+        this.id = n;
         this.gate = g;
         //this.manu = new Manutentore();ancora da mettere
         Random r = new Random();
@@ -31,15 +31,21 @@ public class Parcheggio {
     //passa l'aereo al manutentore e fa la manutenzione
     public void aereoArrivato(Aereo A)
     {
-        //manu.a = A;
-        //manu.Manutenzione();
+        aereo = A;
+        manu.a = A;
+        manu.Manutenzione();
     }
 
     //libera il parcheggio
     public void AereoInPartenza()
     {
         aereo = null;
-        //manu.a = null;
+        manu.a = null;
+    }
+
+    public int GetId()
+    {
+        return id;
     }
 
     //restituisce la distanza
