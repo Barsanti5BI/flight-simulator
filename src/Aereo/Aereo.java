@@ -18,8 +18,11 @@ public abstract class Aereo extends  Thread{
     public Alieni alieni;
     public boolean einvolo;
 
+    private Random r;
+
     public Aereo(String nome,ArrayList<Pilota> piloti){
         this.nome = nome;
+        r = new Random();
 
         bagni = new ArrayList<Bagno>();
         scatolaNera = new ScatolaNera (this);
@@ -46,7 +49,7 @@ public abstract class Aereo extends  Thread{
                 if (alieni.aereo_rubato){
                     break;
                 }
-                Thread.sleep(1000);
+                Thread.sleep(r.nextInt(1000-500)+500);
             }catch (Exception e){}
             serbatoio.consuma();
             posizione+=2;
@@ -72,6 +75,9 @@ public abstract class Aereo extends  Thread{
 
     public  void atterra(){
         einvolo = false;
+        for(int i = 0; i< 4;i++){
+            turbine.get(i).Disabilita();
+        }
     }
 
 
