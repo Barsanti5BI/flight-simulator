@@ -15,10 +15,10 @@ public class Gate extends Thread{
     Coda<Turista> codaPrioritaria;
     Coda<Turista> codaNormale;
     Boolean TerminatiIControlli;
-    Coda<Turista> codaNavetta;
+    Coda<Turista> codaTurista;
     Boolean GateAperto;
     Coda<Turista> codaGenerale;
-    public Gate(int nomeGate, Coda<Turista> coda,String destinazione){
+    public Gate(int nomeGate, Coda<Turista> codaGenerale,String destinazione){
         GateAperto = false;
         timer = new Timer();
         timerTask = new TimerTask() {
@@ -30,9 +30,9 @@ public class Gate extends Thread{
         };
         codaPrioritaria = new Coda<>();
         codaNormale = new Coda<>();
-        codaNavetta = new Coda<>();
+        codaTurista = new Coda<>();
 
-        this.coda = coda;
+        this.codaGenerale = codaGenerale;
         TerminatiIControlli = false;
         this.destinazione = destinazione;
         this.nomeGate = nomeGate;
@@ -47,8 +47,8 @@ public class Gate extends Thread{
                     sleep(100);
                 }
                 else{
-                    while(!coda.isEmpty()){   //creo la coda prioritaria e la coda normale
-                        Turista t = coda.pop();
+                    while(!codaGenerale.isEmpty()){   //creo la coda prioritaria e la coda normale
+                        Turista t = codaGenerale.pop();
                         if(t.GetCartaImbarco().getPrioritario() || isPasseggeroInPrioritaria()){
                             codaPrioritaria.push(t);
                             sleep(1000);
@@ -85,7 +85,7 @@ public class Gate extends Thread{
             if(destinazione.equals(t.GetCartaImbarco().getViaggio())){
                 sleep(1000);
                 System.out.println("    Il turista " + t.GetCartaImbarco().getCognomePasseggero() + " " + t.GetCartaImbarco().getNomePasseggero() + " ha effettuato il controllo effettuato nel gate " + nomeGate);
-                codaNavetta.push(t);
+                codaTurista.push(t);
             }
             else{
                 sleep(1000);
@@ -96,8 +96,8 @@ public class Gate extends Thread{
         }
     }
 
-    public Coda<Turista> getCodaNavetta() {
-        return codaNavetta;
+    public Coda<Turista> getCodaTurista() {
+        return codaTurista;
     }
     public void openGate(){ //mi fa partire il gate
         GateAperto = true;
