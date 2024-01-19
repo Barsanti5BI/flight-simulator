@@ -53,5 +53,8 @@ public class Aereoporto {
 
         // TODO: imposta zona precedente come entrata dalla pista
     }
+    public NastroTrasportatore getNastroTrasportatore() {
+        return nastroTrasportatore;
+    }
 
 }
