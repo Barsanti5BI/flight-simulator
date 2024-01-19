@@ -26,37 +26,42 @@ public class ImpiegatoControlliStiva extends Thread{
             if (s != null)
             {
                 // controllore dei bagagli da stiva sospetti
+                if (!s.getCodaBagagliControllati().isEmpty() && !s.getCodaBagagliControllati().isEmpty()) {
+                    Bagaglio bPericoloso = s.getCodaBagagliPericolosi().pop();
+                    String controllo = ControlloApprofondito(bPericoloso.getOggettiContenuti());
+                    Turista proprietario = bPericoloso.getProprietario();
 
-                Bagaglio bPericoloso = s.getCodaBagagliPericolosi().pop();
-                String controllo = ControlloApprofondito(bPericoloso.getOggettiContenuti());
-                Turista proprietario = bPericoloso.getProprietario();
+                    if (controllo == "") {
+                        System.out.println("Il bagaglio " + bPericoloso.getEtichetta().getIdRiconoscimentoBagaglio() + " è sicuro, non contiene nessun oggetto proibito");
+                        s.getCodaBagagliControllati().push(bPericoloso);
+                        System.out.println("Il proprietario " + bPericoloso.getProprietario().getDoc().getNome() + " del bagaglio " + bPericoloso.getEtichetta().getIdRiconoscimentoBagaglio() + " non nescessita di ulteriori controlli");
+                    } else {
+                        System.out.println("Il bagaglio " + bPericoloso.getEtichetta().getIdRiconoscimentoBagaglio() + " è bloccato poichè contiene: " + controllo);
+                        System.out.println("Il proprietario " + bPericoloso.getProprietario().getDoc().getNome() + " verrà bloccato al gate");
+                        turistiPericolosi.add(proprietario);
+                    }
 
-                if(controllo == "")
-                {
-                    System.out.println("Il bagaglio " + bPericoloso.getEtichetta().getIdRiconoscimentoBagaglio() + " è sicuro, non contiene nessun oggetto proibito");
-                    s.getCodaBagagliControllati().push(bPericoloso);
-                    System.out.println("Il proprietario " + bPericoloso.getProprietario().getDoc().getNome() + " del bagaglio " + bPericoloso.getEtichetta().getIdRiconoscimentoBagaglio() + " non nescessita di ulteriori controlli");
+                    Bagaglio bSicuro = s.getCodaBagagliControllati().pop();
+                    Aereo aGiusto = null;
+
+                    for (Aereo a : listaDiAerei) {
+                        if (bSicuro.getEtichetta().getCodiceVeivolo() == a.Get_ID()) {
+                            aGiusto = a;
+                            break;
+                        }
+                    }
+
+                    aGiusto.Get_Stiva().Aggiungi_Bagaglio_Stiva(bSicuro);
                 }
                 else
                 {
-                    System.out.println("Il bagaglio " + bPericoloso.getEtichetta().getIdRiconoscimentoBagaglio() + " è bloccato poichè contiene: " + controllo);
-                    System.out.println("Il proprietario " + bPericoloso.getProprietario().getDoc().getNome() + " verrà bloccato al gate");
-                    turistiPericolosi.add(proprietario);
-                }
-
-                Bagaglio bSicuro = s.getCodaBagagliControllati().pop();
-                Aereo aGiusto = null;
-
-                for(Aereo a : listaDiAerei)
-                {
-                    if (bSicuro.getEtichetta().getCodiceVeivolo() == a.Get_ID())
-                    {
-                        aGiusto = a;
-                        break;
+                    System.out.println("Impiegato controlli stiva: \"Sto aspettando\"");
+                    try {
+                        Thread.sleep(5);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
                     }
                 }
-
-                aGiusto.Get_Stiva().Aggiungi_Bagaglio_Stiva(bSicuro);
             }
         }
     }

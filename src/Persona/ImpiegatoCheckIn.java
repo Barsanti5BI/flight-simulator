@@ -25,6 +25,7 @@ public class ImpiegatoCheckIn extends Thread{
             }
             else
             {
+                System.out.println("Impiegato del banco del check-in: \"Sto aspettando\"");
                 try {
                     Thread.sleep(5);
                 } catch (InterruptedException e) {

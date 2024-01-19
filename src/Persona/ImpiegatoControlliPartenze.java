@@ -64,6 +64,7 @@ public class ImpiegatoControlliPartenze extends Thread{
                 }
                 else
                 {
+                    System.out.println("Impiegato controlli partenze: \"Sto aspettando\"");
                     try {
                         Thread.sleep(5);
                     } catch (InterruptedException e) {
