@@ -38,9 +38,9 @@ public class Pilota extends Persona{
             }
 
             boolean generatoRitardo = false;
-            while(!verficaCondMeteo())
+            while(!tC.getCondizioniMeteoAttuali())
             {
-                if (verficaCondMeteo())
+                if (tC.getCondizioniMeteoAttuali())
                 {
                     System.out.println("Che bel tempo! Non ci sarà nessun ritardo.");
                     break;
@@ -92,22 +92,6 @@ public class Pilota extends Persona{
                 break;
             }
         }
-    }
-
-    public boolean verficaCondMeteo()
-    {
-        String meteoAttuale = tC.dimmiMeteoAttuale();
-        daiDatiScatolaNera(meteoAttuale);
-
-        for(String meteoProibiti : tC.getCondMeteoProibite())
-        {
-            if (meteoAttuale == meteoProibiti)
-            {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     public void setPista(Pista p)
