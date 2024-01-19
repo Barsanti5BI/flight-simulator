@@ -198,10 +198,12 @@ public class Turista extends Persona{
                                 if(esitoControlloGate)
                                 {
                                     System.out.println("Turista imbarcato");
+                                    break;
                                 }
                                 else
                                 {
                                     System.out.println("Turista arrestato");
+                                    break;
                                 }
                             }
                             else
