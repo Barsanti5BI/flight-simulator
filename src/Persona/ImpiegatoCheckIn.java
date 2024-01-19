@@ -2,15 +2,20 @@ package Persona;
 
 import Aereoporto.ZonaCheckIn.Banco;
 import Aereoporto.ZonaCheckIn.NastroTrasportatore;
+import TorreDiControllo.Viaggio;
+
+import java.util.ArrayList;
 
 public class ImpiegatoCheckIn extends Thread{
     public Banco banco;
     public NastroTrasportatore nastroTrasportatore;
-    public ImpiegatoCheckIn(Banco banco, NastroTrasportatore nT, int id){
+
+    public ImpiegatoCheckIn(Banco banco, NastroTrasportatore nT, int id{
         setName(id+"");
         this.banco = banco;
         this.nastroTrasportatore = nT;
     }
+
     public void run() {
         while(true)
         {
@@ -32,8 +37,20 @@ public class ImpiegatoCheckIn extends Thread{
     }
 
     public synchronized void eseguiCheckIn(Turista turista) {
-        turista.getBagaglio().setEtichetta(banco.generaEtichetta(turista));
-        turista.setCartaImbarco(banco.generaCartaImbarco(turista));
+
+        Viaggio vGiusto = null;
+
+        for(Viaggio v : banco.getViaggi())
+        {
+            if (v.getAereo().Get_ID() == turista.getCodAereo())
+            {
+                vGiusto = v;
+                break;
+            }
+        }
+
+        turista.getBagaglio().setEtichetta(banco.generaEtichetta(turista, vGiusto));
+        turista.setCartaImbarco(banco.generaCartaImbarco(turista, vGiusto));
 
         Bagaglio bagaglio = turista.getBagaglio();
 

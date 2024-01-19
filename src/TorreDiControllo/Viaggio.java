@@ -1,10 +1,7 @@
 package TorreDiControllo;
-import Aereo.*;
-import Persona.*;
-import Aereoporto.*;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import Aereo.Aereo;
+import Persona.Pilota;
 public class Viaggio
 {
     Boolean finito;
@@ -37,8 +34,8 @@ public class Viaggio
     {
         return finito;
     }
-
-    public Aereo Get_Aereo(){return this.a;}
-
-
+    public Aereo getAereo()
+    {
+        return a;
+    }
 }

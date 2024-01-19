@@ -38,8 +38,8 @@ public class Banco {
     public Coda<Turista> getCodaTuristi() {
         return codaTuristi;
     }
-    public Viaggio getViaggio(){
-        return viaggi.get((int)Math.random()*viaggi.size());
+    public ArrayList<Viaggio> getViaggi(){
+        return viaggi;
     }
     public int getIndice() {
         return  numeroBanco;

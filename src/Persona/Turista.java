@@ -71,9 +71,9 @@ public class Turista extends Thread{
     private List<Oggetto> oggetti;
     private Documento doc;
     private Random r;
-    private String codAereo;
+    private int codAereo;
 
-    public Turista(Documento doc,Bagaglio bag, CartaImbarco cartaImbarco, List<Oggetto> oggetti, String codAereo) {
+    public Turista(Documento doc, Bagaglio bag, CartaImbarco cartaImbarco, List<Oggetto> oggetti, int codAereo) {
         this.bagaglio = bag;
         this.cartaImbarco = cartaImbarco;
         this.oggetti = oggetti;
@@ -312,7 +312,7 @@ public class Turista extends Thread{
 
     }
 
-    public String getCodAereo(){
+    public int getCodAereo(){
         return codAereo;
     }
 
