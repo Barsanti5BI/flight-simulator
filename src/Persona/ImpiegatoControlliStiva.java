@@ -1,14 +1,19 @@
 package Persona;
 
+import Aereo.Aereo;
 import Aereoporto.ZonaCheckIn.NastroTrasportatore;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class ImpiegatoControlliStiva extends Persona{
     private NastroTrasportatore nT;
 
-    public ImpiegatoControlliStiva(NastroTrasportatore n){
+    private LinkedList<Aereo> lista_aerei;
+
+    public ImpiegatoControlliStiva(NastroTrasportatore n, LinkedList<Aereo> lista_aerei){
         nT = n;
+        this.lista_aerei = lista_aerei;
     }
     public void run(){
         while(true)

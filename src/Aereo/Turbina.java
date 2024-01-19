@@ -49,5 +49,9 @@ public class Turbina extends Thread{
         funzionante = true;
         this.start();
     }
+    public double Get_Stato_Riparazione(){
+        return this.percRiparazione;
+    }
+    public boolean Get_Stato_Turbina(){return this.funzionante;}
 
 }
