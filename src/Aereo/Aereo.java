@@ -43,7 +43,7 @@ public abstract class Aereo extends  Thread{
         einvolo = false;
 
         alieni = new Alieni(this);
-        alieni.start();
+        //alieni.start();
     }
 
     public void run(){
