@@ -17,7 +17,7 @@ public class Gate extends Thread{
     Boolean TerminatiIControlli;
     Coda<Turista> codaNavetta;
     Boolean GateAperto;
-    Coda<Turista> coda;
+    Coda<Turista> codaGenerale;
     public Gate(int nomeGate, Coda<Turista> coda,String destinazione){
         GateAperto = false;
         timer = new Timer();
@@ -63,12 +63,11 @@ public class Gate extends Thread{
                     while (!codaPrioritaria.isEmpty()) {  //prima la coda prioritaria
                         Turista t = codaPrioritaria.pop();
                         EffettuaControllo(t);
-                        codaNavetta.push(t);
+
                     }
                     while (!codaNormale.isEmpty()) { //dopo la coda normale
                         Turista t = codaNormale.pop();
                         EffettuaControllo(t);
-                        codaNavetta.push(t);
                     }
                     // TerminatiIControlli verrà impostato su true dal TimerTask
                 }
@@ -86,6 +85,7 @@ public class Gate extends Thread{
             if(destinazione.equals(t.GetCartaImbarco().getViaggio())){
                 sleep(1000);
                 System.out.println("    Il turista " + t.GetCartaImbarco().getCognomePasseggero() + " " + t.GetCartaImbarco().getNomePasseggero() + " ha effettuato il controllo effettuato nel gate " + nomeGate);
+                codaNavetta.push(t);
             }
             else{
                 sleep(1000);
@@ -119,4 +119,9 @@ public class Gate extends Thread{
     }
     public String getDestinazione(){return destinazione;}
     public boolean getGateAperto(){ return GateAperto;}
+
+    public Coda<Turista> getCodaGenerale()
+    {
+        return codaGenerale;
+    }
 }
