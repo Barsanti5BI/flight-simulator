@@ -1,6 +1,7 @@
 package Aereo;
 
 import Utils.Coda;
+import Persona.Turista;
 
 import java.util.ArrayList;
 
@@ -15,8 +16,8 @@ public class AereoPasseggeri extends Aereo {
     private Uscita uscita;
 
 
-    public AereoPasseggeri(String nome, ArrayList<Pilota> piloti) {
-        super(nome, piloti);
+    public AereoPasseggeri(int id) {
+        super(id);
 
         matricePostiAereo = new Turista[4][10];
         nPosti = 40;
@@ -39,7 +40,7 @@ public class AereoPasseggeri extends Aereo {
     public void Imbarca(Coda<Turista> c) {
         for (int i = 0; i < c.size(); i++) {
             Turista t = c.pop();
-            String[] posto = t.cartaImbarco.codicePosto.split(",");
+            String[] posto = t.GetCartaImbarco().getCodicePosto().split(",");
 
             int riga = Integer.parseInt(posto[0]);
             int colonna =Integer.parseInt(posto[1]);

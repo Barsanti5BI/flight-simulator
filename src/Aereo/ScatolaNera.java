@@ -76,4 +76,12 @@ public class ScatolaNera extends Thread{
         return logComunicazioni;
     }
 
+    public Dictionary<ZonedDateTime,String> Get_Log_Comunicazioni(){
+        return this.logComunicazioni;
+    }
+    public Dictionary<ZonedDateTime,String> Get_Log_Posizioni() {return this.logPosizione;}
+    public ZonedDateTime Get_Ultima_Comunicazione() {return this.ultimaComunicazione;}
+    public ZonedDateTime Get_Ultima_Posizione() {return this.ultimaPosizione;}
+
+
 }
