@@ -27,8 +27,10 @@ public class MetalDetector extends Thread {
                Turista turista = codaTuristiAttesa.pop();
                boolean nonPericoloso = controllaTurista(turista);
                if (nonPericoloso) {
+                   System.out.println("Il turista " + turista.getDoc().getCognome() + " " + turista.getDoc().getNome() + " è in regola, può procedere");
                   codaTuristiBuoni.push(turista);
                } else {
+                   System.out.println("Il turista " + turista.getDoc().getCognome() + " " + turista.getDoc().getNome() + " è pericoloso, viene arrestato");
                   codaTuristiPericolosi.push(turista);
                }
                synchronized (turista) {

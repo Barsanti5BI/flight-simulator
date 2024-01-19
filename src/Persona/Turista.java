@@ -140,7 +140,8 @@ public class Turista extends Persona{
                                         System.out.println("Turista arrestato!");
                                         break;
                                     } else {
-                                        // il turista continua a cercare il bagaglio finchè non lo trova
+                                        // il turista continua a cercare il bagaglio finchè non lo
+                                        System.out.println("Il turista " + getName() + " sta cercando il suo bagaglio...");
                                         cercaBagaglio(scanner.getCodaBagagliControllati());
                                     }
                                 }
@@ -150,6 +151,7 @@ public class Turista extends Persona{
                                         metalDetector.getImpiegatoControlli().wait();
                                     }
                                 }
+                                System.out.println("Scansione di potenziali oggetti metallicie ffettuata");
                                 break;
                             }
 
@@ -204,6 +206,7 @@ public class Turista extends Persona{
 
                             if(gateGiusto)
                             {
+                                System.out.println("Il turista è entrato nel gate giusto");
                                 if(esitoControlloGate)
                                 {
                                     System.out.println("Turista imbarcato");
@@ -228,6 +231,7 @@ public class Turista extends Persona{
                     {
                         if(arrivatoAreaArrivi)
                         {
+                            System.out.println("Il turista " + getName() + " è arrivato all'aeroporto");
                             break;
                         }
                         else
@@ -239,10 +243,12 @@ public class Turista extends Persona{
                     if(!haPassatoControlliArr)
                     {
                         Dogana dogana = zonaArrivi.getDogana();
+                        System.out.println("Il bagaglio di " + getName() + " è stato ritirato");
                         RitiroBagagli ritiroBagagli = zonaArrivi.getRitiroBagagli();
 
                         synchronized (dogana.getControllore())
                         {
+                            System.out.println("In attesa dei controlli alla dogana...");
                             while(!haPassatoControlliArr)
                             {
                                 dogana.getControllore().wait();
@@ -253,6 +259,7 @@ public class Turista extends Persona{
                         {
                             if (bagaglio == null)
                             {
+                                System.out.println("Il turista " + getName() + " sta cercando il suo bagaglio");
                                 // c'è un while che va avanti finchè non trova il bagaglio
                                 cercaBagaglio(ritiroBagagli.getCodaBagagli());
                             }

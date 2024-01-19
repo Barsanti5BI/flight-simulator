@@ -38,6 +38,7 @@ public class ImpiegatoCheckIn extends Persona{
         Bagaglio bagaglio = turista.getBagaglio();
 
         if(bagaglio.getDaStiva()){
+            System.out.println("Il bagaglio " + bagaglio.getEtichetta().getIdRiconoscimentoBagaglio() + " è da stiva, verrà caricato sul nastro trasportatore");
             nastroTrasportatore.aggiungiBagaglio(bagaglio, banco.getIndice());
             turista.setBagaglio(null);
         }

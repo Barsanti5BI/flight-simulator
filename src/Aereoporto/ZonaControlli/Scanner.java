@@ -23,8 +23,10 @@ public class Scanner extends Thread{
                 Bagaglio bagaglio = codaBagagli.pop();
                 boolean nonPericoloso = scannerizzaBagaglio(bagaglio);
                 if (nonPericoloso) {
+                    System.out.println("Bagaglio " + bagaglio.getEtichetta().getIdRiconoscimentoBagaglio() + " sicuro, può procedere");
                     codabagagliControllati.push(bagaglio);
                 } else {
+                    System.out.println("Pericolo identificato nel bagaglio " + bagaglio.getEtichetta().getIdRiconoscimentoBagaglio());
                      codaBagagliPericolosi.push(bagaglio);
                 }
                 // TODO: mostro risultato al personale che decide se far passare il turista o meno
