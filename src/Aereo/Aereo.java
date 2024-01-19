@@ -17,10 +17,12 @@ public abstract class Aereo extends  Thread{
     private boolean pilotaAutomatico;
     public Alieni alieni;
     public boolean einvolo;
+    private Random r;
 
 
     public Aereo(int Id){
         this.id =Id;
+        r = new Random();
 
 
         bagni = new ArrayList<Bagno>();

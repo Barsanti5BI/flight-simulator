@@ -30,4 +30,5 @@ public class CartaImbarco {
     public String getViaggio(){return viaggio;}
     public String getIdRiconoscimentoBagaglio(){return idRiconoscimentoBagaglio;}
     public boolean getPrioritario(){return prioritario;}
+    public String getCodicePosto(){return codicePosto;}
 }
