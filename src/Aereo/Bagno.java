@@ -26,6 +26,16 @@ public class Bagno extends Thread{
         }
     }
 
+
+    public void DareBisogno(Turista e)
+    {
+
+        c.push(e);
+
+
+
+    }
+
     public Bagno()
     {
         c = new Coda<Turista>();
