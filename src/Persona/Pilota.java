@@ -37,6 +37,9 @@ public class Pilota extends Persona{
                 }
             }
 
+            pista.setAereo(a);
+            a.setPista(pista);
+
             boolean generatoRitardo = false;
             while(!tC.getCondizioniMeteoAttuali())
             {
@@ -66,13 +69,21 @@ public class Pilota extends Persona{
 
             if(!deveAtterare) // decolla
             {
+                parcheggio.aereoInPartenza();
+
                 a.inVolo = true;
+                pista.setAereo(null);
+                a.setPista(null);
+
                 System.out.println("Il pilota " + getName() + " ha fatto decollare l'aereo " + a.nome + " dalla pista " + p.getId());
                 break;
             }
             else // atterra
             {
                 a.inVolo = false;
+                pista.setAereo(null);
+                a.setPista(null);
+
                 System.out.println("Il pilota " + getName() + " ha fatto atterare l'aereo " + a.nome + " sulla pista " + p.getId());
 
                 tC.getCodaPilotiRichiesteParcheggio().push(this);
@@ -87,6 +98,7 @@ public class Pilota extends Persona{
                 }
 
                 a.setParcheggio(parcheggio);
+                parcheggio.aereoArrivato(aereo);
                 System.out.println("Il pilota " + getName() + " ha parcheggiato l'aereo sul parcheggio " + parcheggio.getId());
 
                 break;
