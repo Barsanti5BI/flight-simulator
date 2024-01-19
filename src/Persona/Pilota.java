@@ -10,7 +10,6 @@ public class Pilota extends Persona{
     private Pista pista;
     private boolean deveAtterare; // true --> aereo atterra // false --> aereo decolla // non so se si fa  // non so se serva
     private Parcheggio parcheggio;
-    private int ritardoArrivo;
 
     public Pilota(Aereo a, TorreControllo tC, boolean deveAtterare, int id)
     {
@@ -20,7 +19,6 @@ public class Pilota extends Persona{
         pista = null;
         parcheggio = null;
         this.deveAtterare = deveAtterare;
-        ritardoArrivo = 0;
     }
 
     public void run(){
@@ -67,9 +65,21 @@ public class Pilota extends Persona{
                 }
             }
 
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
             if(!deveAtterare) // decolla
             {
                 parcheggio.aereoInPartenza();
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
 
                 a.inVolo = true;
                 pista.setAereo(null);
@@ -84,6 +94,12 @@ public class Pilota extends Persona{
                 pista.setAereo(null);
                 a.setPista(null);
 
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
                 System.out.println("Il pilota " + getName() + " ha fatto atterare l'aereo " + a.nome + " sulla pista " + p.getId());
 
                 tC.getCodaPilotiRichiesteParcheggio().push(this);
@@ -95,6 +111,12 @@ public class Pilota extends Persona{
                     {
                         tC.wait();
                     }
+                }
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
 
                 a.setParcheggio(parcheggio);
