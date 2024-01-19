@@ -10,6 +10,7 @@ public class Bagaglio {
     private Etichetta etichetta;
     private List<Oggetto> oggettiContenuti;
     private boolean ritirato;
+    private Turista Proprietario;
 
     public Bagaglio(boolean daStiva,int peso,String misure,Etichetta etichetta,List<Oggetto>oggettiContenuti){
         this.daStiva = daStiva;
@@ -34,4 +35,6 @@ public class Bagaglio {
         return ritirato;
     }
     public void setEtichetta(Etichetta e){etichetta = e;}
+    public void setTurista(Turista proprietario) {this.Proprietario = proprietario;}
+    public Turista getProprietario() {return Proprietario;}
 }

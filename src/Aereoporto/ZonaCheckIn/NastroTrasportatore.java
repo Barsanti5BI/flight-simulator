@@ -8,7 +8,7 @@ public class NastroTrasportatore {
    //del banco di check-in da cui sono stati caricati
 
     public Coda<Bagaglio> codaBagagli;
-   public Coda<Bagaglio> bagagliCaricati;
+    public Coda<Bagaglio> bagagliCaricati;
     public NastroTrasportatore(){
        codaBagagli = new Coda<>();
        bagagliCaricati = new Coda<>();

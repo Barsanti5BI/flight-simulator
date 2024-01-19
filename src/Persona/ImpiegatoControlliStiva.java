@@ -1,52 +1,45 @@
 package Persona;
 
-import Aereoporto.ZonaCheckIn.NastroTrasportatore;
+import Aereoporto.ZonaControlli.Scanner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ImpiegatoControlliStiva extends Persona{
-    private NastroTrasportatore nT;
+    private Scanner s;
+    private ArrayList<String> oggettiProibiti;
 
-    public ImpiegatoControlliStiva(NastroTrasportatore n){
-        nT = n;
+    public ImpiegatoControlliStiva(Scanner s, ArrayList<String> oggettiProibiti){
+        this.s = s;
+        this.oggettiProibiti = oggettiProibiti;
     }
+
     public void run(){
         while(true)
         {
-            if (nT != null)
+            if (s != null)
             {
-                if (!nT.codaBagagli.isEmpty())
+                // controllore dei bagagli da stiva sospetti
+
+                Bagaglio b = s.getCodaBagagliPericolosi().pop();
+
+                String controllo = ControlloApprofondito(b.getOggettiContenuti());
+
+                Turista proprietario = b.getProprietario();
+
+                if(controllo == null)
                 {
-                    Bagaglio b = nT.getCodaScanner.pop();
-
-                    String controllo = ControlloApprofondito(b.getOggettiContenuti());
-
-                    if(controllo == "")
-                    {
-                        System.out.println("Il bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è sicuro, non contiene nessun oggetto proibito");
-                        nT.getBagagliSicuri.push(b);
-                    }
-                    else
-                    {
-                        System.out.println("Il bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è bloccato poichè contiene: " + controllo);
-                    }
-
-                    // manca da ricercare il turista
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
+                    System.out.println("Il bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è sicuro, non contiene nessun oggetto proibito");
+                    s.getCodaBagagliControllati().push(b);
+                    System.out.println("Il proprietario " + b.getProprietario().getDoc().getNome() + " del bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " non nescessita di ulteriori controlli");
                 }
                 else
                 {
-                    try {
-                        Thread.sleep(5);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
+                    System.out.println("Il bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è bloccato poichè contiene: " + controllo);
+                    System.out.println("Il proprietario " + b.getProprietario().getDoc().getNome() + " verrà portato all'interrogatorio e perquisito");
+
+                    // da gestire domani blocco del turista
                 }
-                // cercare proprietario nella lista dei passeggeri che hanno completato i controlli
             }
         }
     }
@@ -57,9 +50,9 @@ public class ImpiegatoControlliStiva extends Persona{
 
         for(Oggetto o : ogg)
         {
-            for(Oggetto o1 : oggettiProibiti)
+            for(String o1 : oggettiProibiti)
             {
-                if (o.getNome() == o1.getNome())
+                if (o.getNome() == o1)
                 {
                     oggettiTrovati += " " + o.getNome();
                 }
