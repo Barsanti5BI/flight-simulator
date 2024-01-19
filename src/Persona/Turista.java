@@ -125,7 +125,7 @@ public class Turista extends Persona{
                         }
 
                         if (deveFareControlliAlMetalDetector) {
-                            System.out.println("Il turista " + getName() + " si sta me");
+                            System.out.println("Il turista " + getName() + " si sta mettendo in coda per il metal detector");
                             metalDetector.getCodaTuristiAttesa().push(this);
 
                             synchronized (metalDetector) {
