@@ -21,7 +21,6 @@ public class Gate extends Thread{
     Coda<Turista> codaGenerale;
     ImpiegatoControlliStiva impiegatoControlliStiva;
     public Gate(int nomeGate, Coda<Turista> codaGenerale,String destinazione, ImpiegatoControlliStiva impiegatoControlliStiva){
-        GateAperto = false;
         timer = new Timer();
         timerTask = new TimerTask() {
             @Override
@@ -44,22 +43,16 @@ public class Gate extends Thread{
         try {
             timer.schedule(timerTask, 60000); //Programma il TimerTask per eseguirlo dopo un ritardo specificato
 
-            while(true) {
-                if (!GateAperto) {  //controllo che il gate sia aperto
-                    System.out.println("gate chiuso " + nomeGate);
-                    sleep(100);
-                }
-                else{
                     while(!codaGenerale.isEmpty()){   //creo la coda prioritaria e la coda normale
                         Turista t = codaGenerale.pop();
                         if(t.GetCartaImbarco().getPrioritario() || isPasseggeroInPrioritaria()){
                             codaPrioritaria.push(t);
-                            sleep(1000);
+                            sleep(100);
                             System.out.println("Il turista "+ t.GetCartaImbarco().getCognomePasseggero() + " " + t.GetCartaImbarco().getNomePasseggero() + " è entrato nella coda prioritaria nel gate " + nomeGate);
                         }
                         else{
                             codaNormale.push(t);
-                            sleep(1000);
+                            sleep(100);
                             System.out.println("Il turista " + t.GetCartaImbarco().getCognomePasseggero() + " " + t.GetCartaImbarco().getNomePasseggero() + " è entrato nella coda normale nel gate " + nomeGate);
                         }
                     }
@@ -73,8 +66,6 @@ public class Gate extends Thread{
                         EffettuaControllo(t);
                     }
                     // TerminatiIControlli verrà impostato su true dal TimerTask
-                }
-            }
         }catch(InterruptedException ex){
             System.out.println(ex.getMessage());
         }
@@ -86,12 +77,12 @@ public class Gate extends Thread{
     public void EffettuaControllo(Turista t){
         try{
             if(destinazione.equals(t.GetCartaImbarco().getViaggio())){
-                sleep(1000);
+                sleep(100);
                 System.out.println("    Il turista " + t.GetCartaImbarco().getCognomePasseggero() + " " + t.GetCartaImbarco().getNomePasseggero() + " ha effettuato il controllo effettuato nel gate " + nomeGate);
                 t.setGateGiusto(true);
             }
             else{
-                sleep(1000);
+                sleep(100);
                 t.setGateGiusto(false);
                 System.out.println("    Il turista " + t.GetCartaImbarco().getCognomePasseggero() + " " + t.GetCartaImbarco().getNomePasseggero() + " ha sbagliato gate");
             }
