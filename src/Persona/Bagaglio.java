@@ -6,7 +6,7 @@ public class Bagaglio {
 
     private boolean daStiva;
     private int peso;
-    private String misure;
+    private String misure; // larghezza-altezza-profondità
     private Etichetta etichetta;
     private List<Oggetto> oggettiContenuti;
     private boolean ritirato;

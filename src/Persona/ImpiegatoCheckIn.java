@@ -6,10 +6,12 @@ import Aereoporto.ZonaCheckIn.NastroTrasportatore;
 public class ImpiegatoCheckIn extends Persona{
     public Banco banco;
     public NastroTrasportatore nastroTrasportatore;
+
     public ImpiegatoCheckIn(Banco banco, NastroTrasportatore nT){
         this.banco = banco;
         this.nastroTrasportatore = nT;
     }
+
     public void run() {
         while(true)
         {

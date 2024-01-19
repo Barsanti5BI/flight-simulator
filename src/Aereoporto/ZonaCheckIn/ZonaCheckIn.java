@@ -12,7 +12,7 @@ public class ZonaCheckIn extends ZonaAeroporto {
     NastroTrasportatore nastroTrasportatore;
 
     public ZonaCheckIn(NastroTrasportatore nastro) {
-       nastroTrasportatore = nastro;
+        nastroTrasportatore = nastro;
         banco = new Banco(nastroTrasportatore, 1);
         impiegato = new ImpiegatoCheckIn(banco, nastroTrasportatore);
         banco.impiegatoCheckIn = impiegato;
