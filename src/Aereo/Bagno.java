@@ -3,7 +3,7 @@
 package Aereo;
 
 import Utils.Coda;
-
+import Persona.Turista;
 import java.util.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
