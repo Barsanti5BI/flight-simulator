@@ -6,6 +6,10 @@ public class Aereo {
     private int carburante;
     private int ID;
 
+
+
+    private  String  piloto;
+
     public Aereo(int id)
     {
         this.ID = id;

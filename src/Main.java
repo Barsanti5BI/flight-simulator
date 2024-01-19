@@ -1,3 +1,4 @@
+import Persona.Pilota;
 import TorreDiControllo.*;
 import Aereo.*;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ public class Main {
    public static void main(String[] args) {
 
       // Creazione di oggetti necessari come esempio
+      TorreControllo torreControllo = null;
 
       int parcheggiGateCount = 10;  // Sostituisci con il valore corretto
       int parcheggiEmergenzaCount = 5;  // Sostituisci con il valore corretto
@@ -17,10 +19,12 @@ public class Main {
       //Creazione Viaggi e Aerei
       List<Viaggio> viaggi = new ArrayList<>();
       List<Aereo> aerei = new ArrayList<>();
+      List<Pilota>  pilotas = new ArrayList<>();
       for (int i = 0; i < 9; i++)
       {
        aerei.add(new Aereo(i));
-       viaggi.add(new Viaggio("Destinazione",aerei.get(i),5+i));
+       pilotas.add((new Pilota(aerei.get(i),torreControllo,false)));
+       viaggi.add(new Viaggio("Destinazione",aerei.get(i),pilotas.get(i),5+i));
       }
 
       //Creazione piste
@@ -52,7 +56,7 @@ public class Main {
 
 
       // Creazione dell'oggetto TorreControllo
-      TorreControllo torreControllo = new TorreControllo(
+       torreControllo = new TorreControllo(
               viaggi, piste, parcheggiGate, parcheggiEmergenza, hangars,
               parcheggiGateCount, parcheggiEmergenzaCount, pisteCount, hangarCount
       );

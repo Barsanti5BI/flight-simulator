@@ -1,4 +1,7 @@
 package TorreDiControllo;
+import Aereo.*;
+import Persona.*;
+import Aereoporto.*;
 
 import Aereo.Aereo;
 

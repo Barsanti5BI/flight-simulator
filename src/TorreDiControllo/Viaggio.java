@@ -1,56 +1,38 @@
 package TorreDiControllo;
-import Aereo.Aereo;
+import Aereo.*;
+import Persona.*;
+import Aereoporto.*;
 
 import java.util.Timer;
 import java.util.TimerTask;
-public class Viaggio // Classe che dovrebbe avere l'aereo
+public class Viaggio
 {
-
-    //Gate di entrata
-    //viaggio con destinazione
-    //Timer,se arriva a 0 atterra
-    //
     Boolean finito;
-
+    public Pilota p;
     public Aereo a;
     private String destinazione;
-    private int durataSecondi;
-    private Timer timer;
+    //partenza o arrivo, true = partenza, false = arrivo
     private Boolean pa;
-    public int numGate;
-    public Viaggio(String destinazione,Aereo a, int durataS)
+    private int numGate;
+    public Viaggio(String d, Aereo aereo,Pilota pilota, boolean partenzaArrivo, int nG)
     {
-
-        this.a = a;
-        this.destinazione = destinazione;
-        this.durataSecondi = durataS;
-        this.timer = new Timer();
-        this.finito = false;
-    }
-    public void avviaViaggio()
-    {
+        p = pilota;
+        a = aereo;
+        destinazione = d;
         finito = false;
-        // Crea un compito (Task) per rappresentare la durata del viaggio
-        TimerTask compito = new TimerTask() {
-            @Override
-            public void run() {
-                System.out.println("Il viaggio verso " + destinazione + " è terminato. Durata: " + durataSecondi);
-                // Puoi aggiungere qualsiasi azione desideri eseguire quando il viaggio termina
-
-                timer.cancel(); // Ferma il temporizzatore quando il viaggio è terminato
-                finito = true;
-            }
-        };
-        // Programma il compito per essere eseguito dopo la durata specificata del viaggio
-
-        timer.schedule(compito, durataSecondi * 1000); // Converti i secondi in millisecondi
-
-        // Puoi eseguire altre azioni qui mentre il viaggio è in corso
-        //a.Partenza();
+        pa = partenzaArrivo;
+        numGate = nG;
     }
 
+    public String DammiDestinzazione()
+    {
+        return destinazione;
+    }
 
-
+    public int GetNumGate()
+    {
+        return numGate;
+    }
     public Boolean DimmiSeFinito()
     {
         return finito;

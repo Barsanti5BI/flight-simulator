@@ -41,4 +41,24 @@ public class Parcheggio {
         aereo = null;
         //manu.a = null;
     }
+
+    //restituisce la distanza
+    public boolean GetDistanza()
+    {
+        return distanza;
+    }
+
+    public Gate GetGate()
+    {
+        return gate;
+    }
+
+    public Aereo GetAereo()
+    {
+        return aereo;
+    }
+    public boolean GateFree()
+    {
+        return gate.TerminatiIControlli;
+    }
 }

@@ -1,10 +1,10 @@
 package TorreDiControllo;
-import Aereo.Aereo;
-
+import Aereo.*;
+import Persona.*;
+import Aereoporto.*;
+import Coda.Coda;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 /**
  * TorreDiControllo
@@ -33,11 +33,18 @@ import java.util.List;
 public class TorreControllo extends Thread
 {  
    public boolean fine;
-   private List<Viaggio> viaggi;
-   private List<Pista> piste;
-   private List<Parcheggio> parcheggiGate;
-   private List<Parcheggio> parcheggiEmergenza;//boh forse è inutile
-   private List<Hangar> hangars;
+
+   private Meteo meteo;
+   private ArrayList<Viaggio> viaggi;
+   private  ArrayList<Viaggio> viaggiTerminati; // lista dei viaggi che non hanno completato il viaggio
+   private ArrayList<Pista> piste;
+
+   private Coda<Pilota> richiestaPistaPiloti;
+   private Coda<Pilota> richiestaParcheggioPiloti;
+
+   private ArrayList<Parcheggio> parcheggiGate;
+   private ArrayList<Parcheggio> parcheggiEmergenza;//boh forse è inutile
+   private ArrayList<Hangar> hangars;
    //Counters
    private int parcheggiGateCount;
    private int parcheggiEmergenzaCount;
@@ -45,12 +52,13 @@ public class TorreControllo extends Thread
    private int hangarCount;
 
 
-   public TorreControllo(List<Viaggio> viaggi ,List<Pista> piste,List<Parcheggio> parcheggiGate,List<Parcheggio> parcheggiEmergenza,List<Hangar> hangars,int parcheggiGateCount,int parcheggiEmergenzaCount,int pisteCount,int hangarCount)
+   public TorreControllo(ArrayList<Viaggio> viaggi ,ArrayList<Pista> piste,ArrayList<Parcheggio> parcheggiGate,ArrayList<Parcheggio> parcheggiEmergenza,ArrayList<Hangar> hangars,int parcheggiGateCount,int parcheggiEmergenzaCount,int pisteCount,int hangarCount)
    {
       //avviare viaggi
 
       super();
       this.viaggi = viaggi;
+      this.viaggiTerminati = new ArrayList<>();
       this.fine = true;
       this.piste = piste;
       this.parcheggiGate = parcheggiGate;
@@ -60,74 +68,181 @@ public class TorreControllo extends Thread
       this.parcheggiEmergenzaCount = parcheggiEmergenzaCount;
       this.pisteCount = pisteCount;
       this.hangarCount = hangarCount;
-
-      for(Viaggio viaggio : this.viaggi){
-         viaggio.avviaViaggio();
-      }
+      this.richiestaPistaPiloti = null;
    }
+
+   public synchronized void AggiungiPilota(Pilota p)
+   {
+      richiestaPistaPiloti.push(p);
+   }
+
    @Override
    public void run ()
    {
 
       //variabili d'appoggio
       int primaPistaDisp;
-      List<Aereo> aereiInArrivo;
-      List<Viaggio> viaggiFiniti = new ArrayList<>();
+      ArrayList<Aereo> aereiInArrivo;
+      ArrayList<Viaggio> viaggiFiniti = new ArrayList<>();
+
 
       //LOOP
       while (fine)
       {
-         //System.out.println(PrimaPistaDisp());
-
-         try {Thread.sleep(3);}catch (Exception e){    System.out.println(e);}
-        //prende la lista degli aerei che hanno finito il viaggio
-         viaggiFiniti = DammiViaggiFiniti(viaggiFiniti);
-
-         try {Thread.sleep(1000);}catch (Exception e){    System.out.println(e);}//debug----------------------------------------------------------------------
-
-         //Mette gli aerei dentro le varie piste disponibili, controllando anche il gate specifico, se una di queste variabili non
-         //non è disponibile allora verrà avviato un timer in modo che l'aereo viaggi ancora fino a che non verrà trovata una pista libera
-         if(!viaggiFiniti.isEmpty()) {
-
-            for (int i = 0; i < viaggiFiniti.size(); i++)
+         if (!richiestaPistaPiloti.isEmpty())
+         {
+            if (meteo.DammiMeteoAttuale())
             {
-               Aereo arrivato = viaggiFiniti.get(i).a;
-               primaPistaDisp = PrimaPistaDisp();
-               if(primaPistaDisp != -1 && parcheggiGate.get(i).aereo == null)// controllo pista libera e parcheggioGate libero
+               for (int i = 0; i < richiestaPistaPiloti.size(); i++)
                {
-                  piste.get(primaPistaDisp).aereo = arrivato;//metto l'aereo nella pista
-                  System.out.println("L'aereo " + arrivato.DammiID() + " è atterrato");
-
-                  if (ParcheggiaAereo(viaggiFiniti.get(i)))
+                  Viaggio viaggioArrivato = CercaViaggio(richiestaPistaPiloti.pop());
+                  primaPistaDisp = PrimaPistaDisp();
+                  viaggioArrivato.p.setPista(primaPistaDisp);//ora il pilota ha la pista di atterraggio e aspetta conferma di atterrare
+                  if (primaPistaDisp != -1 && parcheggiGate.get(viaggi.get(i).GetNumGate()).aereo == null)// controllo pista libera e parcheggioGate libero
                   {
-                     //Aereo parcheggiato con successo
-                     piste.get(primaPistaDisp).aereo = null;
-                     System.out.println("L'aereo " + i + " ha liberato la pista " + primaPistaDisp+ " e ha trovato parcheggiato");
+                     this.notifyAll();
+                     System.out.println("L'aereo " + viaggioArrivato.a.DammiID() + " è atterrato");
+                  } else {
+                     //caso in cui bisogna mandare l'aereo in un altro aereoporto o farlo girare intorno, quando finisce la benzina si cancella il volo
+
+                     if (viaggioArrivato.a.DammiCarburante() < 10) {
+                        viaggiTerminati.add(viaggioArrivato);
+                     } else {
+                       richiestaPistaPiloti.push(viaggioArrivato.p); //ritorna nella lista delle richieste per entrare nella pista
+                     }
+                  }
+               }
+            }
+            //Parcheggio aerei che sono dentro le piste
+
+            for (int i = 0; i < piste.size(); i++)
+            {
+               if(piste.get(i).aereo != null)
+               {
+                  Viaggio v = CercaViaggio(piste.get(i).aereo);
+                  Pilota p = v.p;
+
+                  if(v == null)
+                  {
+                     if(hangarCount < hangars.size() ){
+
+                     }
+                     hangars.get(hangarCount).aggiungiAereo(piste.get(i).aereo);
+                     piste.remove(i);
+                  }
+                  else
+                  {
+                     p.setParcheggio(CercaParcheggio(v.GetNumGate()));//aspettare pullappmains
                   }
 
                }
-               else {
-                  //caso in cui bisogna mandare l'aereo in un altro aereoporto o farlo girare intorno se ha benzina fino a che non avrà
-                  //il posto, quindi qui lo si pusha dentro viaggi con un timer proporzionato e controllando il livelo di benzina
-               }
-               viaggiFiniti.clear();//pulizia della lista ad ogni giro
             }
 
+            //mettere dentro i passeggeri
+
+            //controllo distanza da parcheggio a gate e inserimento navetta
+          for (int k = 0; k < parcheggiGateCount; k++)
+            {
+               Parcheggio p = parcheggiGate.get(k);
+               //controllo se il parcheggio è occupato e se il gate è pronto a portare i turisti nell'aereo
+               if (!p.isFree() && p.GateFree()) {
+                  //controllo la distanza, se TRUE allora navetta
+                  if (p.GetDistanza()) {
+                     Navetta n = new Navetta(p.GetGate(), p.GetAereo());
+                     n.navettaAndata();
+                  } else {
+                     //prende i turisti e li porta nell'entrata dell'aereo
+                     Coda<Turisti> codaTuristi = p.GetGate().GetCodaTurista();
+                     p.GetAereo().getEntrata().DareEntranti(codaTuristi);
+                  }
+               }
+
+            }
 
          }
 
-
-
-
       }
 
+
+
+   }
+   //Metodi comunicazione pilota
+   //parti() // il pilota
+   //ritardo()
+   //atterra()
+   //Metodi Parcheggio
+
+   public String dimmiMeteoAttuale()
+   {
+      return meteo.DammiMotivazione();
+   }
+   public Coda<Pilota> getCodaPilotiRichiestePista(){return richiestaPistaPiloti;}
+   public Coda<Pilota> getCodaPilotiRichiesteParcheggio()
+   {
+    return richiestaParcheggioPiloti;
    }
 
+   public Viaggio CercaViaggio(Pilota piloto)
+   {
+      for (int i = 0; i < viaggi.size(); i++)
+      {
+         if(viaggi.get(i).p == piloto){
+            return viaggi.get(i);
+         }
+      }
+      return null;
+   }
 
-   //Metodi Parcheggio
+   public Viaggio CercaViaggio(Aereo aereo)
+   {
+      for (int i = 0; i < viaggi.size(); i++)
+      {
+         if(viaggi.get(i).a == aereo){
+            return viaggi.get(i);
+         }
+      }
+      return null;
+   }
+ public  List<Pista> DammiPiste(){
+      return piste;
+ }
+
+//Meteo
+   public boolean DimmiMeteo()
+   {
+      return meteo.DammiMeteoAttuale();
+   }
+
+   public void CambiaMeteo()
+   {
+      meteo.CambiaMeteo();
+   }
+
+   public int DammiViaggioAereo(Aereo aereo){
+      for (int i = 0; i < viaggi.size(); i++)
+      {
+         if(viaggi.get(i).a == aereo)
+         {
+            return i;
+         }
+      }
+      return -1;
+   }
+   public  int DammiPistePiene(){
+
+
+      int count = 0;
+      for (int i = 0; i < piste.size(); i++) {
+         if(piste.get(i).aereo != null)
+         {
+            count++;
+         }
+      }
+      return count;
+   }
    public Boolean ParcheggiaAereo(Viaggio V)
    {
-      int parcheggioAereo = CercaParcheggio(V.numGate);
+      int parcheggioAereo = CercaParcheggio(V.GetNumGate());
      if(parcheggioAereo != -1)
      {
         parcheggiGate.get(parcheggioAereo).aereoArrivato(V.a);
@@ -138,6 +253,8 @@ public class TorreControllo extends Thread
       return false;
      }
    }
+
+
    public int CercaParcheggio(int gate) //ora restituisce l'index del parcheggio, altrimenti sarebbe stato un oggetto dissociato dalla lista
    {
       for(int i = 0; i < parcheggiGate.size(); i++)
@@ -216,7 +333,7 @@ public class TorreControllo extends Thread
             sleep(10);
          }
          piste.get(pista).aereo = V.a;
-         parcheggiGate.get(CercaParcheggio(V.numGate)).AereoInPartenza();
+         parcheggiGate.get(CercaParcheggio(V.GetNumGate())).AereoInPartenza();
          sleep(1000);
       }
       catch(Exception e)
