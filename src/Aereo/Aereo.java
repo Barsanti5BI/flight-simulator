@@ -19,12 +19,7 @@ public abstract class Aereo extends  Thread{
     public boolean einvolo;
     private boolean maltempo;
     private Random r;
-    private Parcheggio parcheggio;
-
-
-
-
-
+    
     public Aereo(int Id){
         this.id =Id;
         maltempo = false;
@@ -46,7 +41,6 @@ public abstract class Aereo extends  Thread{
 
         alieni = new Alieni(this);
         alieni.start();
-        parcheggio = null;
     }
 
     public void run(){
