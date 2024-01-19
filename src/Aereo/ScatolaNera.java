@@ -1,4 +1,5 @@
 package Aereo;
+import java.awt.*;
 import java.time.ZonedDateTime;
 import java.util.Dictionary;
 import java.util.Enumeration;
@@ -6,6 +7,7 @@ import java.util.HashMap;
 
 public class ScatolaNera extends Thread{
 
+    private Color colore = Color.orange;
     Aereo a;
     private HashMap<ZonedDateTime,String> logComunicazioni;
     private HashMap<ZonedDateTime,String> logPosizione;
@@ -75,11 +77,6 @@ public class ScatolaNera extends Thread{
     public HashMap<ZonedDateTime,String> OttieniLogComunicazioni(){
         return logComunicazioni;
     }
-
-    public Dictionary<ZonedDateTime,String> Get_Log_Comunicazioni(){
-        return this.logComunicazioni;
-    }
-    public Dictionary<ZonedDateTime,String> Get_Log_Posizioni() {return this.logPosizione;}
     public ZonedDateTime Get_Ultima_Comunicazione() {return this.ultimaComunicazione;}
     public ZonedDateTime Get_Ultima_Posizione() {return this.ultimaPosizione;}
 

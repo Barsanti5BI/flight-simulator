@@ -42,7 +42,6 @@ public abstract class Aereo extends  Thread{
 
         alieni = new Alieni(this);
         alieni.start();
-        parcheggio = null;
     }
 
     public void run(){
@@ -158,4 +157,11 @@ public abstract class Aereo extends  Thread{
     public void setParcheggio(Parcheggio p){
         parcheggio = p;
     }
+
 }
+
+
+
+
+
+
