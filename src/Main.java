@@ -1,4 +1,5 @@
 import Aereo.Aereo;
+import Aereoporto.ZonaCheckIn.NastroTrasportatore;
 import Persona.*;
 import Utils.Coda;
 
@@ -18,7 +19,7 @@ public class Main {
          });
       }
 
-      ImpiegatoControlliStiva giano = new ImpiegatoControlliStiva();
+      ImpiegatoControlliStiva giano =  new ImpiegatoControlliStiva(new NastroTrasportatore(), lista_aerei);
 
       // TODO: generare turisti e farli entrare in aeroporto
    }
