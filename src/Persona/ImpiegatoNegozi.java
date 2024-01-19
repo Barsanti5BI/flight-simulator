@@ -33,6 +33,7 @@ public class ImpiegatoNegozi extends Thread{
             }
             else
             {
+                System.out.println("Impiegato negozi: \"Sto aspettando\"");
                 try {
                     Thread.sleep(5);
                 } catch (InterruptedException e) {

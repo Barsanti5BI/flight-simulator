@@ -38,6 +38,7 @@ public class ImpiegatoControlliArrivi extends Thread{
             else
             {
                 try {
+                    System.out.println("Impiegato controlli arrivi: \"Sto aspettando\"");
                     Thread.sleep(5);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
