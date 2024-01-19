@@ -9,17 +9,32 @@ public class Turbina extends Thread{
     private Random r;
     public double percRiparazione;
     public Boolean funzionante;
-    Turbina(Aereo a){
+    private int random;
+    Turbina(Aereo a, int id){
         r = new Random();
+        this.a = a;
+        funzionante = false;
+        percRiparazione = 100;
+        this.id = id;
     }
     public void run(){
-        while(funzionante && a.inVolo){
-            percRiparazione -= 0.5;
-            if(percRiparazione == 0){
-                Disabilita();
-            }else if(percRiparazione < 50 ){
-
+        try{
+            while(funzionante && a.einvolo){
+                percRiparazione -= 0.5;
+                random = r.nextInt(100);
+                if(percRiparazione == 0){
+                    Disabilita();
+                }else if(percRiparazione < 75 && random > 75){
+                    Disabilita();
+                }else if(percRiparazione < 50 && random > 50){
+                    Disabilita();
+                }else if(percRiparazione < 25 && random > 25){
+                    Disabilita();
+                }
+                Thread.sleep(500);
             }
+        }catch(Exception ex) {
+
         }
     }
 
@@ -32,6 +47,7 @@ public class Turbina extends Thread{
     }
     public void Attiva(){
         funzionante = true;
+        this.start();
     }
 
 }

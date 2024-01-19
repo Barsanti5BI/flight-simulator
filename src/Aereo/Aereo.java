@@ -6,7 +6,7 @@ import java.util.Random;
 public abstract class Aereo extends  Thread{
     public String nome;
     public String destinazione;
-    public String posizione;
+    public int posizione;
     public Gate gate;
     private ArrayList<Bagno> bagni;
     private ArrayList<Pilota> piloti;
@@ -23,8 +23,11 @@ public abstract class Aereo extends  Thread{
 
         bagni = new ArrayList<Bagno>();
         scatolaNera = new ScatolaNera (this);
-       
         turbine = new ArrayList<Turbina>();
+        for(int i = 0; i<4;i++){
+            Turbina n = new Turbina(this,i);
+            turbine.add(n);
+        }
         stiva = new Stiva(this);
         serbatoio = new Serbatoio();
         pilotaAutomatico = false;
@@ -36,8 +39,10 @@ public abstract class Aereo extends  Thread{
     }
 
     public void run(){
+
         avvia();
-        while(einvolo){
+        while(einvolo && serbatoio.getStatoSerbatoio()>0 && posizione<100) {
+
             try{
                 if (alieni.aereo_rubato){
                     break;
@@ -45,10 +50,19 @@ public abstract class Aereo extends  Thread{
                 Thread.sleep(50);
             }catch (Exception e){}
             serbatoio.consuma();
+            posizione+=2;
         }
     }
 
     public void avvia(){
-        
+        for(int i = 0; i< 4;i++){
+            turbine.get(i).start();
+        }
+        scatolaNera.start();
+
+    }
+
+    public  void atterra(){
+        einvolo = false;
     }
 }

@@ -12,7 +12,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class Bagno extends Thread{
     private  Coda<Turista> c;
-
+    private  Coda<Turista> finio;
     private Lock l;
 
 
@@ -38,13 +38,14 @@ public class Bagno extends Thread{
 
     public synchronized void Bisogno(int i)
     {
+        Turista t=new Turista("prova","prova","prova","911",1);
         try
         {
             l.lock();
 
 //serve nome del turista
-
-            System.out.println("il bagno è occupato da "+c.pop().Nome);
+            t=c.pop();
+            System.out.println("il bagno è occupato da "+t.Nome);
             Random r = new Random();
             int k= r.nextInt(5000);
 
@@ -55,9 +56,17 @@ public class Bagno extends Thread{
 
         finally {
             l.unlock();
+                    finio.push(t);
         }
 
+
     }
+
+    public Turista finito()
+    {
+       return finio.pop();
+    }
+
     public void run()
     {
         //try{

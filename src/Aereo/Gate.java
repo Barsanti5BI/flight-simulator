@@ -17,7 +17,7 @@ public class Gate extends Thread{
     Boolean TerminatiIControlli;
     Coda<Turista> codaNavetta;
     Boolean GateAperto;
-    Coda<Turista> coda;
+    Coda<Turista> codaGenerale;
     public Gate(int nomeGate, Coda<Turista> coda,String destinazione){
         GateAperto = false;
         timer = new Timer();
@@ -41,7 +41,7 @@ public class Gate extends Thread{
         try {
             timer.schedule(timerTask, 60000); //Programma il TimerTask per eseguirlo dopo un ritardo specificato
 
-            while (true) {
+            while(true) {
                 if (!GateAperto) {  //controllo che il gate sia aperto
                     System.out.println("gate chiuso " + nomeGate);
                     sleep(100);
@@ -49,32 +49,31 @@ public class Gate extends Thread{
                 else{
                     while(!coda.isEmpty()){   //creo la coda prioritaria e la coda normale
                         Turista t = coda.pop();
-                        if(t.cartaImbarco.getPrioritario() || isPasseggeroInPrioritaria()){
+                        if(t.GetCartaImbarco().getPrioritario() || isPasseggeroInPrioritaria()){
                             codaPrioritaria.push(t);
                             sleep(1000);
-                            System.out.println("Il turista " + t.cartaImbarco.getCognomePasseggero() + " " + t.cartaImbarco.getNomePasseggero() + " è entrato nella coda prioritaria nel gate " + nomeGate);
+                            System.out.println("Il turista "+ t.GetCartaImbarco().getCognomePasseggero() + " " + t.GetCartaImbarco().getNomePasseggero() + " è entrato nella coda prioritaria nel gate " + nomeGate);
                         }
                         else{
                             codaNormale.push(t);
                             sleep(1000);
-                            System.out.println("Il turista " + t.cartaImbarco.getCognomePasseggero() + " " + t.cartaImbarco.getNomePasseggero() + " è entrato nella coda normale nel gate " + nomeGate);
+                            System.out.println("Il turista " + t.GetCartaImbarco().getCognomePasseggero() + " " + t.GetCartaImbarco().getNomePasseggero() + " è entrato nella coda normale nel gate " + nomeGate);
                         }
                     }
                     while (!codaPrioritaria.isEmpty()) {  //prima la coda prioritaria
                         Turista t = codaPrioritaria.pop();
                         EffettuaControllo(t);
-                        codaNavetta.push(t);
+
                     }
                     while (!codaNormale.isEmpty()) { //dopo la coda normale
                         Turista t = codaNormale.pop();
                         EffettuaControllo(t);
-                        codaNavetta.push(t);
                     }
                     // TerminatiIControlli verrà impostato su true dal TimerTask
                 }
             }
         }catch(InterruptedException ex){
-            System.out.println(ex);
+            System.out.println(ex.getMessage());
         }
 
     }
@@ -83,16 +82,17 @@ public class Gate extends Thread{
     }
     public void EffettuaControllo(Turista t){
         try{
-            if(destinazione.equals(t.cartaImbarco.getViaggio())){
+            if(destinazione.equals(t.GetCartaImbarco().getViaggio())){
                 sleep(1000);
-                System.out.println("    Il turista " + t.cartaImbarco.getCognomePasseggero() + " " + t.cartaImbarco.getNomePasseggero() + " ha effettuato il controllo effettuato nel gate " + nomeGate);
+                System.out.println("    Il turista " + t.GetCartaImbarco().getCognomePasseggero() + " " + t.GetCartaImbarco().getNomePasseggero() + " ha effettuato il controllo effettuato nel gate " + nomeGate);
+                codaNavetta.push(t);
             }
             else{
                 sleep(1000);
-                System.out.println("    Il turista " + t.cartaImbarco.getCognomePasseggero() + " " + t.cartaImbarco.getNomePasseggero() + " ha sbagliato gate");
+                System.out.println("    Il turista " + t.GetCartaImbarco().getCognomePasseggero() + " " + t.GetCartaImbarco().getNomePasseggero() + " ha sbagliato gate");
             }
         }catch (InterruptedException ex){
-            System.out.println(ex);
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -119,4 +119,9 @@ public class Gate extends Thread{
     }
     public String getDestinazione(){return destinazione;}
     public boolean getGateAperto(){ return GateAperto;}
+
+    public Coda<Turista> getCodaGenerale()
+    {
+        return codaGenerale;
+    }
 }
