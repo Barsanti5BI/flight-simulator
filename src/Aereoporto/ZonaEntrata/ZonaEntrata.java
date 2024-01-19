@@ -1,5 +1,6 @@
 package Aereoporto.ZonaEntrata;
 
+import Aereo.Aereo;
 import Persona.Bagaglio;
 import Persona.Documento;
 import Persona.Turista;
@@ -14,12 +15,13 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ZonaEntrata extends ZonaAeroporto {
-
+    private ArrayList<Aereo> lista_aerei;
     private Coda<Turista> codaTuristi;
 
     // qui entrano i turisti generati
-    public ZonaEntrata() {
+    public ZonaEntrata(ArrayList<Aereo> lista) {
         codaTuristi = generaTuristi();
+        this.lista_aerei = lista;
     }
 
     public Coda<Turista> generaTuristi() {
@@ -29,10 +31,15 @@ public class ZonaEntrata extends ZonaAeroporto {
 
             ArrayList<Oggetto> listOggetti = generaListaOggetti(0, 6);
 
-            Turista t = new Turista(generaDocumenti(), generaBagagli(), null, listOggetti);
+            Turista t = new Turista(generaDocumenti(), generaBagagli(), null, listOggetti, Random_Id_Aereo(this.lista_aerei));
             coda.push(t);
         }
         return coda;
+    }
+
+    public int Random_Id_Aereo(ArrayList<Aereo> lista_aerei){
+        Random rand = new Random();
+        return lista_aerei.get(rand.nextInt(0, lista_aerei.size())).Get_ID();
     }
 
     private Bagaglio generaBagagli() {
