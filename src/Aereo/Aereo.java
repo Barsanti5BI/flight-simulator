@@ -17,10 +17,12 @@ public abstract class Aereo extends  Thread{
     private boolean pilotaAutomatico;
     public Alieni alieni;
     public boolean einvolo;
+    private boolean maltempo;
 
     private Random r;
 
     public Aereo(String nome,ArrayList<Pilota> piloti){
+        maltempo = false;
         this.nome = nome;
         r = new Random();
 
@@ -49,10 +51,15 @@ public abstract class Aereo extends  Thread{
                 if (alieni.aereo_rubato){
                     break;
                 }
-                Thread.sleep(r.nextInt(1000-500)+500);
+                Thread.sleep(1000);
             }catch (Exception e){}
             serbatoio.consuma();
-            posizione+=2;
+            if (maltempo) {
+                posizione+=1;
+            }else{
+                posizione+=2;
+            }
+
         }
     }
 
@@ -93,7 +100,9 @@ public abstract class Aereo extends  Thread{
             ris = false;
         }
         return ris;
-
+    }
+    public void CambiaStatoMaltempo(){
+        maltempo = !maltempo;
     }
 
 }
