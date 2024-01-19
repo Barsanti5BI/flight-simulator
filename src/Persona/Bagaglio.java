@@ -6,7 +6,7 @@ public class Bagaglio {
 
     private boolean daStiva;
     private int peso;
-    private String misure;
+    private String mis;
     private Etichetta etichetta;
     private List<Oggetto> oggettiContenuti;
     private Turista Proprietario;
@@ -15,7 +15,7 @@ public class Bagaglio {
         this.daStiva = daStiva;
         this.oggettiContenuti = oggettiContenuti;
         this.etichetta = etichetta;
-        this.misure = misure;
+        this.mis = misure;
         this.peso = peso;
     }
 
