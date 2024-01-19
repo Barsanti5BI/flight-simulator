@@ -181,6 +181,7 @@ public class Turista extends Persona{
 
                             deveFareControlli = false;
                             controlliFattiConSuccesso = true;
+                            prontoPerImbarcarsi = true;
                         }
 
                         // ZONA NEGOZI
@@ -380,5 +381,10 @@ public class Turista extends Persona{
     public void setPassatoControlliGate(Boolean var)
     {
         esitoControlloGate = var;
+    }
+
+    public void setArrivatoAreaArrivi(Boolean var)
+    {
+        arrivatoAreaArrivi = var;
     }
 }

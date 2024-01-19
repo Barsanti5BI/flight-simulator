@@ -31,7 +31,8 @@ public class MetalDetector extends Thread {
                   codaTuristiBuoni.push(turista);
                } else {
                    System.out.println("Il turista " + turista.getDoc().getCognome() + " " + turista.getDoc().getNome() + " è pericoloso, viene arrestato");
-                  codaTuristiPericolosi.push(turista);
+                   turista.controlloMetalDetectorSospetto = true;
+                   codaTuristiPericolosi.push(turista);
                }
                synchronized (turista) {
                    turista.notify();
