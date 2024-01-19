@@ -7,6 +7,7 @@ import Aereoporto.ZonaCheckIn.ZonaCheckIn;
 import Aereoporto.ZonaControlli.ZonaControlli;
 import Aereoporto.ZonaNegozi.ZonaNegozi;
 import Aereoporto.ZonaPartenze.ZonaPartenze;
+import Aereoporto.ZonaCheckIn.ZonaCheckIn;
 import Persona.Bagaglio;
 import Persona.Documento;
 import Persona.Turista;
@@ -14,7 +15,9 @@ import Aereoporto.Common.ListaOggetti;
 import Aereoporto.Common.ZonaAeroporto;
 import Persona.Oggetto;
 import Utils.Coda;
-import org.jetbrains.annotations.Nullable;
+import Aereoporto.ZonaControlli.ZonaControlli;
+import Aereoporto.ZonaNegozi.ZonaNegozi;
+import Aereoporto.ZonaPartenze.ZonaPartenze;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -31,25 +34,19 @@ public class ZonaEntrata extends ZonaAeroporto {
     private Coda<Turista> codaTuristi;
 
     // qui entrano i turisti generati
-    public ZonaEntrata(ArrayList<Aereo> lista_aer, ZonaArrivi arrivi, ZonaCheckIn checkIn, ZonaControlli controlli, ZonaNegozi negozi, ZonaPartenze partenze) {
+    public ZonaEntrata(ArrayList<Aereo> lista_aer,ZonaCheckIn zonaCheckIn,ZonaControlli zonaControlli, ZonaNegozi zonaNegozi, ZonaPartenze zonaPartenze) {
         this.lista_aerei = lista_aer;
-        codaTuristi = generaTuristi();
-
-        zonaArrivi = arrivi;
-        zonaControlli = controlli;
-        zonaNegozi = negozi;
-        zonaPartenze = partenze;
-        zonaCheckIn = checkIn;
+        codaTuristi = generaTuristi(zonaCheckIn,zonaControlli,zonaNegozi,zonaPartenze);
     }
 
-    public Coda<Turista> generaTuristi() {
+    public Coda<Turista> generaTuristi(ZonaCheckIn zonaCheckIn, ZonaControlli zonaControlli, ZonaNegozi zonaNegozi, ZonaPartenze zonaPartenze) {
         Coda<Turista> coda = new Coda<>();
 
         for (int i = 0; i < 100; i++) {
 
             ArrayList<Oggetto> listOggetti = generaListaOggetti(0, 6);
 
-            Turista t = new Turista(generaDocumenti(), generaBagagli(), null, listOggetti, Random_Id_Aereo(), true, zonaArrivi, zonaCheckIn, zonaControlli, zonaNegozi, zonaPartenze);
+            Turista t = new Turista(generaDocumenti(), generaBagagli(), null, listOggetti, Random_Id_Aereo(),zonaCheckIn,zonaControlli,zonaNegozi,zonaPartenze);
             t.start();
             coda.push(t);
         }

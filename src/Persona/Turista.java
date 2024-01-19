@@ -74,7 +74,7 @@ public class Turista extends Thread{
     private Random r;
     private int codAereo;
 
-    public Turista(Documento doc, Bagaglio bag, CartaImbarco cartaImbarco, List<Oggetto> oggetti, int codAereo, boolean inPartenza, ZonaArrivi arrivi, ZonaCheckIn checkIn, ZonaControlli controlli, ZonaNegozi negozi, ZonaPartenze partenze) {
+    public Turista(Documento doc, Bagaglio bag, CartaImbarco cartaImbarco, List<Oggetto> oggetti, int codAereo,ZonaCheckIn zonaCheckIn, ZonaControlli zonaControlli, ZonaNegozi zonaNegozi, ZonaPartenze zonaPartenze){
         this.bagaglio = bag;
         this.cartaImbarco = cartaImbarco;
         this.oggetti = oggetti;
@@ -103,15 +103,15 @@ public class Turista extends Thread{
         esitoControlli = false;
         haRitiratoBagagliArr = false;
         haFinitoArr = false;
-
-        zonaArrivi = arrivi;
-        zonaControlli = controlli;
-        zonaNegozi = negozi;
-        zonaPartenze = partenze;
-        zonaCheckIn = checkIn;
+        inPartenza = true;
+        this.zonaCheckIn = zonaCheckIn;
+        this.zonaControlli = zonaControlli;
+        this.zonaNegozi = zonaNegozi;
+        this.zonaPartenze = zonaPartenze;
     }
 
     public void run(){
+        System.out.println("Il turista " + getName() + " è stato generato");
         while (true){
             try{
                 // IL TURISTA DEVE PARTIRE

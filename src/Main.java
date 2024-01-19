@@ -2,6 +2,7 @@
 import Aereo.Aereo;
 import Aereoporto.ZonaCheckIn.NastroTrasportatore;
 import Persona.*;
+import TorreDiControllo.TorreControllo;
 import TorreDiControllo.Viaggio;
 import java.time.LocalDate;
 import java.util.ArrayList;
