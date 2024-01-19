@@ -21,12 +21,16 @@ public abstract class Aereo extends  Thread{
     private Random r;
     private Parcheggio parcheggio;
 
+
+
+
+
     public Aereo(int Id){
         this.id =Id;
-        r = new Random();
         maltempo = false;
 
-
+        r = new Random();
+        
         bagni = new ArrayList<Bagno>();
         scatolaNera = new ScatolaNera (this);
         turbine = new ArrayList<Turbina>();
