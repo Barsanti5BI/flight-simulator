@@ -143,6 +143,8 @@ public class Gate extends Thread{
     public String getDestinazione(){return destinazione;}
     public boolean getGateAperto(){ return GateAperto;}
 
+    public int Get_Nome_Gate(){return nomeGate;}
+
     public Coda<Turista> getCodaGenerale()
     {
         return codaGenerale;

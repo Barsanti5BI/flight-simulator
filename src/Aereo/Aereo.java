@@ -1,5 +1,4 @@
 package Aereo;
-
 import java.util.ArrayList;
 import java.util.Random;
 import TorreDiControllo.Parcheggio;

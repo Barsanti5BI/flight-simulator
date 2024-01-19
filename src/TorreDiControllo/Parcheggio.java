@@ -3,6 +3,7 @@ import Aereo.Aereo;
 import Aereo.Gate;
 
 import java.util.Random;
+import Persona.Manutentore;
 
 public class Parcheggio {
     public int id;
@@ -10,7 +11,7 @@ public class Parcheggio {
     private Gate gate;
     public Boolean distanza;
 
-    //public Manutentore manu; ancora da mettere
+    public Manutentore manu;
 
     public Parcheggio(int n, Gate g)
     {
@@ -65,6 +66,6 @@ public class Parcheggio {
     }
     public boolean GateFree()
     {
-        return gate.TerminatiIControlli;
+        return gate.getTerminatiIControlli();
     }
 }

@@ -1,17 +1,18 @@
 package TorreDiControllo;
+import Utils.Coda
 import Aereo.*;
 import Persona.*;
 import Aereoporto.*;
 
 public class Navetta {
     public Gate gate;
-    public Aereo aereo;
+    public AereoPasseggeri aereo;
     public Coda<Turista> codaTuristi;
 
     public Navetta(Gate g, Aereo a)
     {
         this.gate = g;
-        this.aereo = a;
+        this.aereo = (AereoPasseggeri) a;
         this.codaTuristi = new Coda<Turista>();
     }
 
@@ -19,7 +20,7 @@ public class Navetta {
     public void navettaAndata()
     {
         //prendo la coda dei turisti dal gate
-        codaTuristi = gate.GetCodaTurista();
+        codaTuristi = gate.getCodaTurista();
         System.out.println("I turisti sono entrati nella navetta");
 
         //la navetta porta i turisti all'aereo
@@ -36,7 +37,7 @@ public class Navetta {
 
     public void navettaRitorno(){
         //prendo la coda dei turisti dall'uscita dell'aereo
-        codaTuristi = aereo.getUscita().Getusciti();
+        codaTuristi = aereo.getUscita().GetUsciti();
         System.out.println("I turisti sono entrati nella navetta");
 
         //la navetta porta i turisti all'aereoporto

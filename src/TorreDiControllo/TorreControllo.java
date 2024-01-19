@@ -2,10 +2,11 @@ package TorreDiControllo;
 import Aereo.*;
 import Persona.*;
 import Aereoporto.*;
-import Coda.Coda;
+import Utils.Coda;
 
 import java.util.ArrayList;
 import java.util.List;
+import Utils.Coda;
 /**
  * TorreDiControllo
  * 
@@ -111,13 +112,13 @@ public class TorreControllo extends Thread
                   if (primaPistaDisp != null && parcheggiGate.get(viaggi.get(i).GetNumGate()).GetAereo() == null)// controllo pista libera e parcheggioGate libero
                   {
                      viaggioArrivato.p.notify();
-                     System.out.println("L'aereo " + viaggioArrivato.a.DammiID()+ " è atterrato");
+                     System.out.println("L'aereo " + viaggioArrivato.a.Get_ID()+ " è atterrato");
                   } else {
                      //caso in cui bisogna mandare l'aereo in un altro aereoporto o farlo girare intorno, quando finisce la benzina si cancella il volo
 
-                     if (viaggioArrivato.a.DammiCarburante() < 10)
+                     if (viaggioArrivato.a.Get_Serbatoio().getStatoSerbatoio() < 10)
                      {
-                        System.out.println("Attenzione: Carburante basso. Viaggio terminato per " + viaggioArrivato.a.DammiID());
+                        System.out.println("Attenzione: Carburante basso. Viaggio terminato per " + viaggioArrivato.a.Get_ID());
                         viaggiTerminati.add(viaggioArrivato);
                      } else {
                        richiestaPistaPiloti.push(viaggioArrivato.p); //ritorna nella lista delle richieste per entrare nella pista
@@ -142,13 +143,13 @@ public class TorreControllo extends Thread
 
                      }
                      hangars.get(hangarCount).aggiungiAereo(piste.get(i).aereo);
-                     System.out.println("L'aereo " + piste.get(i).aereo.DammiID() + " parcheggiato nel hangar " + hangarCount);
+                     System.out.println("L'aereo " + piste.get(i).aereo.Get_ID() + " parcheggiato nel hangar " + hangarCount);
                      piste.remove(i);
                   }
                   else
                   {
                      p.setParcheggio(CercaParcheggio(v.GetNumGate()));//aspettare pullappmains
-                     System.out.println("L'aereo " + piste.get(i).aereo.DammiID() + " assegnato al parcheggio al gate " + v.GetNumGate());
+                     System.out.println("L'aereo " + piste.get(i).aereo.Get_ID() + " assegnato al parcheggio al gate " + v.GetNumGate());
                   }
 
                }
@@ -158,18 +159,19 @@ public class TorreControllo extends Thread
           for (int k = 0; k < parcheggiGateCount; k++)
             {
                Parcheggio p = parcheggiGate.get(k);
+               AereoPasseggeri a = (AereoPasseggeri) p.GetAereo();
                //controllo se il parcheggio è occupato e se il gate è pronto a portare i turisti nell'aereo
                if (!p.isFree() && p.GateFree()) {
                   //controllo la distanza, se TRUE allora navetta
                   if (p.GetDistanza()) {
                      Navetta n = new Navetta(p.GetGate(), p.GetAereo());
                      n.navettaAndata();
-                     System.out.println("Navetta in viaggio verso l'aereo al gate " + p.GetGate().num);
+                     System.out.println("Navetta in viaggio verso l'aereo al gate " + p.GetGate().Get_Nome_Gate());
                   } else {
                      //prende i turisti e li porta nell'entrata dell'aereo
-                     Coda<Turisti> codaTuristi = p.GetGate().GetCodaTurista();
-                     p.GetAereo().getEntrata().DareEntranti(codaTuristi);
-                     System.out.println("Turisti a bordo dell'aereo al gate " + p.GetGate().num);
+                     Coda<Turista> codaTuristi = p.GetGate().getCodaTurista();
+                     a.getEntrata().DareEntranti(codaTuristi);
+                     System.out.println("Turisti a bordo dell'aereo al gate " + p.GetGate().Get_Nome_Gate());
                   }
                }
 
@@ -275,7 +277,7 @@ public class TorreControllo extends Thread
    {
       for(int i = 0; i < parcheggiGate.size(); i++)
       {
-         if(parcheggiGate.get(i).GetGate().num == gate)//aggiunto controllo per vedere se il gate è libero direttamente sul metodo
+         if(parcheggiGate.get(i).GetGate().Get_Nome_Gate() == gate)//aggiunto controllo per vedere se il gate è libero direttamente sul metodo
          {
             return parcheggiGate.get(i);
          }
