@@ -8,14 +8,16 @@ public class ScatolaNera extends Thread{
 
     Aereo a;
     private Dictionary<ZonedDateTime,String> logComunicazioni;
-    private Dictionary<ZonedDateTime, String> logPosizione;
+    private Dictionary<ZonedDateTime,String> logPosizione;
     private ZonedDateTime ultimaComunicazione;
     private ZonedDateTime ultimaPosizione;
-    private int percBatteria;
+    public double percBatteria;
     private boolean pericolo;
+    private int nAllerte;
 
     ScatolaNera(Aereo a){
         this.a = a;
+        nAllerte = 0;
         percBatteria = 100;
         pericolo = false;
         logComunicazioni = new Dictionary<ZonedDateTime, String>() {
@@ -94,11 +96,39 @@ public class ScatolaNera extends Thread{
 
     }
     public void run(){
-        while(percBatteria > 0){
+        try{
+            while(percBatteria > 0){
+                if(pericolo){
+                    percBatteria -= 0.5;
+                    System.out.println("ALLARME - BEEEP - BEEEP");
+                    Thread.sleep(1000);
+                }else{
+                    String pos = logPosizione.get(ultimaPosizione);
+                    Thread.sleep(500);
+                    InserisciPosizione();
+                    if(pos == logPosizione.get(ultimaPosizione)){
+                        nAllerte++;
+                    }else{
+                        nAllerte = 0;
+                    }
+                    if(nAllerte > 5){
+                        Attiva();
+                    }
+
+                }
+
+            }
+        }catch(Exception ex){
 
         }
     }
 
+    public void Ricarica(){
+        percBatteria = 100;
+    }
+    public void Attiva(){
+        pericolo = true;
+    }
     public void InserisciComunicazione(String comunicazione){
         ultimaComunicazione = ZonedDateTime.now();
         logComunicazioni.put(ultimaComunicazione,comunicazione);
@@ -106,7 +136,7 @@ public class ScatolaNera extends Thread{
 
     public void InserisciPosizione(){
         ultimaPosizione = ZonedDateTime.now();
-        logPosizione.put(ultimaPosizione,a.posizione);
+        logPosizione.put(ultimaPosizione,""+a.posizione);
     }
 
 }
