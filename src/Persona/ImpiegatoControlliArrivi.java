@@ -4,7 +4,7 @@ import Utils.Coda;
 
 import java.time.LocalDate;
 
-public class ImpiegatoControlliArrivi extends Persona{
+public class ImpiegatoControlliArrivi extends Thread{
     private Coda<Turista> codaArrivi;
     private Coda<Turista> CodaDopoControlli;
 

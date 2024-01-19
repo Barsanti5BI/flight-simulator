@@ -4,7 +4,7 @@ import Utils.Coda;
 
 import java.util.List;
 
-public class ImpiegatoNegozi extends Persona{
+public class ImpiegatoNegozi extends Thread{
     private int idNegozio;
     private List<Prodotto> prodottoInVendita;
     private double importo;

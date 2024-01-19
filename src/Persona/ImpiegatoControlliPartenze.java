@@ -4,7 +4,7 @@ import Utils.Coda;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImpiegatoControlliPartenze extends Persona{
+public class ImpiegatoControlliPartenze extends Thread{
     private Coda<Bagaglio> codaScanner;
     private Coda<Turista> codaTurista;
     private ArrayList<String> oggettiProibiti;

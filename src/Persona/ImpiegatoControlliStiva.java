@@ -6,7 +6,7 @@ import Aereo.Aereo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImpiegatoControlliStiva extends Persona{
+public class ImpiegatoControlliStiva extends Thread{
     private Scanner s;
     private ArrayList<String> oggettiProibiti;
     private ArrayList<Turista> turistiPericolosi;

@@ -3,7 +3,7 @@ package Persona;
 import Aereoporto.ZonaCheckIn.Banco;
 import Aereoporto.ZonaCheckIn.NastroTrasportatore;
 
-public class ImpiegatoCheckIn extends Persona{
+public class ImpiegatoCheckIn extends Thread{
     public Banco banco;
     public NastroTrasportatore nastroTrasportatore;
     public ImpiegatoCheckIn(Banco banco, NastroTrasportatore nT, int id){

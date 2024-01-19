@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Turista extends Persona{
+public class Turista extends Thread{
 
     // Determinazione turista
     public boolean inPartenza;

@@ -4,7 +4,7 @@ import Aereo.Aereo;
 
 import java.util.Random;
 
-public class Pilota extends Persona{
+public class Pilota extends Thread{
     private Aereo a;
     private TorreControllo tC;
     private Pista pista;
