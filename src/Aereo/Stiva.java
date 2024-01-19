@@ -21,6 +21,12 @@ public class Stiva {
         return lista_bagaglio;
     }
 
+    public Bagaglio Rimuovi_Bagaglio_Stiva(){
+        Bagaglio b = pila_bag.pop();
+        peso_attuale -= b.peso;
+        return b;
+    }
+
     public boolean Riempi_Stiva(LinkedList<Bagaglio> lista_bag){
         for(Bagaglio b : lista_bag){
             pila_bag.push(b);
@@ -33,5 +39,12 @@ public class Stiva {
         pila_bag.push(b);
         peso_attuale += b.peso;
         return true;
+    }
+
+    public Stack<Bagaglio> Get_Stiva(){
+        return this.pila_bag;
+    }
+    public int Get_Peso_Stiva(){
+        return peso_attuale;
     }
 }
