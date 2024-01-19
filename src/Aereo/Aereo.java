@@ -21,16 +21,12 @@ public abstract class Aereo extends  Thread{
     private Random r;
     private Parcheggio parcheggio;
 
-
-
-
-
     public Aereo(int Id){
         this.id =Id;
         maltempo = false;
 
         r = new Random();
-        
+
         bagni = new ArrayList<Bagno>();
         scatolaNera = new ScatolaNera (this);
         turbine = new ArrayList<Turbina>();
@@ -76,12 +72,15 @@ public abstract class Aereo extends  Thread{
         }
     }
 
+    //Metodo che accende le Turbine dell'aereo e accende la scatola nera
     public void avvia(){
         for(int i = 0; i< 4;i++){
             turbine.get(i).start();
         }
         scatolaNera.start();
     }
+
+    //Metodo per riparare le turbine e ricaricare la batteria della scatola nera
     public void Ripara(){
         for(int i = 0; i<4;i++){
             turbine.get(i).Ripara();
@@ -100,6 +99,8 @@ public abstract class Aereo extends  Thread{
         }
     }
 
+    //Metodo di Controllo che controlla lo stato delle turbine e nel caso 3 o più turbine siano
+    //non funzionanti l'aereo precipita
     public boolean ControllaTurbine(){
         boolean ris = true;
         int n = 0;
@@ -113,10 +114,11 @@ public abstract class Aereo extends  Thread{
         }
         return ris;
     }
+
     public void CambiaStatoMaltempo(){
         maltempo = !maltempo;
     }
-
+    //Feature Alessio Campagnaro, l'aereo per colpa di uno sciopera partirà in ritardo
     public boolean sciopero(){
         Random r = new Random();
         int i = r.nextInt(100);
@@ -153,11 +155,7 @@ public abstract class Aereo extends  Thread{
     public Serbatoio Get_Serbatoio(){
         return this.serbatoio;
     }
-
     public void setParcheggio(Parcheggio p){
         parcheggio = p;
     }
-
-
-
 }

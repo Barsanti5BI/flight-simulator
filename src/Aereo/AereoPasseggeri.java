@@ -7,31 +7,25 @@ import java.util.ArrayList;
 
 
 public class AereoPasseggeri extends Aereo {
-
-
     private Turista[][] matricePostiAereo;
     private int nPosti;
     private Entrata entrata;
-
     private Uscita uscita;
 
 
     public AereoPasseggeri(int id) {
         super(id);
-
         matricePostiAereo = new Turista[4][10];
         nPosti = 40;
         entrata = new Entrata();
         uscita = new Uscita(this);
-
-
     }
 
     public void run(){
         avvia();
         super.run();
-
     }
+
     public void ImbarcaPasseggieri() {
         Imbarca(entrata.GetsalitiDavanti());
         Imbarca(entrata.GetsalitiDietro());
@@ -47,9 +41,6 @@ public class AereoPasseggeri extends Aereo {
             matricePostiAereo[colonna][riga] = t;
 
         }
-
-
-
     }
 
     public Coda<Turista> FaiScendere() {

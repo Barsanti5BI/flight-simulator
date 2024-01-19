@@ -2,6 +2,7 @@ package Aereo;
 
 import java.util.Random;
 
+//Feature Riccardo Pettenuzzo
 public class Alieni extends Thread{
     boolean aereo_rubato;
     public Alieni(Aereo a){
