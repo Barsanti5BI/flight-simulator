@@ -33,6 +33,7 @@ public class ImpiegatoControlliArrivi extends Persona{
                 }
 
                 t.haPassatoControlliArr = true;
+                t.notify();
             }
             else
             {

@@ -60,6 +60,7 @@ public class ImpiegatoControlliPartenze extends Persona{
                     String controllo = ControlloApprofondito(t.GetListaOggetti());
                     System.out.println("Turista " + t.getName() + " è arrestato poichè in possesso di: " + controllo);
                     t.perquisizioneTerminata = true;
+                    t.notify();
                 }
                 else
                 {

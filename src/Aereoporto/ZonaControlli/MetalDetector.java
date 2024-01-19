@@ -36,6 +36,7 @@ public class MetalDetector extends Thread {
                synchronized (turista) {
                    turista.notify();
                }
+               turista.deveFareControlliAlMetalDetector = false;
            } catch (InterruptedException e) {
                throw new RuntimeException(e);
            }

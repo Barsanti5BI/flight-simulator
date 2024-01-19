@@ -82,6 +82,25 @@ public class Turista extends Persona{
         setName(doc.getCognome() + " " + doc.getNome());
         r = new Random();
         vuoleFareAcquisto = r.nextBoolean();
+
+        deveFareCheckIn = true;
+        deveFareControlli = false;
+        devePoggiareBagagliAiControlli = true;
+        deveFareControlliAlMetalDetector = true;
+        deveRitirareBagagliAiControlli = true;
+        controlliFattiConSuccesso = false;
+        bagaglioSospetto = false;
+        controlloMetalDetectorSospetto = false;
+        perquisizioneTerminata = false;
+        prontoPerImbarcarsi = false;
+        passatoControlliGate = false;
+        esitoControlloGate = false;
+        gateGiusto = false;
+        arrivatoAreaArrivi = false;
+        haPassatoControlliArr = false;
+        esitoControlli = false;
+        haRitiratoBagagliArr = false;
+        haFinitoArr = false;
     }
 
     public void run(){
@@ -122,6 +141,11 @@ public class Turista extends Persona{
                                 bagaglio = null;
                                 deveRitirareBagagliAiControlli = true;
                             }
+                            else
+                            {
+                                devePoggiareBagagliAiControlli = false;
+                                deveRitirareBagagliAiControlli = false;
+                            }
                         }
 
                         if (deveFareControlliAlMetalDetector) {
@@ -146,12 +170,12 @@ public class Turista extends Persona{
                                     }
                                 }
                             } else {
+                                System.out.println("Scansione di potenziali oggetti metallicie effettuata");
                                 synchronized (metalDetector.getImpiegatoControlli()) {
                                     while (!perquisizioneTerminata) {
                                         metalDetector.getImpiegatoControlli().wait();
                                     }
                                 }
-                                System.out.println("Scansione di potenziali oggetti metallicie ffettuata");
                                 break;
                             }
 
@@ -180,6 +204,7 @@ public class Turista extends Persona{
                                 }
                             }
                             vuoleFareAcquisto = false;
+                            prontoPerImbarcarsi = true;
                         }
 
                         if(prontoPerImbarcarsi)
@@ -270,6 +295,7 @@ public class Turista extends Persona{
                         }
                         else
                         {
+                            System.out.println("Il turista " + getName() + " sta cercando il suo bagaglio");
                             break;
                         }
                     }

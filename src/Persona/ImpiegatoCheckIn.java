@@ -43,7 +43,6 @@ public class ImpiegatoCheckIn extends Persona{
             turista.setBagaglio(null);
         }
 
-//        nastroTrasportatore.codaBagagli.push(turista.getBagaglio());
         turista.deveFareCheckIn = false;
         turista.notify();
     }
