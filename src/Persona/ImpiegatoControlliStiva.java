@@ -1,13 +1,7 @@
 package Persona;
 
 import Aereo.Aereo;
-import Aereoporto.ZonaCheckIn.NastroTrasportatore;
-
-import java.util.LinkedList;
-import java.util.List;
-
 import Aereoporto.ZonaControlli.Scanner;
-import Aereo.Aereo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,17 +46,18 @@ public class ImpiegatoControlliStiva extends Thread{
 
                 Bagaglio bSicuro = s.getCodaBagagliControllati().pop();
                 Aereo aGiusto = null;
+                String aId = aGiusto.Get_ID() + "";
 
                 for(Aereo a : listaDiAerei)
                 {
-                    if (bSicuro.getEtichetta().getCodiceVeivolo() == a.getCodiceVeivolo())
+                    if (bSicuro.getEtichetta().getCodiceVeivolo() == aId)
                     {
                         aGiusto = a;
                         break;
                     }
                 }
 
-                aGiusto.getStiva().AggiungiBagaglio(b);
+                aGiusto.Get_Stiva().Aggiungi_Bagaglio_Stiva(bSicuro);
             }
         }
     }

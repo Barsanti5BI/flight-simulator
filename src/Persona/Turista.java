@@ -16,7 +16,6 @@ import Aereoporto.ZonaPartenze.ZonaPartenze;
 import Utils.Coda;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -72,9 +71,9 @@ public class Turista extends Thread{
     private List<Oggetto> oggetti;
     private Documento doc;
     private Random r;
-    private String destinazione;
+    private String codAereo;
 
-    public Turista(Documento doc,Bagaglio bag, CartaImbarco cartaImbarco, List<Oggetto> oggetti) {
+    public Turista(Documento doc,Bagaglio bag, CartaImbarco cartaImbarco, List<Oggetto> oggetti, String codAereo) {
         this.bagaglio = bag;
         this.cartaImbarco = cartaImbarco;
         this.oggetti = oggetti;
@@ -82,6 +81,7 @@ public class Turista extends Thread{
         setName(doc.getCognome() + " " + doc.getNome());
         r = new Random();
         vuoleFareAcquisto = r.nextBoolean();
+        this.codAereo = codAereo;
 
         deveFareCheckIn = true;
         deveFareControlli = false;
@@ -312,8 +312,8 @@ public class Turista extends Thread{
 
     }
 
-    public String getDestinazione(){
-        return destinazione;
+    public String getCodAereo(){
+        return codAereo;
     }
 
     public Bagaglio getBagaglio() {

@@ -1,12 +1,9 @@
 package Persona;
-import TorreDiControllo.TorreControllo;
-import TorreDiControllo.Parcheggio;
-import TorreDiControllo.Pista;
-
 
 import Aereo.Aereo;
-
-import java.util.Random;
+import TorreDiControllo.Parcheggio;
+import TorreDiControllo.Pista;
+import TorreDiControllo.TorreControllo;
 
 public class Pilota extends Thread{
     private Aereo a;
@@ -35,31 +32,35 @@ public class Pilota extends Thread{
             {
                 while(pista != null)
                 {
-                    tC.wait();
+                    try {
+                        tC.wait();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
 
             pista.SetAereo(a);
             a.setPista(pista);
 
-            boolean generatoRitardo = false;
-            while(!tC.getCondizioniMeteoAttuali())
+            //boolean generatoRitardo = false;
+            while(!tC.DimmiMeteo())
             {
-                if (tC.getCondizioniMeteoAttuali())
+                if (tC.DimmiMeteo())
                 {
                     System.out.println("Che bel tempo! Non ci sarà nessun ritardo.");
                     break;
                 }
                 else
                 {
-                    if (!generatoRitardo && !deveAtterare)
-                    {
-                        System.out.println("Pilota:\"Che brutto tempo! Mi sa che ci sarà un ritardo!\"");
-                        generatoRitardo = true;
-                        a.setRitardo(generatoRitardo);
-                        daiDatiScatolaNera("Ritardo " + ritardo);
-                        inviaComuncazioneTC("Ritardo " + ritardo);
-                    }
+//                    if (!generatoRitardo && !deveAtterare)
+//                    {
+//                        System.out.println("Pilota:\"Che brutto tempo! Mi sa che ci sarà un ritardo!\"");
+//                        generatoRitardo = true;
+//                        a.setRitardo(generatoRitardo);
+//                        daiDatiScatolaNera("Ritardo " + generatoRitardo);
+//                        inviaComuncazioneTC("Ritardo " + generatoRitardo);
+//                    }
 
                     try {
                         Thread.sleep(5);
@@ -77,7 +78,7 @@ public class Pilota extends Thread{
 
             if(!deveAtterare) // decolla
             {
-                parcheggio.aereoInPartenza();
+                parcheggio.AereoInPartenza();
 
                 try {
                     Thread.sleep(1000);
@@ -85,17 +86,17 @@ public class Pilota extends Thread{
                     throw new RuntimeException(e);
                 }
 
-                a.inVolo = true;
-                pista.setAereo(null);
+                a.start();
+                pista.SetAereo(null);
                 a.setPista(null);
 
-                System.out.println("Il pilota " + getName() + " ha fatto decollare l'aereo " + a.nome + " dalla pista " + p.getId());
+                System.out.println("Il pilota " + getName() + " ha fatto decollare l'aereo " + a.Get_ID() + " dalla pista " + pista.getId());
                 break;
             }
             else // atterra
             {
-                a.inVolo = false;
-                pista.setAereo(null);
+                a.start();
+                pista.SetAereo(null);
                 a.setPista(null);
 
                 try {
@@ -104,7 +105,7 @@ public class Pilota extends Thread{
                     throw new RuntimeException(e);
                 }
 
-                System.out.println("Il pilota " + getName() + " ha fatto atterare l'aereo " + a.nome + " sulla pista " + p.getId());
+                System.out.println("Il pilota " + getName() + " ha fatto atterare l'aereo " + a.Get_ID() + " sulla pista " + pista.getId());
 
                 tC.getCodaPilotiRichiesteParcheggio().push(this);
                 System.out.println("Il pilota " + getName() + " sta comunicando con la torre");
@@ -113,7 +114,11 @@ public class Pilota extends Thread{
                 {
                     while(parcheggio != null)
                     {
-                        tC.wait();
+                        try {
+                            tC.wait();
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
 
@@ -124,8 +129,8 @@ public class Pilota extends Thread{
                 }
 
                 a.setParcheggio(parcheggio);
-                parcheggio.aereoArrivato(aereo);
-                System.out.println("Il pilota " + getName() + " ha parcheggiato l'aereo sul parcheggio " + parcheggio.getId());
+                parcheggio.aereoArrivato(a);
+                System.out.println("Il pilota " + getName() + " ha parcheggiato l'aereo sul parcheggio " + parcheggio.GetId());
 
                 break;
             }
@@ -140,17 +145,12 @@ public class Pilota extends Thread{
 
     public void daiDatiScatolaNera(String comunicazione)
     {
-        a.getScatolaNera().InserisciComunicazione(comunicazione);
-    }
-
-    public void inviaComuncazioneTC(String comunicazione)
-    {
-        tC.invioCom(comunicazione);
+        a.Get_Scatola_Nera().InserisciComunicazione(comunicazione);
     }
 
     public void setParcheggio(Parcheggio p)
     {
         this.parcheggio = p;
-        daiDatiScatolaNera("Parcheggio" + p.getId());
+        daiDatiScatolaNera("Parcheggio" + p.GetId());
     }
 }

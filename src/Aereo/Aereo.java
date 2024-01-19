@@ -1,7 +1,10 @@
 package Aereo;
+
+import TorreDiControllo.Parcheggio;
+import TorreDiControllo.Pista;
+
 import java.util.ArrayList;
 import java.util.Random;
-import TorreDiControllo.Parcheggio;
 public abstract class Aereo extends  Thread{
     public int id;
     public String destinazione;
@@ -17,6 +20,7 @@ public abstract class Aereo extends  Thread{
     public boolean einvolo;
     private boolean maltempo;
     private Random r;
+    private Pista p;
     private Parcheggio parcheggio;
 
     public Aereo(int Id){
@@ -154,6 +158,10 @@ public abstract class Aereo extends  Thread{
     }
     public void setParcheggio(Parcheggio p){
         parcheggio = p;
+    }
+    public void setPista(Pista p)
+    {
+        this.p = p;
     }
 
 }
