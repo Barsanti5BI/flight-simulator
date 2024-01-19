@@ -1,8 +1,8 @@
 package Persona;
+
 import Utils.Coda;
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Random;
 
 public class ImpiegatoNegozi extends Persona{
     private String nome;
@@ -20,10 +20,25 @@ public class ImpiegatoNegozi extends Persona{
     }
 
     public void run(){
-        Turista turista = turisti.pop();
-        synchronized (turista)
+        while(true)
         {
-            turista.notify();
+            if (!turisti.isEmpty())
+            {
+                Turista turista = turisti.pop();
+                Vendi(turista);
+                synchronized (turista)
+                {
+                    turista.notify();
+                }
+            }
+            else
+            {
+                try {
+                    Thread.sleep(5);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
     }
 

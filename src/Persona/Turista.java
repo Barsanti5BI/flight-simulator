@@ -1,6 +1,8 @@
 package Persona;
 
 import Aereo.Gate;
+import Aereoporto.ZonaArrivi.Dogana;
+import Aereoporto.ZonaArrivi.RitiroBagagli;
 import Aereoporto.ZonaArrivi.ZonaArrivi;
 import Aereoporto.ZonaCheckIn.CartaImbarco;
 import Aereoporto.ZonaCheckIn.ZonaCheckIn;
@@ -14,7 +16,9 @@ import Aereoporto.ZonaPartenze.ZonaPartenze;
 import Utils.Coda;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Turista extends Persona{
 
@@ -47,11 +51,13 @@ public class Turista extends Persona{
     public List<Prodotto> oggettiDaComprare;
     private @Nullable Bagaglio bagaglio;
     private boolean pagato;
-    private List<String> possibiliInteressi = new ArrayList<>();
 
     // ZONA GATE
     public ZonaPartenze zonaPartenze;
     public boolean prontoPerImbarcarsi;
+    public boolean passatoControlliGate;
+    public boolean esitoControlloGate;
+    public boolean gateGiusto;
 
     // ZONA ARRIVI
 
@@ -75,7 +81,6 @@ public class Turista extends Persona{
         this.doc = doc;
         r = new Random();
         vuoleFareAcquisto = r.nextBoolean();
-        getPossibiliInteressi();
     }
 
     public void run(){
@@ -87,10 +92,11 @@ public class Turista extends Persona{
                 {
                     // ZONA CHECK-IN
                     if(deveFareCheckIn) {
-                        synchronized (zonaCheckIn.getBanco()) {
-                            zonaCheckIn.getBanco().getCodaTuristi().push(this);
+                        zonaCheckIn.getBanco().getCodaTuristi().push(this);
+
+                        synchronized (zonaCheckIn.getBanco().getImpiegatoCheckIn()) {
                             while(deveFareCheckIn) {
-                                wait();
+                                zonaCheckIn.getBanco().getImpiegatoCheckIn().wait();
                             }
                         }
                         deveFareControlli = true;
@@ -115,7 +121,7 @@ public class Turista extends Persona{
 
                             synchronized (metalDetector) {
                                 while (deveFareControlliAlMetalDetector) {
-                                    wait();
+                                    metalDetector.wait();
                                 }
                             }
 
@@ -126,13 +132,13 @@ public class Turista extends Persona{
                                         break;
                                     } else {
                                         // il turista continua a cercare il bagaglio finchè non lo trova
-                                        cercaBagaglio(scanner.getCodaBagagliControllati(), settore);
+                                        cercaBagaglio(scanner.getCodaBagagliControllati());
                                     }
                                 }
                             } else {
                                 synchronized (metalDetector.getImpiegatoControlli()) {
                                     while (!perquisizioneTerminata) {
-                                        wait();
+                                        metalDetector.getImpiegatoControlli().wait();
                                     }
                                 }
                                 break;
@@ -143,39 +149,26 @@ public class Turista extends Persona{
                         }
 
                         // ZONA NEGOZI
-
-                        // feature garbui --> i clienti vogliono acquistare in determinate categorie di negozi
                         if (vuoleFareAcquisto) {
 
-                            String interesse = possibiliInteressi.get(r.nextInt(0, possibiliInteressi.size()));
-                            int indice = -1;
+                            indiceNegozio = r.nextInt(0, zonaNegozi.getListaNegozi().size());
 
-                            for(Negozio negozio:zonaNegozi.getListaNegozi()){
-                                if(negozio.getCategoria() == interesse){
-                                    indice = negozio.getIdNeg();
-                                }
-                            }
-                            if(indice != -1){
-                                Negozio n = zonaNegozi.getListaNegozi().get(indiceNegozio);
+                            Negozio n = zonaNegozi.getListaNegozi().get(indiceNegozio);
 
-                                Thread.sleep(1000);
+                            Thread.sleep(1000);
 
-                                System.out.println("Il turista " + getName() + " è entrato nel negozio " + n.getNome());
-                                decidiCosaComprare(n);
-                                n.getCodaCassa().push(this);
+                            System.out.println("Il turista " + getName() + " è entrato nel negozio " + n.getNome());
+                            decidiCosaComprare(n);
+                            n.getCodaCassa().push(this);
 
-                                synchronized (n.getImpiegatoNegozi())
+                            synchronized (n.getImpiegatoNegozi())
+                            {
+                                while(!pagato)
                                 {
-                                    while(!pagato)
-                                    {
-                                        wait();
-                                    }
+                                    n.getImpiegatoNegozi().wait();
                                 }
-                                vuoleFareAcquisto = false;
                             }
-                            else{
-                                System.out.println("Il turista " + getName() + " è triste: nessun negozio nella categoria " + interesse);
-                            }
+                            vuoleFareAcquisto = false;
                         }
 
                         if(prontoPerImbarcarsi)
@@ -192,7 +185,32 @@ public class Turista extends Persona{
                                 }
                             }
 
-                            inserisciTuristaGate(mioGate);
+                            synchronized (mioGate)
+                            {
+                                while (!passatoControlliGate)
+                                {
+                                    gates.wait();
+                                }
+                            }
+
+                            if(gateGiusto)
+                            {
+                                if(esitoControlloGate)
+                                {
+                                    System.out.println("Turista imbarcato");
+                                    break;
+                                }
+                                else
+                                {
+                                    System.out.println("Turista arrestato");
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                System.out.println("Gate sbagliatp");
+                                break;
+                            }
                         }
                     }
                 } else if (inArrivo) // IL TURISTA E' ARRIVATO
@@ -211,17 +229,14 @@ public class Turista extends Persona{
 
                     if(!haPassatoControlliArr)
                     {
-                        zonaArrivi.getCodaControlli().push(this);
+                        Dogana dogana = zonaArrivi.getDogana();
+                        RitiroBagagli ritiroBagagli = zonaArrivi.getRitiroBagagli();
 
-                        while(!haPassatoControlliArr)
+                        synchronized (dogana.getControllore())
                         {
-                            if (haPassatoControlliArr)
+                            while(!haPassatoControlliArr)
                             {
-                                break;
-                            }
-                            else
-                            {
-                                Thread.sleep(5);
+                                dogana.getControllore().wait();
                             }
                         }
 
@@ -229,7 +244,8 @@ public class Turista extends Persona{
                         {
                             if (bagaglio == null)
                             {
-                                cercaBagaglio(zonaArrivi.getRitiroBagagli().getCodaBagagli());
+                                // c'è un while che va avanti finchè non trova il bagaglio
+                                cercaBagaglio(ritiroBagagli.getCodaBagagli());
                             }
 
                             haRitiratoBagagliArr = true;
@@ -253,13 +269,6 @@ public class Turista extends Persona{
 
     }
 
-    public void getPossibiliInteressi(){
-        possibiliInteressi.add("Abbigliamento");
-        possibiliInteressi.add("Supermercato");
-        possibiliInteressi.add("Libreria");
-        possibiliInteressi.add("Farmacia");
-    }
-
     public String getDestinazione(){
         return destinazione;
     }
@@ -281,7 +290,7 @@ public class Turista extends Persona{
     public CartaImbarco GetCartaImbarco(){return cartaImbarco;}
     public void setCartaImbarco(CartaImbarco c) { cartaImbarco = c; }
 
-    public void cercaBagaglio(Coda<Bagaglio> codaBag, Settore settore)
+    public void cercaBagaglio(Coda<Bagaglio> codaBag)
     {
         while(true)
         {
@@ -294,7 +303,7 @@ public class Turista extends Persona{
             }
             else
             {
-                settore.getScannerBagagali().getCodaBagagliControllati().push(b);
+                codaBag.push(b);
             }
         }
     }
@@ -312,15 +321,22 @@ public class Turista extends Persona{
 
     public void inserisciTuristaGate(Gate gate)
     {
-        if(cartaImbarco.getPrioritario())
-        {
-            gate.getCodaPrioritaria().push(this);
-        }
-        else
-        {
-            gate.getCodaNormale().push(this);
-        }
-
+        gate.getCodaGenerale().push(this);
         prontoPerImbarcarsi = false;
+    }
+
+    public void setGateGiusto(boolean var)
+    {
+        gateGiusto = var;
+    }
+
+    public void setEsitoControlloGate(boolean var)
+    {
+        esitoControlloGate = var;
+    }
+
+    public void setPassatoControlliGate(Boolean var)
+    {
+        esitoControlloGate = var;
     }
 }

@@ -32,8 +32,7 @@ public class ImpiegatoControlliPartenze extends Persona{
 
                     String controllo = ControlloApprofondito(b.getOggettiContenuti());
                     System.out.println("Bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è bloccato poichè contiene: " + controllo);
-
-                    // manca da ricercare il turista
+                    b.getProprietario().bagaglioSospetto = true;
                 }
                 else
                 {
@@ -43,7 +42,6 @@ public class ImpiegatoControlliPartenze extends Persona{
                         throw new RuntimeException(e);
                     }
                 }
-
             }
             else if (codaTurista != null)
             {

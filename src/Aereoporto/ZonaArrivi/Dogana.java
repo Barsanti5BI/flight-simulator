@@ -14,5 +14,9 @@ public class Dogana {
         codaTuristiControllatiBuoni = new Coda<>();
         controllore = new ImpiegatoControlliArrivi(codaTuristiDaControllare, codaTuristiControllatiBuoni);
     }
-    
+
+    public ImpiegatoControlliArrivi getControllore()
+    {
+        return controllore;
+    }
 }
