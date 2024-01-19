@@ -42,7 +42,7 @@ public class ImpiegatoControlliStiva extends Persona{
                 {
                     System.out.println("Il bagaglio " + bPericoloso.getEtichetta().getIdRiconoscimentoBagaglio() + " è bloccato poichè contiene: " + controllo);
                     System.out.println("Il proprietario " + bPericoloso.getProprietario().getDoc().getNome() + " verrà bloccato al gate");
-                    turistiPericolosi.add(bPericoloso.getProprietario());
+                    turistiPericolosi.add(proprietario);
                 }
 
                 Bagaglio bSicuro = s.getCodaBagagliControllati().pop();
