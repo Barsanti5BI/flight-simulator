@@ -18,6 +18,7 @@ public class Bagno extends Thread{
     private Turista t;
 
 
+    //Turista in coda entra in bagno
     public void DareBagno(Coda<Turista> a)
     {
 
@@ -29,13 +30,10 @@ public class Bagno extends Thread{
     }
 
 
+    //Turista si mette in coda
     public void DareBisogno(Turista e)
     {
-
         c.push(e);
-
-
-
     }
 
     public Bagno()
@@ -48,14 +46,13 @@ public class Bagno extends Thread{
         return c;
     }
 
+    //Turista occupa il bagno per un periodo di tempo e poi lo rilascia
     public synchronized void Bisogno(int i)
     {
 
         try
         {
             l.lock();
-
-//serve nome del turista
             t=c.pop();
             System.out.print("il bagno è occupato da ");
             System.out.println(t.getName());

@@ -54,12 +54,17 @@ public class ScatolaNera extends Thread{
         }
     }
 
+
     public void Ricarica(){
         percBatteria = 100;
     }
+
+    //Attiva segnale di pericolo della scatola nera
     public void Attiva(){
         pericolo = true;
     }
+
+
     public void InserisciComunicazione(String comunicazione){
         ultimaComunicazione = ZonedDateTime.now();
         logComunicazioni.put(ultimaComunicazione,comunicazione);
@@ -70,10 +75,10 @@ public class ScatolaNera extends Thread{
         logPosizione.put(ultimaPosizione,""+a.posizione);
         System.out.println("ScatolaNera " + logPosizione.get(ultimaPosizione));
     }
+
     public HashMap<ZonedDateTime,String> OttieniLogPosizione(){
         return logPosizione;
     }
-
     public HashMap<ZonedDateTime,String> OttieniLogComunicazioni(){
         return logComunicazioni;
     }

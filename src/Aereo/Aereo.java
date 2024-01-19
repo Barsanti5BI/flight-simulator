@@ -9,7 +9,6 @@ public abstract class Aereo extends  Thread{
     public int posizione;
     public Gate gate;
     private ArrayList<Bagno> bagni;
-    private ArrayList<Pilota> piloti;
     private ScatolaNera scatolaNera;
     private ArrayList<Turbina> turbine;
     private Stiva stiva;
@@ -61,7 +60,7 @@ public abstract class Aereo extends  Thread{
                 }
                 Thread.sleep(1000);
             }catch (Exception e){}
-            serbatoio.consuma();
+            serbatoio.consuma_carburante();
             if (maltempo) {
                 posizione+=1;
             }else{

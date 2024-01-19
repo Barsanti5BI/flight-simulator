@@ -74,6 +74,9 @@ public class Gate extends Thread{
     public Boolean getTerminatiIControlli(){
         return TerminatiIControlli;
     }
+
+    //Metodo che controllo se la destinazione del gate corrisponde alla destinazione segnata
+    //nella carta d'imbarco dei turisti, e effettua controllo su turisti pericolosi
     public void EffettuaControllo(Turista t){
         try{
             if(destinazione.equals(t.GetCartaImbarco().getViaggio())){
@@ -117,12 +120,14 @@ public class Gate extends Thread{
     public Coda<Turista> getCodaTurista() {
         return codaTurista;
     }
+
+    //Metodo che apre il gate
     public void openGate(){ //mi fa partire il gate
         GateAperto = true;
         this.start();
     }
 
-    //FEATURE
+    //Feature Marco Perin
     private boolean isPasseggeroInPrioritaria() {
         int minRange = 0;
         int maxRange = 500;

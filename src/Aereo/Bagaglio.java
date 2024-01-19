@@ -24,10 +24,10 @@ public class Bagaglio {
 
     public String toString(){
         if(bag_mano){
-            return "Bagaglio a mano di " + proprietario.id + ", peso: " + peso;
+            return "Bagaglio a mano di " + proprietario.getDoc().getCognome() + " " + proprietario.getDoc().getNome() + ", peso: " + peso;
         }
         else {
-            return "Bagaglio da stiva di " + proprietario.id + ", peso: " + peso;
+            return "Bagaglio da stiva di " + proprietario.getDoc().getCognome() + " " + proprietario.getDoc().getNome() + ", peso: " + peso;
         }
     }
 }

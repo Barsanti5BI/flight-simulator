@@ -12,7 +12,7 @@ public class Serbatoio {
         capacità = 100;
     }
 
-    public void consuma(){
+    public void consuma_carburante(){
         if(capacità>0){
             capacità--;
         }
