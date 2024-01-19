@@ -75,6 +75,9 @@ public abstract class Aereo extends  Thread{
 
     public  void atterra(){
         einvolo = false;
+        for(int i = 0; i< 4;i++){
+            turbine.get(i).Disabilita();
+        }
     }
 
     public boolean ControllaTurbine(){
