@@ -39,6 +39,12 @@ public abstract class Aereo extends  Thread{
     }
 
     public void run(){
+        if(sciopero()){
+            try{
+
+                Thread.sleep(5000);
+            }catch (Exception e){}
+        }
         avvia();
         while(einvolo && serbatoio.getStatoSerbatoio()>0 && posizione<100 && ControllaTurbine()) {
 
@@ -73,6 +79,9 @@ public abstract class Aereo extends  Thread{
 
     public  void atterra(){
         einvolo = false;
+        for(int i = 0; i< 4;i++){
+            turbine.get(i).Disabilita();
+        }
     }
 
 
@@ -90,7 +99,6 @@ public abstract class Aereo extends  Thread{
         return ris;
 
     }
-
     public int Get_ID(){
         return this.id;
     }
@@ -117,5 +125,13 @@ public abstract class Aereo extends  Thread{
     }
     public Serbatoio Get_Serbatoio(){
         return this.serbatoio;
+    }
+    public boolean sciopero(){
+        Random r = new Random();
+        int i = r.nextInt(100);
+        if(i==69){
+            return true;
+        }
+        else{return false;}
     }
 }
