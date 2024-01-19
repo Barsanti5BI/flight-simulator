@@ -84,7 +84,6 @@ public abstract class Aereo extends  Thread{
         }
     }
 
-
     public boolean ControllaTurbine(){
         boolean ris = true;
         int n = 0;
@@ -97,8 +96,17 @@ public abstract class Aereo extends  Thread{
             ris = false;
         }
         return ris;
-
     }
+
+    public boolean sciopero(){
+        Random r = new Random();
+        int i = r.nextInt(100);
+        if(i==69){
+            return true;
+        }
+        else{return false;}
+    }
+
     public int Get_ID(){
         return this.id;
     }
@@ -125,13 +133,5 @@ public abstract class Aereo extends  Thread{
     }
     public Serbatoio Get_Serbatoio(){
         return this.serbatoio;
-    }
-    public boolean sciopero(){
-        Random r = new Random();
-        int i = r.nextInt(100);
-        if(i==69){
-            return true;
-        }
-        else{return false;}
     }
 }
