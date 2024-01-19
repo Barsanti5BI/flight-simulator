@@ -42,9 +42,6 @@ public class ImpiegatoNegozi extends Persona{
         }
     }
 
-    //Feauture Squizzato ----> impiegato a fine giornta fa le statistiche della giornata
-    //                         incasso totale, totale degli sconti se fatti,
-    //                         totale dei prodotti venduti
     public void Vendi(Turista turista) {
         double sconto;
         // Calcola l'importo basato sugli oggetti selezionati dal turista
