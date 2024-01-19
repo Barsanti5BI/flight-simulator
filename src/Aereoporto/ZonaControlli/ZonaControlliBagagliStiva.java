@@ -14,5 +14,9 @@ public class ZonaControlliBagagliStiva extends ZonaAeroporto {
             nastroTrasportatore = n;
             scanner = s;
             controllore = new ImpiegatoControlliStiva(s, ListaOggetti.getOggettiPericolosi());
+            controllore.start();
+      }
+      public ImpiegatoControlliStiva getControllore(){
+            return controllore;
       }
 }

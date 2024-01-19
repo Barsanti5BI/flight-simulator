@@ -7,7 +7,7 @@ import Utils.Coda;
 
 import java.util.ArrayList;
 
-public class Negozio extends Thread{
+public class Negozio{
    int idNegozio;
     String nome;
     String categoria;
@@ -22,15 +22,7 @@ public class Negozio extends Thread{
               this.oggettiInVendita = oggettiInVendita;
               this.idNegozio = idNegozio;
               impiegatoNegozi = new ImpiegatoNegozi("Impiegato Vendita",idNegozio, oggettiInVendita,personeInAttesa);
-        }
-        public void run(){
-          while(true){
-             try {
-                   Thread.sleep(1000);
-             } catch (InterruptedException ex){
-                System.out.println(ex);
-             }
-          }
+              impiegatoNegozi.start();
         }
 
         public String getNome()
