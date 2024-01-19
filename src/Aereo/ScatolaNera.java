@@ -1,4 +1,5 @@
 package Aereo;
+import java.awt.*;
 import java.time.ZonedDateTime;
 import java.util.Dictionary;
 import java.util.Enumeration;
@@ -6,6 +7,7 @@ import java.util.HashMap;
 
 public class ScatolaNera extends Thread{
 
+    private Color colore = Color.orange;
     Aereo a;
     private HashMap<ZonedDateTime,String> logComunicazioni;
     private HashMap<ZonedDateTime,String> logPosizione;
