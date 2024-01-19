@@ -27,10 +27,10 @@ public class Banco {
 
     public CartaImbarco generaCartaImbarco(Turista p,Viaggio viaggio){
         // aggiungere i dati sui voli
-        return new CartaImbarco(p.getDoc().getNome(), p.getDoc().getCognome(), viaggio.numGate, LocalDate.now(), viaggio.getAereo().nome, p.getBagaglio().getEtichetta().getIdRiconoscimentoBagaglio(), Math.random() > 0.5);
+        return new CartaImbarco(p.getDoc().getNome(), p.getDoc().getCognome(), viaggio.GetNumGate(), LocalDate.now(), viaggio.Get_Aereo().getName(), p.getBagaglio().getEtichetta().getIdRiconoscimentoBagaglio(), Math.random() > 0.5);
     }
     public Etichetta generaEtichetta(Turista t,Viaggio viaggio){
-        return new Etichetta(viaggio.getAereo().nome,t.getBagaglio().getEtichetta().getIdRiconoscimentoBagaglio());
+        return new Etichetta(viaggio.Get_Aereo().Get_ID(),t.getBagaglio().getEtichetta().getIdRiconoscimentoBagaglio());
     }
     public Coda<Turista> getCodaTuristi() {
         return codaTuristi;

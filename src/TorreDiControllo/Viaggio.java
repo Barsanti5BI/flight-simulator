@@ -38,5 +38,7 @@ public class Viaggio
         return finito;
     }
 
+    public Aereo Get_Aereo(){return this.a;}
+
 
 }

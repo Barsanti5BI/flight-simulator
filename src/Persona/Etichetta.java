@@ -1,15 +1,15 @@
 package Persona;
 
 public class Etichetta {
-    private String codiceVeivolo;
+    private int codiceVeivolo;
     private String idRiconoscimentoBagaglio;
 
-    public Etichetta(String codiceVeivolo, String idRiconoscimentoBagaglio) {
+    public Etichetta(int codiceVeivolo, String idRiconoscimentoBagaglio) {
         this.codiceVeivolo = codiceVeivolo;
         this.idRiconoscimentoBagaglio = idRiconoscimentoBagaglio;
     }
 
     //Metodi get
-    public String getCodiceVeivolo(){return codiceVeivolo;}
+    public int getCodiceVeivolo(){return codiceVeivolo;}
     public String getIdRiconoscimentoBagaglio(){return idRiconoscimentoBagaglio;}
 }
