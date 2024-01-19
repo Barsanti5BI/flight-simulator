@@ -21,7 +21,7 @@ public class Negozio extends Thread{
         	  personeInAttesa = new Coda<Persona>();
               this.oggettiInVendita = oggettiInVendita;
               this.idNegozio = idNegozio;
-              impiegatoNegozi = new ImpiegatoNegozi("Impiegato Vendita",idNegozio, oggettiInVendita);
+              impiegatoNegozi = new ImpiegatoNegozi("Impiegato Vendita",idNegozio, oggettiInVendita,personeInAttesa);
         }
         public void run(){
           while(true){

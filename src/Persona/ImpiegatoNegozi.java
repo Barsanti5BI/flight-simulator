@@ -12,9 +12,9 @@ public class ImpiegatoNegozi extends Persona{
     private List<Prodotto> prodottoInVendita;
     private Prodotto prezzo;
     private double importo;
-    private Coda<Turista> turisti;
+    private Coda<Persona> turisti;
 
-    public ImpiegatoNegozi(String n, int id, List<Prodotto> prodottoInVendita, Coda<Turista> turisti){
+    public ImpiegatoNegozi(String n, int id, List<Prodotto> prodottoInVendita, Coda<Persona> turisti){
         this.nome = n;
         this.id = id;
         this.prodottoInVendita = prodottoInVendita;

@@ -25,7 +25,7 @@ public class Main {
       Turista t1 = new Turista(d, null, null, lNormale);
       codaTuristi.push(t);
       codaTuristi.push(t1);
-      ImpiegatoControlliPartenze i = new ImpiegatoControlliPartenze(d,null, codaTuristi, lproibito);
+      ImpiegatoControlliPartenze i = new ImpiegatoControlliPartenze( codaTuristi,lproibito);
 
       i.start();
 
