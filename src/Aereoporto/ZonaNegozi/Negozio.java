@@ -52,8 +52,4 @@ public class Negozio extends Thread{
         {
             return oggettiInVendita;
         }
-        public String getCategoria(){
-            return categoria;
-        }
-        public int getIdNeg(){return idNegozio;}
 }
