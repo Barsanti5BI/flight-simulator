@@ -44,7 +44,7 @@ public abstract class Aereo extends  Thread{
         while(einvolo && serbatoio.getStatoSerbatoio()>0 && posizione<100) {
 
             try{
-                Thread.sleep(50);
+                Thread.sleep(1000);
             }catch (Exception e){}
             serbatoio.consuma();
             posizione-=2;
@@ -60,4 +60,6 @@ public abstract class Aereo extends  Thread{
     public  void atterra(){
         einvolo = false;
     }
+
+   
 }
