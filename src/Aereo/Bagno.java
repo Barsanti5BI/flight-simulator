@@ -15,6 +15,8 @@ public class Bagno extends Thread{
     private  Coda<Turista> finio;
     private Lock l;
 
+    private Turista t;
+
 
     public void DareBagno(Coda<Turista> a)
     {
@@ -48,14 +50,15 @@ public class Bagno extends Thread{
 
     public synchronized void Bisogno(int i)
     {
-        Turista t=new Turista("prova","prova","prova","911",1);
+
         try
         {
             l.lock();
 
 //serve nome del turista
             t=c.pop();
-            System.out.println("il bagno è occupato da "+t.Nome);
+            System.out.print("il bagno è occupato da ");
+            System.out.println(t.getName());
             Random r = new Random();
             int k= r.nextInt(5000);
 
