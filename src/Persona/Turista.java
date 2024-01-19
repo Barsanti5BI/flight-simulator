@@ -51,7 +51,6 @@ public class Turista extends Persona{
     public List<Prodotto> oggettiDaComprare;
     private @Nullable Bagaglio bagaglio;
     private boolean pagato;
-    private List<String> possibiliInteressi = new ArrayList<>();
 
     // ZONA GATE
     public ZonaPartenze zonaPartenze;
@@ -79,7 +78,6 @@ public class Turista extends Persona{
         this.doc = doc;
         r = new Random();
         vuoleFareAcquisto = r.nextBoolean();
-        getPossibiliInteressi();
     }
 
     public void run(){
@@ -148,39 +146,26 @@ public class Turista extends Persona{
                         }
 
                         // ZONA NEGOZI
-
-                        // feature garbui --> i clienti vogliono acquistare in determinate categorie di negozi
                         if (vuoleFareAcquisto) {
 
-                            String interesse = possibiliInteressi.get(r.nextInt(0, possibiliInteressi.size()));
-                            int indice = -1;
+                            indiceNegozio = r.nextInt(0, zonaNegozi.getListaNegozi().size());
 
-                            for(Negozio negozio:zonaNegozi.getListaNegozi()){
-                                if(negozio.getCategoria() == interesse){
-                                    indice = negozio.getIdNeg();
-                                }
-                            }
-                            if(indice != -1){
-                                Negozio n = zonaNegozi.getListaNegozi().get(indiceNegozio);
+                            Negozio n = zonaNegozi.getListaNegozi().get(indiceNegozio);
 
-                                Thread.sleep(1000);
+                            Thread.sleep(1000);
 
-                                System.out.println("Il turista " + getName() + " è entrato nel negozio " + n.getNome());
-                                decidiCosaComprare(n);
-                                n.getCodaCassa().push(this);
+                            System.out.println("Il turista " + getName() + " è entrato nel negozio " + n.getNome());
+                            decidiCosaComprare(n);
+                            n.getCodaCassa().push(this);
 
-                                synchronized (n.getImpiegatoNegozi())
+                            synchronized (n.getImpiegatoNegozi())
+                            {
+                                while(!pagato)
                                 {
-                                    while(!pagato)
-                                    {
-                                        n.getImpiegatoNegozi().wait();
-                                    }
+                                    n.getImpiegatoNegozi().wait();
                                 }
-                                vuoleFareAcquisto = false;
                             }
-                            else{
-                                System.out.println("Il turista " + getName() + " è triste: nessun negozio nella categoria " + interesse);
-                            }
+                            vuoleFareAcquisto = false;
                         }
 
                         if(prontoPerImbarcarsi)
@@ -254,13 +239,6 @@ public class Turista extends Persona{
 
         }
 
-    }
-
-    public void getPossibiliInteressi(){
-        possibiliInteressi.add("Abbigliamento");
-        possibiliInteressi.add("Supermercato");
-        possibiliInteressi.add("Libreria");
-        possibiliInteressi.add("Farmacia");
     }
 
     public String getDestinazione(){
