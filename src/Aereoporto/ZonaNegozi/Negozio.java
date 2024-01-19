@@ -1,8 +1,8 @@
 package Aereoporto.ZonaNegozi;
 
-import Persona.Persona;
+import Persona.ImpiegatoNegozi;
 import Persona.Prodotto;
-import  Persona.ImpiegatoNegozi;
+import Persona.Turista;
 import Utils.Coda;
 
 import java.util.ArrayList;
@@ -11,14 +11,14 @@ public class Negozio{
    int idNegozio;
     String nome;
     String categoria;
-    Coda<Persona> personeInAttesa;
+    Coda<Turista> personeInAttesa;
     ImpiegatoNegozi impiegatoNegozi;
     ArrayList<Prodotto> oggettiInVendita;
 
         public Negozio(String nome, String categoria, ArrayList<Prodotto> oggettiInVendita,int idNegozio){
         	  this.nome = nome;
         	  this.categoria = categoria;
-        	  personeInAttesa = new Coda<Persona>();
+        	  personeInAttesa = new Coda<Turista>();
               this.oggettiInVendita = oggettiInVendita;
               this.idNegozio = idNegozio;
               impiegatoNegozi = new ImpiegatoNegozi("Impiegato Vendita",idNegozio, oggettiInVendita,personeInAttesa);
@@ -30,7 +30,7 @@ public class Negozio{
             return nome;
         }
 
-        public Coda<Persona> getCodaCassa()
+        public Coda<Turista> getCodaCassa()
         {
             return personeInAttesa;
         }

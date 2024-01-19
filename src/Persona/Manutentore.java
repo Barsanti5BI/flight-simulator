@@ -13,10 +13,10 @@ public class Manutentore{
 
     public void Manutenzione()
     {
-        System.out.println("Il manutentore " + nome + " sta per controllare lo stato dell'aereo " + a.nome);
+        System.out.println("Il manutentore " + nome + " sta per controllare lo stato dell'aereo " + a.Get_ID());
         ControlloStatiApparecchiature();
         ControlloCarburante();
-        System.out.println("Il manutentore " + nome + " ha finito il suo compito per l'aereo " + a.nome);
+        System.out.println("Il manutentore " + nome + " ha finito il suo compito per l'aereo " + a.Get_ID());
     }
 
     public void ControlloStatiApparecchiature(){
