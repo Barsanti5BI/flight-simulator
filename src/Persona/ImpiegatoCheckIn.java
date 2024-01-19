@@ -6,7 +6,8 @@ import Aereoporto.ZonaCheckIn.NastroTrasportatore;
 public class ImpiegatoCheckIn extends Persona{
     public Banco banco;
     public NastroTrasportatore nastroTrasportatore;
-    public ImpiegatoCheckIn(Banco banco, NastroTrasportatore nT){
+    public ImpiegatoCheckIn(Banco banco, NastroTrasportatore nT, int id){
+        setName(id+"");
         this.banco = banco;
         this.nastroTrasportatore = nT;
     }
@@ -16,6 +17,7 @@ public class ImpiegatoCheckIn extends Persona{
             if (!banco.getCodaTuristi().isEmpty())
             {
                 Turista t = banco.getCodaTuristi().pop();
+                System.out.println("L'impiegato check-in " + getName() + " sta servendo il turista " + t.getName());
                 eseguiCheckIn(t);
             }
             else
@@ -34,13 +36,13 @@ public class ImpiegatoCheckIn extends Persona{
         turista.setCartaImbarco(banco.generaCartaImbarco(turista));
 
         Bagaglio bagaglio = turista.getBagaglio();
-        turista.setBagaglio(null);
 
         if(bagaglio.getDaStiva()){
             nastroTrasportatore.aggiungiBagaglio(bagaglio, banco.getIndice());
+            turista.setBagaglio(null);
         }
 
-        nastroTrasportatore.codaBagagli.push(turista.getBagaglio());
+//        nastroTrasportatore.codaBagagli.push(turista.getBagaglio());
         turista.deveFareCheckIn = false;
         turista.notify();
     }

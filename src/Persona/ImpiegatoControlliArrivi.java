@@ -8,9 +8,10 @@ public class ImpiegatoControlliArrivi extends Persona{
     private Coda<Turista> codaArrivi;
     private Coda<Turista> CodaDopoControlli;
 
-    public ImpiegatoControlliArrivi(Coda<Turista> codaArrivi, Coda<Turista> codaDopoControlli) {
+    public ImpiegatoControlliArrivi(Coda<Turista> codaArrivi, Coda<Turista> codaDopoControlli, int id) {
         this.codaArrivi = codaArrivi;
         this.CodaDopoControlli = codaDopoControlli;
+        setName(id+"");
     }
 
     public void run(){
@@ -18,6 +19,8 @@ public class ImpiegatoControlliArrivi extends Persona{
         {
             if (!codaArrivi.isEmpty()) {
                 Turista t = codaArrivi.pop();
+                System.out.println("L'impiegato degli arrivi " + getName() + "sta controllando il turista " + t.getName());
+
                 boolean controllo = ControlloDocumento(t.getDoc());
 
                 if (controllo) //se non è scaduto
@@ -30,6 +33,14 @@ public class ImpiegatoControlliArrivi extends Persona{
                 }
 
                 t.haPassatoControlliArr = true;
+            }
+            else
+            {
+                try {
+                    Thread.sleep(5);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }

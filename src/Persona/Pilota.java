@@ -12,8 +12,9 @@ public class Pilota extends Persona{
     private Parcheggio parcheggio;
     private int ritardoArrivo;
 
-    public Pilota(Aereo a, TorreControllo tC, boolean deveAtterare)
+    public Pilota(Aereo a, TorreControllo tC, boolean deveAtterare, int id)
     {
+        setName(id+"");
         this.a = a;
         this.tC = tC;
         pista = null;
@@ -23,22 +24,10 @@ public class Pilota extends Persona{
     }
 
     public void run(){
-
-        // metodo per far partire l'aereo
-            // chiedo meteo
-            // chiedo pista
-            // accendo l'aereo
-            // metto l'aereo dentro pista
-
-        // metodo blackbox
-
-        // metodo ritardo
-            // genero random un ritardo in caso di mal tempo
-            // ve lo invio
-
         while(true)
         {
             tC.getCodaPilotiRichiestePista().push(this);
+            System.out.println("Il pilota " + getName() + " sta comunicando con la torre");
 
             synchronized (tC)
             {
@@ -53,17 +42,18 @@ public class Pilota extends Persona{
             {
                 if (verficaCondMeteo())
                 {
+                    System.out.println("Che bel tempo! Non ci sarà nessun ritardo.");
                     break;
                 }
                 else
                 {
                     if (!generatoRitardo && !deveAtterare)
                     {
-                        Random r = new Random();
-                        ritardoArrivo = r.nextInt(100,1001);
+                        System.out.println("Pilota:\"Che brutto tempo! Mi sa che ci sarà un ritardo!\"");
+                        generatoRitardo = true;
+                        a.setRitardo(generatoRitardo);
                         daiDatiScatolaNera("Ritardo " + ritardo);
                         inviaComuncazioneTC("Ritardo " + ritardo);
-                        generatoRitardo = true;
                     }
 
                     try {
@@ -77,18 +67,17 @@ public class Pilota extends Persona{
             if(!deveAtterare) // decolla
             {
                 a.inVolo = true;
+                System.out.println("Il pilota " + getName() + " ha fatto decollare l'aereo " + a.nome + " dalla pista " + p.getId());
+                break;
             }
             else // atterra
             {
-                try {
-                    Thread.sleep(ritardoArrivo);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-
                 a.inVolo = false;
+                System.out.println("Il pilota " + getName() + " ha fatto atterare l'aereo " + a.nome + " sulla pista " + p.getId());
 
                 tC.getCodaPilotiRichiesteParcheggio().push(this);
+                System.out.println("Il pilota " + getName() + " sta comunicando con la torre");
+
                 synchronized (tC)
                 {
                     while(parcheggio != null)
@@ -96,6 +85,11 @@ public class Pilota extends Persona{
                         tC.wait();
                     }
                 }
+
+                a.setParcheggio(parcheggio);
+                System.out.println("Il pilota " + getName() + " ha parcheggiato l'aereo sul parcheggio " + parcheggio.getId());
+
+                break;
             }
         }
     }

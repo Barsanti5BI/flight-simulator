@@ -79,6 +79,7 @@ public class Turista extends Persona{
         this.cartaImbarco = cartaImbarco;
         this.oggetti = oggetti;
         this.doc = doc;
+        setName(doc.getCognome() + " " + doc.getNome());
         r = new Random();
         vuoleFareAcquisto = r.nextBoolean();
     }
@@ -86,12 +87,14 @@ public class Turista extends Persona{
     public void run(){
         while (true){
             try{
-
                 // IL TURISTA DEVE PARTIRE
                 if (inPartenza)
                 {
+                    System.out.println("Il turista" + getName() + " si prepara ad affrontare il suo viaggio!");
+
                     // ZONA CHECK-IN
                     if(deveFareCheckIn) {
+                        System.out.println("Il turista " + getName() + " si mette in attesa al banco del check-in per prendere la sua carta d'imbarco");
                         zonaCheckIn.getBanco().getCodaTuristi().push(this);
 
                         synchronized (zonaCheckIn.getBanco().getImpiegatoCheckIn()) {
@@ -99,17 +102,22 @@ public class Turista extends Persona{
                                 zonaCheckIn.getBanco().getImpiegatoCheckIn().wait();
                             }
                         }
+                        System.out.println("Il turista " + getName() + " ha la sua carta d'imbarco e va ai controlli");
                         deveFareControlli = true;
                     }
 
                     // ZONA CONTROLLI
                     if (deveFareControlli) {
+                        System.out.println("Il turista " + getName() +  " è arrivato ai controlli");
+
                         Settore settore = zonaControlli.getSettore(0);
                         MetalDetector metalDetector = settore.getMetalDetector();
                         Scanner scanner = settore.getScannerBagagali();
+
                         if (devePoggiareBagagliAiControlli) {
                             if (bagaglio != null) {
                                 scanner.getCodaBagagli().push(bagaglio);
+                                System.out.println("Il turista " + getName() + " ha poggiato i bagagli sul rullo");
                                 devePoggiareBagagliAiControlli = false;
                                 bagaglio = null;
                                 deveRitirareBagagliAiControlli = true;
@@ -117,6 +125,7 @@ public class Turista extends Persona{
                         }
 
                         if (deveFareControlliAlMetalDetector) {
+                            System.out.println("Il turista " + getName() + " si sta me");
                             metalDetector.getCodaTuristiAttesa().push(this);
 
                             synchronized (metalDetector) {

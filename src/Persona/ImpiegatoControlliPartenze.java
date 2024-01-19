@@ -8,10 +8,11 @@ public class ImpiegatoControlliPartenze extends Persona{
     private Coda<Bagaglio> codaScanner;
     private Coda<Turista> codaTurista;
     private ArrayList<String> oggettiProibiti;
-    public ImpiegatoControlliPartenze(Coda<Bagaglio> codaScanner, Coda<Turista> codaTurista, ArrayList<String> oggettiProibiti){
+    public ImpiegatoControlliPartenze(Coda<Bagaglio> codaScanner, Coda<Turista> codaTurista, ArrayList<String> oggettiProibiti, int id){
         this.codaScanner = codaScanner;
         this.codaTurista = codaTurista;
         this.oggettiProibiti = oggettiProibiti; // lista fornita dall'aereoporto
+        setName(id+"");
     }
     public void run(){
         while(true)

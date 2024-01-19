@@ -5,16 +5,14 @@ import Utils.Coda;
 import java.util.List;
 
 public class ImpiegatoNegozi extends Persona{
-    private String nome;
-    private int id;
+    private int idNegozio;
     private List<Prodotto> prodottoInVendita;
-    private Prodotto prezzo;
     private double importo;
     private Coda<Turista> turisti;
 
     public ImpiegatoNegozi(String n, int id, List<Prodotto> prodottoInVendita, Coda<Turista> turisti){
-        this.nome = n;
-        this.id = id;
+        setName(n);
+        this.idNegozio = id;
         this.prodottoInVendita = prodottoInVendita;
         this.turisti = turisti;
     }
@@ -25,6 +23,8 @@ public class ImpiegatoNegozi extends Persona{
             if (!turisti.isEmpty())
             {
                 Turista turista = turisti.pop();
+                System.out.println("L'impiegato dei negozi " + getName() + " sta servendo il turista " + turista.getName());
+
                 Vendi(turista);
                 synchronized (turista)
                 {

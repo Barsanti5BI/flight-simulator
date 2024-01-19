@@ -13,10 +13,11 @@ public class ImpiegatoControlliStiva extends Persona{
     private ArrayList<Aereo> listaDiAerei;
 
 
-    public ImpiegatoControlliStiva(Scanner s, ArrayList<String> oggettiProibiti, ArrayList<Aereo> listaDiAerei){
+    public ImpiegatoControlliStiva(Scanner s, ArrayList<String> oggettiProibiti, ArrayList<Aereo> listaDiAerei, int id){
         this.s = s;
         this.oggettiProibiti = oggettiProibiti;
         this.listaDiAerei = listaDiAerei;
+        setName(id+"");
     }
 
     public void run(){
@@ -27,12 +28,10 @@ public class ImpiegatoControlliStiva extends Persona{
                 // controllore dei bagagli da stiva sospetti
 
                 Bagaglio bPericoloso = s.getCodaBagagliPericolosi().pop();
-
                 String controllo = ControlloApprofondito(bPericoloso.getOggettiContenuti());
-
                 Turista proprietario = bPericoloso.getProprietario();
 
-                if(controllo == null)
+                if(controllo == "")
                 {
                     System.out.println("Il bagaglio " + bPericoloso.getEtichetta().getIdRiconoscimentoBagaglio() + " è sicuro, non contiene nessun oggetto proibito");
                     s.getCodaBagagliControllati().push(bPericoloso);
