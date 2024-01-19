@@ -44,10 +44,10 @@ public abstract class Aereo extends  Thread{
     public void run(){
 
        avvia();
-        while(einvolo && serbatoio.getStatoSerbatoio()>0 && posizione<100) {
+        while(einvolo && serbatoio.getStatoSerbatoio()>0 && posizione<100 && ControllaTurbine()) {
 
             try{
-                Thread.sleep(50);
+                Thread.sleep(400);
             }catch (Exception e){}
             serbatoio.consuma();
             posizione+=2;
@@ -68,12 +68,27 @@ public abstract class Aereo extends  Thread{
         }
         scatolaNera.Ricarica();
     }
-    
+
     public void Rifornisci(){
         serbatoio.riempi();
     }
 
     public  void atterra(){
         einvolo = false;
+    }
+
+    public boolean ControllaTurbine(){
+        boolean ris = true;
+        int n = 0;
+        for(int i = 0; i<4;i++){
+            if(!turbine.get(i).funzionante){
+                n++;
+            }
+        }
+        if(n>2){
+            ris = false;
+        }
+        return ris;
+
     }
 }
