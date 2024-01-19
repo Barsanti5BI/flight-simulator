@@ -61,7 +61,16 @@ public abstract class Aereo extends  Thread{
             turbine.get(i).start();
         }
         scatolaNera.start();
-
+    }
+    public void Ripara(){
+        for(int i = 0; i<4;i++){
+            turbine.get(i).Ripara();
+        }
+        scatolaNera.Ricarica();
+    }
+    
+    public void Rifornisci(){
+        serbatoio.riempi();
     }
 
     public  void atterra(){
