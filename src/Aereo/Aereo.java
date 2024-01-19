@@ -17,22 +17,19 @@ public abstract class Aereo extends  Thread{
     private boolean pilotaAutomatico;
     public Alieni alieni;
     public boolean einvolo;
-<<<<<<< HEAD
+
     private boolean maltempo;
 
-=======
->>>>>>> 8f2f0c7293d9c9d34140678d692be6a86537b502
+
     private Random r;
     private Parcheggio parcheggio;
 
-<<<<<<< HEAD
-    public Aereo(String nome,ArrayList<Pilota> piloti){
-        maltempo = false;
-        this.nome = nome;
-=======
+
+
+
     public Aereo(int Id){
         this.id =Id;
->>>>>>> 8f2f0c7293d9c9d34140678d692be6a86537b502
+        maltempo = false;
         r = new Random();
 
 
