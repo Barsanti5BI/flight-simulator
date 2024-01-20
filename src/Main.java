@@ -17,7 +17,7 @@ public class Main {
       System.out.println("Benvenuti, l'aereoporto è aperto!");
       ArrayList<Viaggio> viaggi = new ArrayList<Viaggio>();
       ArrayList<Aereo> lista_aerei = new ArrayList<Aereo>();
-
+      TorreControllo tC = new TorreControllo()
       for (int i = 0; i <= 9; i++){
          AereoPasseggeri a = new AereoPasseggeri(i);
          lista_aerei.add((Aereo) a);

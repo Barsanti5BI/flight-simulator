@@ -1,7 +1,9 @@
 package Aereo;
 
+import Persona.Pilota;
 import TorreDiControllo.Parcheggio;
 import TorreDiControllo.Pista;
+import TorreDiControllo.TorreControllo;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -22,8 +24,10 @@ public abstract class Aereo extends  Thread{
     private Random r;
     private Pista p;
     private Parcheggio parcheggio;
+    private Pilota pilota;
+    private TorreControllo tc;
 
-    public Aereo(int Id){
+    public Aereo(int Id, TorreControllo tC){
         this.id =Id;
         maltempo = false;
 
@@ -43,6 +47,8 @@ public abstract class Aereo extends  Thread{
         einvolo = false;
 
         alieni = new Alieni(this);
+
+        pilota = new Pilota(this, tC, true, 100);
     }
 
     public void run(){

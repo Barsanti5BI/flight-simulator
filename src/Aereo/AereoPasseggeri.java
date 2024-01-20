@@ -1,9 +1,8 @@
 package Aereo;
 
-import Utils.Coda;
 import Persona.Turista;
-
-import java.util.ArrayList;
+import TorreDiControllo.TorreControllo;
+import Utils.Coda;
 
 
 public class AereoPasseggeri extends Aereo {
@@ -13,8 +12,8 @@ public class AereoPasseggeri extends Aereo {
     private Uscita uscita;
 
 
-    public AereoPasseggeri(int id) {
-        super(id);
+    public AereoPasseggeri(int id, TorreControllo torreControllo) {
+        super(id, torreControllo);
         matricePostiAereo = new Turista[4][10];
         nPosti = 40;
         entrata = new Entrata();
