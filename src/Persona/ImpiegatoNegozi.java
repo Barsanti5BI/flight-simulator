@@ -51,13 +51,8 @@ public class ImpiegatoNegozi extends Thread{
             importo += prodotto.getPrezzo();
         }
         System.out.println("Importo totale della vendita: " + importo);
-            // Sconto 20% se l'importo supera i 100 euro
-        //FEATURE LUCON in maniera randomica aumenta il prezzo del 90%
-        if (Math.random()*0.5 > 0.5) {
-            double aumento = importo * 90;
-            importo += aumento;
-            System.out.println("Inflazione applicata: "  + aumento);
-        }else if (importo > 100.0) {
+        // Sconto 20% se l'importo supera i 100 euro
+        if (importo > 100.0) {
             sconto = importo * 0.20;
             importo -= sconto;
             System.out.println("Sconto applicato: " + sconto);
