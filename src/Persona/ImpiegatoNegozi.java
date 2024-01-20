@@ -51,7 +51,7 @@ public class ImpiegatoNegozi extends Thread{
             importo += prodotto.getPrezzo();
         }
         System.out.println("Importo totale della vendita: " + importo);
-            // Sconto 20% se l'importo supera i 100 euro
+        // Sconto 20% se l'importo supera i 100 euro
         if (importo > 100.0) {
             sconto = importo * 0.20;
             importo -= sconto;

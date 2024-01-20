@@ -22,7 +22,6 @@ public class Main {
          AereoPasseggeri a = new AereoPasseggeri(i);
          lista_aerei.add((Aereo) a);
       }
-
       Aereoporto aereoporto = new Aereoporto(viaggi, lista_aerei);
    }
 }
