@@ -18,7 +18,6 @@ public abstract class Aereo extends  Thread{
     public boolean einvolo;
     private boolean maltempo;
     private Random r;
-    private Parcheggio parcheggio;
 
     public Aereo(int Id){
         this.id =Id;
@@ -153,10 +152,6 @@ public abstract class Aereo extends  Thread{
     public Serbatoio Get_Serbatoio(){
         return this.serbatoio;
     }
-    public void setParcheggio(Parcheggio p){
-        parcheggio = p;
-    }
-
 }
 
 
