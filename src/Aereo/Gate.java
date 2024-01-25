@@ -44,15 +44,15 @@ public class Gate extends Thread{
 
                     while(!codaGenerale.isEmpty()){   //creo la coda prioritaria e la coda normale
                         F_Turista t = codaGenerale.pop();
-                        if(t.GetCartaImbarco().getPrioritario() || isPasseggeroInPrioritaria()){
+                        if(t.getPrioritario() || isPasseggeroInPrioritaria()){
                             codaPrioritaria.push(t);
                             sleep(100);
-                            System.out.println("Il turista "+ t.GetCartaImbarco().getCognomePasseggero() + " " + t.GetCartaImbarco().getNomePasseggero() + " è entrato nella coda prioritaria nel gate " + nomeGate);
+                            System.out.println("Il turista "+ t.get_id() + " è entrato nella coda prioritaria nel gate " + nomeGate);
                         }
                         else{
                             codaNormale.push(t);
                             sleep(100);
-                            System.out.println("Il turista " + t.GetCartaImbarco().getCognomePasseggero() + " " + t.GetCartaImbarco().getNomePasseggero() + " è entrato nella coda normale nel gate " + nomeGate);
+                            System.out.println("Il turista " + t.get_id() + " è entrato nella coda normale nel gate " + nomeGate);
                         }
                     }
                     while (!codaPrioritaria.isEmpty()) {  //prima la coda prioritaria
@@ -78,39 +78,14 @@ public class Gate extends Thread{
     //nella carta d'imbarco dei turisti, e effettua controllo su turisti pericolosi
     public void EffettuaControllo(F_Turista t){
         try{
-            if(destinazione.equals(t.GetCartaImbarco().getViaggio())){
+            if(destinazione.equals(t.getDestinazione())){
                 sleep(100);
-                System.out.println("    Il turista " + t.GetCartaImbarco().getCognomePasseggero() + " " + t.GetCartaImbarco().getNomePasseggero() + " ha effettuato il controllo effettuato nel gate " + nomeGate);
-                t.setGateGiusto(true);
+                System.out.println("    Il turista " + t.get_id() + " ha effettuato il controllo effettuato nel gate " + nomeGate);
             }
             else{
                 sleep(100);
-                t.setGateGiusto(false);
-                System.out.println("    Il turista " + t.GetCartaImbarco().getCognomePasseggero() + " " + t.GetCartaImbarco().getNomePasseggero() + " ha sbagliato gate");
+                System.out.println("    Il turista " + t.get_id() + " ha sbagliato gate");
             }
-
-            boolean controlloTPericoloso = false;
-
-            for(F_Turista tPericoloso : impiegatoControlliStiva.getTuristiPericolosi())
-            {
-                if (tPericoloso == t) {
-                    controlloTPericoloso = true;
-                    break;
-                }
-            }
-
-            if (!controlloTPericoloso)
-            {
-                t.setEsitoControlloGate(true);
-                codaTurista.push(t);
-            }
-            else
-            {
-                t.setEsitoControlloGate(false);
-            }
-
-            t.setPassatoControlloGate(true);
-            t.notify();
         }catch (InterruptedException ex){
             System.out.println(ex.getMessage());
         }
