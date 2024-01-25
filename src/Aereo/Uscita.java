@@ -25,7 +25,7 @@ public class Uscita extends Thread{
     public void run()
     {
         try{
-            while(uscenti.size()>0)
+            while(!uscenti.isEmpty())
             {
 
 
@@ -40,7 +40,7 @@ public class Uscita extends Thread{
                 Thread.sleep(1);
              }
             }
-          while (uscentiAnt.size()>0 && uscentiPost.size()>0)
+          while (!uscentiAnt.isEmpty() && !uscentiPost.isEmpty())
           {
               usciti.push(uscentiAnt.pop());
               usciti.push(uscentiPost.pop());
