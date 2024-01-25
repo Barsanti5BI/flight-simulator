@@ -4,6 +4,7 @@ import javax.management.DynamicMBean;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class F_TorreControllo extends Thread{
 
@@ -11,23 +12,17 @@ public class F_TorreControllo extends Thread{
     private  Coda<Aereo> AereiInPartenza;
     private  Coda<Aereo> AereiInArrivo;
 
-    private ArrayList<Gate> ListaGate;
+    private LinkedList<Gate> ListaGate;
     private Dictionary<String,F_TorreControllo> Aereoporti;
 
     private Dictionary<Aereo,String> viaggi;
 
 
-    public F_TorreControllo(String aereoporto){
+    public F_TorreControllo(String aereoporto, LinkedList<Gate> list_gate){
 
        AereiInArrivo = new Coda<>();
        AereiInPartenza= new Coda<>();
-       ListaGate = new ArrayList<Gate>();
-       for(Gate g: ListaGate){
-           g = new Gate();
-       }
-
-
-
+       ListaGate = list_gate;
        nomeAerereoporto = aereoporto;
 
     }

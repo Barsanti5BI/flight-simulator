@@ -15,13 +15,6 @@ public class Main {
       aereoporti.add("Aereoporto Milano");
       aereoporti.add("Aereoporto Messina");
 
-      //Creazione lista Torri di Controllo
-      LinkedList<F_TorreControllo> lista_torre_controllo = new LinkedList<F_TorreControllo>();
-      lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(0)));
-      lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(1)));
-      lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(2)));
-      lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(3)));
-
       //Creazione lista di Aerei
       LinkedList<Aereo> list_aerei = new LinkedList<Aereo>();
       for(int i = 0; i < 4; i++){
@@ -77,6 +70,13 @@ public class Main {
       lista_gate.add(new Gate(2, coda_gate_2, aereoporti.get(1), list_aerei.get(1)));
       lista_gate.add(new Gate(3, coda_gate_3, aereoporti.get(2), list_aerei.get(2)));
       lista_gate.add(new Gate(4, coda_gate_4, aereoporti.get(3), list_aerei.get(3)));
+
+      //Creazione lista Torri di Controllo
+      LinkedList<F_TorreControllo> lista_torre_controllo = new LinkedList<F_TorreControllo>();
+      lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(0), lista_gate));
+      lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(1), lista_gate));
+      lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(2), lista_gate));
+      lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(3), lista_gate));
 
       //Creare Aerei
       //Creare Turisti con i controllo già fatti al gate
