@@ -1,15 +1,10 @@
 import Aereo.Aereo;
-import Utils.Coda;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
-
-import Aereo.AereoPasseggeri;
 
 public class Main {
    public static void main(String[] args) {
+      //AGGIUNGERE PRINTS NEI METODI/THREADS
       LinkedList<Aereo> list_aerei = new LinkedList<Aereo>();
       for(int i = 0; i < 2; i++){
          AereoPasseggeri a = new AereoPasseggeri(i);
