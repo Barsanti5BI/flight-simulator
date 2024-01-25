@@ -21,9 +21,11 @@ public class F_TorreControllo extends Thread{
     public void setAereoporti(Dictionary<String,F_TorreControllo> Ap){
         Aereoporti=Ap;
     }
-    public void AddViaggio(Dictionary<Aereo,String> v){
+    public void setViaggi(Dictionary<Aereo,String> v){
         viaggi = v;
     }
+
+
 
 
     public String GetDestinazione(Aereo a) {
