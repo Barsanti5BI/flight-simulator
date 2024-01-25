@@ -12,13 +12,19 @@ public class F_Turista {
     public int id_aereo;
 
     public Bagaglio bagaglio;
+    public boolean prioritario;
+    public String destinazione;
 
-    public F_Turista(int id, int id_ae, int p_col, int p_rig){
+
+
+    public F_Turista(int id, int id_ae, int p_col, int p_rig,boolean prioritario,String destinazione){
         this.id_aereo = id_ae;
         this.id = id;
         this.bagaglio = new Bagaglio(this.id);
         this.posto_colonna = p_col;
         this.posto_riga = p_rig;
+        this.prioritario = prioritario;
+        this.destinazione = destinazione;
     }
 
     public Bagaglio get_Bag(){
@@ -32,4 +38,6 @@ public class F_Turista {
     public int get_id_aereo() {return this.id_aereo;}
 
     public int get_id() {return this.id;}
+    public boolean getPrioritario(){return prioritario;}
+    public String getDestinazione(){return destinazione;}
 }
