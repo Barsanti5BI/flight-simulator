@@ -16,8 +16,9 @@ public class F_TorreControllo extends Thread{
 
     private Dictionary<Aereo,String> viaggi;
 
-    public F_TorreControllo(String nome){
-       nomeAerereoporto= nome;
+
+    public F_TorreControllo(String aereoporto){
+
        AereiInArrivo = new Coda<>();
        AereiInPartenza= new Coda<>();
        ListaGate = new ArrayList<Gate>();
@@ -25,6 +26,9 @@ public class F_TorreControllo extends Thread{
            g = new Gate();
        }
 
+
+
+       nomeAerereoporto = aereoporto;
 
     }
 
