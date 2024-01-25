@@ -35,6 +35,7 @@ public class Entrata extends Thread{
     public void run()
     {
         try{
+            System.out.println("Stanno entrando");
             while(!entranti.isEmpty())
             {
 

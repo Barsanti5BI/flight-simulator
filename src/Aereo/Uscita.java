@@ -12,6 +12,9 @@ public class Uscita extends Thread{
     private Coda<F_Turista> usciti;
     int i=0;
 
+
+
+
     public Uscita(Aereo ap)
     {
         uscenti=new Coda<F_Turista>();
@@ -25,6 +28,9 @@ public class Uscita extends Thread{
     public void run()
     {
         try{
+
+            System.out.println("Stanno uscendo");
+
             while(!uscenti.isEmpty())
             {
 
@@ -39,7 +45,7 @@ public class Uscita extends Thread{
                 uscentiPost.push(uscenti.pop());
                 Thread.sleep(1);
              }
-            }
+        }
           while (!uscentiAnt.isEmpty() && !uscentiPost.isEmpty())
           {
               usciti.push(uscentiAnt.pop());
