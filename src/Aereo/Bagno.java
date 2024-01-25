@@ -69,9 +69,9 @@ public class Bagno extends Thread{
 
     }
 
-    public F_Turista finito()
+    public Coda<F_Turista> finito()
     {
-       return finio.pop();
+       return finio;
     }
 
     public void run()
