@@ -30,10 +30,10 @@ public class Aereoporto {
     public Aereoporto(ArrayList<Viaggio> viaggi, ArrayList<Aereo> lista_aerei) {
 
         System.out.println("Aereoporto partito");
-
+        nastroTrasportatore = new NastroTrasportatore();
         zonaCheckIn = new ZonaCheckIn(nastroTrasportatore,viaggi);
         zonaControlli = new ZonaControlli();
-        nastroTrasportatore = new NastroTrasportatore();
+
         zonaControlliBagagliStiva = new ZonaControlliBagagliStiva(nastroTrasportatore,nastroTrasportatore.getScanner(), lista_aerei);
         zonaNegozi = new ZonaNegozi();
         zonaPartenze = new ZonaPartenze(viaggi, new ImpiegatoControlliStiva(new Scanner(), ListaOggetti.getOggettiPericolosi(), lista_aerei, 69420));

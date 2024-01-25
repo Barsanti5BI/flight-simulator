@@ -8,12 +8,9 @@ import Aereoporto.ZonaControlli.ZonaControlli;
 import Aereoporto.ZonaNegozi.ZonaNegozi;
 import Aereoporto.ZonaPartenze.ZonaPartenze;
 import Aereoporto.ZonaCheckIn.ZonaCheckIn;
-import Persona.Bagaglio;
-import Persona.Documento;
-import Persona.Turista;
+import Persona.*;
 import Aereoporto.Common.ListaOggetti;
 import Aereoporto.Common.ZonaAeroporto;
-import Persona.Oggetto;
 import Utils.Coda;
 import Aereoporto.ZonaControlli.ZonaControlli;
 import Aereoporto.ZonaNegozi.ZonaNegozi;
@@ -42,20 +39,21 @@ public class ZonaEntrata extends ZonaAeroporto {
     public Coda<Turista> generaTuristi(ZonaCheckIn zonaCheckIn, ZonaControlli zonaControlli, ZonaNegozi zonaNegozi, ZonaPartenze zonaPartenze) {
         Coda<Turista> coda = new Coda<>();
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1; i++) {
 
             ArrayList<Oggetto> listOggetti = generaListaOggetti(0, 6);
 
             Turista t = new Turista(generaDocumenti(), generaBagagli(), null, listOggetti, Random_Id_Aereo(),zonaCheckIn,zonaControlli,zonaNegozi,zonaPartenze);
-            t.start();
             coda.push(t);
+            t.start();
         }
         return coda;
     }
 
     public int Random_Id_Aereo(){
-        Random rand = new Random();
-        return lista_aerei.get(rand.nextInt(0, lista_aerei.size())).Get_ID();
+        return 0;
+        //Random rand = new Random();
+        //return lista_aerei.get((int)(Math.random()*lista_aerei.size())).Get_ID();
     }
 
     private Bagaglio generaBagagli() {
@@ -76,7 +74,7 @@ public class ZonaEntrata extends ZonaAeroporto {
 
         ArrayList<Oggetto> listOggetti = generaListaOggetti(5, 30);
 
-        Bagaglio bagaglio = new Bagaglio(daStiva, peso, misure, null, listOggetti);
+        Bagaglio bagaglio = new Bagaglio(daStiva, peso, misure, new Etichetta(0,"test"), listOggetti);
         return bagaglio;
     }
 

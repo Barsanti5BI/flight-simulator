@@ -20,24 +20,29 @@ public class MetalDetector extends Thread {
     public MetalDetector(){
         rand = new Random();
         codaTuristiAttesa = new Coda<>();
+        codaTuristiPericolosi = new Coda<>();
+        codaTuristiBuoni = new Coda<>();
         impiegato = new ImpiegatoControlliPartenze(null, codaTuristiPericolosi, ListaOggetti.getOggettiPericolosi(), rand.nextInt(0, 1000));
+        this.start();
     }
 
    public void run() {
        while(true) {
            // TODO: immetto tempo random per il controllo del passeggero tramite la guardia
            try {
-               Thread.sleep(1000);
+               Thread.sleep(100);
                Turista turista = codaTuristiAttesa.pop();
                boolean nonPericoloso = controllaTurista(turista);
-               if (nonPericoloso) {
-                  codaTuristiBuoni.push(turista);
-               } else {
-                  codaTuristiPericolosi.push(turista);
+              if (nonPericoloso) {
+                 codaTuristiBuoni.push(turista);
+              } else {
+                 codaTuristiPericolosi.push(turista);
+              }
+               synchronized (this) {
+                 turista.deveFareControlliAlMetalDetector = false;
+                   notify();
                }
-               synchronized (turista) {
-                   turista.notify();
-               }
+
            } catch (InterruptedException e) {
                throw new RuntimeException(e);
            }

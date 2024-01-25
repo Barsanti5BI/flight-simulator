@@ -22,7 +22,7 @@ public class Banco {
         rand = new Random();
         codaTuristi = new Coda<>();
         nastroTrasportatore = n;
-        impiegatoCheckIn = new ImpiegatoCheckIn(this,nastroTrasportatore, rand.nextInt(0, 1000));
+        impiegatoCheckIn = new ImpiegatoCheckIn(this,nastroTrasportatore,2);
         impiegatoCheckIn.start();
         this.numeroBanco = numeroBanco;
         this.viaggi = viaggi;

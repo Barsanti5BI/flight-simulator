@@ -21,6 +21,7 @@ public class ImpiegatoControlliStiva extends Thread{
     }
 
     public void run(){
+        System.out.println("Impiegato controlli stiva: \"Sto aspettando\"");
         while(true)
         {
             if (s != null)
@@ -55,7 +56,7 @@ public class ImpiegatoControlliStiva extends Thread{
                 }
                 else
                 {
-                    System.out.println("Impiegato controlli stiva: \"Sto aspettando\"");
+
                     try {
                         Thread.sleep(5);
                     } catch (InterruptedException e) {

@@ -19,7 +19,7 @@ public class ZonaCheckIn extends ZonaAeroporto {
         rand = new Random();
         nastroTrasportatore = nastro;
         banco = new Banco(nastroTrasportatore, 1,viaggi);
-        impiegato = new ImpiegatoCheckIn(banco, nastroTrasportatore, rand.nextInt());
+        impiegato = new ImpiegatoCheckIn(banco, nastroTrasportatore, 1);
         banco.impiegatoCheckIn = impiegato;
         impiegato.start();
     }

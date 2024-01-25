@@ -19,7 +19,7 @@ public class ZonaPartenze extends ZonaAeroporto {
         for (Viaggio v : viaggi)
         {
             i++;
-            Gate g = new Gate(i, new Coda<Turista>(), v.DammiDestinzazione(), impiegatoControlliStiva);
+            Gate g = new Gate(i, new Coda<Turista>(), v.DammiDestinzazione(), impiegatoControlliStiva,i);
             listaGate.add(g);
         }
     }

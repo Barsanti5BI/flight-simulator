@@ -20,7 +20,8 @@ public class Gate extends Thread{
     Boolean GateAperto;
     Coda<Turista> codaGenerale;
     ImpiegatoControlliStiva impiegatoControlliStiva;
-    public Gate(int nomeGate, Coda<Turista> codaGenerale, String destinazione, ImpiegatoControlliStiva impiegatoControlliStiva){
+    int Id;
+    public Gate(int nomeGate, Coda<Turista> codaGenerale, String destinazione, ImpiegatoControlliStiva impiegatoControlliStiva, int Id){
         timer = new Timer();
         timerTask = new TimerTask() {
             @Override
@@ -111,7 +112,9 @@ public class Gate extends Thread{
             }
 
             t.setPassatoControlliGate(true);
-            t.notify();
+            synchronized (this){
+                notify();
+            }
         }catch (InterruptedException ex){
             System.out.println(ex.getMessage());
         }
@@ -148,5 +151,9 @@ public class Gate extends Thread{
     public Coda<Turista> getCodaGenerale()
     {
         return codaGenerale;
+    }
+
+    public int getgateId(){
+        return Id;
     }
 }

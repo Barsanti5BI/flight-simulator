@@ -9,12 +9,13 @@ public class ImpiegatoCheckIn extends Thread{
     public NastroTrasportatore nastroTrasportatore;
 
     public ImpiegatoCheckIn(Banco banco, NastroTrasportatore nT, int id){
-        setName(id+"");
+        setName("ImpiegatoCheckIn" + id);
         this.banco = banco;
         this.nastroTrasportatore = nT;
     }
 
     public void run() {
+        System.out.println("Impiegato del banco del check-in: \"Sto aspettando\"");
         while(true)
         {
             if (!banco.getCodaTuristi().isEmpty())
@@ -22,10 +23,15 @@ public class ImpiegatoCheckIn extends Thread{
                 Turista t = banco.getCodaTuristi().pop();
                 System.out.println("L'impiegato check-in " + getName() + " sta servendo il turista " + t.getName());
                 eseguiCheckIn(t);
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
             else
             {
-                System.out.println("Impiegato del banco del check-in: \"Sto aspettando\"");
+
                 try {
                     Thread.sleep(5);
                 } catch (InterruptedException e) {
@@ -35,7 +41,7 @@ public class ImpiegatoCheckIn extends Thread{
         }
     }
 
-    public synchronized void eseguiCheckIn(Turista turista) {
+    public void eseguiCheckIn(Turista turista) {
 
         Viaggio vGiusto = null;
 
@@ -47,9 +53,19 @@ public class ImpiegatoCheckIn extends Thread{
                 break;
             }
         }
+        if (vGiusto == null)
+        {
+            synchronized (this){
+                System.out.println("Viaggio non trovato");
+                turista.deveFareCheckIn = false;
+                notify();
+                return;
+            }
 
+        }
         turista.getBagaglio().setEtichetta(banco.generaEtichetta(turista, vGiusto));
         turista.setCartaImbarco(banco.generaCartaImbarco(turista, vGiusto));
+
 
         Bagaglio bagaglio = turista.getBagaglio();
 
@@ -59,7 +75,9 @@ public class ImpiegatoCheckIn extends Thread{
             turista.setBagaglio(null);
         }
 
-        turista.deveFareCheckIn = false;
-        turista.notify();
+        synchronized (this){
+            turista.deveFareCheckIn = false;
+            notify();
+        }
     }
 }

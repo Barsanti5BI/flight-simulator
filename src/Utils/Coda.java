@@ -13,16 +13,15 @@ public class Coda<T> {
         list = new LinkedList<T>();
     }
 
-    public T pop(){
+    public synchronized T pop(){
         try{
-            while(list.isEmpty())
-                Thread.sleep(10);
+            while(list.isEmpty()) {
+                wait();
+            }
         } catch(InterruptedException ex) {}
-        return this.estrai();
+        return list.removeFirst();
     }
 
-    private synchronized T estrai() {
-        return list.removeFirst(); }
 
     public boolean isEmpty() {
         return list.isEmpty();
@@ -30,6 +29,7 @@ public class Coda<T> {
 
     public synchronized void push(T element){
         list.addLast(element);
+        notify();
     }
 }
 

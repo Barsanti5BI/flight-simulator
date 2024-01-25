@@ -14,7 +14,6 @@ public class Settore {
       name = "Settore " + numero;
    }
 
-
     public Scanner getScannerBagagali() {
         return scanner;
     }

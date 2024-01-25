@@ -13,8 +13,10 @@ public class ImpiegatoControlliPartenze extends Thread{
         this.codaTurista = codaTurista;
         this.oggettiProibiti = oggettiProibiti; // lista fornita dall'aereoporto
         setName(id+"");
+        this.start();
     }
     public void run(){
+        System.out.println("Impiegato controlli partenze: \"Sto aspettando\"");
         while(true)
         {
             if (codaScanner != null)
@@ -64,7 +66,7 @@ public class ImpiegatoControlliPartenze extends Thread{
                 }
                 else
                 {
-                    System.out.println("Impiegato controlli partenze: \"Sto aspettando\"");
+
                     try {
                         Thread.sleep(5);
                     } catch (InterruptedException e) {

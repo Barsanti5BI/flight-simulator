@@ -10,13 +10,13 @@ import Aereoporto.ZonaControlli.MetalDetector;
 import Aereoporto.ZonaControlli.Scanner;
 import Aereoporto.ZonaControlli.Settore;
 import Aereoporto.ZonaControlli.ZonaControlli;
-import Aereoporto.ZonaEntrata.ZonaEntrata;
 import Aereoporto.ZonaNegozi.Negozio;
 import Aereoporto.ZonaNegozi.ZonaNegozi;
 import Aereoporto.ZonaPartenze.ZonaPartenze;
 import Utils.Coda;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -48,7 +48,7 @@ public class Turista extends Thread{
     public ZonaNegozi zonaNegozi;
     public int indiceNegozio;
     public  boolean vuoleFareAcquisto;
-    public List<Prodotto> oggettiDaComprare;
+    public ArrayList<Prodotto> oggettiDaComprare;
     private @Nullable Bagaglio bagaglio;
     private boolean pagato;
 
@@ -83,7 +83,6 @@ public class Turista extends Thread{
         r = new Random();
         vuoleFareAcquisto = r.nextBoolean();
         this.codAereo = codAereo;
-        this.inPartenza = inPartenza;
 
         deveFareCheckIn = true;
         deveFareControlli = false;
@@ -108,6 +107,7 @@ public class Turista extends Thread{
         this.zonaControlli = zonaControlli;
         this.zonaNegozi = zonaNegozi;
         this.zonaPartenze = zonaPartenze;
+        oggettiDaComprare = new ArrayList<>();
     }
 
     public void run(){
@@ -223,20 +223,27 @@ public class Turista extends Thread{
 
                             for(Gate g : gates)
                             {
-                                if (g.getId() == cartaImbarco.getGate())
+                                if (g.getgateId() == cartaImbarco.getGate())
                                 {
                                     mioGate = g;
                                     break;
                                 }
                             }
-
-                            synchronized (mioGate)
+                            if (mioGate == null)
                             {
-                                while (!passatoControlliGate)
+                                System.out.println("Il turista " + getName() + " non ha trovato il suo gate");
+
+                            }
+                            else {
+                                synchronized (mioGate)
                                 {
-                                    gates.wait();
+                                    while (!passatoControlliGate)
+                                    {
+                                        mioGate.wait();
+                                    }
                                 }
                             }
+
 
                             if(gateGiusto)
                             {
@@ -365,7 +372,7 @@ public class Turista extends Thread{
 
         for(int i = 0; i <= r.nextInt(0, 11); i++)
         {
-            int indiceElemento = r.nextInt(0, coseDisponibili.size());
+            int indiceElemento = (int)(Math.random()*coseDisponibili.size());
             oggettiDaComprare.add(coseDisponibili.get(indiceElemento));
         }
     }

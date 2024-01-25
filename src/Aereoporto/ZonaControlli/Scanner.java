@@ -18,6 +18,7 @@ public class Scanner extends Thread{
    public  Scanner(){
         this.codaBagagli = new Coda<>();
         this.codaBagagliPericolosi = new Coda<>();
+      codabagagliControllati = new Coda<>();
    }
     public void run(){
         while(true) {

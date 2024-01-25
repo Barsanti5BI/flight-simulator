@@ -18,6 +18,7 @@ public class ImpiegatoNegozi extends Thread{
     }
 
     public void run(){
+        System.out.println("Impiegato negozi: \"Sto aspettando\"");
         while(true)
         {
             if (!turisti.isEmpty())
@@ -33,7 +34,7 @@ public class ImpiegatoNegozi extends Thread{
             }
             else
             {
-                System.out.println("Impiegato negozi: \"Sto aspettando\"");
+
                 try {
                     Thread.sleep(5);
                 } catch (InterruptedException e) {
