@@ -3,7 +3,6 @@
 package Aereo;
 
 import Utils.Coda;
-import Persona.Turista;
 import java.util.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -11,38 +10,38 @@ import java.util.concurrent.locks.ReentrantLock;
 
 
 public class Bagno extends Thread{
-    private  Coda<Turista> c;
-    private  Coda<Turista> finio;
+    private  Coda<F_Turista> c;
+    private  Coda<F_Turista> finio;
     private Lock l;
 
-    private Turista t;
+    private F_Turista t;
 
 
     //Turista in coda entra in bagno
-    public void DareBagno(Coda<Turista> a)
+    public void DareBagno(Coda<F_Turista> a)
     {
 
         while (a.size()>0){
 
-            Turista e = a.pop();
+            F_Turista e = a.pop();
             c.push(e);
         }
     }
 
 
     //Turista si mette in coda
-    public void DareBisogno(Turista e)
+    public void DareBisogno(F_Turista e)
     {
         c.push(e);
     }
 
     public Bagno()
     {
-        c = new Coda<Turista>();
+        c = new Coda<F_Turista>();
         l= new ReentrantLock();
     }
 
-    public Coda<Turista> getC() {
+    public Coda<F_Turista> getC() {
         return c;
     }
 
@@ -54,8 +53,7 @@ public class Bagno extends Thread{
         {
             l.lock();
             t=c.pop();
-            System.out.print("il bagno è occupato da ");
-            System.out.println(t.getName());
+            System.out.print("il bagno è occupato da " + t.get_id());
             Random r = new Random();
             int k= r.nextInt(5000);
 
@@ -72,7 +70,7 @@ public class Bagno extends Thread{
 
     }
 
-    public Turista finito()
+    public F_Turista finito()
     {
        return finio.pop();
     }

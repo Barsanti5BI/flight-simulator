@@ -1,26 +1,24 @@
 package Aereo;
 import  Utils.Coda;
-import Persona.Turista;
 
 public class Uscita extends Thread{
 
-    private Coda<Turista> uscenti;
+    private Coda<F_Turista> uscenti;
 
 
-    private Coda<Turista> uscentiAnt;
-    private Coda<Turista> uscentiPost;
+    private Coda<F_Turista> uscentiAnt;
+    private Coda<F_Turista> uscentiPost;
 
-    private Coda<Turista> usciti;
+    private Coda<F_Turista> usciti;
     int i=0;
-
 
     public Uscita(AereoPasseggeri ap)
     {
-        uscenti=new Coda<Turista>();
-        uscentiPost=new Coda<Turista>();
-        uscentiAnt = new Coda<Turista>();
+        uscenti=new Coda<F_Turista>();
+        uscentiPost=new Coda<F_Turista>();
+        uscentiAnt = new Coda<F_Turista>();
         uscenti=ap.FaiScendere();
-        usciti=new Coda<Turista>();
+        usciti=new Coda<F_Turista>();
         int i=uscenti.size();
     }
 
@@ -53,12 +51,12 @@ public class Uscita extends Thread{
 
     }
 
-    public Coda<Turista> GetUscitiDavanti() {return uscentiAnt;}
-    public Coda<Turista> GetUscitiDietro()
+    public Coda<F_Turista> GetUscitiDavanti() {return uscentiAnt;}
+    public Coda<F_Turista> GetUscitiDietro()
     {
         return  uscentiPost;
     }
-    public  Coda<Turista>  GetUsciti(){ return  usciti;}
+    public  Coda<F_Turista>  GetUsciti(){ return  usciti;}
     public int Getnperson()
     {
         return i;

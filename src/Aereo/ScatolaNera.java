@@ -17,7 +17,7 @@ public class ScatolaNera extends Thread{
     private boolean pericolo;
     private int nAllerte;
 
-    ScatolaNera(Aereo a){
+    public ScatolaNera(Aereo a){
         this.a = a;
         nAllerte = 0;
         percBatteria = 100;

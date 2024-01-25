@@ -1,21 +1,19 @@
 package Aereo;
 
 import Utils.Coda;
-import Persona.Turista;
 
 import java.util.ArrayList;
 
 
 public class AereoPasseggeri extends Aereo {
-    private Turista[][] matricePostiAereo;
+    private F_Turista[][] matricePostiAereo;
     private int nPosti;
     private Entrata entrata;
     private Uscita uscita;
 
-
     public AereoPasseggeri(int id) {
         super(id);
-        matricePostiAereo = new Turista[4][10];
+        matricePostiAereo = new F_Turista[4][10];
         nPosti = 40;
         entrata = new Entrata();
         uscita = new Uscita(this);
@@ -31,9 +29,12 @@ public class AereoPasseggeri extends Aereo {
         Imbarca(entrata.GetsalitiDietro());
     }
 
-    public void Imbarca(Coda<Turista> c) {
+    public void Imbarca(Coda<F_Turista> c) {
+        //fixare
+        //1° modo creiamo carta di imbarco fake
+        //2° modo non la creiamo e i valori li mettiamo dentro il F_Turista
         for (int i = 0; i < c.size(); i++) {
-            Turista t = c.pop();
+            F_Turista t = c.pop();
             String[] posto = t.GetCartaImbarco().getCodicePosto().split(",");
 
             int riga = Integer.parseInt(posto[0]);
@@ -43,9 +44,9 @@ public class AereoPasseggeri extends Aereo {
         }
     }
 
-    public Coda<Turista> FaiScendere() {
+    public Coda<F_Turista> FaiScendere() {
 
-        Coda<Turista> coda = new Coda<Turista>();
+        Coda<F_Turista> coda = new Coda<F_Turista>();
         for (int c = 0; c < 4; c++) {
             for (int r = 0; r < 10; r++) {
                 if (matricePostiAereo[c][r] != null) {

@@ -25,7 +25,7 @@ public class Stiva {
     //Metodo che rimuove 1 bagaglio dalla stiva
     public Bagaglio Rimuovi_Bagaglio_Stiva(){
         Bagaglio b = pila_bag.pop();
-        peso_attuale -= b.peso;
+        peso_attuale -= b.get_peso();
         return b;
     }
 
@@ -33,7 +33,7 @@ public class Stiva {
     public boolean Riempi_Stiva(LinkedList<Bagaglio> lista_bag){
         for(Bagaglio b : lista_bag){
             pila_bag.push(b);
-            peso_attuale += b.peso;
+            peso_attuale += b.get_peso();
         }
         return true;
     }
@@ -41,7 +41,7 @@ public class Stiva {
     //Metodo che aggiunge 1 bagaglio alla volta nella stiva
     public boolean Aggiungi_Bagaglio_Stiva(Bagaglio b){
         pila_bag.push(b);
-        peso_attuale += b.peso;
+        peso_attuale += b.get_peso();
         return true;
     }
 

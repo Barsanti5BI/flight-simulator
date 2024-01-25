@@ -6,20 +6,20 @@ import Persona.Turista;
 
 public class Entrata extends Thread{
 
-    private Coda<Turista> entranti;
+    private Coda<F_Turista> entranti;
 
   
 
-    private Coda<Turista> salitoant;
-    private Coda<Turista> salitopost;
+    private Coda<F_Turista> salitoant;
+    private Coda<F_Turista> salitopost;
 
     int i=0;
 
-    public void DareEntranti(Coda<Turista> e)
+    public void DareEntranti(Coda<F_Turista> e)
     {
         while (e.size()>0){
 
-          Turista a = e.pop();
+          F_Turista a = e.pop();
           entranti.push(a);
         }
 
@@ -29,9 +29,9 @@ public class Entrata extends Thread{
 
     public Entrata()
     {
-        entranti=new Coda<Turista>();
-        salitoant=new Coda<Turista>();
-        salitopost=new Coda<Turista>();
+        entranti=new Coda<F_Turista>();
+        salitoant=new Coda<F_Turista>();
+        salitopost=new Coda<F_Turista>();
         i=entranti.size();
     }
     public void run()
@@ -61,8 +61,8 @@ public class Entrata extends Thread{
     }
 
 
-    public Coda<Turista> GetsalitiDavanti() {return  salitoant;}
-    public Coda<Turista> GetsalitiDietro()
+    public Coda<F_Turista> GetsalitiDavanti() {return  salitoant;}
+    public Coda<F_Turista> GetsalitiDietro()
     {
         return  salitopost;
     }

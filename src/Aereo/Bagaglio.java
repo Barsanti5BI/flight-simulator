@@ -4,30 +4,16 @@ import Persona.Turista;
 import java.util.Random;
 
 public class Bagaglio {
-    public Turista proprietario;
+    public int Turista_id;
     public int peso;
     public boolean stato_controllo;
-    public boolean bag_mano;
 
-    public Bagaglio(Turista prop){
+    public Bagaglio(int turista_id){
         Random rand = new Random();
-        this.proprietario = prop;
+        this.Turista_id = turista_id;
         peso = rand.nextInt(0, 25);
-        stato_controllo = false;
-        if(peso > 5){
-            bag_mano = false;
-        }
-        else{
-            bag_mano = true;
-        }
+        stato_controllo = true;
     }
 
-    public String toString(){
-        if(bag_mano){
-            return "Bagaglio a mano di " + proprietario.getDoc().getCognome() + " " + proprietario.getDoc().getNome() + ", peso: " + peso;
-        }
-        else {
-            return "Bagaglio da stiva di " + proprietario.getDoc().getCognome() + " " + proprietario.getDoc().getNome() + ", peso: " + peso;
-        }
-    }
+    public int get_peso() {return this.peso;}
 }
