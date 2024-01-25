@@ -1,23 +1,35 @@
 import Aereo.Aereo;
 import Aereo.F_Turista;
 import Utils.Coda;
+import Aereo.Gate;
+import Aereo.F_TorreControllo;
 
 import java.util.LinkedList;
 //AGGIUNGERE PRINTS NEI METODI/THREADS
 public class Main {
    public static void main(String[] args) {
+      //Creazione lista di  Aereoporti
       LinkedList<String> aereoporti = new LinkedList<String>();
       aereoporti.add("New York Airport");
       aereoporti.add("Tokyo Airport");
       aereoporti.add("Aereoporto Milano");
       aereoporti.add("Aereoporto Messina");
 
+      //Creazione lista Torri di Controllo
+      LinkedList<F_TorreControllo> lista_torre_controllo = new LinkedList<F_TorreControllo>();
+      lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(0)));
+      lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(1)));
+      lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(2)));
+      lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(3)));
+
+      //Creazione lista di Aerei
       LinkedList<Aereo> list_aerei = new LinkedList<Aereo>();
       for(int i = 0; i < 4; i++){
          Aereo a = new Aereo(i);
          list_aerei.add(a);
       }
 
+      //Creazione lista di Turisti
       LinkedList<F_Turista> lista_turisti = new LinkedList<F_Turista>();
       int k = 0;
       int id_tur = 0;
@@ -39,6 +51,7 @@ public class Main {
          k++;
       }
 
+      //Divisione dei turisti in base alla destinazione
       Coda<F_Turista> coda_gate_1 = new Coda<F_Turista>();
       Coda<F_Turista> coda_gate_2 = new Coda<F_Turista>();
       Coda<F_Turista> coda_gate_3 = new Coda<F_Turista>();
@@ -58,6 +71,12 @@ public class Main {
          }
       }
 
+      //Crezione dei Gate
+      LinkedList<Gate> lista_gate = new LinkedList<Gate>();
+      lista_gate.add(new Gate(1, coda_gate_1, aereoporti.get(0), list_aerei.get(0)));
+      lista_gate.add(new Gate(2, coda_gate_2, aereoporti.get(1), list_aerei.get(1)));
+      lista_gate.add(new Gate(3, coda_gate_3, aereoporti.get(2), list_aerei.get(2)));
+      lista_gate.add(new Gate(4, coda_gate_4, aereoporti.get(3), list_aerei.get(3)));
 
       //Creare Aerei
       //Creare Turisti con i controllo già fatti al gate
