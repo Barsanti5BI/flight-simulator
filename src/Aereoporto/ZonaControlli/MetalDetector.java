@@ -23,24 +23,25 @@ public class MetalDetector extends Thread {
         codaTuristiPericolosi = new Coda<>();
         codaTuristiBuoni = new Coda<>();
         impiegato = new ImpiegatoControlliPartenze(null, codaTuristiPericolosi, ListaOggetti.getOggettiPericolosi(), rand.nextInt(0, 1000));
-        this.start();
     }
 
    public void run() {
        while(true) {
            // TODO: immetto tempo random per il controllo del passeggero tramite la guardia
            try {
-               Thread.sleep(100);
                Turista turista = codaTuristiAttesa.pop();
                boolean nonPericoloso = controllaTurista(turista);
+               Thread.sleep(1000);
               if (nonPericoloso) {
                  codaTuristiBuoni.push(turista);
+                 System.out.println("Il turista " + turista.getName() + " ha superato il metal detector");
               } else {
                  codaTuristiPericolosi.push(turista);
+                  System.out.println("Il metal detector suona per il turista " + turista.getName());
               }
                synchronized (this) {
                  turista.deveFareControlliAlMetalDetector = false;
-                   notify();
+                 notify();
                }
 
            } catch (InterruptedException e) {
@@ -51,6 +52,7 @@ public class MetalDetector extends Thread {
 
    // ritorna true se il turista è stato controllato senza problemi
    public boolean controllaTurista(Turista turista) {
+      System.out.println("metal detector sta controllando Il turista " + turista.getName());
       ArrayList<String> oggettiPericolosi = ListaOggetti.getOggettiPericolosi();
       for (Oggetto oggetto : turista.GetListaOggetti()) {
           if (oggettiPericolosi.contains(oggetto.getNome())) {

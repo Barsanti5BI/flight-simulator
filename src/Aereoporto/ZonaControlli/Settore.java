@@ -12,6 +12,9 @@ public class Settore {
       metalDetector = new MetalDetector();
       scanner = new Scanner();
       name = "Settore " + numero;
+
+      scanner.start();
+      metalDetector.start();
    }
 
     public Scanner getScannerBagagali() {

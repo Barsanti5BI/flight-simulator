@@ -15,11 +15,13 @@ public class Scanner extends Thread{
       this.codaBagagli = codaBagagli;
       this.codaBagagliPericolosi = new Coda<>();
    }
-   public  Scanner(){
+
+   public Scanner(){
         this.codaBagagli = new Coda<>();
         this.codaBagagliPericolosi = new Coda<>();
-      codabagagliControllati = new Coda<>();
+        codabagagliControllati = new Coda<>();
    }
+
     public void run(){
         while(true) {
             try {
@@ -32,7 +34,6 @@ public class Scanner extends Thread{
                 } else {
                      codaBagagliPericolosi.push(bagaglio);
                 }
-                // TODO: mostro risultato al personale che decide se far passare il turista o meno
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

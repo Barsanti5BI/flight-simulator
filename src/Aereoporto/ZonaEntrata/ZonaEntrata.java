@@ -22,17 +22,10 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ZonaEntrata extends ZonaAeroporto {
-    public ZonaPartenze zonaPartenze;
-    public ZonaCheckIn zonaCheckIn;
-    public ZonaControlli zonaControlli;
-    public ZonaNegozi zonaNegozi;
-    public ZonaArrivi zonaArrivi;
-    private ArrayList<Aereo> lista_aerei;
     private Coda<Turista> codaTuristi;
 
     // qui entrano i turisti generati
     public ZonaEntrata(ArrayList<Aereo> lista_aer,ZonaCheckIn zonaCheckIn,ZonaControlli zonaControlli, ZonaNegozi zonaNegozi, ZonaPartenze zonaPartenze) {
-        this.lista_aerei = lista_aer;
         codaTuristi = generaTuristi(zonaCheckIn,zonaControlli,zonaNegozi,zonaPartenze);
     }
 

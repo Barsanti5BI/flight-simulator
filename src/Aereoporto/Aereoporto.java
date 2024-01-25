@@ -27,9 +27,8 @@ public class Aereoporto {
     ZonaPartenze zonaPartenze;
     NastroTrasportatore nastroTrasportatore;
     ZonaArrivi zonaArrivi;
-    public Aereoporto(ArrayList<Viaggio> viaggi, ArrayList<Aereo> lista_aerei) {
 
-        System.out.println("Aereoporto partito");
+    public Aereoporto(ArrayList<Viaggio> viaggi, ArrayList<Aereo> lista_aerei) {
         nastroTrasportatore = new NastroTrasportatore();
         zonaCheckIn = new ZonaCheckIn(nastroTrasportatore,viaggi);
         zonaControlli = new ZonaControlli();
@@ -60,6 +59,7 @@ public class Aereoporto {
 
         // TODO: imposta zona precedente come entrata dalla pista
     }
+    
     public NastroTrasportatore getNastroTrasportatore() {
         return nastroTrasportatore;
     }

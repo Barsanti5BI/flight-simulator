@@ -62,7 +62,9 @@ public class ImpiegatoControlliPartenze extends Thread{
                     String controllo = ControlloApprofondito(t.GetListaOggetti());
                     System.out.println("Turista " + t.getName() + " è arrestato poichè in possesso di: " + controllo);
                     t.perquisizioneTerminata = true;
-                    t.notify();
+                    synchronized (this) {
+                        notify();
+                    }
                 }
                 else
                 {

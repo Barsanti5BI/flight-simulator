@@ -15,34 +15,21 @@ public class ImpiegatoCheckIn extends Thread{
     }
 
     public void run() {
-        System.out.println("Impiegato del banco del check-in: \"Sto aspettando\"");
-        while(true)
-        {
-            if (!banco.getCodaTuristi().isEmpty())
-            {
+        try {
+            while(true) {
+                System.out.println("Impiegato del banco del check-in pronto");
                 Turista t = banco.getCodaTuristi().pop();
                 System.out.println("L'impiegato check-in " + getName() + " sta servendo il turista " + t.getName());
+                Thread.sleep(1000);
                 eseguiCheckIn(t);
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                System.out.println("L'impiegato check-in " + getName() + " ha servito il turista " + t.getName());
             }
-            else
-            {
-
-                try {
-                    Thread.sleep(5);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+        } catch (InterruptedException ex) {
+            throw new RuntimeException(ex);
         }
     }
 
     public void eseguiCheckIn(Turista turista) {
-
         Viaggio vGiusto = null;
 
         for(Viaggio v : banco.getViaggi())
@@ -55,13 +42,12 @@ public class ImpiegatoCheckIn extends Thread{
         }
         if (vGiusto == null)
         {
-            synchronized (this){
+            synchronized (this) {
                 System.out.println("Viaggio non trovato");
                 turista.deveFareCheckIn = false;
                 notify();
                 return;
             }
-
         }
         turista.getBagaglio().setEtichetta(banco.generaEtichetta(turista, vGiusto));
         turista.setCartaImbarco(banco.generaCartaImbarco(turista, vGiusto));
@@ -75,9 +61,9 @@ public class ImpiegatoCheckIn extends Thread{
             turista.setBagaglio(null);
         }
 
-        synchronized (this){
+        synchronized (banco) {
             turista.deveFareCheckIn = false;
-            notify();
+            banco.notify();
         }
     }
 }
