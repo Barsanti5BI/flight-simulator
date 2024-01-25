@@ -118,8 +118,5 @@ public class Gate extends Thread{
     public String getDestinazione(){return destinazione;}
     public boolean getGateAperto(){ return GateAperto;}
 
-    public Coda<F_Turista> getCodaGenerale()
-    {
-        return codaGenerale;
-    }
+    public Coda<F_Turista> getCodaGenerale() {return codaGenerale;}
 }
