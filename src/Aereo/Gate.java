@@ -45,6 +45,10 @@ public class Gate extends Thread{
                     while(!codaGenerale.isEmpty()){   //creo la coda prioritaria e la coda normale
                         F_Turista t = codaGenerale.pop();
                         if(t.getPrioritario() || isPasseggeroInPrioritaria()){
+                            if (!t.prioritario)
+                            {
+                                System.out.println("Il turista " + t.get_id() + " è stato fortunato ed è stato fatta entrare nella coda prioritaria");
+                            }
                             codaPrioritaria.push(t);
                             sleep(100);
                             System.out.println("Il turista "+ t.get_id() + " è entrato nella coda prioritaria nel gate " + nomeGate);
