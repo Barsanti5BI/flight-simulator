@@ -91,7 +91,7 @@ public class Gate extends Thread{
 
             boolean controlloTPericoloso = false;
 
-            for(Turista tPericoloso : impiegatoControlliStiva.getTuristiPericolosi())
+            for(F_Turista tPericoloso : impiegatoControlliStiva.getTuristiPericolosi())
             {
                 if (tPericoloso == t) {
                     controlloTPericoloso = true;
@@ -116,7 +116,7 @@ public class Gate extends Thread{
         }
     }
 
-    public Coda<Turista> getCodaTurista() {
+    public Coda<F_Turista> getCodaTurista() {
         return codaTurista;
     }
 
@@ -142,7 +142,7 @@ public class Gate extends Thread{
     public String getDestinazione(){return destinazione;}
     public boolean getGateAperto(){ return GateAperto;}
 
-    public Coda<Turista> getCodaGenerale()
+    public Coda<F_Turista> getCodaGenerale()
     {
         return codaGenerale;
     }

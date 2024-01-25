@@ -1,5 +1,4 @@
 package Aereo;
-import Persona.Turista;
 
 import java.util.Random;
 
