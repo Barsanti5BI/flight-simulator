@@ -15,7 +15,7 @@ public class Entrata extends Thread{
 
     public void DareEntranti(Coda<F_Turista> e)
     {
-        while (e.size()>0){
+        while (!e.isEmpty()){
 
           F_Turista a = e.pop();
           entranti.push(a);
@@ -35,7 +35,7 @@ public class Entrata extends Thread{
     public void run()
     {
         try{
-            while(entranti.size()>0)
+            while(!entranti.isEmpty())
             {
 
                 if( entranti.size() % 2==0)
