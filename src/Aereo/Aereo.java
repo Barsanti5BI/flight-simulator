@@ -10,7 +10,9 @@ public class Aereo extends  Thread{
     public String destinazione;
     public int posizione;
     public Gate gate;
-    private ArrayList<Bagno> bagni;
+    private Bagno bagnifronte;
+
+    private Bagno bagnoretro;
     private ScatolaNera scatolaNera;
     private ArrayList<Turbina> turbine;
     private Stiva stiva;
@@ -31,7 +33,9 @@ public class Aereo extends  Thread{
 
         r = new Random();
 
-        bagni = new ArrayList<Bagno>();
+       bagnifronte = new Bagno();
+       bagnoretro = new Bagno();
+
         scatolaNera = new ScatolaNera (this);
         turbine = new ArrayList<Turbina>();
         for(int i = 0; i<4;i++){
@@ -53,7 +57,12 @@ public class Aereo extends  Thread{
         uscita = new Uscita(this);
     }
 
+
+
     public void run(){
+
+
+
         if(sciopero()){
             try{
 
@@ -77,6 +86,30 @@ public class Aereo extends  Thread{
                 posizione+=2;
             }
 
+            Coda<F_Turista> gb= Givebagno();
+
+            if(gb.size() % 2==0)
+            {
+                bagnifronte.DareBisogno(gb.pop());
+            }
+            if(  gb.size() % 2==1)
+            {
+                bagnoretro.DareBisogno(gb.pop());
+            }
+
+            try{
+                bagnifronte.run();
+                bagnoretro.run();
+                while (bagnifronte.finito().size()>0)
+                {
+                   Imbarca(bagnifronte.finito());
+                }
+                while (bagnoretro.finito().size()>0)
+                {
+                    Imbarca(bagnoretro.finito());
+                }
+            }
+            catch (Exception e){}
         }
     }
 
@@ -146,6 +179,33 @@ public class Aereo extends  Thread{
     public boolean Get_Stato_Aereo(){
         return this.einvolo;
     }
+
+    public Coda<F_Turista> Givebagno()
+    {
+        Coda<F_Turista> coda = new Coda<F_Turista>();
+        Random random= new Random();
+
+        int rr=random.nextInt()*entrata.Getnperson();
+        while(rr>0)
+        {
+
+            int c = random.nextInt()*matricePostiAereo.length;
+            int r = random.nextInt()*matricePostiAereo[0].length;
+
+            if (matricePostiAereo[c][r] != null) {
+                rr=0;
+            }
+            else
+            {
+             coda.push(matricePostiAereo[c][r]);
+             rr-=1;
+            }
+
+        }
+      return coda;
+    }
+
+
     public Stiva Get_Stiva(){
         return this.stiva;
     }
