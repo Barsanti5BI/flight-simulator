@@ -13,7 +13,7 @@ public class F_TorreControllo {
 
     private Dictionary<Aereo,String> viaggi;
 
-    public F_TorreControllo(Dictionary<String,F_TorreControllo> Aereoporti, Dictionary<Aereo,String> v){
+    public F_TorreControllo(Dictionary<String, F_TorreControllo> Aereoporti, Dictionary<Aereo,String> v){
         this.Aereoporti =Aereoporti;
         this.viaggi = v;
     }
