@@ -7,7 +7,7 @@ public class Main {
       //AGGIUNGERE PRINTS NEI METODI/THREADS
       LinkedList<Aereo> list_aerei = new LinkedList<Aereo>();
       for(int i = 0; i < 2; i++){
-         AereoPasseggeri a = new AereoPasseggeri(i);
+         Aereo a = new Aereo(i);
          list_aerei.add(a);
       }
       //Creare Aerei

@@ -5,7 +5,7 @@ import Utils.Coda;
 import java.util.ArrayList;
 import java.util.Random;
 
-public abstract class Aereo extends  Thread{
+public class Aereo extends  Thread{
     public int id;
     public String destinazione;
     public int posizione;
