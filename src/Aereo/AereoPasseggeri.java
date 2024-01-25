@@ -30,16 +30,12 @@ public class AereoPasseggeri extends Aereo {
     }
 
     public void Imbarca(Coda<F_Turista> c) {
-        //fixare
-        //1° modo creiamo carta di imbarco fake
-        //2° modo non la creiamo e i valori li mettiamo dentro il F_Turista
+
         for (int i = 0; i < c.size(); i++) {
             F_Turista t = c.pop();
-            String[] posto = t.GetCartaImbarco().getCodicePosto().split(",");
 
-            int riga = Integer.parseInt(posto[0]);
-            int colonna =Integer.parseInt(posto[1]);
-            matricePostiAereo[colonna][riga] = t;
+
+            matricePostiAereo[t.posto_colonna][t.posto_riga] = t;
 
         }
     }

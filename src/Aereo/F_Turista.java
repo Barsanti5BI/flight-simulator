@@ -13,6 +13,8 @@ public class F_Turista {
 
     public Bagaglio bagaglio;
 
+
+
     public F_Turista(int id, int id_ae, int p_col, int p_rig){
         this.id_aereo = id_ae;
         this.id = id;
