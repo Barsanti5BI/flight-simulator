@@ -118,5 +118,7 @@ public class Gate extends Thread{
     public String getDestinazione(){return destinazione;}
     public boolean getGateAperto(){ return GateAperto;}
 
+    public void setAereo(Aereo a){ this.aereo = a;}
+
     public Coda<F_Turista> getCodaGenerale() {return codaGenerale;}
 }
