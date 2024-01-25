@@ -20,7 +20,6 @@ public class Aereo extends  Thread{
     public boolean einvolo;
     private boolean maltempo;
     private Random r;
-
     private F_Turista[][] matricePostiAereo;
     private int nPosti;
     private Entrata entrata;
@@ -204,6 +203,10 @@ public class Aereo extends  Thread{
     public Uscita getUscita(){
         return uscita;
     }
+
+    public F_Turista[][] get_Posti_Aereo() {return this.matricePostiAereo;}
+
+    public void set_Gate(Gate gate) {this.gate = gate;}
 
 }
 

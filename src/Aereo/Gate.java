@@ -18,7 +18,7 @@ public class Gate extends Thread{
     Coda<F_Turista> codaGenerale;
     Coda<F_Turista> codaEntrata;
     Aereo aereo;
-    public Gate(int nomeGate, Coda<F_Turista> codaGenerale, String destinazione,Aereo aereo){
+    public Gate(int nomeGate, Coda<F_Turista> codaGenerale, String destinazione, Aereo aereo){
         timer = new Timer();
         timerTask = new TimerTask() {
             @Override
