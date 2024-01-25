@@ -5,11 +5,11 @@ import java.util.LinkedList;
 public class Stiva {
     Stack<Bagaglio> pila_bag;
     int peso_attuale;
-    AereoPasseggeri aereo;
+    Aereo aereo;
     public Stiva(Aereo aereo_pass){
         pila_bag = new Stack<Bagaglio>();
         peso_attuale = 0;
-        this.aereo = (AereoPasseggeri) aereo_pass;
+        this.aereo = aereo_pass;
     }
 
     //Metodo che svuota l'intera stiva in una volta
