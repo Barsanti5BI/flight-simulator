@@ -14,29 +14,29 @@ public class Gate extends Thread{
     Coda<F_Turista> codaPrioritaria;
     Coda<F_Turista> codaNormale;
     Boolean TerminatiIControlli;
-    Coda<F_Turista> codaTurista;
     Boolean GateAperto;
     Coda<F_Turista> codaGenerale;
-
-    //ImpiegatoControlliStiva impiegatoControlliStiva; fixare
-    public Gate(int nomeGate, Coda<F_Turista> codaGenerale, String destinazione){ //ImpiegatoControlliStiva impiegatoControlliStiva){
+    Coda<F_Turista> codaEntrata;
+    Aereo aereo;
+    public Gate(int nomeGate, Coda<F_Turista> codaGenerale, String destinazione,Aereo aereo){
         timer = new Timer();
         timerTask = new TimerTask() {
             @Override
             public void run() {
                 TerminatiIControlli = true;
+                aereo.getEntrata().DareEntranti(codaEntrata);
                 System.out.println("Il gate " + nomeGate + " si è chiuso");
             }
         };
         codaPrioritaria = new Coda<>();
         codaNormale = new Coda<>();
-        codaTurista = new Coda<>();
+        codaEntrata = new Coda<>();
 
         this.codaGenerale = codaGenerale;
         TerminatiIControlli = false;
         this.destinazione = destinazione;
         this.nomeGate = nomeGate;
-        //this.impiegatoControlliStiva = impiegatoControlliStiva;
+        this.aereo = aereo;
     }
     public void run(){
         try {
@@ -85,6 +85,7 @@ public class Gate extends Thread{
             if(destinazione.equals(t.getDestinazione())){
                 sleep(100);
                 System.out.println("    Il turista " + t.get_id() + " ha effettuato il controllo effettuato nel gate " + nomeGate);
+                codaEntrata.push(t); //se passa il gate metto il turista nella coda per entrare nell'aereo
             }
             else{
                 sleep(100);
@@ -93,10 +94,6 @@ public class Gate extends Thread{
         }catch (InterruptedException ex){
             System.out.println(ex.getMessage());
         }
-    }
-
-    public Coda<F_Turista> getCodaTurista() {
-        return codaTurista;
     }
 
     //Metodo che apre il gate
