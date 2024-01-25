@@ -12,7 +12,7 @@ public class Uscita extends Thread{
     private Coda<F_Turista> usciti;
     int i=0;
 
-    public Uscita(AereoPasseggeri ap)
+    public Uscita(Aereo ap)
     {
         uscenti=new Coda<F_Turista>();
         uscentiPost=new Coda<F_Turista>();
