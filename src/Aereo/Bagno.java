@@ -12,7 +12,6 @@ public class Bagno extends Thread{
     private  Coda<F_Turista> c;
     private  Coda<F_Turista> finio;
     private Lock l;
-
     private F_Turista t;
 
 
@@ -40,7 +39,7 @@ public class Bagno extends Thread{
         l= new ReentrantLock();
     }
 
-    public Coda<F_Turista> getC() {
+    public Coda<F_Turista> getCoda() {
         return c;
     }
 
@@ -63,7 +62,7 @@ public class Bagno extends Thread{
 
         finally {
             l.unlock();
-                    finio.push(t);
+            finio.push(t);
         }
 
 
@@ -81,9 +80,7 @@ public class Bagno extends Thread{
     }
     public void run()
     {
-
-
-        //try{
+        //quando pos<1->posizione < 85 fa andare in bagno
         while(pos!=1)
         {
             for (int i = 0 ; i<c.size();i++)
@@ -91,11 +88,6 @@ public class Bagno extends Thread{
                 Bisogno(i);
             }
         }
-
-
-
-
-
     }
 }
 

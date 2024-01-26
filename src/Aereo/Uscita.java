@@ -4,15 +4,10 @@ import  Utils.Coda;
 public class Uscita extends Thread{
 
     private Coda<F_Turista> uscenti;
-
-
     private Coda<F_Turista> uscentiAnt;
     private Coda<F_Turista> uscentiPost;
-
     private Coda<F_Turista> usciti;
     int i=0;
-
-
 
 
     public Uscita(Aereo ap)
@@ -24,7 +19,7 @@ public class Uscita extends Thread{
         usciti=new Coda<F_Turista>();
         int i=uscenti.size();
     }
-
+//divide in 2 che forma unica coda all'uscita
     public void run()
     {
         try{
@@ -63,7 +58,7 @@ public class Uscita extends Thread{
         return  uscentiPost;
     }
     public  Coda<F_Turista>  GetUsciti(){ return  usciti;}
-    public int Getnperson()
+    public int Getnpersoneuscita()
     {
         return i;
     }
