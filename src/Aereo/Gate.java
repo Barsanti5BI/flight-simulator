@@ -90,6 +90,7 @@ public class Gate extends Thread{
                         F_Turista t = codaNormale.pop();
                         EffettuaControllo(t);
                     }
+                    this.aereo.stiva_piena = true;
                     // TerminatiIControlli verrà impostato su true dal TimerTask
                 }
 
@@ -106,6 +107,7 @@ public class Gate extends Thread{
             if(destinazione.equals(t.Get_Destinazione())){
                 sleep(100);
                 System.out.println("    Il turista " + t.Get_id() + " ha effettuato il controllo effettuato nel gate " + nomeGate);
+                Imbarca_Bagaglio(this.aereo, t);
                 codaEntrata.push(t); //se passa il gate metto il turista nella coda per entrare nell'aereo
             }
             else{
@@ -115,6 +117,11 @@ public class Gate extends Thread{
         }catch (InterruptedException ex){
             System.out.println(ex.getMessage());
         }
+    }
+
+    public void Imbarca_Bagaglio(Aereo a, F_Turista f){
+        a.Get_Stiva().Aggiungi_Bagaglio_Stiva(f.Get_Bag());
+
     }
 
     //Feature Marco Perin

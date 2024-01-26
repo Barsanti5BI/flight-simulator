@@ -7,9 +7,10 @@ import Aereo.F_TorreControllo;
 import java.util.LinkedList;
 import java.util.Random;
 
-//AGGIUNGERE PRINTS NEI METODI/THREADS
-//Quando vengono effettuati i print nelle varie classi
-//sarebbe meglio identificare la classe che ha effettuato quel print
+//TODO AGGIUNGERE PRINTS NEI METODI/THREADS
+//TODO Quando vengono effettuati i print nelle varie classi
+//TODO sarebbe meglio identificare la classe che ha effettuato quel print
+
 public class Main {
    public static void main(String[] args) {
       Random rnd = new Random();

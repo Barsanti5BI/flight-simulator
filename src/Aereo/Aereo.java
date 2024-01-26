@@ -19,16 +19,25 @@ public class Aereo extends  Thread {
     private boolean pilotaAutomatico;
     public Alieni alieni;
     public boolean einvolo;
-    private boolean maltempo;
-    private Random r;
-    private F_Turista[][] matricePostiAereo;
-    private int nPosti;
-    private Entrata entrata;
-    private Uscita uscita;
+    public boolean maltempo;
+    public Random r;
+    public F_Turista[][] matricePostiAereo;
+    public int nPosti;
+    public Entrata entrata;
+    public Uscita uscita;
+    public  boolean serbatoio_pieno;
+    public boolean turisti_imbarcati;
+    public boolean stiva_piena;
+    public boolean turbine_funzionanti;
 
     public Aereo(int Id) {
         this.id = Id;
         maltempo = false;
+
+        stiva_piena = false;
+        turbine_funzionanti = false;
+        turisti_imbarcati = false;
+        serbatoio_pieno = false;
 
         r = new Random();
 
@@ -48,7 +57,7 @@ public class Aereo extends  Thread {
         einvolo = false;
 
         alieni = new Alieni(this);
-        //lieni.start();
+        //alieni.start();
 
         matricePostiAereo = new F_Turista[4][10];
         nPosti = 40;
@@ -64,8 +73,8 @@ public class Aereo extends  Thread {
             } catch (Exception e) {
             }
         }
-        avvia();
-        while (einvolo && serbatoio.Get_Capacità_Serbatoio() > 0 && posizione < 100 && ControllaTurbine()) {
+        Prepara_Aereo();
+        while (einvolo && serbatoio.Get_Capacità() > 0 && posizione < 100 && ControllaTurbine()) {
             System.out.println("L'aereo è partito!");
             try {
                 //Feature Riccardo Pettenuzzo
@@ -119,7 +128,7 @@ public class Aereo extends  Thread {
 
     public Coda<F_Turista> aiposti()
     {
-        Coda<F_Turista> nobagno= new Coda<F_Turista>();
+        Coda<F_Turista> nobagno = new Coda<F_Turista>();
         if(posizione>=85)
         {
             bagnifronte.setpos();
@@ -140,32 +149,42 @@ public class Aereo extends  Thread {
 
 
     //Metodo che accende le Turbine dell'aereo e accende la scatola nera
-    public void avvia() {
-        ImbarcaPasseggieri();
-        for (int i = 0; i < 4; i++) {
-            turbine.get(i).Attiva();
+    public void Prepara_Aereo() {
+        Imbarca_Passeggieri();
+        einvolo = true;
+        if(ControllaTurbine()){
+            for(Turbina t : turbine){
+                t.Attiva();
+                t.start();
+            }
+        }
+        else{
+            Ripara_Aereo();
+        }
+        if(serbatoio.Get_Capacità() <= serbatoio.Get_Capacità_Critica()){
+            Rifornisci_Aereo();
         }
         scatolaNera.start();
-        einvolo = true;
-        for(Turbina t : turbine){
-            t.start();
-        }
     }
 
     //Metodo per riparare le turbine e ricaricare la batteria della scatola nera
-    public void Ripara() {
-        for (int i = 0; i < 4; i++) {
-            turbine.get(i).Ripara();
+    public void Ripara_Aereo() {
+        for (Turbina t : turbine){
+            t.Ripara();
+            t.Attiva();
+            t.start();
         }
+        turbine_funzionanti = true;
         scatolaNera.Ricarica();
         System.out.println("L'aereo " + this.id + " è stato riparato.");
     }
 
-    public void Rifornisci() {
+    public void Rifornisci_Aereo() {
         serbatoio.riempi();
+        serbatoio_pieno = true;
     }
 
-    public void atterra() {
+    public void Atterra() {
         einvolo = false;
         for (int i = 0; i < 4; i++) {
             turbine.get(i).Disabilita();
@@ -226,9 +245,10 @@ public class Aereo extends  Thread {
         return coda;
     }
 
-    public void ImbarcaPasseggieri() {
+    public void Imbarca_Passeggieri() {
         Imbarca(entrata.GetsalitiDavanti());
         Imbarca(entrata.GetsalitiDietro());
+        turisti_imbarcati = true;
     }
 
     public void Imbarca(Coda<F_Turista> c) {
