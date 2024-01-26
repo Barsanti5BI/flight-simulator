@@ -7,6 +7,7 @@ public class Entrata extends Thread{
     private Coda<F_Turista> salitopost;
     int i=0;
 
+    // prende la coda di persone in entrata
     public void DareEntranti(Coda<F_Turista> e)
     {
         while (!e.isEmpty()){
@@ -22,6 +23,8 @@ public class Entrata extends Thread{
         salitopost=new Coda<F_Turista>();
         i=entranti.size();
     }
+
+    //divide in 2 file
 
     public void run()
     {

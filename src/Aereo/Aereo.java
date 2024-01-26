@@ -10,7 +10,9 @@ public class Aereo extends  Thread {
     public String destinazione;
     public int posizione;
     public Gate gate;
-    private Bagno bagnifronte;
+
+    private Bagno bagnidavanti;
+
     private Bagno bagnoretro;
     private ScatolaNera scatolaNera;
     private ArrayList<Turbina> turbine;
@@ -38,10 +40,15 @@ public class Aereo extends  Thread {
         turisti_imbarcati = false;
         serbatoio_pieno = false;
 
-        bagnifronte = new Bagno();
+        bagnidavanti = new Bagno();
         bagnoretro = new Bagno();
 
-        scatolaNera = new ScatolaNera(this);
+
+        bagnidavanti = new Bagno();
+        bagnoretro = new Bagno();
+
+        scatolaNera = new ScatolaNera (this);
+
         turbine = new ArrayList<Turbina>();
         for (int i = 0; i < 4; i++) {
             Turbina n = new Turbina(this, i);
@@ -62,10 +69,12 @@ public class Aereo extends  Thread {
         uscita = new Uscita(this);
     }
 
+
     public void run() {
         //TODO MODIFICARE RUN
         if (sciopero()) {
             try {
+
                 Thread.sleep(5000);
             } catch (Exception e) {
             }
@@ -86,22 +95,27 @@ public class Aereo extends  Thread {
             } else {
                 posizione += 2;
             }
+
+           //parte per far funzionare il bagno in aereo
+            Coda<F_Turista> getbagno= Givebagno();
+
+            if(getbagno.size() % 2==0)
+            {
+                bagnidavanti.DareBisogno(getbagno.pop());
+            }
+            if( getbagno.size() % 2==1)
+            {
+                bagnoretro.DareBisogno(getbagno.pop());
+            }
+
+            try{
+                bagnidavanti.run();
+
             serbatoio.consuma_carburante();
 
-            Coda<F_Turista> gb = Givebagno();
-
-            if (gb.size() % 2 == 0) {
-                bagnifronte.DareBisogno(gb.pop());
-            }
-            if (gb.size() % 2 == 1) {
-                bagnoretro.DareBisogno(gb.pop());
-            }
-
-            try {
-                bagnifronte.run();
                 bagnoretro.run();
-                while (bagnifronte.finito().size() > 0) {
-                    Imbarca(bagnifronte.finito());
+                while (bagnidavanti.finito().size() > 0) {
+                    Imbarca(bagnidavanti.finito());
                 }
                 while (bagnoretro.finito().size() > 0) {
                     Imbarca(bagnoretro.finito());
@@ -111,9 +125,9 @@ public class Aereo extends  Thread {
 
                    Imbarca(nob);
 
-                   while (bagnifronte.finito().size()>0)
+                   while (bagnidavanti.finito().size()>0)
                    {
-                       Imbarca(bagnifronte.finito());
+                       Imbarca(bagnidavanti.finito());
                    }
                    while (bagnoretro.finito().size()>0)
                    {
@@ -124,20 +138,20 @@ public class Aereo extends  Thread {
         Atterra();
         System.out.println("L'aereo è atterrato!");
     }
-
+   //fa ritornare ai posti le persone in coda per il bagno dopo 85% di viaggio
     public Coda<F_Turista> aiposti()
     {
         Coda<F_Turista> nobagno = new Coda<F_Turista>();
         if(posizione>=85)
         {
-            bagnifronte.setpos();
+            bagnidavanti.setpos();
              bagnoretro.setpos();
-             while(bagnifronte.getC().size()>0){
-                F_Turista ft=bagnifronte.getC().pop();
+             while(bagnidavanti.getCoda().size()>0){
+                F_Turista ft = bagnidavanti.getCoda().pop();
                 nobagno.push(ft);
             }
-            while(bagnoretro.getC().size()>0){
-                F_Turista ft=bagnoretro.getC().pop();
+            while(bagnoretro.getCoda().size()>0){
+                F_Turista ft = bagnoretro.getCoda().pop();
                 nobagno.push(ft);
             }
         }
