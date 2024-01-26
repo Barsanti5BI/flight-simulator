@@ -7,7 +7,10 @@ import Aereo.F_TorreControllo;
 import java.util.LinkedList;
 import java.util.Random;
 
-//AGGIUNGERE PRINTS NEI METODI/THREADS
+//TODO AGGIUNGERE PRINTS NEI METODI/THREADS
+//TODO Quando vengono effettuati i print nelle varie classi
+//TODO sarebbe meglio identificare la classe che ha effettuato quel print
+
 public class Main {
    public static void main(String[] args) {
       Random rnd = new Random();
@@ -18,6 +21,7 @@ public class Main {
       aereoporti.add("Tokyo Airport");
       aereoporti.add("Aereoporto Milano");
       aereoporti.add("Aereoporto Messina");
+      System.out.println("Aereoporti Creati.");
 
       //Creazione lista di Aerei
       LinkedList<Aereo> list_aerei = new LinkedList<Aereo>();
@@ -25,6 +29,7 @@ public class Main {
          Aereo a = new Aereo(i);
          list_aerei.add(a);
       }
+      System.out.println("Aerei Creati.");
 
       //Creazione lista di Turisti
       LinkedList<F_Turista> lista_turisti = new LinkedList<F_Turista>();
@@ -47,6 +52,7 @@ public class Main {
          }
          k++;
       }
+      System.out.println("Turisti Creati.");
 
       //Divisione dei turisti in base alla destinazione
       Coda<F_Turista> coda_gate_1 = new Coda<F_Turista>();
@@ -54,16 +60,16 @@ public class Main {
       Coda<F_Turista> coda_gate_3 = new Coda<F_Turista>();
       Coda<F_Turista> coda_gate_4 = new Coda<F_Turista>();
       for(F_Turista t : lista_turisti){
-         if(t.getDestinazione() == "New York Airport"){
+         if(t.Get_Destinazione() == "New York Airport"){
             coda_gate_1.push(t);
          }
-         else if(t.getDestinazione() == "Tokyo Airport"){
+         else if(t.Get_Destinazione() == "Tokyo Airport"){
             coda_gate_2.push(t);
          }
-         else if(t.getDestinazione() == "Aereoporto Milano"){
+         else if(t.Get_Destinazione() == "Aereoporto Milano"){
             coda_gate_3.push(t);
          }
-         else if(t.getDestinazione() == "Aereoporto Messina"){
+         else if(t.Get_Destinazione() == "Aereoporto Messina"){
             coda_gate_4.push(t);
          }
       }
@@ -74,6 +80,7 @@ public class Main {
       lista_gate.add(new Gate(2, coda_gate_2));
       lista_gate.add(new Gate(3, coda_gate_3));
       lista_gate.add(new Gate(4, coda_gate_4));
+      System.out.println("Gate Creati.");
 
       //Creazione lista Torri di Controllo
       LinkedList<F_TorreControllo> lista_torre_controllo = new LinkedList<F_TorreControllo>();
@@ -81,6 +88,7 @@ public class Main {
       lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(1), lista_gate));
       lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(2), lista_gate));
       lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(3), lista_gate));
+      System.out.println("Torri di Controllo Create.");
 
       //Creare Aerei
       //Creare Turisti con i controllo già fatti al gate

@@ -3,14 +3,14 @@ package Aereo;
 import java.util.Random;
 
 public class Turbina extends Thread{
-
     public Aereo a;
     public int id;
     private Random r;
     public double percRiparazione;
     public Boolean funzionante;
     private int random;
-    Turbina(Aereo a, int id){
+
+    public Turbina(Aereo a, int id){
         r = new Random();
         this.a = a;
         funzionante = false;
@@ -37,17 +37,17 @@ public class Turbina extends Thread{
 
         }
     }
-
     public void Ripara(){
         percRiparazione = 100;
+        System.out.println("Turbina " + id + " riparata.");
     }
     public void Disabilita() {
         funzionante = false;
-        System.out.println("Turbina " + id + "disattivata!");
+        System.out.println("Turbina " + id + " disattivata.");
     }
     public void Attiva(){
         funzionante = true;
-        this.start();
+        System.out.println("Turbina " + this.id + " è in funzione.");
     }
     public double Get_Stato_Riparazione(){
         return this.percRiparazione;

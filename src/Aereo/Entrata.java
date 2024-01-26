@@ -1,9 +1,7 @@
 package Aereo;
 import  Utils.Coda;
 
-
 public class Entrata extends Thread{
-
     private Coda<F_Turista> entranti;
     private Coda<F_Turista> salitoant;
     private Coda<F_Turista> salitopost;
@@ -13,12 +11,9 @@ public class Entrata extends Thread{
     public void DareEntranti(Coda<F_Turista> e)
     {
         while (!e.isEmpty()){
-
           F_Turista a = e.pop();
           entranti.push(a);
         }
-
-
     }
 
     public Entrata()
@@ -28,32 +23,29 @@ public class Entrata extends Thread{
         salitopost=new Coda<F_Turista>();
         i=entranti.size();
     }
+
     //divide in 2 file
+
     public void run()
     {
         try{
-            System.out.println("Stanno entrando");
-            while(!entranti.isEmpty())
-            {
-
+            while(!entranti.isEmpty()) {
+                System.out.println("I Turisti Stanno entrando...");
                 if( entranti.size() % 2==0)
                 {
                     salitoant.push(entranti.pop());
-
                     Thread.sleep(1);
                 }
                 if(  entranti.size() % 2==1)
                 {
                     salitopost.push(entranti.pop());
-
                     Thread.sleep(1);
                 }
-
             }
+            System.out.println("I Turisti sono entrati.");
         }
         catch (Exception e){};
     }
-
 
     public Coda<F_Turista> GetsalitiDavanti() {return  salitoant;}
     public Coda<F_Turista> GetsalitiDietro()
