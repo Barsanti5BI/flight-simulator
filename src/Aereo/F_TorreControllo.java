@@ -42,7 +42,7 @@ public class F_TorreControllo extends Thread{
     public void setAereoGate(){
         Aereo a = AereiInArrivo.pop();
         for (Gate g:ListaGate ) {
-            g.setAereo(a);   }
+            g.openGate(a,viaggi.get(a));   }
     }
 
 
