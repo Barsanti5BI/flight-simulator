@@ -6,16 +6,10 @@ public class F_Turista {
     public int id;
     public int posto_riga;
     public int posto_colonna;
-    //per assegnare riga e colonna del posto scorro la matrice e quando creo i turisti gli assegno un posto
-    //numero turisti creati = 2 o 3 * posti aereo
-
     public int id_aereo;
-
     public Bagaglio bagaglio;
     public boolean prioritario;
     public String destinazione;
-
-
 
     public F_Turista(int id, int id_ae, int p_col, int p_rig,boolean prioritario,String destinazione){
         this.id_aereo = id_ae;
@@ -27,17 +21,13 @@ public class F_Turista {
         this.destinazione = destinazione;
     }
 
-    public Bagaglio get_Bag(){
+    public Bagaglio Get_Bag(){
         return this.bagaglio;
     }
-
-    public int get_posto_riga() {return this.posto_riga;}
-
-    public int get_posto_colonna() {return this.posto_colonna;}
-
-    public int get_id_aereo() {return this.id_aereo;}
-
-    public int get_id() {return this.id;}
-    public boolean getPrioritario(){return prioritario;}
-    public String getDestinazione(){return destinazione;}
+    public int Get_posto_riga() {return this.posto_riga;}
+    public int Get_posto_colonna() {return this.posto_colonna;}
+    public int Get_id_aereo() {return this.id_aereo;}
+    public int Get_id() {return this.id;}
+    public boolean Get_Prioritario(){return prioritario;}
+    public String Get_Destinazione(){return destinazione;}
 }

@@ -52,7 +52,7 @@ public class Bagno extends Thread{
         {
             l.lock();
             t=c.pop();
-            System.out.print("il bagno è occupato da " + t.get_id());
+            System.out.print("il bagno è occupato da " + t.Get_id() + ".");
             Random r = new Random();
             int k= r.nextInt(5000);
 

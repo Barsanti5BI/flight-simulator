@@ -6,9 +6,8 @@ import java.util.Enumeration;
 import java.util.HashMap;
 
 public class ScatolaNera extends Thread{
-
-    private Color colore = Color.orange;
     Aereo a;
+    private Color colore = Color.orange;
     private HashMap<ZonedDateTime,String> logComunicazioni;
     private HashMap<ZonedDateTime,String> logPosizione;
     private ZonedDateTime ultimaComunicazione;
@@ -45,9 +44,7 @@ public class ScatolaNera extends Thread{
                     if(nAllerte > 5){
                         Attiva();
                     }
-
                 }
-
             }
         }catch(Exception ex){
 
@@ -64,7 +61,6 @@ public class ScatolaNera extends Thread{
         pericolo = true;
     }
 
-
     public void InserisciComunicazione(String comunicazione){
         ultimaComunicazione = ZonedDateTime.now();
         logComunicazioni.put(ultimaComunicazione,comunicazione);
@@ -76,10 +72,10 @@ public class ScatolaNera extends Thread{
         System.out.println("ScatolaNera " + logPosizione.get(ultimaPosizione));
     }
 
-    public HashMap<ZonedDateTime,String> OttieniLogPosizione(){
+    public HashMap<ZonedDateTime,String> Get_Log_Posizione(){
         return logPosizione;
     }
-    public HashMap<ZonedDateTime,String> OttieniLogComunicazioni(){
+    public HashMap<ZonedDateTime,String> Get_Log_Comunicazioni(){
         return logComunicazioni;
     }
     public ZonedDateTime Get_Ultima_Comunicazione() {return this.ultimaComunicazione;}

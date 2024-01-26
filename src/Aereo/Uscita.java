@@ -2,18 +2,11 @@ package Aereo;
 import  Utils.Coda;
 
 public class Uscita extends Thread{
-
     private Coda<F_Turista> uscenti;
-
-
     private Coda<F_Turista> uscentiAnt;
     private Coda<F_Turista> uscentiPost;
-
     private Coda<F_Turista> usciti;
-    int i=0;
-
-
-
+    int i = 0;
 
     public Uscita(Aereo ap)
     {
@@ -22,23 +15,19 @@ public class Uscita extends Thread{
         uscentiAnt = new Coda<F_Turista>();
         uscenti=ap.FaiScendere();
         usciti=new Coda<F_Turista>();
-        int i=uscenti.size();
+        int i = uscenti.size();
     }
 
     public void run()
     {
         try{
-
-            System.out.println("Stanno uscendo");
-
+            System.out.println("I Turisti Stanno uscendo...");
             while(!uscenti.isEmpty())
             {
-
-
-             if ( uscenti.size() % 2==0)
+             if (uscenti.size() % 2==0)
              {
                uscentiAnt.push(uscenti.pop());
-                Thread.sleep(1);
+               Thread.sleep(1);
              }
              if( uscenti.size() % 2==1)
              {
@@ -53,8 +42,7 @@ public class Uscita extends Thread{
           }
         }
         catch (Exception e){};
-
-
+        System.out.println("I Turisti sono usciti.");
     }
 
     public Coda<F_Turista> GetUscitiDavanti() {return uscentiAnt;}

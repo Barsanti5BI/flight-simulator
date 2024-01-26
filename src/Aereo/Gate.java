@@ -18,8 +18,8 @@ public class Gate extends Thread{
     Coda<F_Turista> codaGenerale;
     Coda<F_Turista> codaEntrata;
     boolean GateStop;
-
     Aereo aereo;
+
     //TOLGLIERE AEREO DAL COSTRUTTORE E FARE CICLO CHE LA TORRE DI CONTROLLO MODIFICA
     //PER FAR PARTIRE IL GATE
     public Gate(int nomeGate, Coda<F_Turista> codaGenerale){
@@ -28,7 +28,7 @@ public class Gate extends Thread{
             @Override
             public void run() {
                 TerminatiIControlli = true;
-                aereo.getEntrata().DareEntranti(codaEntrata);
+                aereo.Get_Entrata().DareEntranti(codaEntrata);
                 System.out.println("Il gate " + nomeGate + " si è chiuso");
             }
         };
@@ -44,6 +44,7 @@ public class Gate extends Thread{
         TerminatiIControlli = false;
         GateAperto = false;
     }
+
     public void run(){
         while (GateStop){
             try {
@@ -52,10 +53,10 @@ public class Gate extends Thread{
                 }
 
                 //entra solo se è arrivato un aereo con i passeggeri
-                if(!aereo.getUscita().GetUsciti().isEmpty()){  //ciclo che fa uscire dall'aereo le persone
-                    while(!aereo.getUscita().GetUsciti().isEmpty()){
-                        F_Turista t = aereo.getUscita().GetUsciti().pop();
-                        System.out.println("Il turista " + t.get_id() + " è arrivato a destinazione");
+                if(!aereo.Get_Uscita().GetUsciti().isEmpty()){  //ciclo che fa uscire dall'aereo le persone
+                    while(!aereo.Get_Uscita().GetUsciti().isEmpty()){
+                        F_Turista t = aereo.Get_Uscita().GetUsciti().pop();
+                        System.out.println("Il turista " + t.Get_id() + " è arrivato a destinazione");
                     }
                 }
 
@@ -65,19 +66,19 @@ public class Gate extends Thread{
 
                     while(!codaGenerale.isEmpty()){   //creo la coda prioritaria e la coda normale
                         F_Turista t = codaGenerale.pop();
-                        if(t.getPrioritario() || isPasseggeroInPrioritaria()){
+                        if(t.Get_Prioritario() || isPasseggeroInPrioritaria()){
                             if (!t.prioritario)
                             {
-                                System.out.println("Il turista " + t.get_id() + " è stato fortunato ed è stato fatta entrare nella coda prioritaria");
+                                System.out.println("Il turista " + t.Get_id() + " è stato fortunato ed è stato fatta entrare nella coda prioritaria");
                             }
                             codaPrioritaria.push(t);
                             sleep(100);
-                            System.out.println("Il turista "+ t.get_id() + " è entrato nella coda prioritaria nel gate " + nomeGate);
+                            System.out.println("Il turista "+ t.Get_id() + " è entrato nella coda prioritaria nel gate " + nomeGate);
                         }
                         else{
                             codaNormale.push(t);
                             sleep(100);
-                            System.out.println("Il turista " + t.get_id() + " è entrato nella coda normale nel gate " + nomeGate);
+                            System.out.println("Il turista " + t.Get_id() + " è entrato nella coda normale nel gate " + nomeGate);
                         }
                     }
                     while (!codaPrioritaria.isEmpty()) {  //prima la coda prioritaria
@@ -102,14 +103,14 @@ public class Gate extends Thread{
     //nella carta d'imbarco dei turisti, e effettua controllo su turisti pericolosi
     public void EffettuaControllo(F_Turista t){
         try{
-            if(destinazione.equals(t.getDestinazione())){
+            if(destinazione.equals(t.Get_Destinazione())){
                 sleep(100);
-                System.out.println("    Il turista " + t.get_id() + " ha effettuato il controllo effettuato nel gate " + nomeGate);
+                System.out.println("    Il turista " + t.Get_id() + " ha effettuato il controllo effettuato nel gate " + nomeGate);
                 codaEntrata.push(t); //se passa il gate metto il turista nella coda per entrare nell'aereo
             }
             else{
                 sleep(100);
-                System.out.println("    Il turista " + t.get_id() + " ha sbagliato gate");
+                System.out.println("    Il turista " + t.Get_id() + " ha sbagliato gate");
             }
         }catch (InterruptedException ex){
             System.out.println(ex.getMessage());
@@ -129,8 +130,6 @@ public class Gate extends Thread{
         // Restituisci true se il numero casuale è inferiore alla probabilità desiderata moltiplicata per il range massimo
         return randomValue < probabilita * maxRange;
     }
-    public String getDestinazione(){return destinazione;}
-    public boolean getGateAperto(){ return GateAperto;}
 
     public void openGate(Aereo a, String destinazione){ //metodo per aprire il gate
         this.aereo = a;
@@ -139,13 +138,6 @@ public class Gate extends Thread{
         Coda<F_Turista> coda_turisti = Genera_Turisti(a, destinazione);
         //sarebbe da creare un metodo che quando apri il gate
         //crei dei turisti con quella destinazione
-    }
-    public Boolean getTerminatiIControlli(){return TerminatiIControlli;}
-
-    public Coda<F_Turista> getCodaGenerale() {return codaGenerale;}
-    public boolean getGateStop(){return GateStop;}
-    public void StopGate(){ //metodo per fermare il gate
-        GateStop = false;
     }
 
     public Coda<F_Turista> Genera_Turisti(Aereo a, String destinazione){
@@ -167,4 +159,13 @@ public class Gate extends Thread{
         }
         return coda_turisti;
     }
+
+    public Boolean Get_Terminati_Controlli(){return TerminatiIControlli;}
+    public Coda<F_Turista> Get_CodaGenerale() {return codaGenerale;}
+    public boolean Get_GateStop(){return GateStop;}
+    public void Stop_Gate(){ //metodo per fermare il gate
+        GateStop = false;
+    }
+    public String Get_Destinazione(){return destinazione;}
+    public boolean Get_Gate_Aperto(){ return GateAperto;}
 }
