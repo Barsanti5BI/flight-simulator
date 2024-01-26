@@ -41,7 +41,11 @@ public class F_TorreControllo extends Thread{
     public void setAereoGate(){
         Aereo a = AereiInArrivo.pop();
         for (Gate g:ListaGate ) {
-            g.openGate(a,viaggi.get(a));   }
+            if(!g.GateAperto) {
+            setDestinazione(a);
+            g.openGate(a,viaggi.get(a));
+            }
+        }
     }
 
     public void Set_Aereoporti(Dictionary<String,F_TorreControllo> Ap){
@@ -52,6 +56,9 @@ public class F_TorreControllo extends Thread{
     }
     public String Get_Destinazione(Aereo a) {
         return viaggi.get(a);
+    }
+    public void setDestinazione(Aereo a) {
+        a.destinazione = viaggi.get(a);
     }
 
 

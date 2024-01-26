@@ -101,9 +101,43 @@ public class Aereo extends  Thread {
                     Imbarca(bagnoretro.finito());
                 }
             } catch (Exception e) {
+                Coda<F_Turista> nob =  aiposti();
+
+                   Imbarca(nob);
+
+                   while (bagnifronte.finito().size()>0)
+                   {
+                       Imbarca(bagnifronte.finito());
+                   }
+                   while (bagnoretro.finito().size()>0)
+                   {
+                       Imbarca(bagnoretro.finito());
+                   }
             }
         }
     }
+
+    public Coda<F_Turista> aiposti()
+    {
+        Coda<F_Turista> nobagno= new Coda<F_Turista>();
+        if(posizione>=85)
+        {
+            bagnifronte.setpos();
+             bagnoretro.setpos();
+             while(bagnifronte.getC().size()>0){
+                F_Turista ft=bagnifronte.getC().pop();
+                nobagno.push(ft);
+            }
+            while(bagnoretro.getC().size()>0){
+                F_Turista ft=bagnoretro.getC().pop();
+                nobagno.push(ft);
+            }
+        }
+
+        return nobagno;
+    }
+
+
 
     //Metodo che accende le Turbine dell'aereo e accende la scatola nera
     public void avvia() {

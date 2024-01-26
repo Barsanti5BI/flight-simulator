@@ -146,7 +146,7 @@ public class Gate extends Thread{
         int id_tur = 0;
         for(int i = 1; i <= 4; i++){
             for(int j = 1; i <= 10; i++){
-                if(rnd.nextInt(0, 20) % 2 == 0){
+                if(rnd.nextInt(20) % 2 == 0){
                     F_Turista turista = new F_Turista(id_tur, a.Get_ID(), i, j, true, destinazione);
                     coda_turisti.push(turista);
                 }
