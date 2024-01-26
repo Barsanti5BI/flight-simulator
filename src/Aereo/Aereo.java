@@ -63,7 +63,7 @@ public class Aereo extends  Thread {
     }
 
     public void run() {
-        //Modificare metodo aereo nelle condizioni del while
+        //TODO MODIFICARE RUN
         if (sciopero()) {
             try {
                 Thread.sleep(5000);
