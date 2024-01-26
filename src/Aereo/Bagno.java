@@ -74,13 +74,24 @@ public class Bagno extends Thread{
        return finio;
     }
 
+    private int pos=0;
+    public void setpos()
+    {
+     pos=1;
+    }
     public void run()
     {
+
+
         //try{
-        for (int i = 0 ; i<c.size();i++)
+        while(pos!=1)
         {
-            Bisogno(i);
+            for (int i = 0 ; i<c.size();i++)
+            {
+                Bisogno(i);
+            }
         }
+
 
 
 
