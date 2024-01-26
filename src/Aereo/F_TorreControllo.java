@@ -36,7 +36,7 @@ public class F_TorreControllo extends Thread{
 
     public void faiPartire(){
         for (Gate g: ListaGate) {
-            g.aereo.avvia();
+            g.aereo.Prepara_Aereo();
             if(g.aereo.aereo_pronto){
 
 
