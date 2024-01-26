@@ -28,6 +28,7 @@ public class Aereo extends  Thread {
     public boolean turisti_imbarcati;
     public boolean stiva_piena;
     public boolean turbine_funzionanti;
+    public boolean aereo_pronto;
 
     public Aereo(int Id) {
         this.id = Id;
@@ -161,6 +162,7 @@ public class Aereo extends  Thread {
             Rifornisci_Aereo();
         }
         scatolaNera.start();
+        aereo_pronto = true;
     }
 
     //Metodo per riparare le turbine e ricaricare la batteria della scatola nera
