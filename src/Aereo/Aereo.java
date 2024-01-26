@@ -16,11 +16,9 @@ public class Aereo extends  Thread {
     private ArrayList<Turbina> turbine;
     private Stiva stiva;
     private Serbatoio serbatoio;
-    private boolean pilotaAutomatico;
     public Alieni alieni;
     public boolean einvolo;
     private boolean maltempo;
-    private Random r;
     private F_Turista[][] matricePostiAereo;
     private int nPosti;
     private Entrata entrata;
@@ -30,7 +28,7 @@ public class Aereo extends  Thread {
         this.id = Id;
         maltempo = false;
 
-        r = new Random();
+
 
         bagnifronte = new Bagno();
         bagnoretro = new Bagno();
@@ -43,7 +41,7 @@ public class Aereo extends  Thread {
         }
         stiva = new Stiva(this);
         serbatoio = new Serbatoio();
-        pilotaAutomatico = false;
+
 
         einvolo = false;
 

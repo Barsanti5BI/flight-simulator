@@ -29,12 +29,26 @@ public class F_TorreControllo extends Thread{
         // prima di dare "l'ok"
         // dovrebbe chiamare il metodo per riempire la stiva
         while(!viaggi.isEmpty()){
-
+            setAereoGate();
 
         }
     }
 
     public void faiPartire(){
+        for (Gate g: ListaGate) {
+            if(g.aereo.aereo_pronto){
+                g.aereo.avvia();
+                while(g.aereo.posizione <100){
+                    try{
+                        sleep(20);;
+                    }catch (Exception e){ }
+
+                    Aereoporti.get(viaggi.get(g.aereo.destinazione)).AereiInArrivo.push(g.aereo);
+                }
+
+
+            }
+        }
 
     }
 
@@ -53,9 +67,6 @@ public class F_TorreControllo extends Thread{
     }
     public void Set_Viaggi(Dictionary<Aereo,String> v){
         viaggi = v;
-    }
-    public String Get_Destinazione(Aereo a) {
-        return viaggi.get(a);
     }
     public void setDestinazione(Aereo a) {
         a.destinazione = viaggi.get(a);
