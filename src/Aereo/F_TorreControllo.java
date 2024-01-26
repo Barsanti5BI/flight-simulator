@@ -30,14 +30,16 @@ public class F_TorreControllo extends Thread{
         // dovrebbe chiamare il metodo per riempire la stiva
         while(!viaggi.isEmpty()){
             setAereoGate();
-
+            faiPartire();
         }
     }
 
     public void faiPartire(){
         for (Gate g: ListaGate) {
+            g.aereo.avvia();
             if(g.aereo.aereo_pronto){
-                g.aereo.avvia();
+
+
                 while(g.aereo.posizione <100){
                     try{
                         sleep(20);;
