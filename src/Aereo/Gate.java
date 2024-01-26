@@ -17,8 +17,12 @@ public class Gate extends Thread{
     Boolean GateAperto;
     Coda<F_Turista> codaGenerale;
     Coda<F_Turista> codaEntrata;
+    boolean GateStop;
+
     Aereo aereo;
-    public Gate(int nomeGate, Coda<F_Turista> codaGenerale, String destinazione, Aereo aereo){
+    //TOLGLIERE AEREO DAL COSTRUTTORE E FARE CICLO CHE LA TORRE DI CONTROLLO MODIFICA
+    //PER FAR PARTIRE IL GATE
+    public Gate(int nomeGate, Coda<F_Turista> codaGenerale){
         timer = new Timer();
         timerTask = new TimerTask() {
             @Override
@@ -33,14 +37,31 @@ public class Gate extends Thread{
         codaEntrata = new Coda<>();
 
         this.codaGenerale = codaGenerale;
-        TerminatiIControlli = false;
-        this.destinazione = destinazione;
         this.nomeGate = nomeGate;
-        this.aereo = aereo;
+
+        GateStop = true;  //per fermare del tutto il gate(variabile gestita
+                          //dalla torre di controllo)
+        TerminatiIControlli = false;
+        GateAperto = false;
     }
     public void run(){
-        try {
-            timer.schedule(timerTask, 60000); //Programma il TimerTask per eseguirlo dopo un ritardo specificato
+        while (GateStop){
+            try {
+                while(!GateAperto){
+                    sleep(1000);
+                }
+
+                //entra solo se è arrivato un aereo con i passeggeri
+                if(!aereo.getUscita().GetUsciti().isEmpty()){  //ciclo che fa uscire dall'aereo le persone
+                    while(!aereo.getUscita().GetUsciti().isEmpty()){
+                        F_Turista t = aereo.getUscita().GetUsciti().pop();
+                        System.out.println("Il turista " + t.get_id() + " è arrivato a destinazione");
+                    }
+                }
+
+                //entra solo se c'è un prossimo volo
+                if(destinazione != null){
+                    timer.schedule(timerTask, 20000); //Programma il TimerTask per eseguirlo dopo un ritardo specificato
 
                     while(!codaGenerale.isEmpty()){   //creo la coda prioritaria e la coda normale
                         F_Turista t = codaGenerale.pop();
@@ -69,13 +90,12 @@ public class Gate extends Thread{
                         EffettuaControllo(t);
                     }
                     // TerminatiIControlli verrà impostato su true dal TimerTask
-        }catch(InterruptedException ex){
-            System.out.println(ex.getMessage());
-        }
+                }
 
-    }
-    public Boolean getTerminatiIControlli(){
-        return TerminatiIControlli;
+            }catch(InterruptedException ex){
+                System.out.println(ex.getMessage());
+            }
+        }
     }
 
     //Metodo che controllo se la destinazione del gate corrisponde alla destinazione segnata
@@ -96,12 +116,6 @@ public class Gate extends Thread{
         }
     }
 
-    //Metodo che apre il gate
-    public void openGate(){ //mi fa partire il gate
-        GateAperto = true;
-        this.start();
-    }
-
     //Feature Marco Perin
     private boolean isPasseggeroInPrioritaria() {
         int minRange = 0;
@@ -118,7 +132,18 @@ public class Gate extends Thread{
     public String getDestinazione(){return destinazione;}
     public boolean getGateAperto(){ return GateAperto;}
 
-    public void setAereo(Aereo a){ this.aereo = a;}
+    public void openGate(Aereo a,String destinazione){ //metodo per aprire il gate
+        this.aereo = a;
+        this.destinazione = destinazione;
+        GateAperto = true;
+        //sarebbe da creare un metodo che quando apri il gate
+        //crei dei turisti con quella destinazione
+    }
+    public Boolean getTerminatiIControlli(){return TerminatiIControlli;}
 
     public Coda<F_Turista> getCodaGenerale() {return codaGenerale;}
+    public boolean getGateStop(){return GateStop;}
+    public void StopGate(){ //metodo per fermare il gate
+        GateStop = false;
+    }
 }
