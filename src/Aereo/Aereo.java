@@ -71,7 +71,7 @@ public class Aereo extends  Thread {
             }
         }
         Prepara_Aereo();
-        while (einvolo && serbatoio.Get_Capacità() > 0 && posizione < 100 && ControllaTurbine()) {
+        while (posizione < 100) {
             System.out.println("L'aereo è partito!");
             try {
                 //Feature Riccardo Pettenuzzo
@@ -79,14 +79,14 @@ public class Aereo extends  Thread {
                     break;
                 }
                 Thread.sleep(1000);
-            } catch (Exception e) {
-            }
-            serbatoio.consuma_carburante();
+            } catch (Exception e) {}
+
             if (maltempo) {
                 posizione += 1;
             } else {
                 posizione += 2;
             }
+            serbatoio.consuma_carburante();
 
             Coda<F_Turista> gb = Givebagno();
 
@@ -121,6 +121,8 @@ public class Aereo extends  Thread {
                    }
             }
         }
+        Atterra();
+        System.out.println("L'aereo è atterrato!");
     }
 
     public Coda<F_Turista> aiposti()
@@ -184,9 +186,11 @@ public class Aereo extends  Thread {
 
     public void Atterra() {
         einvolo = false;
-        for (int i = 0; i < 4; i++) {
-            turbine.get(i).Disabilita();
+        for(Turbina t : turbine){
+            t.Disabilita();
         }
+        turbine_funzionanti = false;
+        serbatoio_pieno = false;
         System.out.println("L'aereo " + this.id + " è atterrato.");
     }
 
@@ -269,6 +273,7 @@ public class Aereo extends  Thread {
             }
         }
         System.out.println("I Turisti sono scesi dall'aereo " + this.id + " a " + this.destinazione + ".");
+        turisti_imbarcati = false;
         return coda;
 
     }

@@ -13,7 +13,6 @@ public class Uscita extends Thread{
         uscenti=new Coda<F_Turista>();
         uscentiPost=new Coda<F_Turista>();
         uscentiAnt = new Coda<F_Turista>();
-        uscenti=ap.FaiScendere();
         usciti=new Coda<F_Turista>();
         int i = uscenti.size();
     }
