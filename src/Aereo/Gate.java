@@ -132,10 +132,11 @@ public class Gate extends Thread{
     public String getDestinazione(){return destinazione;}
     public boolean getGateAperto(){ return GateAperto;}
 
-    public void openGate(Aereo a,String destinazione){ //metodo per aprire il gate
+    public void openGate(Aereo a, String destinazione){ //metodo per aprire il gate
         this.aereo = a;
         this.destinazione = destinazione;
         GateAperto = true;
+        Coda<F_Turista> coda_turisti = Genera_Turisti(a, destinazione);
         //sarebbe da creare un metodo che quando apri il gate
         //crei dei turisti con quella destinazione
     }
@@ -145,5 +146,25 @@ public class Gate extends Thread{
     public boolean getGateStop(){return GateStop;}
     public void StopGate(){ //metodo per fermare il gate
         GateStop = false;
+    }
+
+    public Coda<F_Turista> Genera_Turisti(Aereo a, String destinazione){
+        Random rnd = new Random();
+        Coda<F_Turista> coda_turisti = new Coda<F_Turista>();
+        int id_tur = 0;
+        for(int i = 1; i <= 4; i++){
+            for(int j = 1; i <= 10; i++){
+                if(rnd.nextInt(0, 20) % 2 == 0){
+                    F_Turista turista = new F_Turista(id_tur, a.Get_ID(), i, j, true, destinazione);
+                    coda_turisti.push(turista);
+                }
+                else{
+                    F_Turista turista = new F_Turista(id_tur, a.Get_ID(), i, j, false, destinazione);
+                    coda_turisti.push(turista);
+                }
+                id_tur++;
+            }
+        }
+        return coda_turisti;
     }
 }
