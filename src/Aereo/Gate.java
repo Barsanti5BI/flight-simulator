@@ -101,6 +101,7 @@ public class Gate extends Thread{
                     this.aereo.stiva_piena = true;
                     // TerminatiIControlli verrà impostato su true dal TimerTask
                 }
+                aereo = null;
 
             }catch(InterruptedException ex){
                 System.out.println(ex.getMessage());
