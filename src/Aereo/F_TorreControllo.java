@@ -62,8 +62,8 @@ public class F_TorreControllo extends Thread{
         }
     }
 
-    public void Crea_Viaggi(){
-
+    public void Crea_Viaggi(String dest,Aereo a){
+        viaggi.put(a,dest);
     }
 
     public void Set_Aereoporti(Dictionary<String,F_TorreControllo> Ap){
