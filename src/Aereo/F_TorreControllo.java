@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public class F_TorreControllo extends Thread{
-    private String nomeAerereoporto;
+    private String nomeAeroporto;
     private  Coda<Aereo> AereiInPartenza;
     private  Coda<Aereo> AereiInArrivo;
     private LinkedList<Gate> ListaGate;
@@ -20,7 +20,7 @@ public class F_TorreControllo extends Thread{
        AereiInArrivo = new Coda<>();
        AereiInPartenza= new Coda<>();
        ListaGate = list_gate;
-       nomeAerereoporto = aereoporto;
+       nomeAeroporto = aereoporto;
 
     }
 
