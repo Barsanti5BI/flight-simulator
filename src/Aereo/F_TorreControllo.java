@@ -38,14 +38,12 @@ public class F_TorreControllo extends Thread{
         for (Gate g: ListaGate) {
             g.aereo.Prepara_Aereo();
             if(g.aereo.aereo_pronto){
-
-
                 while(g.aereo.posizione <100){
                     try{
                         sleep(20);;
                     }catch (Exception e){ }
 
-                    Aereoporti.get(viaggi.get(g.aereo.destinazione)).AereiInArrivo.push(g.aereo);
+                    Aereoporti.get(viaggi.get(g.aereo.Get_AP_Destinazione())).AereiInArrivo.push(g.aereo);
                 }
 
 
@@ -75,7 +73,7 @@ public class F_TorreControllo extends Thread{
         viaggi = v;
     }
     public void setDestinazione(Aereo a) {
-        a.destinazione = viaggi.get(a);
+        a.Set_AP_Destinazione(viaggi.get(a));
     }
 
 

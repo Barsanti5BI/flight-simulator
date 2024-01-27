@@ -17,6 +17,7 @@ public class Main {
 
       //Creazione lista di  Aereoporti
       LinkedList<String> aereoporti = new LinkedList<String>();
+      aereoporti.add("ITT E.Barsanti Airport");
       aereoporti.add("New York Airport");
       aereoporti.add("Tokyo Airport");
       aereoporti.add("Aereoporto Milano");
@@ -26,7 +27,7 @@ public class Main {
       //Creazione lista di Aerei
       LinkedList<Aereo> list_aerei = new LinkedList<Aereo>();
       for(int i = 0; i < 4; i++){
-         Aereo a = new Aereo(i);
+         Aereo a = new Aereo(i, aereoporti.get(0));
          list_aerei.add(a);
       }
       System.out.println("Aerei Creati.");

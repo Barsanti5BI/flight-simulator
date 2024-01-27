@@ -7,12 +7,11 @@ import java.util.Random;
 
 public class Aereo extends  Thread {
     public int id;
-    public String destinazione;
+    public String ap_destinazione;
+    public String ap_attuale;
     public int posizione;
     public Gate gate;
-
     private Bagno bagnidavanti;
-
     private Bagno bagnoretro;
     private ScatolaNera scatolaNera;
     private ArrayList<Turbina> turbine;
@@ -32,55 +31,66 @@ public class Aereo extends  Thread {
     public boolean turbine_funzionanti;
     public boolean aereo_pronto;
 
-    public Aereo(int Id) {
+    public Aereo(int Id, String ap_att) {
         this.id = Id;
         maltempo = false;
-        stiva_piena = false;
-        turbine_funzionanti = false;
-        turisti_imbarcati = false;
-        serbatoio_pieno = false;
 
-        bagnidavanti = new Bagno();
-        bagnoretro = new Bagno();
+        //aereoporti
+        ap_destinazione = "";
+        ap_attuale = ap_att;
 
-
-        bagnidavanti = new Bagno();
-        bagnoretro = new Bagno();
-
+        //componenti aereo
+        serbatoio = new Serbatoio();
+        stiva = new Stiva(this);
         scatolaNera = new ScatolaNera (this);
-
         turbine = new ArrayList<Turbina>();
+        bagnidavanti = new Bagno();
+        bagnoretro = new Bagno();
+        entrata = new Entrata();
+        uscita = new Uscita(this);
         for (int i = 0; i < 4; i++) {
             Turbina n = new Turbina(this, i);
             turbine.add(n);
         }
-        stiva = new Stiva(this);
-        serbatoio = new Serbatoio();
+        matricePostiAereo = new F_Turista[4][10];
+        nPosti = 40;
 
+        //condizioni partenza
+        stiva_piena = false;
+        turbine_funzionanti = false;
+        turisti_imbarcati = false;
+        serbatoio_pieno = false;
+        aereo_pronto = false;
 
         einvolo = false;
 
+        //Feature Riccardo Pettenuzzo
         alieni = new Alieni(this);
         //alieni.start();
-
-        matricePostiAereo = new F_Turista[4][10];
-        nPosti = 40;
-        entrata = new Entrata();
-        uscita = new Uscita(this);
     }
 
+    public void f_run(){
+        while(ap_destinazione != ap_attuale){
+            if(!aereo_pronto){
+                Prepara_Aereo();
+            }
+            else {
+
+            }
+        }
+        ap_attuale = ap_destinazione;
+    }
 
     public void run() {
         //TODO MODIFICARE RUN
         if (sciopero()) {
             try {
-
-                Thread.sleep(5000);
+                this.sleep(5000);
             } catch (Exception e) {
             }
         }
         Prepara_Aereo();
-        while (posizione < 100) {
+        while (posizione < 100) {//la condizione del while dovrebbe essere while(destinazione != posizione)
             System.out.println("L'aereo è partito!");
             try {
                 //Feature Riccardo Pettenuzzo
@@ -138,31 +148,13 @@ public class Aereo extends  Thread {
         Atterra();
         System.out.println("L'aereo è atterrato!");
     }
-   //fa ritornare ai posti le persone in coda per il bagno dopo 85% di viaggio
-    public Coda<F_Turista> aiposti()
-    {
-        Coda<F_Turista> nobagno = new Coda<F_Turista>();
-        if(posizione>=85)
-        {
-            bagnidavanti.setpos();
-             bagnoretro.setpos();
-             while(bagnidavanti.getCoda().size()>0){
-                F_Turista ft = bagnidavanti.getCoda().pop();
-                nobagno.push(ft);
-            }
-            while(bagnoretro.getCoda().size()>0){
-                F_Turista ft = bagnoretro.getCoda().pop();
-                nobagno.push(ft);
-            }
-        }
 
-        return nobagno;
-    }
-
-
-
-    //Metodo che accende le Turbine dell'aereo e accende la scatola nera
-    public void Prepara_Aereo() {
+    //Controlla le Turbine e nel caso siano funzionanti le avvia altrimenti le ripara
+    //Controlla che ci sia abbastanza carburante e nel caso rifornisce aereo
+    //Avvia la scatola nera
+    //Imbarca i passeggeri
+    //Dopo questi passaggi l'aereo è pronto per partire
+    public boolean Prepara_Aereo() {
         Imbarca_Passeggieri();
         einvolo = true;
         if(ControllaTurbine()){
@@ -178,7 +170,10 @@ public class Aereo extends  Thread {
             Rifornisci_Aereo();
         }
         scatolaNera.start();
-        aereo_pronto = true;
+        if(turbine_funzionanti && stiva_piena && turisti_imbarcati && serbatoio_pieno){
+            aereo_pronto = true;
+        }
+        return aereo_pronto;
     }
 
     //Metodo per riparare le turbine e ricaricare la batteria della scatola nera
@@ -261,6 +256,27 @@ public class Aereo extends  Thread {
         return coda;
     }
 
+    //fa ritornare ai posti le persone in coda per il bagno dopo 85% di viaggio
+    public Coda<F_Turista> aiposti()
+    {
+        Coda<F_Turista> nobagno = new Coda<F_Turista>();
+        if(posizione>=85)
+        {
+            bagnidavanti.setpos();
+            bagnoretro.setpos();
+            while(bagnidavanti.getCoda().size()>0){
+                F_Turista ft = bagnidavanti.getCoda().pop();
+                nobagno.push(ft);
+            }
+            while(bagnoretro.getCoda().size()>0){
+                F_Turista ft = bagnoretro.getCoda().pop();
+                nobagno.push(ft);
+            }
+        }
+
+        return nobagno;
+    }
+
     public void Imbarca_Passeggieri() {
         Imbarca(entrata.GetsalitiDavanti());
         Imbarca(entrata.GetsalitiDietro());
@@ -272,7 +288,7 @@ public class Aereo extends  Thread {
             F_Turista t = c.pop();
             matricePostiAereo[t.posto_colonna][t.posto_riga] = t;
         }
-        System.out.println("I Turisti sono saliti nell'aereo " + this.id + " in direzione " + this.destinazione + ".");
+        System.out.println("I Turisti sono saliti nell'aereo " + this.id + " in direzione " + this.ap_destinazione + ".");
     }
 
     public Coda<F_Turista> FaiScendere() {
@@ -286,10 +302,14 @@ public class Aereo extends  Thread {
 
             }
         }
-        System.out.println("I Turisti sono scesi dall'aereo " + this.id + " a " + this.destinazione + ".");
+        System.out.println("I Turisti sono scesi dall'aereo " + this.id + " a " + this.ap_destinazione + ".");
         turisti_imbarcati = false;
         return coda;
 
+    }
+
+    public void Set_AP_Destinazione(String destinazione){
+        this.ap_destinazione = destinazione;
     }
 
     public Entrata Get_Entrata() {
@@ -316,8 +336,12 @@ public class Aereo extends  Thread {
         return this.turbine;
     }
 
-    public String Get_Destinazione() {
-        return this.destinazione;
+    public String Get_AP_Destinazione() {
+        return this.ap_destinazione;
+    }
+
+    public String Get_AP_Attuale() {
+        return this.ap_attuale;
     }
 
     public Gate Get_Gate() {
