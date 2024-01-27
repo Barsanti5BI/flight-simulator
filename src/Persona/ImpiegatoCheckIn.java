@@ -4,14 +4,18 @@ import Aereoporto.ZonaCheckIn.Banco;
 import Aereoporto.ZonaCheckIn.NastroTrasportatore;
 import TorreDiControllo.Viaggio;
 
+import java.util.Random;
+
 public class ImpiegatoCheckIn extends Thread{
     public Banco banco;
     public NastroTrasportatore nastroTrasportatore;
+    private Random rand;
 
     public ImpiegatoCheckIn(Banco banco, NastroTrasportatore nT, int id){
         setName("ImpiegatoCheckIn" + id);
         this.banco = banco;
         this.nastroTrasportatore = nT;
+        rand = new Random();
     }
 
     public void run() {
@@ -20,7 +24,7 @@ public class ImpiegatoCheckIn extends Thread{
                 System.out.println("Impiegato del banco del check-in pronto");
                 Turista t = banco.getCodaTuristi().pop();
                 System.out.println("L'impiegato check-in " + getName() + " sta servendo il turista " + t.getName());
-                Thread.sleep(1000);
+                Thread.sleep(rand.nextInt(0, 1001));
                 eseguiCheckIn(t);
                 System.out.println("L'impiegato check-in " + getName() + " ha servito il turista " + t.getName());
             }

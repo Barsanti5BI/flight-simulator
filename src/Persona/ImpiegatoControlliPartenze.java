@@ -1,20 +1,24 @@
 package Persona;
+
 import Utils.Coda;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ImpiegatoControlliPartenze extends Thread{
     private Coda<Bagaglio> codaBagagliSospetti;
     private Coda<Bagaglio> codaBagagliBuoni;
     private Coda<Turista> codaTurista;
     private ArrayList<String> oggettiProibiti;
+    private Random rand;
     public ImpiegatoControlliPartenze(Coda<Bagaglio> codaBagagliPericolosi,Coda<Bagaglio> codaBagagliBuoni, Coda<Turista> codaTurista, ArrayList<String> oggettiProibiti, int id){
         this.codaBagagliSospetti = codaBagagliPericolosi;
         this.codaTurista = codaTurista;
         this.codaBagagliBuoni = codaBagagliBuoni;
         this.oggettiProibiti = oggettiProibiti; // lista fornita dall'aereoporto
         setName(id+"");
+        rand = new Random();
         this.start();
     }
     public void run(){
@@ -27,16 +31,16 @@ public class ImpiegatoControlliPartenze extends Thread{
                 {
                     // controllore dei bagagli sospetti
                     Bagaglio b = codaBagagliSospetti.pop();
-                    System.out.println("Attenzione bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è sospetto e viene controllato");
+                    System.out.println("ImpiegatoControlli dice: Attenzione bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " di turista " + b.getProprietario().getName() + " è sospetto e viene controllato");
 
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(rand.nextInt(0,1001));
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
 
                     String controllo = ControlloApprofondito(b.getOggettiContenuti());
-                    System.out.println("Bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " è bloccato poichè contiene: " + controllo);
+                    System.out.println("Bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " di turista " + b.getProprietario().getName() +  " è bloccato poichè contiene: " + controllo);
                     b.getProprietario().bagaglioSospetto = true;
                     synchronized (codaBagagliBuoni){
                         codaBagagliBuoni.notify();
@@ -60,7 +64,7 @@ public class ImpiegatoControlliPartenze extends Thread{
                     System.out.println("Attenzione turista " + t.getName() + " è sospetto e viene controllato");
 
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(rand.nextInt(0, 1001));
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }

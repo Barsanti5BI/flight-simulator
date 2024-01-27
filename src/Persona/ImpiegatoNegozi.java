@@ -3,18 +3,21 @@ package Persona;
 import Utils.Coda;
 
 import java.util.List;
+import java.util.Random;
 
 public class ImpiegatoNegozi extends Thread{
     private int idNegozio;
     private List<Prodotto> prodottoInVendita;
     private double importo;
     private Coda<Turista> turisti;
+    private Random random;
 
     public ImpiegatoNegozi(String n, int id, List<Prodotto> prodottoInVendita, Coda<Turista> turisti){
         setName(n);
         this.idNegozio = id;
         this.prodottoInVendita = prodottoInVendita;
         this.turisti = turisti;
+        random = new Random();
     }
 
     public void run(){
@@ -25,6 +28,12 @@ public class ImpiegatoNegozi extends Thread{
             {
                 Turista turista = turisti.pop();
                 System.out.println("L'impiegato dei negozi " + getName() + " sta servendo il turista " + turista.getName());
+
+                try {
+                    Thread.sleep(random.nextInt(0,1001));
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
 
                 Vendi(turista);
                 synchronized (turista)

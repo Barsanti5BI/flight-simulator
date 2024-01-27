@@ -135,6 +135,8 @@ public class Turista extends Thread {
                 System.out.println("Il turista " + getName() + " ha la sua carta d'imbarco e va ai controlli");
                 deveFareControlli = true;
 
+                Thread.sleep(r.nextInt(0,1001));
+
                 // ZONA CONTROLLI
                 System.out.println("Il turista " + getName() + " è arrivato ai controlli");
 
@@ -143,7 +145,6 @@ public class Turista extends Thread {
                 Scanner scanner = settore.getScannerBagagali();
 
                 if (bagaglio != null) {
-                    Thread.sleep(1000);
                     scanner.getCodaBagagli().push(bagaglio);
                     System.out.println("Il turista " + getName() + " ha poggiato i bagagli sul rullo");
                     devePoggiareBagagliAiControlli = false;
@@ -166,14 +167,14 @@ public class Turista extends Thread {
                 if (!controlloMetalDetectorSospetto) {
                     if (deveRitirareBagagliAiControlli) {
                         if (bagaglioSospetto) {
-                            System.out.println("Turista arrestato!");
+                            System.out.println("Turista " + getName() + " arrestato!");
                             return;
                         } else {
                             // il turista continua a cercare il bagaglio finchè non lo
                             System.out.println("Il turista " + getName() + " sta cercando il suo bagaglio...");
                             cercaBagaglio(scanner.getCodaBagagliControllati());
                             if (bagaglioSospetto || criminale){
-                                System.out.println("Turista arrestato!");
+                                System.out.println("Turista " + getName() + " arrestato!");
                                 return;
                             }
                             System.out.println("Il turista " + getName() + " ha preso il suo bagaglio");
@@ -193,13 +194,13 @@ public class Turista extends Thread {
                 controlliFattiConSuccesso = true;
                 prontoPerImbarcarsi = true;
 
+                Thread.sleep(r.nextInt(0,1001));
+
                 // ZONA NEGOZI
                 if (vuoleFareAcquisto) {
                     indiceNegozio = r.nextInt(0, zonaNegozi.getListaNegozi().size());
 
                     Negozio n = zonaNegozi.getListaNegozi().get(indiceNegozio);
-
-                    Thread.sleep(1000);
 
                     System.out.println("Il turista " + getName() + " è entrato nel negozio " + n.getNome());
                     decidiCosaComprare(n);
@@ -213,7 +214,7 @@ public class Turista extends Thread {
                     vuoleFareAcquisto = false;
                 }
 
-                System.out.println("Il turista è pronto per imbarcarsi");
+                System.out.println("Il turista " + getName() + " è pronto per imbarcarsi");
                 List<Gate> gates = zonaPartenze.getListaGate();
                 Gate mioGate = null;
 
@@ -235,16 +236,16 @@ public class Turista extends Thread {
                 }
 
                 if (gateGiusto) {
-                    System.out.println("Il turista è entrato nel gate giusto");
+                    System.out.println("Il turista" + getName() + " è entrato nel gate giusto");
                     if (esitoControlloGate) {
-                        System.out.println("Turista imbarcato");
+                        System.out.println("Turista " + getName()+ " imbarcato");
                         return;
                     } else {
-                        System.out.println("Turista arrestato");
+                        System.out.println("Turista" + getName() + " arrestato");
                         return;
                     }
                 } else {
-                    System.out.println("Gate sbagliatp");
+                    System.out.println("Gate sbagliatp per il turista " + getName());
                     return;
                 }
 
@@ -323,13 +324,31 @@ public class Turista extends Thread {
 
     public void cercaBagaglio(Coda<Bagaglio> codaBag) {
         while (!bagaglioSospetto) {
-            Bagaglio b = codaBag.pop();
-            if (b != null){
-                if (b.getEtichetta().getIdRiconoscimentoBagaglio() == cartaImbarco.getIdRiconoscimentoBagaglio()) {
-                    bagaglio = b;
-                    break;
-                } else {
-                    codaBag.push(b);
+            if (!codaBag.isEmpty())
+            {
+                Bagaglio b = codaBag.pop();
+
+                try {
+                    Thread.sleep(r.nextInt(0,1001));
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+                if (b != null){
+                    if (b.getEtichetta().getIdRiconoscimentoBagaglio() == cartaImbarco.getIdRiconoscimentoBagaglio()) {
+                        bagaglio = b;
+                        break;
+                    } else {
+                        codaBag.push(b);
+                    }
+                }
+            }
+            else
+            {
+                try {
+                    Thread.sleep(5);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
             }
         }

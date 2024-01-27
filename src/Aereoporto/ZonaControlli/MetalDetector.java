@@ -31,7 +31,7 @@ public class MetalDetector extends Thread {
            try {
                Turista turista = codaTuristiAttesa.pop();
                boolean nonPericoloso = controllaTurista(turista);
-               Thread.sleep(1000);
+               Thread.sleep(rand.nextInt(0, 1001));
               if (nonPericoloso) {
                  codaTuristiBuoni.push(turista);
                  System.out.println("Il turista " + turista.getName() + " ha superato il metal detector");
