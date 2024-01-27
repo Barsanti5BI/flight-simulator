@@ -50,7 +50,7 @@ public class Gate extends Thread{
         while (GateStop){
             try {
                 while(!GateAperto){
-                    sleep(1000);
+                    sleep(10);
                 }
 
                 //entra solo se è arrivato un aereo con i passeggeri
@@ -101,6 +101,7 @@ public class Gate extends Thread{
                     this.aereo.stiva_piena = true;
                     // TerminatiIControlli verrà impostato su true dal TimerTask
                 }
+                aereo = null;
 
             }catch(InterruptedException ex){
                 System.out.println(ex.getMessage());

@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public class F_TorreControllo extends Thread{
-    private String nomeAerereoporto;
+    private String nomeAeroporto;
     private  Coda<Aereo> AereiInPartenza;
     private  Coda<Aereo> AereiInArrivo;
     private LinkedList<Gate> ListaGate;
@@ -20,7 +20,7 @@ public class F_TorreControllo extends Thread{
        AereiInArrivo = new Coda<>();
        AereiInPartenza= new Coda<>();
        ListaGate = list_gate;
-       nomeAerereoporto = aereoporto;
+       nomeAeroporto = aereoporto;
 
     }
 
@@ -36,11 +36,12 @@ public class F_TorreControllo extends Thread{
 
     public void faiPartire(){
         for (Gate g: ListaGate) {
+            if(g.aereo != null){
             g.aereo.Prepara_Aereo();
             if(g.aereo.aereo_pronto){
                 while(g.aereo.posizione <100){
                     try{
-                        sleep(20);;
+                        sleep(10);;
                     }catch (Exception e){ }
 
                     Aereoporti.get(viaggi.get(g.aereo.Get_AP_Destinazione())).AereiInArrivo.push(g.aereo);
@@ -49,21 +50,26 @@ public class F_TorreControllo extends Thread{
 
             }
         }
+        }
 
     }
 
     public void setAereoGate(){
-        Aereo a = AereiInArrivo.pop();
-        for (Gate g:ListaGate ) {
-            if(!g.GateAperto) {
-            setDestinazione(a);
-            g.openGate(a,viaggi.get(a));
+        if( !AereiInArrivo.isEmpty())
+        {
+            Aereo a = AereiInArrivo.pop();
+
+            for (Gate g:ListaGate ) {
+                if(!g.GateAperto) {
+                setDestinazione(a);
+                g.openGate(a,viaggi.get(a));
+            }
             }
         }
     }
 
-    public void Crea_Viaggi(){
-
+    public void Crea_Viaggi(String dest,Aereo a){
+        viaggi.put(a,dest);
     }
 
     public void Set_Aereoporti(Dictionary<String,F_TorreControllo> Ap){
