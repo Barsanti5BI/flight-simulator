@@ -26,7 +26,7 @@ public class ZonaEntrata extends ZonaAeroporto {
     public Coda<Turista> generaTuristi(ZonaCheckIn zonaCheckIn, ZonaControlli zonaControlli, ZonaNegozi zonaNegozi, ZonaPartenze zonaPartenze) {
         Coda<Turista> coda = new Coda<>();
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 1; i++) {
 
             ArrayList<Oggetto> listOggetti = generaListaOggetti(0, 6);
             Bagaglio bagaglio = generaBagagli();

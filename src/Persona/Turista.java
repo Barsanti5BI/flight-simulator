@@ -51,7 +51,7 @@ public class Turista extends Thread {
     public boolean vuoleFareAcquisto;
     public ArrayList<Prodotto> oggettiDaComprare;
     private @Nullable Bagaglio bagaglio;
-    private boolean pagato;
+    public boolean pagato;
 
     // ZONA GATE
     public ZonaPartenze zonaPartenze;
@@ -197,7 +197,7 @@ public class Turista extends Thread {
                 Thread.sleep(r.nextInt(0,1001));
 
                 // ZONA NEGOZI
-                if (vuoleFareAcquisto) {
+                if (true) {
                     indiceNegozio = r.nextInt(0, zonaNegozi.getListaNegozi().size());
 
                     Negozio n = zonaNegozi.getListaNegozi().get(indiceNegozio);

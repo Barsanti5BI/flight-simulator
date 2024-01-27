@@ -36,9 +36,10 @@ public class ImpiegatoNegozi extends Thread{
                 }
 
                 Vendi(turista);
-                synchronized (turista)
+                turista.pagato = true;
+                synchronized (this)
                 {
-                    turista.notify();
+                    this.notify();
                 }
             }
             else
