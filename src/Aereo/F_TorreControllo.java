@@ -41,7 +41,7 @@ public class F_TorreControllo extends Thread{
             if(g.aereo.aereo_pronto){
                 while(g.aereo.posizione <100){
                     try{
-                        sleep(20);;
+                        sleep(10);;
                     }catch (Exception e){ }
 
                     Aereoporti.get(viaggi.get(g.aereo.Get_AP_Destinazione())).AereiInArrivo.push(g.aereo);
