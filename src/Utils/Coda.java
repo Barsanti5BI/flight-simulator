@@ -22,7 +22,6 @@ public class Coda<T> {
         return list.removeFirst();
     }
 
-
     public boolean isEmpty() {
         return list.isEmpty();
     }

@@ -1,6 +1,7 @@
 package Aereoporto.ZonaControlli;
 import Aereoporto.Common.ListaOggetti;
 import Persona.Bagaglio;
+import Persona.ImpiegatoControlliPartenze;
 import Persona.Oggetto;
 import Utils.Coda;
 
@@ -10,16 +11,18 @@ public class Scanner extends Thread{
    Coda<Bagaglio> codaBagagli;
    Coda<Bagaglio> codaBagagliPericolosi;
    Coda<Bagaglio> codabagagliControllati;
-
+   ImpiegatoControlliPartenze impiegato;
    public Scanner(Coda<Bagaglio> codaBagagli){
       this.codaBagagli = codaBagagli;
       this.codaBagagliPericolosi = new Coda<>();
+      impiegato = new ImpiegatoControlliPartenze(codaBagagliPericolosi,codabagagliControllati, null, ListaOggetti.getOggettiPericolosi(),(int)(Math.random()*1000));
    }
 
    public Scanner(){
         this.codaBagagli = new Coda<>();
         this.codaBagagliPericolosi = new Coda<>();
         codabagagliControllati = new Coda<>();
+         impiegato = new ImpiegatoControlliPartenze(codaBagagliPericolosi,codabagagliControllati, null, ListaOggetti.getOggettiPericolosi(),(int)(Math.random()*1000));
    }
 
     public void run(){

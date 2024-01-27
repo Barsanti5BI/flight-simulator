@@ -35,10 +35,11 @@ public class ZonaEntrata extends ZonaAeroporto {
         for (int i = 0; i < 1; i++) {
 
             ArrayList<Oggetto> listOggetti = generaListaOggetti(0, 6);
-
-            Turista t = new Turista(generaDocumenti(), generaBagagli(), null, listOggetti, Random_Id_Aereo(),zonaCheckIn,zonaControlli,zonaNegozi,zonaPartenze);
-            coda.push(t);
-            t.start();
+            Bagaglio bagaglio = generaBagagli();
+            Turista turista = new Turista(generaDocumenti(), bagaglio, null, listOggetti, Random_Id_Aereo(),zonaCheckIn,zonaControlli,zonaNegozi,zonaPartenze);
+            bagaglio.setTurista(turista);
+            coda.push(turista);
+            turista.start();
         }
         return coda;
     }
@@ -64,8 +65,10 @@ public class ZonaEntrata extends ZonaAeroporto {
         int profondita = rand.nextInt(0, 10);
 
         String misure = lunghezza + "-" + altezza + "-" + profondita;
+        int posizione = rand.nextInt(0, ListaOggetti.getOggettiPericolosi().size());
+        ArrayList<Oggetto> listOggetti = new ArrayList<>();
+        listOggetti.add(new Oggetto(ListaOggetti.getOggettiPericolosi().get(posizione)));
 
-        ArrayList<Oggetto> listOggetti = generaListaOggetti(5, 30);
 
         Bagaglio bagaglio = new Bagaglio(daStiva, peso, misure, new Etichetta(0,"test"), listOggetti);
         return bagaglio;

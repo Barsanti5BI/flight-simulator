@@ -74,6 +74,7 @@ public class Turista extends Thread {
     private Documento doc;
     private Random r;
     private int codAereo;
+    public boolean criminale = false;
 
     public Turista(Documento doc, Bagaglio bag, CartaImbarco cartaImbarco, List<Oggetto> oggetti, int codAereo,
             ZonaCheckIn zonaCheckIn, ZonaControlli zonaControlli, ZonaNegozi zonaNegozi, ZonaPartenze zonaPartenze) {
@@ -171,6 +172,10 @@ public class Turista extends Thread {
                             // il turista continua a cercare il bagaglio finchè non lo
                             System.out.println("Il turista " + getName() + " sta cercando il suo bagaglio...");
                             cercaBagaglio(scanner.getCodaBagagliControllati());
+                            if (bagaglioSospetto || criminale){
+                                System.out.println("Turista arrestato!");
+                                return;
+                            }
                             System.out.println("Il turista " + getName() + " ha preso il suo bagaglio");
                         }
                     }
@@ -317,13 +322,15 @@ public class Turista extends Thread {
     }
 
     public void cercaBagaglio(Coda<Bagaglio> codaBag) {
-        while (true) {
+        while (!bagaglioSospetto) {
             Bagaglio b = codaBag.pop();
-            if (b.getEtichetta().getIdRiconoscimentoBagaglio() == cartaImbarco.getIdRiconoscimentoBagaglio()) {
-                bagaglio = b;
-                break;
-            } else {
-                codaBag.push(b);
+            if (b != null){
+                if (b.getEtichetta().getIdRiconoscimentoBagaglio() == cartaImbarco.getIdRiconoscimentoBagaglio()) {
+                    bagaglio = b;
+                    break;
+                } else {
+                    codaBag.push(b);
+                }
             }
         }
     }

@@ -22,7 +22,7 @@ public class MetalDetector extends Thread {
         codaTuristiAttesa = new Coda<>();
         codaTuristiPericolosi = new Coda<>();
         codaTuristiBuoni = new Coda<>();
-        impiegato = new ImpiegatoControlliPartenze(null, codaTuristiPericolosi, ListaOggetti.getOggettiPericolosi(), rand.nextInt(0, 1000));
+        impiegato = new ImpiegatoControlliPartenze(null,null, codaTuristiPericolosi, ListaOggetti.getOggettiPericolosi(), rand.nextInt(0, 1000));
     }
 
    public void run() {
@@ -38,6 +38,7 @@ public class MetalDetector extends Thread {
               } else {
                  codaTuristiPericolosi.push(turista);
                   System.out.println("Il metal detector suona per il turista " + turista.getName());
+                 turista.controlloMetalDetectorSospetto =true;
               }
                synchronized (this) {
                  turista.deveFareControlliAlMetalDetector = false;
