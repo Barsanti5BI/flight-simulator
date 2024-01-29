@@ -6,30 +6,30 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Aereo extends  Thread {
-    public int id;
-    public String ap_destinazione;
-    public String ap_attuale;
-    public int posizione;
-    public Gate gate;
+    private int id;
+    private String ap_destinazione;
+    private String ap_attuale;
+    private int posizione;
+    private Gate gate;
     private Bagno bagnidavanti;
     private Bagno bagnoretro;
     private ScatolaNera scatolaNera;
     private ArrayList<Turbina> turbine;
     private Stiva stiva;
     private Serbatoio serbatoio;
-    public Alieni alieni;
-    public boolean einvolo;
-    public boolean maltempo;
-    public Random r;
-    public F_Turista[][] matricePostiAereo;
-    public int nPosti;
-    public Entrata entrata;
-    public Uscita uscita;
-    public boolean serbatoio_pieno;
-    public boolean turisti_imbarcati;
-    public boolean stiva_piena;
-    public boolean turbine_funzionanti;
-    public boolean aereo_pronto;
+    private Alieni alieni;
+    private boolean einvolo;
+    private boolean maltempo;
+    private Random r;
+    private F_Turista[][] matricePostiAereo;
+    private int nPosti;
+    private Entrata entrata;
+    private Uscita uscita;
+    private boolean serbatoio_pieno;
+    private boolean turisti_imbarcati;
+    private boolean stiva_piena;
+    private boolean turbine_funzionanti;
+    private boolean aereo_pronto;
 
     public Aereo(int Id, String ap_att) {
         this.id = Id;
@@ -67,12 +67,13 @@ public class Aereo extends  Thread {
         //Feature Riccardo Pettenuzzo
         alieni = new Alieni(this);
         //alieni.start();
+
+        //this.start();
     }
 
     public void f_run() {
         int k = 0;
-        while (ap_destinazione != ap_attuale) {
-            System.out.println("E' in corso la preparazione dell'aereo");
+        while (ap_destinazione != ap_attuale) {//per soddisfare condizione la posizione attuale deve essere impostata dalla torre di controllo
             if (aereo_pronto) {
                 System.out.println("L'aereo è partito");
                 try {
@@ -123,6 +124,12 @@ public class Aereo extends  Thread {
                         Imbarca(bagnoretro.finito());
                     }
                 }
+            }
+            else{
+                try {
+                    System.out.println("E' in corso la preparazione dell'aereo");
+                    this.sleep(10000);
+                }catch (Exception e){}
             }
         }
         Atterra();
@@ -235,12 +242,13 @@ public class Aereo extends  Thread {
         }
         turbine_funzionanti = true;
         scatolaNera.Ricarica();
-        System.out.println("L'aereo " + this.id + " è stato riparato.");
+        System.out.println("Le turbine dell'aereo " + this.Get_ID() + " sono state riparate");
     }
 
     public void Rifornisci_Aereo() {
         serbatoio.riempi();
         serbatoio_pieno = true;
+        System.out.println("Il serbatoio " + this.Get_ID() + " è stato riempito");
     }
 
     public void Atterra() {
@@ -250,7 +258,7 @@ public class Aereo extends  Thread {
         }
         turbine_funzionanti = false;
         serbatoio_pieno = false;
-        System.out.println("L'aereo " + this.id + " è atterrato.");
+        System.out.println("L'aereo " + this.Get_ID() + " è atterrato.");
     }
 
     //Metodo di Controllo che controlla lo stato delle turbine e nel caso 3 o più turbine siano
@@ -278,7 +286,7 @@ public class Aereo extends  Thread {
         Random r = new Random();
         int i = r.nextInt(100);
         if (i == 69) {
-            System.out.println("I piloti stanno scioperando.");
+            System.out.println("I piloti stanno scioperando...");
             return true;
         } else {
             return false;
@@ -336,9 +344,9 @@ public class Aereo extends  Thread {
     public void Imbarca(Coda<F_Turista> c) {
         for (int i = 0; i < c.size(); i++) {
             F_Turista t = c.pop();
-            matricePostiAereo[t.posto_colonna][t.posto_riga] = t;
+            matricePostiAereo[t.Get_posto_colonna()][t.Get_posto_riga()] = t;
         }
-        System.out.println("I Turisti sono saliti nell'aereo " + this.id + " in direzione " + this.ap_destinazione + ".");
+        System.out.println("I Turisti sono saliti nell'aereo " + this.Get_ID() + " in direzione " + this.Get_AP_Destinazione() + ".");
     }
 
     public Coda<F_Turista> FaiScendere() {
@@ -352,7 +360,7 @@ public class Aereo extends  Thread {
 
             }
         }
-        System.out.println("I Turisti sono scesi dall'aereo " + this.id + " a " + this.ap_destinazione + ".");
+        System.out.println("I Turisti sono scesi dall'aereo " + this.Get_ID() + " a " + this.Get_AP_Destinazione() + ".");
         turisti_imbarcati = false;
         return coda;
 
@@ -417,5 +425,10 @@ public class Aereo extends  Thread {
     public boolean Get_Stato_Aereo() {
         return this.einvolo;
     }
+
+    public void Set_Stato_Stiva(boolean stato){
+        this.stiva_piena = stato;
+    }
+
 
 }

@@ -3,13 +3,13 @@ package Aereo;
 import java.util.Random;
 
 public class F_Turista {
-    public int id;
-    public int posto_riga;
-    public int posto_colonna;
-    public int id_aereo;
-    public Bagaglio bagaglio;
-    public boolean prioritario;
-    public String destinazione;
+    private int id;
+    private int posto_riga;
+    private int posto_colonna;
+    private int id_aereo;
+    private Bagaglio bagaglio;
+    private boolean prioritario;
+    private String destinazione;
 
     public F_Turista(int id, int id_ae, int p_col, int p_rig,boolean prioritario,String destinazione){
         this.id_aereo = id_ae;
@@ -30,4 +30,5 @@ public class F_Turista {
     public int Get_id() {return this.id;}
     public boolean Get_Prioritario(){return prioritario;}
     public String Get_Destinazione(){return destinazione;}
+    public void Set_Bagaglio(Bagaglio b){this.bagaglio = bagaglio;}
 }

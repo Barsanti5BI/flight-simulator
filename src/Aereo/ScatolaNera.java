@@ -27,7 +27,7 @@ public class ScatolaNera extends Thread{
     }
     public void run(){
         try{
-            while(percBatteria > 0 && a.einvolo){
+            while(percBatteria > 0 && a.Get_Stato_Aereo()){
                 if(pericolo){
                     percBatteria -= 0.5;
                     System.out.println("ALLARME - BEEEP - BEEEP");
@@ -68,7 +68,7 @@ public class ScatolaNera extends Thread{
 
     public void InserisciPosizione(){
         ultimaPosizione = ZonedDateTime.now();
-        logPosizione.put(ultimaPosizione,""+a.posizione);
+        logPosizione.put(ultimaPosizione,""+a.Get_Posizione());
         System.out.println("ScatolaNera " + logPosizione.get(ultimaPosizione));
     }
 

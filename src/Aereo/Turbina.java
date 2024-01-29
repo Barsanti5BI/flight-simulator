@@ -3,7 +3,7 @@ package Aereo;
 import java.util.Random;
 
 public class Turbina extends Thread{
-    public Aereo a;
+    private Aereo a;
     public int id;
     private Random r;
     public double percRiparazione;
@@ -19,7 +19,7 @@ public class Turbina extends Thread{
     }
     public void run(){
         try{
-            while(funzionante && a.einvolo){
+            while(funzionante && a.Get_Stato_Aereo()){
                 percRiparazione -= 0.5;
                 random = r.nextInt(100);
                 if(percRiparazione == 0){

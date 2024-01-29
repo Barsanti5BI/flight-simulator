@@ -5,9 +5,9 @@ import Utils.Stack;
 import java.util.LinkedList;
 
 public class Stiva {
-    Stack<Bagaglio> pila_bag;
-    int peso_attuale;
-    Aereo aereo;
+    private Stack<Bagaglio> pila_bag;
+    private int peso_attuale;
+    private Aereo aereo;
     public Stiva(Aereo a){
         pila_bag = new Stack<Bagaglio>();
         peso_attuale = 0;

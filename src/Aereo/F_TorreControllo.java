@@ -36,15 +36,15 @@ public class F_TorreControllo extends Thread{
 
     public void faiPartire(){
         for (Gate g: ListaGate) {
-            if(g.aereo != null){
-            g.aereo.Prepara_Aereo();
-            if(g.aereo.aereo_pronto){
-                while(g.aereo.posizione <100){
+            if(g.Get_Aereo() != null){
+            g.Get_Aereo().Prepara_Aereo();
+            if(g.Get_Aereo().Get_Stato_Aereo()){
+                while(g.Get_Aereo().Get_Posizione() <100){
                     try{
                         sleep(10);;
                     }catch (Exception e){ }
 
-                    Aereoporti.get(viaggi.get(g.aereo.Get_AP_Destinazione())).AereiInArrivo.push(g.aereo);
+                    Aereoporti.get(viaggi.get(g.Get_Aereo().Get_AP_Destinazione())).AereiInArrivo.push(g.Get_Aereo());
                 }
 
 
@@ -60,7 +60,7 @@ public class F_TorreControllo extends Thread{
             Aereo a = AereiInArrivo.pop();
 
             for (Gate g:ListaGate ) {
-                if(!g.GateAperto) {
+                if(!g.Get_Gate_Aperto()) {
                 setDestinazione(a);
                 g.openGate(a,viaggi.get(a));
             }

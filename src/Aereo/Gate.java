@@ -8,18 +8,18 @@ import java.util.TimerTask;
 
 
 public class Gate extends Thread{
-    Timer timer;
-    TimerTask timerTask;
-    int nomeGate;
-    String destinazione;
-    Coda<F_Turista> codaPrioritaria;
-    Coda<F_Turista> codaNormale;
-    Boolean TerminatiIControlli;
-    Boolean GateAperto;
-    Coda<F_Turista> codaGenerale;
-    Coda<F_Turista> codaEntrata;
-    boolean GateStop;
-    Aereo aereo;
+    private Timer timer;
+    private TimerTask timerTask;
+    private int nomeGate;
+    private String destinazione;
+    private Coda<F_Turista> codaPrioritaria;
+    private Coda<F_Turista> codaNormale;
+    private Boolean TerminatiIControlli;
+    private Boolean GateAperto;
+    private Coda<F_Turista> codaGenerale;
+    private Coda<F_Turista> codaEntrata;
+    private boolean GateStop;
+    private Aereo aereo;
 
     //TOLGLIERE AEREO DAL COSTRUTTORE E FARE CICLO CHE LA TORRE DI CONTROLLO MODIFICA
     //PER FAR PARTIRE IL GATE
@@ -59,8 +59,8 @@ public class Gate extends Thread{
                     while(!aereo.Get_Uscita().GetUsciti().isEmpty()) {
                         F_Turista t = aereo.Get_Uscita().GetUsciti().pop();
                         for(Bagaglio b : lista_bagagli){
-                            if(b.Turista_id == t.id){
-                                t.bagaglio = b;
+                            if(b.Turista_id == t.Get_id()){
+                                t.Set_Bagaglio(b);
                             }
                         }
                         System.out.println("Il turista " + t.Get_id() + " è arrivato a destinazione.");
@@ -75,7 +75,7 @@ public class Gate extends Thread{
                     while(!codaGenerale.isEmpty()){   //creo la coda prioritaria e la coda normale
                         F_Turista t = codaGenerale.pop();
                         if(t.Get_Prioritario() || isPasseggeroInPrioritaria()){
-                            if (!t.prioritario)
+                            if (!t.Get_Prioritario())
                             {
                                 System.out.println("Il turista " + t.Get_id() + " è stato fortunato ed è stato fatta entrare nella coda prioritaria.");
                             }
@@ -98,7 +98,7 @@ public class Gate extends Thread{
                         F_Turista t = codaNormale.pop();
                         EffettuaControllo(t);
                     }
-                    this.aereo.stiva_piena = true;
+                    this.aereo.Set_Stato_Stiva(true);
                     // TerminatiIControlli verrà impostato su true dal TimerTask
                 }
                 aereo = null;
@@ -117,7 +117,7 @@ public class Gate extends Thread{
                 sleep(100);
                 System.out.println("    Il turista " + t.Get_id() + " ha effettuato il controllo effettuato nel gate " + nomeGate + ".");
                 Imbarca_Bagaglio(this.aereo, t);
-                t.bagaglio = null;
+                t.Set_Bagaglio(null);
                 codaEntrata.push(t); //se passa il gate metto il turista nella coda per entrare nell'aereo
             }
             else{
@@ -157,6 +157,7 @@ public class Gate extends Thread{
     }
 
     public Coda<F_Turista> Genera_Turisti(Aereo a, String destinazione){
+        //questo metodo nei paramentri potrebbe avere una coda che deve essere riempita
         Random rnd = new Random();
         Coda<F_Turista> coda_turisti = new Coda<F_Turista>();
         int id_tur = 0;
@@ -184,4 +185,7 @@ public class Gate extends Thread{
     }
     public String Get_Destinazione(){return destinazione;}
     public boolean Get_Gate_Aperto(){ return GateAperto;}
+    public Aereo Get_Aereo(){
+        return this.aereo;
+    }
 }
