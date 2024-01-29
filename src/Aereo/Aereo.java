@@ -137,7 +137,6 @@ public class Aereo extends  Thread {
     }
 
     public void run() {
-        //TODO MODIFICARE RUN
         if (sciopero()) {
             try {
 
@@ -369,66 +368,49 @@ public class Aereo extends  Thread {
     public void Set_AP_Destinazione(String destinazione){
         this.ap_destinazione = destinazione;
     }
-
     public Entrata Get_Entrata() {
         return entrata;
     }
-
     public Uscita Get_Uscita() {
         return uscita;
     }
-
     public F_Turista[][] Get_Posti_Aereo() {
         return this.matricePostiAereo;
     }
-
     public void Set_Gate(Gate gate) {
         this.gate = gate;
     }
-
     public Stiva Get_Stiva() {
         return this.stiva;
     }
-
     public ArrayList<Turbina> Get_Turbine() {
         return this.turbine;
     }
-
     public String Get_AP_Destinazione() {
         return this.ap_destinazione;
     }
-
     public String Get_AP_Attuale() {
         return this.ap_attuale;
     }
-
     public Gate Get_Gate() {
         return this.gate;
     }
-
     public ScatolaNera Get_Scatola_Nera() {
         return this.scatolaNera;
     }
-
     public Serbatoio Get_Serbatoio() {
         return this.serbatoio;
     }
-
     public int Get_ID() {
         return this.id;
     }
-
     public int Get_Posizione() {
         return this.posizione;
     }
-
     public boolean Get_Stato_Aereo() {
         return this.einvolo;
     }
-
     public void Set_Stato_Stiva(boolean stato){
         this.stiva_piena = stato;
     }
-
-
 }
