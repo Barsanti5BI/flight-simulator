@@ -37,16 +37,14 @@ public class F_TorreControllo extends Thread{
     public void faiPartire(){
         for (Gate g: ListaGate) {
             if(g.Get_Aereo() != null){
-            g.Get_Aereo().Prepara_Aereo();
-            if(g.Get_Aereo().Get_Stato_Aereo()){
+            ;
+            if(g.Get_Aereo().Prepara_Aereo()){
                 while(g.Get_Aereo().Get_Posizione() <100){
                     try{
                         sleep(10);;
                     }catch (Exception e){ }
-
-                    Aereoporti.get(viaggi.get(g.Get_Aereo().Get_AP_Destinazione())).AereiInArrivo.push(g.Get_Aereo());
                 }
-
+                Aereoporti.get(viaggi.get(g.Get_Aereo().Get_AP_Destinazione())).AereiInArrivo.push(g.Get_Aereo());
 
             }
         }
