@@ -12,7 +12,6 @@ public class NastroTrasportatore extends Thread{
     public NastroTrasportatore(){
        codaBagagli = new Coda<>();
        bagagliCaricati = new Coda<>();
-       this.scanner = new Scanner();
     }
 
     public void aggiungiBagaglio(Bagaglio b) {
@@ -32,5 +31,8 @@ public class NastroTrasportatore extends Thread{
 
    public Scanner getScanner() {
        return scanner;
+   }
+   public void setScanner(Scanner scanner) {
+        this.scanner = scanner;
    }
 }

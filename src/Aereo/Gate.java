@@ -1,8 +1,9 @@
 package Aereo;
-import Persona.ImpiegatoControlliStiva;
-import Utils.Coda;
-import Persona.Turista;
 
+import Persona.Turista;
+import Utils.Coda;
+
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -19,9 +20,9 @@ public class Gate extends Thread{
     Coda<Turista> codaTurista;
     Boolean GateAperto;
     Coda<Turista> codaGenerale;
-    ImpiegatoControlliStiva impiegatoControlliStiva;
+    ArrayList<Turista> turistiPericolosi;
     int Id;
-    public Gate(int nomeGate, Coda<Turista> codaGenerale, String destinazione, ImpiegatoControlliStiva impiegatoControlliStiva, int Id){
+    public Gate(int nomeGate, Coda<Turista> codaGenerale, String destinazione, ArrayList<Turista> turistiPericolosi, int Id){
         timer = new Timer();
         timerTask = new TimerTask() {
             @Override
@@ -38,7 +39,7 @@ public class Gate extends Thread{
         TerminatiIControlli = false;
         this.destinazione = destinazione;
         this.nomeGate = nomeGate;
-        this.impiegatoControlliStiva = impiegatoControlliStiva;
+        this.turistiPericolosi = turistiPericolosi;
     }
     public void run(){
         try {
@@ -93,7 +94,7 @@ public class Gate extends Thread{
 
             boolean controlloTPericoloso = false;
 
-            for(Turista tPericoloso : impiegatoControlliStiva.getTuristiPericolosi())
+            for(Turista tPericoloso : turistiPericolosi)
             {
                 if (tPericoloso == t) {
                     controlloTPericoloso = true;

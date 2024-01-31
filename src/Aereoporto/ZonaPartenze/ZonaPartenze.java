@@ -1,25 +1,24 @@
 package Aereoporto.ZonaPartenze;
-import Persona.ImpiegatoControlliStiva;
-import Persona.Turista;
+
 import Aereo.Gate;
 import Aereoporto.Common.ZonaAeroporto;
+import Persona.Turista;
 import TorreDiControllo.Viaggio;
 import Utils.Coda;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ZonaPartenze extends ZonaAeroporto {
     ArrayList<Gate> listaGate;
 
-    public ZonaPartenze(ArrayList<Viaggio> viaggi, ImpiegatoControlliStiva impiegatoControlliStiva)
+    public ZonaPartenze(ArrayList<Viaggio> viaggi, ArrayList<Turista> turistiPericolosi)
     {
         this.listaGate = new ArrayList<>();
         int i = 0;
         for (Viaggio v : viaggi)
         {
             i++;
-            Gate g = new Gate(i, new Coda<Turista>(), v.DammiDestinzazione(), impiegatoControlliStiva,i);
+            Gate g = new Gate(i, new Coda<Turista>(), v.DammiDestinzazione(), turistiPericolosi,i);
             listaGate.add(g);
         }
     }

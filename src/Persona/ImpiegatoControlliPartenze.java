@@ -19,7 +19,6 @@ public class ImpiegatoControlliPartenze extends Thread{
         this.oggettiProibiti = oggettiProibiti; // lista fornita dall'aereoporto
         setName(id+"");
         rand = new Random();
-        this.start();
     }
     public void run(){
         System.out.println("Impiegato controlli partenze: \"Sto aspettando\"");
@@ -31,7 +30,7 @@ public class ImpiegatoControlliPartenze extends Thread{
                 {
                     // controllore dei bagagli sospetti
                     Bagaglio b = codaBagagliSospetti.pop();
-                    System.out.println("ImpiegatoControlli dice: Attenzione bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " di turista " + b.getProprietario().getName() + " è sospetto e viene controllato");
+                    System.out.println("ImpiegatoControlliPartenze dice: Attenzione bagaglio " + b.getEtichetta().getIdRiconoscimentoBagaglio() + " di turista " + b.getProprietario().getName() + " è sospetto e viene controllato");
 
                     try {
                         Thread.sleep(rand.nextInt(0,1001));

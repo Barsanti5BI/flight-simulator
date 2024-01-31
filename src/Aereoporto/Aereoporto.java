@@ -1,22 +1,18 @@
 package Aereoporto;
 
 import Aereo.Aereo;
-import Aereoporto.Common.ListaOggetti;
 import Aereoporto.ZonaArrivi.ZonaArrivi;
 import Aereoporto.ZonaCheckIn.NastroTrasportatore;
 import Aereoporto.ZonaCheckIn.ZonaCheckIn;
-import Aereoporto.ZonaControlli.Scanner;
 import Aereoporto.ZonaControlli.ZonaControlli;
 import Aereoporto.ZonaControlli.ZonaControlliBagagliStiva;
 import Aereoporto.ZonaEntrata.ZonaEntrata;
 import Aereoporto.ZonaNegozi.ZonaNegozi;
 import Aereoporto.ZonaPartenze.ZonaPartenze;
-import Persona.ImpiegatoControlliStiva;
 import Persona.Turista;
 import TorreDiControllo.Viaggio;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Aereoporto {
     ZonaEntrata zonaEntrata;
@@ -27,15 +23,18 @@ public class Aereoporto {
     ZonaPartenze zonaPartenze;
     NastroTrasportatore nastroTrasportatore;
     ZonaArrivi zonaArrivi;
+    ArrayList<Turista> turistiPericolosi; // turisti da bloccare al gate per il bagaglio in stiva,
 
     public Aereoporto(ArrayList<Viaggio> viaggi, ArrayList<Aereo> lista_aerei) {
+        turistiPericolosi = new ArrayList<>();
         nastroTrasportatore = new NastroTrasportatore();
+        nastroTrasportatore.start();
         zonaCheckIn = new ZonaCheckIn(nastroTrasportatore,viaggi);
         zonaControlli = new ZonaControlli();
 
-        zonaControlliBagagliStiva = new ZonaControlliBagagliStiva(nastroTrasportatore,nastroTrasportatore.getScanner(), lista_aerei);
+        zonaControlliBagagliStiva = new ZonaControlliBagagliStiva(nastroTrasportatore, lista_aerei);
         zonaNegozi = new ZonaNegozi();
-        zonaPartenze = new ZonaPartenze(viaggi, new ImpiegatoControlliStiva(new Scanner(), ListaOggetti.getOggettiPericolosi(), lista_aerei, 69420));
+        zonaPartenze = new ZonaPartenze(viaggi, turistiPericolosi);
         zonaEntrata = new ZonaEntrata(lista_aerei, zonaCheckIn, zonaControlli, zonaNegozi, zonaPartenze);
         //zonaArrivi = new ZonaArrivi();
         configuraZone();
