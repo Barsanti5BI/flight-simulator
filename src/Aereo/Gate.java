@@ -106,6 +106,8 @@ public class Gate extends Thread{
             }catch(InterruptedException ex){
                 System.out.println(ex.getMessage());
             }
+
+            GateAperto=false;
         }
     }
 
