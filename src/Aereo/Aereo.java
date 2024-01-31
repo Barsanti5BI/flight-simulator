@@ -128,7 +128,7 @@ public class Aereo extends  Thread {
             else{
                 try {
                     System.out.println("E' in corso la preparazione dell'aereo");
-                    this.sleep(10000);
+                    this.sleep(5000);
                 }catch (Exception e){}
             }
         }
@@ -137,60 +137,51 @@ public class Aereo extends  Thread {
     }
 
     public void run() {
-        if (sciopero()) {
-            try {
-
-                Thread.sleep(5000);
-                this.sleep(5000);
-            } catch (Exception e) {
-            }
-        }
-        Prepara_Aereo();
-        while (posizione < 100) {
-            while (posizione < 100) {//la condizione del while dovrebbe essere while(destinazione != posizione)
-                System.out.println("L'aereo è partito!");
+        int k = 0;
+        while (ap_destinazione != ap_attuale) {//per soddisfare condizione la posizione attuale deve essere impostata dalla torre di controllo
+            if (aereo_pronto) {
+                System.out.println("L'aereo è partito");
                 try {
+                    if (sciopero() && k == 0) {
+                        this.sleep(5000);
+                        k++;
+                    }
                     //Feature Riccardo Pettenuzzo
                     if (alieni.aereo_rubato) {
                         break;
                     }
-                    Thread.sleep(1000);
-                } catch (Exception e) {
-                }
+                    this.sleep(1000);
 
-                if (maltempo) {
-                    posizione += 1;
-                } else {
-                    posizione += 2;
-                }
-
-                //parte per far funzionare il bagno in aereo
-                Coda<F_Turista> getbagno = Givebagno();
-
-                if (getbagno.size() % 2 == 0) {
-                    bagnidavanti.DareBisogno(getbagno.pop());
-                }
-                if (getbagno.size() % 2 == 1) {
-                    bagnoretro.DareBisogno(getbagno.pop());
-                }
-
-                try {
-                    bagnidavanti.run();
-
+                    //parte del movimento dell'aereo
+                    if (maltempo) {
+                        posizione += 1;
+                    } else {
+                        posizione += 2;
+                    }
                     serbatoio.consuma_carburante();
 
+                    //parte dei bagni dell'aereo
+                    Coda<F_Turista> getbagno = Givebagno();
+                    if (getbagno.size() % 2 == 0) {
+                        bagnidavanti.DareBisogno(getbagno.pop());
+                    }
+                    if (getbagno.size() % 2 == 1) {
+                        bagnoretro.DareBisogno(getbagno.pop());
+                    }
+
+                    bagnidavanti.run();
                     bagnoretro.run();
+
                     while (bagnidavanti.finito().size() > 0) {
                         Imbarca(bagnidavanti.finito());
                     }
                     while (bagnoretro.finito().size() > 0) {
                         Imbarca(bagnoretro.finito());
                     }
+
                 } catch (Exception e) {
                     Coda<F_Turista> nob = aiposti();
-
                     Imbarca(nob);
-
                     while (bagnidavanti.finito().size() > 0) {
                         Imbarca(bagnidavanti.finito());
                     }
@@ -199,9 +190,15 @@ public class Aereo extends  Thread {
                     }
                 }
             }
-            Atterra();
-            System.out.println("L'aereo è atterrato!");
+            else{
+                try {
+                    System.out.println("E' in corso la preparazione dell'aereo");
+                    this.sleep(5000);
+                }catch (Exception e){}
+            }
         }
+        Atterra();
+        System.out.println("L'aereo è atterrato!");
     }
 
 
