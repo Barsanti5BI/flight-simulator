@@ -1,6 +1,6 @@
 package Persona;
 
-import Aereo.Gate;
+import Aereoporto.ZonaPartenze.Gate;
 import Aereoporto.ZonaArrivi.Dogana;
 import Aereoporto.ZonaArrivi.RitiroBagagli;
 import Aereoporto.ZonaArrivi.ZonaArrivi;
@@ -57,7 +57,7 @@ public class Turista extends Thread {
     public ZonaPartenze zonaPartenze;
     public boolean prontoPerImbarcarsi;
     public boolean passatoControlliGate;
-    public boolean esitoControlloGate;
+    public boolean pericolosoAlGate;
     public boolean gateGiusto;
 
     // ZONA ARRIVI
@@ -98,7 +98,7 @@ public class Turista extends Thread {
         perquisizioneTerminata = false;
         prontoPerImbarcarsi = false;
         passatoControlliGate = false;
-        esitoControlloGate = false;
+        pericolosoAlGate = false;
         gateGiusto = false;
         arrivatoAreaArrivi = false;
         haPassatoControlliArr = false;
@@ -219,15 +219,16 @@ public class Turista extends Thread {
                 Gate mioGate = null;
 
                 for (Gate g : gates) {
-                    if (g.getgateId() == cartaImbarco.getGate()) {
+                    if (g.getViaggio() == cartaImbarco.getViaggio()) {
                         mioGate = g;
                         break;
                     }
                 }
                 if (mioGate == null) {
-                    System.out.println("Il turista " + getName() + " non ha trovato il suo gate");
-
+                    System.out.println("Il turista " + getName() + " non ha trovato il suo gate e se ne va a casa :(");
+                    return;
                 } else {
+                    inserisciTuristaGate(mioGate);
                     synchronized (mioGate) {
                         while (!passatoControlliGate) {
                             mioGate.wait();
@@ -235,20 +236,15 @@ public class Turista extends Thread {
                     }
                 }
 
-                if (gateGiusto) {
-                    System.out.println("Il turista" + getName() + " è entrato nel gate giusto");
-                    if (esitoControlloGate) {
-                        System.out.println("Turista " + getName()+ " imbarcato");
-                        return;
-                    } else {
-                        System.out.println("Turista" + getName() + " arrestato");
-                        return;
-                    }
+                System.out.println("Il turista" + getName() + " è entrato nel gate giusto");
+
+                if (pericolosoAlGate) {
+                    System.out.println("Turista" + getName() + " arrestato");
+                    return;
                 } else {
-                    System.out.println("Gate sbagliatp per il turista " + getName());
+                    System.out.println("Turista " + getName()+ " imbarcato");
                     return;
                 }
-
             }
 
             if (inArrivo) {
@@ -364,7 +360,7 @@ public class Turista extends Thread {
     }
 
     public void inserisciTuristaGate(Gate gate) {
-        gate.getCodaGenerale().push(this);
+        gate.getCodaTuristi().push(this);
         prontoPerImbarcarsi = false;
     }
 
@@ -372,12 +368,12 @@ public class Turista extends Thread {
         gateGiusto = var;
     }
 
-    public void setEsitoControlloGate(boolean var) {
-        esitoControlloGate = var;
+    public void setPericolosoAlGate(boolean var) {
+        pericolosoAlGate = var;
     }
 
     public void setPassatoControlliGate(Boolean var) {
-        esitoControlloGate = var;
+        pericolosoAlGate = var;
     }
 
     public void setArrivatoAreaArrivi(Boolean var) {

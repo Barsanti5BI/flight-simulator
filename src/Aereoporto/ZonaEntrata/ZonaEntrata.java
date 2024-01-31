@@ -29,6 +29,7 @@ public class ZonaEntrata extends ZonaAeroporto {
         for (int i = 0; i < 1; i++) {
 
             ArrayList<Oggetto> listOggetti = generaListaOggetti(0, 6);
+            listOggetti.add(new Oggetto("Righello"));
             Bagaglio bagaglio = generaBagagli();
             Turista turista = new Turista(generaDocumenti(i), bagaglio, null, listOggetti, Random_Id_Aereo(),zonaCheckIn,zonaControlli,zonaNegozi,zonaPartenze);
             bagaglio.setTurista(turista);
@@ -59,8 +60,10 @@ public class ZonaEntrata extends ZonaAeroporto {
         int profondita = rand.nextInt(0, 10);
 
         String misure = lunghezza + "-" + altezza + "-" + profondita;
+        var a = generaListaOggetti(0,6);
+        a.add(new Oggetto("Righello"));
 
-        Bagaglio bagaglio = new Bagaglio(daStiva, peso, misure, new Etichetta(0,"test"), generaListaOggetti(0,6));
+        Bagaglio bagaglio = new Bagaglio(true, peso, misure, new Etichetta(0,"test"), a);
         return bagaglio;
     }
 

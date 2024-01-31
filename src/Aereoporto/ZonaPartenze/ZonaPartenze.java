@@ -1,10 +1,8 @@
 package Aereoporto.ZonaPartenze;
 
-import Aereo.Gate;
 import Aereoporto.Common.ZonaAeroporto;
 import Persona.Turista;
 import TorreDiControllo.Viaggio;
-import Utils.Coda;
 
 import java.util.ArrayList;
 
@@ -18,7 +16,8 @@ public class ZonaPartenze extends ZonaAeroporto {
         for (Viaggio v : viaggi)
         {
             i++;
-            Gate g = new Gate(i, new Coda<Turista>(), v.DammiDestinzazione(), turistiPericolosi,i);
+            Gate g = new Gate(v, turistiPericolosi);
+            g.start();
             listaGate.add(g);
         }
     }

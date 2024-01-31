@@ -104,12 +104,12 @@ public class Gate extends Thread{
 
             if (!controlloTPericoloso)
             {
-                t.setEsitoControlloGate(true);
+                t.setPericolosoAlGate(true);
                 codaTurista.push(t);
             }
             else
             {
-                t.setEsitoControlloGate(false);
+                t.setPericolosoAlGate(false);
             }
 
             t.setPassatoControlliGate(true);
