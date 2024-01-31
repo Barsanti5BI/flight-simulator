@@ -31,6 +31,7 @@ public class Gate extends Thread{
                 TerminatiIControlli = true;
                 aereo.Get_Entrata().DareEntranti(codaEntrata);
                 System.out.println("% Il gate " + nomeGate + " si è chiuso");
+                timer.cancel();
             }
         };
         codaPrioritaria = new Coda<>();
@@ -71,8 +72,9 @@ public class Gate extends Thread{
 
 
                 //entra solo se c'è un prossimo volo
+                System.out.println("Destinazione gate " + this.Get_Id() + " " + this.destinazione);
                 if(destinazione != null){
-                    //timer.schedule(timerTask, 20000); //Programma il TimerTask per eseguirlo dopo un ritardo specificato
+                    timer.schedule(timerTask, 20000); //Programma il TimerTask per eseguirlo dopo un ritardo specificato
 
                     while(!codaGenerale.isEmpty()){   //creo la coda prioritaria e la coda normale
                         F_Turista t = codaGenerale.pop();
@@ -101,6 +103,7 @@ public class Gate extends Thread{
                         EffettuaControllo(t);
                     }
                     this.aereo.Set_Stato_Stiva(true);
+                    System.out.println("!!!! stiva true");
                     // TerminatiIControlli verrà impostato su true dal TimerTask
                 }
                 //aereo = null;

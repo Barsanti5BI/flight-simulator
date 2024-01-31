@@ -18,9 +18,9 @@ public class Main {
       LinkedList<String> aereoporti = new LinkedList<String>();
       aereoporti.add("ITT E.Barsanti Airport");
       aereoporti.add("New York Airport");
-      aereoporti.add("Tokyo Airport");
-      aereoporti.add("Aereoporto Milano");
-      aereoporti.add("Aereoporto Messina");
+      aereoporti.add("Pisello");
+      aereoporti.add("Marco");
+      aereoporti.add("Tristezza");
       System.out.println("Aereoporti Creati.");
 
       //Creazione lista di Aerei
@@ -36,7 +36,7 @@ public class Main {
       int k = 0;
       int id_tur = 0;
       for(Aereo a : list_aerei){
-         String dest = aereoporti.get(k);
+         String dest = aereoporti.get(1);
          for(int i = 1; i <= 4; i++){
             for(int j = 1; i <= 10; i++){
                if(rnd.nextInt(0, 20) % 2 == 0){
@@ -53,6 +53,7 @@ public class Main {
          k++;
       }
       System.out.println("£ Turisti Creati.");
+      System.out.println("Size lista turisti = " + lista_turisti.size());
 
       //Divisione dei turisti in base alla destinazione
       Coda<F_Turista> coda_gate_1 = new Coda<F_Turista>();
@@ -63,7 +64,7 @@ public class Main {
          if(t.Get_Destinazione() == "New York Airport"){
             coda_gate_1.push(t);
          }
-         else if(t.Get_Destinazione() == "Tokyo Airport"){
+         /*else if(t.Get_Destinazione() == "Tokyo Airport"){
             coda_gate_2.push(t);
          }
          else if(t.Get_Destinazione() == "Aereoporto Milano"){
@@ -71,7 +72,7 @@ public class Main {
          }
          else if(t.Get_Destinazione() == "Aereoporto Messina"){
             coda_gate_4.push(t);
-         }
+         }*/
       }
 
       //Crezione dei Gate

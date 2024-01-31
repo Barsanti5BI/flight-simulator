@@ -30,8 +30,11 @@ public class Aereo extends  Thread {
     private boolean stiva_piena;
     private boolean turbine_funzionanti;
     private boolean aereo_pronto;
+    private Random rnd;
 
     public Aereo(int Id, String ap_att) {
+        rnd = new Random();
+
         this.id = Id;
         maltempo = false;
 
@@ -137,14 +140,21 @@ public class Aereo extends  Thread {
     }
 
     public void run() {
+        int j = 0;
         int k = 0;
         while (ap_destinazione != ap_attuale) {//per soddisfare condizione la posizione attuale deve essere impostata dalla torre di controllo
             if (aereo_pronto) {
-                System.out.println("& L'aereo " + this.Get_ID() + " è partito");
                 try {
+                    if(j == 0){
+                        System.out.println("& L'aereo " + this.Get_ID() + " è partito");
+                        j++;
+                    }
                     if (sciopero() && k == 0) {
                         this.sleep(5000);
                         k++;
+                    }
+                    if(rnd.nextInt(1, 10) == 5){
+                        System.out.println("Posizione aereo " + this.Get_ID() + " = " + this.Get_Posizione());
                     }
                     //Feature Riccardo Pettenuzzo
                     if (alieni.aereo_rubato) {
@@ -224,7 +234,10 @@ public class Aereo extends  Thread {
         else{
             Ripara_Aereo();
         }
-        if(serbatoio.Get_Capacità() <= serbatoio.Get_Capacità_Critica()){
+        if(serbatoio.Get_Capacità() == 100){
+            serbatoio_pieno = true;
+        }
+        else if(serbatoio.Get_Capacità() <= serbatoio.Get_Capacità_Critica()){
             Rifornisci_Aereo();
         }
         scatolaNera.start();
@@ -242,6 +255,7 @@ public class Aereo extends  Thread {
             t.start();
         }
         turbine_funzionanti = true;
+        System.out.println("!!!! turbine true");
         scatolaNera.Ricarica();
         System.out.println("& Le turbine dell'aereo " + this.Get_ID() + " sono state riparate");
     }
@@ -249,6 +263,7 @@ public class Aereo extends  Thread {
     public void Rifornisci_Aereo() {
         serbatoio.riempi();
         serbatoio_pieno = true;
+        System.out.println("!!!! serbatoio true");
         System.out.println("& Il serbatoio " + this.Get_ID() + " è stato riempito");
     }
 
@@ -340,6 +355,7 @@ public class Aereo extends  Thread {
         Imbarca(entrata.GetsalitiDavanti());
         Imbarca(entrata.GetsalitiDietro());
         turisti_imbarcati = true;
+        System.out.println("!!!! turisti true");
     }
 
     public void Imbarca(Coda<F_Turista> c) {
