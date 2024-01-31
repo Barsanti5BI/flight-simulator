@@ -22,6 +22,8 @@ public class F_TorreControllo extends Thread{
        ListaGate = list_gate;
        nomeAeroporto = aereoporto;
 
+       ListaGate.get(0).start();
+
     }
 
     public void run(){
@@ -29,8 +31,15 @@ public class F_TorreControllo extends Thread{
         // prima di dare "l'ok"
         // dovrebbe chiamare il metodo per riempire la stiva
         while(!viaggi.isEmpty()){
+            System.out.println("// DIO");
             setAereoGate();
+            System.out.println("// NEGRO");
             faiPartire();
+            System.out.println("// LEBBROSO");
+            try {
+                this.sleep(100);
+            }catch (Exception e){}
+
         }
     }
 
@@ -55,21 +64,23 @@ public class F_TorreControllo extends Thread{
     public void setAereoGate(){
         if( !AereiInArrivo.isEmpty())
         {
-            Aereo a = AereiInArrivo.pop();
-
             for (Gate g:ListaGate ) {
                 if(!g.Get_Gate_Aperto()) {
-                setDestinazione(a);
-                g.openGate(a,viaggi.get(a));
-            }
+                    Aereo a = AereiInArrivo.pop();
+                    setDestinazione(a);
+                    g.openGate(a,viaggi.get(a));
+                    System.out.println("// Aereo " + a.Get_ID() + " associato al gate " + g.Get_Id());
+                }
             }
         }
     }
 
+    public void Add_Aereo(Aereo a){
+        this.AereiInArrivo.push(a);
+    }
     public void Crea_Viaggi(String dest,Aereo a){
         viaggi.put(a,dest);
     }
-
     public void Set_Aereoporti(Dictionary<String,F_TorreControllo> Ap){
         Aereoporti=Ap;
     }

@@ -69,7 +69,7 @@ public class ScatolaNera extends Thread{
     public void InserisciPosizione(){
         ultimaPosizione = ZonedDateTime.now();
         logPosizione.put(ultimaPosizione,""+a.Get_Posizione());
-        System.out.println("ScatolaNera " + logPosizione.get(ultimaPosizione));
+        //System.out.println("ScatolaNera " + logPosizione.get(ultimaPosizione));
     }
 
     public HashMap<ZonedDateTime,String> Get_Log_Posizione(){

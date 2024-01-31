@@ -24,14 +24,18 @@ public class Turbina extends Thread{
                 random = r.nextInt(100);
                 if(percRiparazione == 0){
                     Disabilita();
+                    System.out.println("$ Liggi 1");
                 }else if(percRiparazione < 75 && random > 75){
                     Disabilita();
+                    System.out.println("$ Liggi 2");
                 }else if(percRiparazione < 50 && random > 50){
                     Disabilita();
+                    System.out.println("$ Liggi 3");
                 }else if(percRiparazione < 25 && random > 25){
                     Disabilita();
+                    System.out.println("$ Liggi troia");
                 }
-                Thread.sleep(500);
+                Thread.sleep(5000);
             }
         }catch(Exception ex) {
 
@@ -39,15 +43,15 @@ public class Turbina extends Thread{
     }
     public void Ripara(){
         percRiparazione = 100;
-        System.out.println("Turbina " + id + " riparata.");
+        System.out.println("$ Turbina " + id +  " dell'aereo " + a.Get_ID() + " riparata.");
     }
     public void Disabilita() {
         funzionante = false;
-        System.out.println("Turbina " + id + " disattivata.");
+        System.out.println("$ Turbina " + id + " dell'aereo " + a.Get_ID() + " disattivata.");
     }
     public void Attiva(){
         funzionante = true;
-        System.out.println("Turbina " + this.id + " è in funzione.");
+        System.out.println("$ Turbina " + this.id + " dell'aereo " + a.Get_ID() + " è in funzione.");
     }
     public double Get_Stato_Riparazione(){
         return this.percRiparazione;

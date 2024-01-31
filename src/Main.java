@@ -4,8 +4,7 @@ import Utils.Coda;
 import Aereo.Gate;
 import Aereo.F_TorreControllo;
 
-import java.util.LinkedList;
-import java.util.Random;
+import java.util.*;
 
 //TODO AGGIUNGERE PRINTS NEI METODI/THREADS
 //TODO Quando vengono effettuati i print nelle varie classi
@@ -26,11 +25,11 @@ public class Main {
 
       //Creazione lista di Aerei
       LinkedList<Aereo> list_aerei = new LinkedList<Aereo>();
-      for(int i = 0; i < 4; i++){
+      for(int i = 0; i < 1; i++){
          Aereo a = new Aereo(i, aereoporti.get(0));
          list_aerei.add(a);
       }
-      System.out.println("Aerei Creati.");
+      System.out.println("£ Aerei Creati.");
 
       //Creazione lista di Turisti
       LinkedList<F_Turista> lista_turisti = new LinkedList<F_Turista>();
@@ -53,7 +52,7 @@ public class Main {
          }
          k++;
       }
-      System.out.println("Turisti Creati.");
+      System.out.println("£ Turisti Creati.");
 
       //Divisione dei turisti in base alla destinazione
       Coda<F_Turista> coda_gate_1 = new Coda<F_Turista>();
@@ -78,18 +77,25 @@ public class Main {
       //Crezione dei Gate
       LinkedList<Gate> lista_gate = new LinkedList<Gate>();
       lista_gate.add(new Gate(1, coda_gate_1));
-      lista_gate.add(new Gate(2, coda_gate_2));
+      /*lista_gate.add(new Gate(2, coda_gate_2));
       lista_gate.add(new Gate(3, coda_gate_3));
-      lista_gate.add(new Gate(4, coda_gate_4));
-      System.out.println("Gate Creati.");
+      lista_gate.add(new Gate(4, coda_gate_4));*/
+      System.out.println("£ Gate Creati.");
 
       //Creazione lista Torri di Controllo
       LinkedList<F_TorreControllo> lista_torre_controllo = new LinkedList<F_TorreControllo>();
       lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(0), lista_gate));
-      lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(1), lista_gate));
+      /*lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(1), lista_gate));
       lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(2), lista_gate));
-      lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(3), lista_gate));
-      System.out.println("Torri di Controllo Create.");
+      lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(3), lista_gate));*/
+      System.out.println("£ Torri di Controllo Create.");
+
+      lista_torre_controllo.get(0).Add_Aereo(list_aerei.get(0));
+      Dictionary<Aereo, String> viaggi = new Hashtable<>();
+      viaggi.put(list_aerei.get(0), "New York Airport");
+      lista_torre_controllo.get(0).Set_Viaggi(viaggi);
+      lista_torre_controllo.get(0).start();
+
 
       //Creare Aerei
       //Creare Turisti con i controllo già fatti al gate
