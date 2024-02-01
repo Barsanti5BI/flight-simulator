@@ -70,6 +70,10 @@ public class Gate extends Thread{
                         }
                         System.out.println("(GT) Il turista " + t.Get_id() + " è arrivato a destinazione.");
                     }
+                    aereo.Set_Stato_Stiva(false);
+                    System.out.println("!!!! stiva false");
+                    aereo.Set_Stato_Turisti(false);
+                    System.out.println("!!!! turisti false");
                 }
 
 
@@ -161,6 +165,7 @@ public class Gate extends Thread{
             public void run() {
                 if(!TerminatiIControlli){
                     TerminatiIControlli = true;
+                    Set_Gate_Chiuso();
                     aereo.Get_Entrata().DareEntranti(codaEntrata);
                     aereo.Set_Stato_gate(true);
                     System.out.println("(GT) Il gate " + nomeGate + " si è chiuso.");
@@ -232,6 +237,9 @@ public class Gate extends Thread{
     public Aereo Get_Aereo(){
         return this.aereo;
     }
-
+    public void Esplodi_Aereo() {this.aereo = null;}
     public int Get_Id(){return this.nomeGate;}
+
+    public void Set_Gate_Chiuso() {this.GateAperto = false;}
+
 }

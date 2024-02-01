@@ -8,6 +8,12 @@ import java.util.*;
 
 public class Main {
    public static void main(String[] args) {
+      LinkedList<String> lista_nomi_aerei = new LinkedList<>();
+      lista_nomi_aerei.add("420");
+      lista_nomi_aerei.add("69");
+      lista_nomi_aerei.add("777");
+
+
       Random rnd = new Random();
 
       //Creazione lista di  Aereoporti
@@ -22,7 +28,7 @@ public class Main {
       //Creazione lista di Aerei
       LinkedList<Aereo> list_aerei = new LinkedList<Aereo>();
       for(int i = 0; i < 1; i++){
-         Aereo a = new Aereo(i, aereoporti.get(0));
+         Aereo a = new Aereo(lista_nomi_aerei.get(i), aereoporti.get(0));
          list_aerei.add(a);
       }
       System.out.println("(MAIN)   Aerei Creati.");
@@ -70,15 +76,23 @@ public class Main {
          }*/
       }
 
+      HashMap<String, F_TorreControllo> dict_ereoporti = new HashMap<>();
+
       LinkedList<F_TorreControllo> lista_torre_controllo = new LinkedList<>();
       int l = 1;
       int m = 0;
       for(int i = 0; i < 2; i++) {
          LinkedList<Gate> lista_gate = new LinkedList<Gate>();
          lista_gate.add(new Gate(l, coda_gate_1));
-         lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(m), lista_gate));
+         F_TorreControllo trc = new F_TorreControllo(aereoporti.get(m), lista_gate);
+         lista_torre_controllo.add(trc);
+         dict_ereoporti.put(aereoporti.get(m), trc);
+         m++;
          l++;
       }
+      System.out.println("(MAIN)   Gate Creati.");
+      System.out.println("(MAIN)   Torri di Controllo Create.");
+
 
 
       //Crezione dei Gate
@@ -87,7 +101,7 @@ public class Main {
       lista_gate.add(new Gate(2, coda_gate_2));
       lista_gate.add(new Gate(3, coda_gate_3));
       lista_gate.add(new Gate(4, coda_gate_4));*/
-      System.out.println("(MAIN)   Gate Creati.");
+
 
       //Creazione lista Torri di Controllo
       /*LinkedList<F_TorreControllo> lista_torre_controllo = new LinkedList<>();
@@ -95,17 +109,20 @@ public class Main {
       lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(1), lista_gate));
       /*lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(2), lista_gate));
       lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(3), lista_gate));*/
-      System.out.println("(MAIN)   Torri di Controllo Create.");
+
 
       lista_torre_controllo.get(0).Add_Aereo(list_aerei.get(0));
-      Dictionary<Aereo, String> viaggi = new Hashtable<>();
-      viaggi.put(list_aerei.get(0), aereoporti.get(1));
+
+      HashMap<String, String> viaggi = new HashMap<>();
+      viaggi.put(list_aerei.get(0).Get_ID(), aereoporti.get(1));
       lista_torre_controllo.get(0).Set_Viaggi(viaggi);
+      lista_torre_controllo.get(0).Set_Aereoporti(dict_ereoporti);
       lista_torre_controllo.get(0).start();
 
-      Dictionary<Aereo, String> viaggi2 = new Hashtable<>();
-      viaggi2.put(list_aerei.get(0), aereoporti.get(0));
+      HashMap<String, String> viaggi2 = new HashMap<>();
+      viaggi2.put(list_aerei.get(0).Get_ID(), aereoporti.get(0));
       lista_torre_controllo.get(1).Set_Viaggi(viaggi2);
+      lista_torre_controllo.get(1).Set_Aereoporti(dict_ereoporti);
       lista_torre_controllo.get(1).start();
 
 
