@@ -79,7 +79,7 @@ public class Gate extends Thread{
 
 
                 //entra solo se c'è un prossimo volo
-                System.out.println("(GT) Destinazione gate " + this.Get_Id() + " " + this.destinazione+".");
+               // System.out.println("(GT) Destinazione gate " + this.Get_Id() + " " + this.destinazione+".");
                 if(destinazione != null){
                     startTimer();
                     while(!codaGenerale.isEmpty()){   //creo la coda prioritaria e la coda normale
@@ -109,7 +109,7 @@ public class Gate extends Thread{
                         EffettuaControllo(t);
                     }
                     this.aereo.Set_Stato_Stiva(true);
-                    System.out.println("!!!! stiva true");
+                  //  System.out.println("!!!! stiva true");
                     // TerminatiIControlli verrà impostato su true dal TimerTask
                 }
                 //aereo = null;
@@ -147,18 +147,20 @@ public class Gate extends Thread{
     }
     public void startTimer() {
         timer = new Timer();
-        if (timer != null) {
-            timerTask = new TimerTask() {
-                @Override
-                public void run() {
+        timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                if(!TerminatiIControlli){
+                    System.out.println("(GT) Il gate " + nomeGate + " si è chiuso.");
                     TerminatiIControlli = true;
                     Set_Gate_Chiuso();
                     aereo.Get_Entrata().DareEntranti(codaEntrata);
-                    System.out.println("(GT) Il gate " + nomeGate + " si è chiuso.");
+                    aereo.Set_Stato_gate(true);
                 }
-            };
-            timer.schedule(timerTask, 20000);
-        }
+
+            }
+        };
+        timer.schedule(timerTask, 20000);
     }
 
 

@@ -3,12 +3,13 @@ package Aereo;
 
 public class Serbatoio {
     private int capacità;
-
     private int capacità_critica;
+    private boolean carburanteTerminato;
 
     public Serbatoio(){
         capacità = 100;
         capacità_critica = 30;
+        carburanteTerminato = false;
     }
 
     public void riempi(){
@@ -30,6 +31,7 @@ public class Serbatoio {
         }
         else{
             System.out.println("(SB)     Carburante nell'aereo terminato!");
+            carburanteTerminato = true;
         }
     }
 
@@ -38,5 +40,6 @@ public class Serbatoio {
     }
 
     public int Get_Capacità_Critica() {return capacità_critica;}
+    public boolean Get_CarburanteTerminato() {return carburanteTerminato;}
 
 }
