@@ -24,16 +24,19 @@ public class Gate extends Thread{
     //TOLGLIERE AEREO DAL COSTRUTTORE E FARE CICLO CHE LA TORRE DI CONTROLLO MODIFICA
     //PER FAR PARTIRE IL GATE
     public Gate(int nomeGate, Coda<F_Turista> codaGenerale){
-        timer = new Timer();
+        /*timer = new Timer();
+        if(timer != null){
+            timer.cancel();
+        }
         timerTask = new TimerTask() {
             @Override
             public void run() {
                 TerminatiIControlli = true;
                 aereo.Get_Entrata().DareEntranti(codaEntrata);
                 System.out.println("(GT) Il gate " + nomeGate + " si è chiuso.");
-                timer.cancel();
+                //timer.cancel();
             }
-        };
+        };*/
         codaPrioritaria = new Coda<>();
         codaNormale = new Coda<>();
         codaEntrata = new Coda<>();
@@ -74,8 +77,7 @@ public class Gate extends Thread{
                 //entra solo se c'è un prossimo volo
                 System.out.println("(GT) Destinazione gate " + this.Get_Id() + " " + this.destinazione+".");
                 if(destinazione != null){
-                    timer.schedule(timerTask, 20000); //Programma il TimerTask per eseguirlo dopo un ritardo specificato
-
+                    startTimer();
                     while(!codaGenerale.isEmpty()){   //creo la coda prioritaria e la coda normale
                         F_Turista t = codaGenerale.pop();
                         if(t.Get_Prioritario() || isPasseggeroInPrioritaria()){
@@ -139,6 +141,21 @@ public class Gate extends Thread{
             System.out.println(ex.getMessage());
         }
     }
+    public void startTimer() {
+        timer = new Timer();
+        if (timer != null) {
+            timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    TerminatiIControlli = true;
+                    aereo.Get_Entrata().DareEntranti(codaEntrata);
+                    System.out.println("(GT) Il gate " + nomeGate + " si è chiuso.");
+                }
+            };
+            timer.schedule(timerTask, 20000);
+        }
+    }
+
 
     public void Imbarca_Bagaglio(Aereo a, F_Turista f){
         a.Get_Stiva().Aggiungi_Bagaglio_Stiva(f.Get_Bag());
