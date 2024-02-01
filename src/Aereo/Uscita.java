@@ -21,7 +21,7 @@ public class Uscita extends Thread{
     public void run()
     {
         try{
-            System.out.println("I Turisti Stanno uscendo...");
+            System.out.println("(US) I Turisti stanno uscendo...");
             while(!uscenti.isEmpty())
             {
              if (uscenti.size() % 2==0)
@@ -42,7 +42,7 @@ public class Uscita extends Thread{
           }
         }
         catch (Exception e){};
-        System.out.println("I Turisti sono usciti.");
+        System.out.println("(US) I Turisti sono usciti.");
     }
 
     public Coda<F_Turista> GetUscitiDavanti() {return uscentiAnt;}

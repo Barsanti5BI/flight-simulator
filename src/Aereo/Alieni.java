@@ -23,7 +23,7 @@ public class Alieni extends Thread{
                 throw new RuntimeException(e);
             }
         }
-        System.out.println("HIHIHIHA!! VI ABBIAMO RUBATO!!!");
+        System.out.println("(AL) HIHIHIHA!! VI ABBIAMO RUBATO!!!");
     }
 
     public boolean Aereo_Rubato_Alieni(){

@@ -30,7 +30,7 @@ public class Entrata extends Thread{
     {
         try{
             while(!entranti.isEmpty()) {
-                System.out.println("I Turisti Stanno entrando...");
+                System.out.println("(EN)    I Turisti stanno entrando...");
                 if( entranti.size() % 2==0)
                 {
                     salitoant.push(entranti.pop());
@@ -42,7 +42,7 @@ public class Entrata extends Thread{
                     Thread.sleep(1);
                 }
             }
-            System.out.println("I Turisti sono entrati.");
+            System.out.println("(EN)    I Turisti sono entrati.");
         }
         catch (Exception e){};
     }

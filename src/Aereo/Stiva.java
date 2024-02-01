@@ -21,7 +21,7 @@ public class Stiva {
             Bagaglio bag = pila_bag.pop();
             lista_bagaglio.add(bag);
         }
-        System.out.println("Bagagli rimossi dalla stiva, stiva vuota.");
+        System.out.println("(STV)   Bagagli rimossi dalla stiva, stiva vuota.");
         return lista_bagaglio;
     }
 
@@ -30,10 +30,10 @@ public class Stiva {
         Bagaglio b = pila_bag.pop();
         peso_attuale -= b.get_peso();
         if(peso_attuale == 0){
-            System.out.println("Bagaglio rimosso dalla stiva, stiva vuota.");
+            System.out.println("(STV)  Bagaglio rimosso dalla stiva, stiva vuota.");
         }
         else{
-            System.out.println("Bagaglio rimosso dalla stiva.");
+            System.out.println("(STV)  Bagaglio rimosso dalla stiva.");
         }
         return b;
     }
@@ -44,7 +44,7 @@ public class Stiva {
             pila_bag.push(b);
             peso_attuale += b.get_peso();
         }
-        System.out.println("Bagagli inseriti nella stiva, stiva piena");
+        System.out.println("(STV)  Bagagli inseriti nella stiva, stiva piena");
         return true;
     }
 
@@ -52,7 +52,7 @@ public class Stiva {
     public boolean Aggiungi_Bagaglio_Stiva(Bagaglio b){
         pila_bag.push(b);
         peso_attuale += b.get_peso();
-        System.out.println("Bagaglio inserito nella stiva.");
+        System.out.println("(STV)  Bagaglio inserito nella stiva.");
         return true;
     }
 

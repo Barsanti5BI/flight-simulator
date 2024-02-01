@@ -6,10 +6,6 @@ import Aereo.F_TorreControllo;
 
 import java.util.*;
 
-//TODO AGGIUNGERE PRINTS NEI METODI/THREADS
-//TODO Quando vengono effettuati i print nelle varie classi
-//TODO sarebbe meglio identificare la classe che ha effettuato quel print
-
 public class Main {
    public static void main(String[] args) {
       Random rnd = new Random();
@@ -18,10 +14,10 @@ public class Main {
       LinkedList<String> aereoporti = new LinkedList<String>();
       aereoporti.add("ITT E.Barsanti Airport");
       aereoporti.add("New York Airport");
-      aereoporti.add("Pisello");
-      aereoporti.add("Marco");
-      aereoporti.add("Tristezza");
-      System.out.println("Aereoporti Creati.");
+      aereoporti.add("Messina Airport");
+      aereoporti.add("Milano/Linate Airport");
+      aereoporti.add("London Airport");
+      System.out.println("(MAIN)   Aereoporti Creati.");
 
       //Creazione lista di Aerei
       LinkedList<Aereo> list_aerei = new LinkedList<Aereo>();
@@ -29,7 +25,7 @@ public class Main {
          Aereo a = new Aereo(i, aereoporti.get(0));
          list_aerei.add(a);
       }
-      System.out.println("£ Aerei Creati.");
+      System.out.println("(MAIN)   Aerei Creati.");
 
       //Creazione lista di Turisti
       LinkedList<F_Turista> lista_turisti = new LinkedList<F_Turista>();
@@ -52,8 +48,7 @@ public class Main {
          }
          k++;
       }
-      System.out.println("£ Turisti Creati.");
-      System.out.println("Size lista turisti = " + lista_turisti.size());
+      System.out.println("(MAIN)   Turisti Creati.");
 
       //Divisione dei turisti in base alla destinazione
       Coda<F_Turista> coda_gate_1 = new Coda<F_Turista>();
@@ -81,7 +76,7 @@ public class Main {
       /*lista_gate.add(new Gate(2, coda_gate_2));
       lista_gate.add(new Gate(3, coda_gate_3));
       lista_gate.add(new Gate(4, coda_gate_4));*/
-      System.out.println("£ Gate Creati.");
+      System.out.println("(MAIN)   Gate Creati.");
 
       //Creazione lista Torri di Controllo
       LinkedList<F_TorreControllo> lista_torre_controllo = new LinkedList<F_TorreControllo>();
@@ -89,7 +84,7 @@ public class Main {
       /*lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(1), lista_gate));
       lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(2), lista_gate));
       lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(3), lista_gate));*/
-      System.out.println("£ Torri di Controllo Create.");
+      System.out.println("(MAIN)   Torri di Controllo Create.");
 
       lista_torre_controllo.get(0).Add_Aereo(list_aerei.get(0));
       Dictionary<Aereo, String> viaggi = new Hashtable<>();

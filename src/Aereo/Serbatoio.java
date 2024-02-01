@@ -19,17 +19,17 @@ public class Serbatoio {
         if(capacità>0){
             capacità--;
             if(capacità == 75){
-                System.out.println("Carburante attuale = " + Get_Capacità() + ".");
+                System.out.println("(SB)     Carburante attuale = " + Get_Capacità() + ".");
             }
             else if(capacità == 50){
-                System.out.println("Carburante attuale = " + Get_Capacità() + ".");
+                System.out.println("(SB)     Carburante attuale = " + Get_Capacità() + ".");
             }
             else if(capacità == 25){
-                System.out.println("Carburante attuale = " + Get_Capacità() + ".");
+                System.out.println("(SB)     Carburante attuale = " + Get_Capacità() + ".");
             }
         }
         else{
-            System.out.println("Carburante nell'aereo terminato!");
+            System.out.println("(SB)     Carburante nell'aereo terminato!");
         }
     }
 

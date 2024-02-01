@@ -31,11 +31,11 @@ public class F_TorreControllo extends Thread{
         // prima di dare "l'ok"
         // dovrebbe chiamare il metodo per riempire la stiva
         while(!viaggi.isEmpty()){
-            System.out.println("// DIO");
+            System.out.println("(TRC)  DIO");
             setAereoGate();
-            System.out.println("// NEGRO");
+            System.out.println("(TRC)  NEGRO");
             faiPartire();
-            System.out.println("// LEBBROSO");
+            System.out.println("(TRC)  LEBBROSO");
             try {
                 this.sleep(100);
             }catch (Exception e){}
@@ -54,7 +54,8 @@ public class F_TorreControllo extends Thread{
                     }catch (Exception e){ }
                 }
                 Aereoporti.get(viaggi.get(g.Get_Aereo().Get_AP_Destinazione())).AereiInArrivo.push(g.Get_Aereo());
-
+                //qui da qualche parte dovrebbe essere settato l'aereoporto attuale dell'aereo
+                //che permette all'aereo di uscire dal ciclo del volo e quindi di atterrare
             }
         }
         }
@@ -69,7 +70,7 @@ public class F_TorreControllo extends Thread{
                     Aereo a = AereiInArrivo.pop();
                     setDestinazione(a);
                     g.openGate(a,viaggi.get(a));
-                    System.out.println("// Aereo " + a.Get_ID() + " associato al gate " + g.Get_Id());
+                    System.out.println("(TRC)  Aereo " + a.Get_ID() + " associato al gate " + g.Get_Id()+".");
                 }
             }
         }

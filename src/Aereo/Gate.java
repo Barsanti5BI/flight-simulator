@@ -30,7 +30,7 @@ public class Gate extends Thread{
             public void run() {
                 TerminatiIControlli = true;
                 aereo.Get_Entrata().DareEntranti(codaEntrata);
-                System.out.println("% Il gate " + nomeGate + " si è chiuso");
+                System.out.println("(GT) Il gate " + nomeGate + " si è chiuso.");
                 timer.cancel();
             }
         };
@@ -52,10 +52,10 @@ public class Gate extends Thread{
             try {
                 while(!GateAperto){
                     sleep(7000);
-                    System.out.println("% Gate " + this.Get_Id() + " aspetta.....");
+                    System.out.println("(GT) Gate " + this.Get_Id() + " aspetta.....");
                 }
 
-                System.out.println("% sono uscito");
+                System.out.println("(GT) sono uscito!");
                 //entra solo se è arrivato un aereo con i passeggeri
                 if(!aereo.Get_Uscita().GetUsciti().isEmpty()){  //ciclo che fa uscire dall'aereo i turisti
                     LinkedList<Bagaglio> lista_bagagli = this.aereo.Get_Stiva().Svuota_Stiva();
@@ -66,13 +66,13 @@ public class Gate extends Thread{
                                 t.Set_Bagaglio(b);
                             }
                         }
-                        System.out.println("% Il turista " + t.Get_id() + " è arrivato a destinazione.");
+                        System.out.println("(GT) Il turista " + t.Get_id() + " è arrivato a destinazione.");
                     }
                 }
 
 
                 //entra solo se c'è un prossimo volo
-                System.out.println("Destinazione gate " + this.Get_Id() + " " + this.destinazione);
+                System.out.println("(GT) Destinazione gate " + this.Get_Id() + " " + this.destinazione+".");
                 if(destinazione != null){
                     timer.schedule(timerTask, 20000); //Programma il TimerTask per eseguirlo dopo un ritardo specificato
 
@@ -81,16 +81,16 @@ public class Gate extends Thread{
                         if(t.Get_Prioritario() || isPasseggeroInPrioritaria()){
                             if (!t.Get_Prioritario())
                             {
-                                System.out.println("% Il turista " + t.Get_id() + " è stato fortunato ed è stato fatta entrare nella coda prioritaria.");
+                                System.out.println("(GT) Il turista " + t.Get_id() + " è stato fortunato ed è stato fatta entrare nella coda prioritaria.");
                             }
                             codaPrioritaria.push(t);
                             sleep(100);
-                            System.out.println("% Il turista "+ t.Get_id() + " è entrato nella coda prioritaria nel gate " + nomeGate + ".");
+                            System.out.println("(GT) Il turista "+ t.Get_id() + " è entrato nella coda prioritaria nel gate " + nomeGate + ".");
                         }
                         else{
                             codaNormale.push(t);
                             sleep(100);
-                            System.out.println("% Il turista " + t.Get_id() + " è entrato nella coda normale nel gate " + nomeGate + ".");
+                            System.out.println("(GT) Il turista " + t.Get_id() + " è entrato nella coda normale nel gate " + nomeGate + ".");
                         }
                     }
                     while (!codaPrioritaria.isEmpty()) {  //prima la coda prioritaria
@@ -126,14 +126,14 @@ public class Gate extends Thread{
         try{
             if(destinazione.equals(t.Get_Destinazione())){
                 sleep(100);
-                System.out.println("% Il turista " + t.Get_id() + " ha effettuato il controllo effettuato nel gate " + nomeGate + ".");
+                System.out.println("(GT) Il turista " + t.Get_id() + " ha effettuato il controllo effettuato nel gate " + nomeGate + ".");
                 Imbarca_Bagaglio(this.aereo, t);
                 t.Set_Bagaglio(null);
                 codaEntrata.push(t); //se passa il gate metto il turista nella coda per entrare nell'aereo
             }
             else{
                 sleep(100);
-                System.out.println("% Il turista " + t.Get_id() + " ha sbagliato gate" + ".");
+                System.out.println("(GT) Il turista " + t.Get_id() + " ha sbagliato gate" + ".");
             }
         }catch (InterruptedException ex){
             System.out.println(ex.getMessage());
