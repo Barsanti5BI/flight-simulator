@@ -31,13 +31,10 @@ public class F_TorreControllo extends Thread{
         // prima di dare "l'ok"
         // dovrebbe chiamare il metodo per riempire la stiva
         while(!viaggi.isEmpty()){
-            System.out.println("(TRC)  DIO");
             setAereoGate();
-            System.out.println("(TRC)  NEGRO");
             faiPartire();
-            System.out.println("(TRC)  LEBBROSO");
             try {
-                this.sleep(100);
+                this.sleep(1000);
             }catch (Exception e){}
 
         }
