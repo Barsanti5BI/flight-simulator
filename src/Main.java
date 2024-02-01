@@ -70,27 +70,43 @@ public class Main {
          }*/
       }
 
+      LinkedList<F_TorreControllo> lista_torre_controllo = new LinkedList<>();
+      int l = 1;
+      int m = 0;
+      for(int i = 0; i < 2; i++) {
+         LinkedList<Gate> lista_gate = new LinkedList<Gate>();
+         lista_gate.add(new Gate(l, coda_gate_1));
+         lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(m), lista_gate));
+         l++;
+      }
+
+
       //Crezione dei Gate
-      LinkedList<Gate> lista_gate = new LinkedList<Gate>();
+      /*LinkedList<Gate> lista_gate = new LinkedList<Gate>();
       lista_gate.add(new Gate(1, coda_gate_1));
-      /*lista_gate.add(new Gate(2, coda_gate_2));
+      lista_gate.add(new Gate(2, coda_gate_2));
       lista_gate.add(new Gate(3, coda_gate_3));
       lista_gate.add(new Gate(4, coda_gate_4));*/
       System.out.println("(MAIN)   Gate Creati.");
 
       //Creazione lista Torri di Controllo
-      LinkedList<F_TorreControllo> lista_torre_controllo = new LinkedList<F_TorreControllo>();
+      /*LinkedList<F_TorreControllo> lista_torre_controllo = new LinkedList<>();
       lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(0), lista_gate));
-      /*lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(1), lista_gate));
-      lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(2), lista_gate));
+      lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(1), lista_gate));
+      /*lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(2), lista_gate));
       lista_torre_controllo.add(new F_TorreControllo(aereoporti.get(3), lista_gate));*/
       System.out.println("(MAIN)   Torri di Controllo Create.");
 
       lista_torre_controllo.get(0).Add_Aereo(list_aerei.get(0));
       Dictionary<Aereo, String> viaggi = new Hashtable<>();
-      viaggi.put(list_aerei.get(0), "New York Airport");
+      viaggi.put(list_aerei.get(0), aereoporti.get(1));
       lista_torre_controllo.get(0).Set_Viaggi(viaggi);
       lista_torre_controllo.get(0).start();
+
+      Dictionary<Aereo, String> viaggi2 = new Hashtable<>();
+      viaggi2.put(list_aerei.get(0), aereoporti.get(0));
+      lista_torre_controllo.get(1).Set_Viaggi(viaggi2);
+      lista_torre_controllo.get(1).start();
 
 
       //Creare Aerei
