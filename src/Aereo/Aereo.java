@@ -51,7 +51,9 @@ public class Aereo extends  Thread {
         bagnidavanti = new Bagno();
         bagnoretro = new Bagno();
         entrata = new Entrata();
+        entrata.start();
         uscita = new Uscita(this);
+        uscita.start();
         for (int i = 0; i < 4; i++) {
             Turbina n = new Turbina(this, i);
             turbine.add(n);
@@ -77,7 +79,7 @@ public class Aereo extends  Thread {
 
     public void f_run() {
         int k = 0;
-        while (ap_destinazione != ap_attuale) {//per soddisfare condizione la posizione attuale deve essere impostata dalla torre di controllo
+        while (ap_destinazione != ap_attuale) {
             if (aereo_pronto) {
                 System.out.println("(AE)   L'aereo è partito!");
                 try {
@@ -143,7 +145,8 @@ public class Aereo extends  Thread {
     public void run() {
         int j = 0;
         int k = 0;
-        while (ap_destinazione != ap_attuale) {//per soddisfare condizione la posizione attuale deve essere impostata dalla torre di controllo
+        while (ap_destinazione != ap_attuale) {
+            //fare controllo carburante
             if (aereo_pronto && gateTerminato) {
                 try {
                     if(j == 0){
@@ -369,6 +372,7 @@ public class Aereo extends  Thread {
     }
 
     public void Imbarca(Coda<F_Turista> c) {
+        System.out.println("DIOPENG" + c.size());
         for (int i = 0; i < c.size(); i++) {
             F_Turista t = c.pop();
             matricePostiAereo[t.Get_posto_colonna()][t.Get_posto_riga()] = t;

@@ -7,15 +7,6 @@ public class Entrata extends Thread{
     private Coda<F_Turista> salitopost;
     int i=0;
 
-    // prende la coda di persone in entrata
-    public void DareEntranti(Coda<F_Turista> e)
-    {
-        while (!e.isEmpty()){
-          F_Turista a = e.pop();
-          entranti.push(a);
-        }
-    }
-
     public Entrata()
     {
         entranti=new Coda<F_Turista>();
@@ -34,17 +25,27 @@ public class Entrata extends Thread{
                 if( entranti.size() % 2==0)
                 {
                     salitoant.push(entranti.pop());
-                    Thread.sleep(1);
+                    Thread.sleep(10);
                 }
                 if(  entranti.size() % 2==1)
                 {
                     salitopost.push(entranti.pop());
-                    Thread.sleep(1);
+                    Thread.sleep(10);
                 }
+                this.sleep(100);
             }
             System.out.println("(EN)    I Turisti sono entrati.");
         }
         catch (Exception e){};
+    }
+
+    // prende la coda di persone in entrata
+    public void DareEntranti(Coda<F_Turista> e)
+    {
+        while (!e.isEmpty()){
+            F_Turista a = e.pop();
+            entranti.push(a);
+        }
     }
 
     public Coda<F_Turista> GetsalitiDavanti() {return  salitoant;}
