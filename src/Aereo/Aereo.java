@@ -30,6 +30,7 @@ public class Aereo extends  Thread {
     private boolean stiva_piena;
     private boolean turbine_funzionanti;
     private boolean aereo_pronto;
+    private boolean gateTerminato;
     private Random rnd;
 
     public Aereo(int Id, String ap_att) {
@@ -143,7 +144,7 @@ public class Aereo extends  Thread {
         int j = 0;
         int k = 0;
         while (ap_destinazione != ap_attuale) {//per soddisfare condizione la posizione attuale deve essere impostata dalla torre di controllo
-            if (aereo_pronto) {
+            if (aereo_pronto && gateTerminato) {
                 try {
                     if(j == 0){
                         if (sciopero() && k == 0) {
@@ -438,6 +439,8 @@ public class Aereo extends  Thread {
     public void Set_Stato_Stiva(boolean stato){
         this.stiva_piena = stato;
     }
+    public void Set_Stato_gate(boolean stato){this.gateTerminato = stato;
+    System.out.println("££££££" + gateTerminato);}
 
     public void SetPosizione(String p){
         ap_attuale = p;
