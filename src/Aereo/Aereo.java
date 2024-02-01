@@ -442,10 +442,10 @@ public class Aereo extends  Thread {
     public void Set_Stato_Stiva(boolean stato){
         this.stiva_piena = stato;
     }
-    public void SetPosizione(){
-        ap_attuale = ap_destinazione;
-    }
     public void Set_Stato_gate(boolean stato){this.gateTerminato = stato;}
+
+    public void SetPosizione(){
+        ap_attuale = ap_destinazione;}
 
     public void Set_AP_Destinazione(String destinazione){
         this.ap_destinazione = destinazione;
