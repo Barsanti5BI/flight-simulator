@@ -235,6 +235,7 @@ public class Aereo extends  Thread {
         }
         if(serbatoio.Get_Capacità() == 100){
             serbatoio_pieno = true;
+            System.out.println("!!!! serbatoio true");
         }
         else if(serbatoio.Get_Capacità() <= serbatoio.Get_Capacità_Critica()){
             Rifornisci_Aereo();
