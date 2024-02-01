@@ -116,6 +116,8 @@ public class Gate extends Thread{
                             TerminatiIControlli = true;
                             GateAperto = false;
                             aereo.Get_Entrata().DareEntranti(codaEntrata);
+                            System.out.println("(GT) i turisti stanno entrandonel aereo");
+                            aereo.Get_Entrata().start();
                             aereo.Set_Stato_gate(true);
                             System.out.println("(GT) Il gate " + nomeGate + " si è chiuso.");
                         }
@@ -161,13 +163,18 @@ public class Gate extends Thread{
     public void startTimer() {
         timer = new Timer();
         timerTask = new TimerTask() {
+           //secondi countdown
+            int second=4;
+
             @Override
             public void run() {
+                second--;
+                aereo.Get_Entrata().DareEntranti(codaEntrata);
+                aereo.Get_Entrata().start();
+              //  aereo.Get_Entrata().TakeTime(second);
                 if(!TerminatiIControlli){
                     TerminatiIControlli = true;
                     Set_Gate_Chiuso();
-                    aereo.Get_Entrata().DareEntranti(codaEntrata);
-                    aereo.Get_Entrata().start();
                     aereo.Set_Stato_gate(true);
                     System.out.println("(GT) Il gate " + nomeGate + " si è chiuso.");
 
@@ -240,7 +247,7 @@ public class Gate extends Thread{
     }
     public void Esplodi_Aereo() {this.aereo = null;}
     public int Get_Id(){return this.nomeGate;}
-
+    public Timer Get_Timer(){return timer;};
     public void Set_Gate_Chiuso() {this.GateAperto = false;}
 
 }

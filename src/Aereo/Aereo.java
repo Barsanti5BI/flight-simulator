@@ -376,10 +376,13 @@ public class Aereo extends  Thread {
     }
 
     public void Imbarca_Passeggieri() {
-        Imbarca(entrata.GetsalitiDavanti());
-        Imbarca(entrata.GetsalitiDietro());
-        turisti_imbarcati = true;
-        System.out.println("!!!! turisti true");
+
+            Imbarca(entrata.GetsalitiDavanti());
+            Imbarca(entrata.GetsalitiDietro());
+            turisti_imbarcati = true;
+            System.out.println("!!!! turisti true");
+
+
     }
 
     public void Imbarca(Coda<F_Turista> c) {

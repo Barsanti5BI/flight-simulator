@@ -39,8 +39,8 @@ public class Main {
       int id_tur = 0;
       for(Aereo a : list_aerei){
          String dest = aereoporti.get(1);
-         for(int i = 1; i <= 4; i++){
-            for(int j = 1; j <= 10; j++){
+         for(int i = 0; i < 4; i++){
+            for(int j = 0; j < 10; j++){
                if(rnd.nextInt(0, 20) % 2 == 0){
                   F_Turista turista = new F_Turista(id_tur, a.Get_ID(), i, j, true, dest);
                   lista_turisti.add(turista);

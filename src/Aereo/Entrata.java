@@ -6,6 +6,9 @@ public class Entrata extends Thread{
     private Coda<F_Turista> salitoant;
     private Coda<F_Turista> salitopost;
     int i=0;
+    private int timer;
+
+
 
     public Entrata()
     {
@@ -13,24 +16,29 @@ public class Entrata extends Thread{
         salitoant=new Coda<F_Turista>();
         salitopost=new Coda<F_Turista>();
         i=entranti.size();
-    }
 
+    }
+  /*  public void TakeTime(int timer)
+     {
+         this.timer=timer;
+     }
+*/
     //divide in 2 file
 
     public void run()
     {
-        try{
-            while(!entranti.isEmpty()) {
-                System.out.println("(EN)    I Turisti stanno entrando...");
+        try{//&& timer>0
+            while(!entranti.isEmpty() ) {
+                System.out.println("(EN)  I Turisti stanno entrando...");
                 if( entranti.size() % 2==0)
                 {
                     salitoant.push(entranti.pop());
-                    Thread.sleep(10);
+                    Thread.sleep(100);
                 }
                 if(  entranti.size() % 2==1)
                 {
                     salitopost.push(entranti.pop());
-                    Thread.sleep(10);
+                    Thread.sleep(100);
                 }
                 this.sleep(100);
             }
@@ -59,6 +67,7 @@ public class Entrata extends Thread{
     }
     public int GetNpersonedavanti(){return salitoant.size();}
     public int GetNpersoneDietro(){ return salitopost.size();}
+    public Coda<F_Turista> GetEntranti(){ return entranti;}
 
 }
 
