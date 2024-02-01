@@ -53,7 +53,9 @@ public class F_TorreControllo extends Thread{
                         sleep(10);;
                     }catch (Exception e){ }
                 }
+                g.Get_Aereo().SetPosizione(nomeAeroporto);
                 Aereoporti.get(viaggi.get(g.Get_Aereo().Get_AP_Destinazione())).AereiInArrivo.push(g.Get_Aereo());
+
                 //qui da qualche parte dovrebbe essere settato l'aereoporto attuale dell'aereo
                 //che permette all'aereo di uscire dal ciclo del volo e quindi di atterrare
             }
