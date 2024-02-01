@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Aereo extends  Thread {
-    private int id;
+    private String id;
     private String ap_destinazione;
     private String ap_attuale;
     private int posizione;
@@ -32,7 +32,7 @@ public class Aereo extends  Thread {
     private boolean aereo_pronto;
     private Random rnd;
 
-    public Aereo(int Id, String ap_att) {
+    public Aereo(String Id, String ap_att) {
         rnd = new Random();
 
         this.id = Id;
@@ -213,6 +213,7 @@ public class Aereo extends  Thread {
         if(!alieni.Get_Aereo()){
             Atterra();
             System.out.println("(AE)   L'aereo " + this.Get_ID() + " è atterrato!");
+            System.out.println();
         }
         else{
             //se serve fare qualcosa
@@ -280,8 +281,9 @@ public class Aereo extends  Thread {
             t.Disabilita();
         }
         turbine_funzionanti = false;
+        System.out.println("!!!! turbine false");
         serbatoio_pieno = false;
-        System.out.println("(AE)   L'aereo " + this.Get_ID() + " è atterrato.");
+        System.out.println("!!!! serbatoio false");
     }
 
     //Metodo di Controllo che controlla lo stato delle turbine e nel caso 3 o più turbine siano
@@ -390,9 +392,6 @@ public class Aereo extends  Thread {
 
     }
 
-    public void Set_AP_Destinazione(String destinazione){
-        this.ap_destinazione = destinazione;
-    }
     public Entrata Get_Entrata() {
         return entrata;
     }
@@ -426,7 +425,7 @@ public class Aereo extends  Thread {
     public Serbatoio Get_Serbatoio() {
         return this.serbatoio;
     }
-    public int Get_ID() {
+    public String Get_ID() {
         return this.id;
     }
     public int Get_Posizione() {
@@ -438,8 +437,11 @@ public class Aereo extends  Thread {
     public void Set_Stato_Stiva(boolean stato){
         this.stiva_piena = stato;
     }
-
-    public void SetPosizione(String p){
-        ap_attuale = p;
+    public void SetPosizione(){
+        ap_attuale = ap_destinazione;
     }
+    public void Set_AP_Destinazione(String destinazione){
+        this.ap_destinazione = destinazione;
+    }
+    public void Set_Stato_Turisti(boolean stato) {turisti_imbarcati = stato;}
 }

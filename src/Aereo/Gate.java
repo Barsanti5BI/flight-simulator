@@ -58,7 +58,7 @@ public class Gate extends Thread{
                     System.out.println("(GT) Gate " + this.Get_Id() + " aspetta.....");
                 }
 
-                System.out.println("(GT) sono uscito!");
+                //System.out.println("(GT) sono uscito!");
                 //entra solo se è arrivato un aereo con i passeggeri
                 if(!aereo.Get_Uscita().GetUsciti().isEmpty()){  //ciclo che fa uscire dall'aereo i turisti
                     LinkedList<Bagaglio> lista_bagagli = this.aereo.Get_Stiva().Svuota_Stiva();
@@ -71,6 +71,10 @@ public class Gate extends Thread{
                         }
                         System.out.println("(GT) Il turista " + t.Get_id() + " è arrivato a destinazione.");
                     }
+                    aereo.Set_Stato_Stiva(false);
+                    System.out.println("!!!! stiva false");
+                    aereo.Set_Stato_Turisti(false);
+                    System.out.println("!!!! turisti false");
                 }
 
 
@@ -148,6 +152,7 @@ public class Gate extends Thread{
                 @Override
                 public void run() {
                     TerminatiIControlli = true;
+                    Set_Gate_Chiuso();
                     aereo.Get_Entrata().DareEntranti(codaEntrata);
                     System.out.println("(GT) Il gate " + nomeGate + " si è chiuso.");
                 }
@@ -216,6 +221,9 @@ public class Gate extends Thread{
     public Aereo Get_Aereo(){
         return this.aereo;
     }
-
+    public void Esplodi_Aereo() {this.aereo = null;}
     public int Get_Id(){return this.nomeGate;}
+
+    public void Set_Gate_Chiuso() {this.GateAperto = false;}
+
 }

@@ -11,8 +11,8 @@ public class F_TorreControllo extends Thread{
     private  Coda<Aereo> AereiInPartenza;
     private  Coda<Aereo> AereiInArrivo;
     private LinkedList<Gate> ListaGate;
-    private Dictionary<String,F_TorreControllo> Aereoporti;
-    private Dictionary<Aereo, String> viaggi;
+    private HashMap<String,F_TorreControllo> Aereoporti;
+    private HashMap<String, String> viaggi;
 
 
     public F_TorreControllo(String aereoporto, LinkedList<Gate> list_gate){
@@ -50,8 +50,13 @@ public class F_TorreControllo extends Thread{
                         sleep(10);;
                     }catch (Exception e){ }
                 }
-                g.Get_Aereo().SetPosizione(nomeAeroporto);
-                Aereoporti.get(viaggi.get(g.Get_Aereo().Get_AP_Destinazione())).AereiInArrivo.push(g.Get_Aereo());
+                g.Get_Aereo().SetPosizione();
+                //Aereoporti.get(viaggi.get(g.Get_Aereo())).AereiInArrivo.push(g.Get_Aereo());
+                Aereoporti.get(g.Get_Aereo().Get_AP_Destinazione()).AereiInArrivo.push(g.Get_Aereo());
+
+
+                //g.Esplodi_Aereo();
+                //g.Set_Gate_Chiuso();
 
                 //qui da qualche parte dovrebbe essere settato l'aereoporto attuale dell'aereo
                 //che permette all'aereo di uscire dal ciclo del volo e quindi di atterrare
@@ -68,7 +73,7 @@ public class F_TorreControllo extends Thread{
                 if(!g.Get_Gate_Aperto()) {
                     Aereo a = AereiInArrivo.pop();
                     setDestinazione(a);
-                    g.openGate(a,viaggi.get(a));
+                    g.openGate(a,viaggi.get(a.Get_ID()));
                     System.out.println("(TRC)  Aereo " + a.Get_ID() + " associato al gate " + g.Get_Id()+".");
                 }
             }
@@ -79,16 +84,16 @@ public class F_TorreControllo extends Thread{
         this.AereiInArrivo.push(a);
     }
     public void Crea_Viaggi(String dest,Aereo a){
-        viaggi.put(a,dest);
+        viaggi.put(a.Get_ID(),dest);
     }
-    public void Set_Aereoporti(Dictionary<String,F_TorreControllo> Ap){
+    public void Set_Aereoporti(HashMap<String,F_TorreControllo> Ap){
         Aereoporti=Ap;
     }
-    public void Set_Viaggi(Dictionary<Aereo,String> v){
+    public void Set_Viaggi(HashMap<String ,String> v){
         viaggi = v;
     }
     public void setDestinazione(Aereo a) {
-        a.Set_AP_Destinazione(viaggi.get(a));
+        a.Set_AP_Destinazione(viaggi.get(a.Get_ID()));
     }
 
 

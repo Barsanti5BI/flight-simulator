@@ -6,12 +6,12 @@ public class F_Turista {
     private int id;
     private int posto_riga;
     private int posto_colonna;
-    private int id_aereo;
+    private String id_aereo;
     private Bagaglio bagaglio;
     private boolean prioritario;
     private String destinazione;
 
-    public F_Turista(int id, int id_ae, int p_col, int p_rig,boolean prioritario,String destinazione){
+    public F_Turista(int id, String id_ae, int p_col, int p_rig,boolean prioritario,String destinazione){
         this.id_aereo = id_ae;
         this.id = id;
         this.bagaglio = new Bagaglio(this.id);
@@ -26,7 +26,7 @@ public class F_Turista {
     }
     public int Get_posto_riga() {return this.posto_riga;}
     public int Get_posto_colonna() {return this.posto_colonna;}
-    public int Get_id_aereo() {return this.id_aereo;}
+    public String Get_id_aereo() {return this.id_aereo;}
     public int Get_id() {return this.id;}
     public boolean Get_Prioritario(){return prioritario;}
     public String Get_Destinazione(){return destinazione;}
