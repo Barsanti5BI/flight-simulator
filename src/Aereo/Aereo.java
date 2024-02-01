@@ -85,7 +85,7 @@ public class Aereo extends  Thread {
                         k++;
                     }
                     //Feature Riccardo Pettenuzzo
-                    if (alieni.aereo_rubato) {
+                    if (alieni.Get_Aereo()) {
                         break;
                     }
                     this.sleep(1000);
@@ -153,11 +153,13 @@ public class Aereo extends  Thread {
                         System.out.println("(AE)   L'aereo " + this.Get_ID() + " è partito!");
                         j++;
                     }
-                    if(rnd.nextInt(1, 10) == 5){
+                    if(this.Get_Posizione() % 10 == 0){
                         System.out.println("(AE)   Posizione aereo " + this.Get_ID() + " = " + this.Get_Posizione() +".");
+                        System.out.println("(AE)   Posizione attuale = " + this.Get_AP_Attuale()+".");
+                        System.out.println("(AE)   Destinazione = " + this.Get_AP_Destinazione()+".");
                     }
                     //Feature Riccardo Pettenuzzo
-                    if (alieni.aereo_rubato) {
+                    if (alieni.Get_Aereo()) {
                         break;
                     }
                     this.sleep(1000);
@@ -208,8 +210,13 @@ public class Aereo extends  Thread {
                 }catch (Exception e){}
             }
         }
-        Atterra();
-        System.out.println("(AE)   L'aereo " + this.Get_ID() + " è atterrato!");
+        if(!alieni.Get_Aereo()){
+            Atterra();
+            System.out.println("(AE)   L'aereo " + this.Get_ID() + " è atterrato!");
+        }
+        else{
+            //se serve fare qualcosa
+        }
     }
 
 
