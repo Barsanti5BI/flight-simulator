@@ -52,7 +52,7 @@ public class Stiva {
     public boolean Aggiungi_Bagaglio_Stiva(Bagaglio b){
         pila_bag.push(b);
         peso_attuale += b.get_peso();
-        System.out.println("(STV)  Bagaglio inserito nella stiva.");
+        //System.out.println("(STV)  Bagaglio inserito nella stiva.");
         return true;
     }
 

@@ -439,8 +439,7 @@ public class Aereo extends  Thread {
     public void Set_Stato_Stiva(boolean stato){
         this.stiva_piena = stato;
     }
-    public void Set_Stato_gate(boolean stato){this.gateTerminato = stato;
-    System.out.println("££££££" + gateTerminato);}
+    public void Set_Stato_gate(boolean stato){this.gateTerminato = stato;}
 
     public void SetPosizione(String p){
         ap_attuale = p;
