@@ -167,6 +167,7 @@ public class Gate extends Thread{
                     TerminatiIControlli = true;
                     Set_Gate_Chiuso();
                     aereo.Get_Entrata().DareEntranti(codaEntrata);
+                    aereo.Get_Entrata().start();
                     aereo.Set_Stato_gate(true);
                     System.out.println("(GT) Il gate " + nomeGate + " si è chiuso.");
 

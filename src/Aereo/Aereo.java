@@ -51,7 +51,6 @@ public class Aereo extends  Thread {
         bagnidavanti = new Bagno();
         bagnoretro = new Bagno();
         entrata = new Entrata();
-        entrata.start();
         uscita = new Uscita(this);
         uscita.start();
         for (int i = 0; i < 4; i++) {
@@ -145,7 +144,7 @@ public class Aereo extends  Thread {
     public void run() {
         int j = 0;
         int k = 0;
-        while (ap_destinazione != ap_attuale) {
+        while (ap_destinazione != ap_attuale && !serbatoio.Get_CarburanteTerminato()) {
             //fare controllo carburante
             if (aereo_pronto && gateTerminato) {
                 try {
@@ -214,13 +213,25 @@ public class Aereo extends  Thread {
                 }catch (Exception e){}
             }
         }
-        if(!alieni.Get_Aereo()){
-            Atterra();
-            System.out.println("(AE)   L'aereo " + this.Get_ID() + " è atterrato!");
-            System.out.println();
+        if(alieni.Get_Aereo()){
+            System.out.println("(PILOTI) Signori e Signore siamo desolati, sfortunatamente oggi non ci sarà " +
+                    "possibile raggiungere la destinazione " + this.Get_AP_Destinazione() +
+                    " poichè l'aereo " + this.Get_ID() + " è stato intercettato da un velivolo " +
+                    "non identificato. Grazie per l'attenzione e grazie di aver scelto  ITT Barsanti Airlines, "+
+                    "tutto il personale di volo vi augura Buona Fortuna!");
+        }
+        else if(serbatoio.Get_CarburanteTerminato()){
+            System.out.println("(PILOTI) Stiamo perdendo quota....");
+            try{
+                this.sleep(5000);
+                System.out.println("(PILOTI) Prepararsi all'impatto!");
+                this.sleep(2000);
+                System.out.println("L'aereo è precipitato!");
+            }catch (Exception e){}
         }
         else{
-            //se serve fare qualcosa
+            Atterra();
+            System.out.println("(AE)   L'aereo " + this.Get_ID() + " è atterrato!");
         }
     }
 
@@ -372,12 +383,12 @@ public class Aereo extends  Thread {
     }
 
     public void Imbarca(Coda<F_Turista> c) {
-        System.out.println("DIOPENG" + c.size());
         for (int i = 0; i < c.size(); i++) {
             F_Turista t = c.pop();
             matricePostiAereo[t.Get_posto_colonna()][t.Get_posto_riga()] = t;
+            System.out.println("Turista " + t.Get_id() + " ha preso posto nell'aereo " + this.Get_ID());
         }
-        System.out.println("(AE)   I Turisti sono saliti nell'aereo " + this.Get_ID() + " in direzione " + this.Get_AP_Destinazione() + ".");
+        //System.out.println("(AE)   I Turisti sono saliti nell'aereo " + this.Get_ID() + " in direzione " + this.Get_AP_Destinazione() + ".");
     }
 
     public Coda<F_Turista> FaiScendere() {
@@ -386,12 +397,13 @@ public class Aereo extends  Thread {
             for (int r = 0; r < 10; r++) {
                 if (matricePostiAereo[c][r] != null) {
                     coda.push(matricePostiAereo[c][r]);
+                    System.out.println("Turista " + matricePostiAereo[c][r].Get_id() + " è uscito dall'aereo " + this.Get_ID());
                     matricePostiAereo[c][r] = null;
                 }
 
             }
         }
-        System.out.println("(AE)   I Turisti sono scesi dall'aereo " + this.Get_ID() + " a " + this.Get_AP_Destinazione() + ".");
+        //System.out.println("(AE)   I Turisti sono scesi dall'aereo " + this.Get_ID() + " a " + this.Get_AP_Destinazione() + ".");
         turisti_imbarcati = false;
         return coda;
 
