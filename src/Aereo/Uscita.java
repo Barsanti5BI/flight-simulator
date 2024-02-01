@@ -23,14 +23,14 @@ public class Uscita extends Thread{
 //divide in 2 che forma unica coda all'uscita
     public void run()
     {
-        while(true){
-            try{
+        try{
+            while(true){
                 while(!aereo_arrivato){
                     this.sleep(10);
                 }
                 Riempi_Usciti();
                 System.out.println("(US) I Turisti stanno uscendo...");
-                while(aereo_arrivato)
+                while(aereo_arrivato && uscenti.size() > 0)
                 {
                     if (uscenti.size() % 2==0)
                     {
@@ -43,16 +43,18 @@ public class Uscita extends Thread{
                         Thread.sleep(1);
                     }
                 }
-                while (!uscentiAnt.isEmpty() && !uscentiPost.isEmpty())
-                {
+                while (!uscentiAnt.isEmpty()) {
                     usciti.push(uscentiAnt.pop());
+                }
+                while(!uscentiPost.isEmpty()){
                     usciti.push(uscentiPost.pop());
                 }
+                System.out.println("(US) "+ usciti.size());
+                System.out.println("(US) I Turisti sono usciti.");
+                aereo_arrivato = false;
+                this.sleep(100);
             }
-            catch (Exception e){};
-            System.out.println("(US) I Turisti sono usciti.");
-            aereo_arrivato = false;
-        }
+        }catch (Exception e){}
     }
 
     public Coda<F_Turista> GetUscitiDavanti() {return uscentiAnt;}
@@ -68,5 +70,8 @@ public class Uscita extends Thread{
     public int GetNuscitidavanti(){return uscentiAnt.size();}
     public int GetNuscitieDietro(){ return uscentiPost.size();}
     public void Riempi_Usciti(){uscenti = a.FaiScendere();}
+    public void Set_Stato_Uscita(boolean stato){
+        aereo_arrivato = stato;
+    }
 
 }

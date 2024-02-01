@@ -5,9 +5,8 @@ import java.util.Random;
 //Feature Riccardo Pettenuzzo
 public class Alieni extends Thread{
     private boolean aereo_rubato;
-    public Alieni(Aereo a){
+    public Alieni(){
         setDaemon(true);
-        Aereo aereo = a;
         aereo_rubato = false;
     }
 
@@ -23,7 +22,7 @@ public class Alieni extends Thread{
                 throw new RuntimeException(e);
             }
         }
-        System.out.println("(AL) HIHIHIHA!! VI ABBIAMO RUBATO!!!");
+        System.out.println("(ALIENI) HIHIHIHA!! VI ABBIAMO RUBATO!!!");
     }
 
     public boolean Aereo_Rubato_Alieni(){

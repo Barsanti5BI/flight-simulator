@@ -29,18 +29,19 @@ public class Entrata extends Thread{
     {
         try{//&& timer>0
             while(!entranti.isEmpty() ) {
+                System.out.println("(EN) " + entranti.size());
                 System.out.println("(EN)  I Turisti stanno entrando...");
                 if( entranti.size() % 2==0)
                 {
                     salitoant.push(entranti.pop());
-                    Thread.sleep(100);
+                    Thread.sleep(10);
                 }
                 if(  entranti.size() % 2==1)
                 {
                     salitopost.push(entranti.pop());
-                    Thread.sleep(100);
+                    Thread.sleep(10);
                 }
-                this.sleep(100);
+                this.sleep(10);
             }
             System.out.println("(EN)    I Turisti sono entrati.");
         }

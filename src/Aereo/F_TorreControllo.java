@@ -52,12 +52,10 @@ public class F_TorreControllo extends Thread{
                 }
                 g.Get_Aereo().SetPosizione();
                 //Aereoporti.get(viaggi.get(g.Get_Aereo())).AereiInArrivo.push(g.Get_Aereo());
+                try{
+                    this.sleep(5000);
+                }catch (Exception e){}
                 Aereoporti.get(g.Get_Aereo().Get_AP_Destinazione()).AereiInArrivo.push(g.Get_Aereo());
-
-
-                //g.Esplodi_Aereo();
-                //g.Set_Gate_Chiuso();
-
                 //qui da qualche parte dovrebbe essere settato l'aereoporto attuale dell'aereo
                 //che permette all'aereo di uscire dal ciclo del volo e quindi di atterrare
             }

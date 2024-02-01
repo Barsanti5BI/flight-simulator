@@ -7,6 +7,7 @@ import Aereo.F_TorreControllo;
 import java.util.*;
 
 public class Main {
+   public static boolean viaggio_finito = false;
    public static void main(String[] args) {
       LinkedList<String> lista_nomi_aerei = new LinkedList<>();
       lista_nomi_aerei.add("420");

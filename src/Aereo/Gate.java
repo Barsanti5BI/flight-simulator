@@ -59,6 +59,7 @@ public class Gate extends Thread{
                 }
                 //System.out.println("(GT) sono uscito!");
                 //entra solo se è arrivato un aereo con i passeggeri
+
                 if(!aereo.Get_Uscita().GetUsciti().isEmpty()){  //ciclo che fa uscire dall'aereo i turisti
                     LinkedList<Bagaglio> lista_bagagli = this.aereo.Get_Stiva().Svuota_Stiva();
                     while(!aereo.Get_Uscita().GetUsciti().isEmpty()) {
@@ -71,9 +72,8 @@ public class Gate extends Thread{
                         System.out.println("(GT) Il turista " + t.Get_id() + " è arrivato a destinazione.");
                     }
                     aereo.Set_Stato_Stiva(false);
-                    System.out.println("!!!! stiva false");
                     aereo.Set_Stato_Turisti(false);
-                    System.out.println("!!!! turisti false");
+                    System.exit(0);
                 }
 
 
