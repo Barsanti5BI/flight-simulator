@@ -45,7 +45,7 @@ public class F_TorreControllo extends Thread{
 
     public void faiPartire(){
         for (Gate g: ListaGate) {
-            if(g.Get_Aereo() != null){
+            if(g.Get_Gate_Aperto()){
             ;
             if(g.Get_Aereo().Prepara_Aereo()){
                 while(g.Get_Aereo().Get_Posizione() <100){
@@ -53,7 +53,9 @@ public class F_TorreControllo extends Thread{
                         sleep(10);;
                     }catch (Exception e){ }
                 }
+                g.Get_Aereo().SetPosizione(nomeAeroporto);
                 Aereoporti.get(viaggi.get(g.Get_Aereo().Get_AP_Destinazione())).AereiInArrivo.push(g.Get_Aereo());
+
                 //qui da qualche parte dovrebbe essere settato l'aereoporto attuale dell'aereo
                 //che permette all'aereo di uscire dal ciclo del volo e quindi di atterrare
             }

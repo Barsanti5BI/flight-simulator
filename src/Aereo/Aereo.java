@@ -431,4 +431,8 @@ public class Aereo extends  Thread {
     public void Set_Stato_Stiva(boolean stato){
         this.stiva_piena = stato;
     }
+
+    public void SetPosizione(String p){
+        ap_attuale = p;
+    }
 }
