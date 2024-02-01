@@ -34,17 +34,17 @@ public class ImpiegatoCheckIn extends Thread{
     }
 
     public void eseguiCheckIn(Turista turista) {
-        Viaggio vGiusto = null;
+        Viaggio viaggioGiusto = null;
 
         for(Viaggio v : banco.getViaggi())
         {
-            if (v.getAereo().Get_ID() == turista.getCodAereo())
+            if (v == turista.getViaggio())
             {
-                vGiusto = v;
+                viaggioGiusto = v;
                 break;
             }
         }
-        if (vGiusto == null)
+        if (viaggioGiusto == null)
         {
             synchronized (this) {
                 System.out.println("Viaggio non trovato");
@@ -53,14 +53,16 @@ public class ImpiegatoCheckIn extends Thread{
                 return;
             }
         }
-        turista.getBagaglio().setEtichetta(banco.generaEtichetta(turista, vGiusto));
-        turista.setCartaImbarco(banco.generaCartaImbarco(turista, vGiusto));
+
+        String randomIdBagaglio = (int)(Math.random() * 10000000) + "";
+        turista.getBagaglio().setEtichetta(banco.generaEtichetta(turista, viaggioGiusto, randomIdBagaglio));
+        turista.setCartaImbarco(banco.generaCartaImbarco(turista, viaggioGiusto, randomIdBagaglio));
 
 
         Bagaglio bagaglio = turista.getBagaglio();
 
         if(bagaglio.getDaStiva()){
-            System.out.println("Il bagaglio " + bagaglio.getEtichetta().getIdRiconoscimentoBagaglio() + " è da stiva, verrà caricato sul nastro trasportatore");
+            System.out.println("Il bagaglio di" + bagaglio.getProprietario().getName() + " è da stiva, verrà caricato sul nastro trasportatore");
             nastroTrasportatore.aggiungiBagaglio(bagaglio);
             turista.setBagaglio(null);
         }

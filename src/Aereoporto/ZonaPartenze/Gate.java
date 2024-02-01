@@ -40,15 +40,6 @@ public class Gate extends Thread {
                 t.pericolosoAlGate = pericoloso;
                 this.notify();
             }
-
-            if (!pericoloso)
-            {
-                System.out.println("Il turista " + t.getName() + " è partito verso l'infinito e l'oltre!");
-            }
-            else
-            {
-                System.out.println("Il turista " + t.getName() + " è stato arrestato!");
-            }
         }
     }
 

@@ -14,6 +14,7 @@ import Aereoporto.ZonaControlli.ZonaControlli;
 import Aereoporto.ZonaNegozi.Negozio;
 import Aereoporto.ZonaNegozi.ZonaNegozi;
 import Aereoporto.ZonaPartenze.ZonaPartenze;
+import TorreDiControllo.Viaggio;
 import Utils.Coda;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,6 +27,8 @@ public class Turista extends Thread {
     // Determinazione turista
     public boolean inPartenza;
     public boolean inArrivo;
+
+    public Viaggio viaggio;
 
     // ZONA CHECKIN
     public ZonaCheckIn zonaCheckIn;
@@ -73,10 +76,9 @@ public class Turista extends Thread {
     private List<Oggetto> oggetti;
     private Documento doc;
     private Random r;
-    private int codAereo;
     public boolean criminale = false;
 
-    public Turista(Documento doc, Bagaglio bag, CartaImbarco cartaImbarco, List<Oggetto> oggetti, int codAereo,
+    public Turista(Documento doc, Bagaglio bag, CartaImbarco cartaImbarco, List<Oggetto> oggetti, Viaggio viaggio,
             ZonaCheckIn zonaCheckIn, ZonaControlli zonaControlli, ZonaNegozi zonaNegozi, ZonaPartenze zonaPartenze) {
         this.bagaglio = bag;
         this.cartaImbarco = cartaImbarco;
@@ -85,7 +87,8 @@ public class Turista extends Thread {
         setName(doc.getCognome() + " " + doc.getNome());
         r = new Random();
         vuoleFareAcquisto = r.nextBoolean();
-        this.codAereo = codAereo;
+        this.viaggio = viaggio;
+
 
         deveFareCheckIn = true;
         deveFareControlli = false;
@@ -242,7 +245,7 @@ public class Turista extends Thread {
                     System.out.println("Turista" + getName() + " arrestato");
                     return;
                 } else {
-                    System.out.println("Turista " + getName()+ " imbarcato");
+                    System.out.println("Turista " + getName()+ " imbarcato su aereo " + viaggio.getAereo().Get_ID());
                     return;
                 }
             }
@@ -290,8 +293,8 @@ public class Turista extends Thread {
         }
     }
 
-    public int getCodAereo() {
-        return codAereo;
+    public Viaggio getViaggio() {
+        return viaggio;
     }
 
     public Bagaglio getBagaglio() {

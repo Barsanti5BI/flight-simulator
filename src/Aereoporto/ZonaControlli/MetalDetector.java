@@ -23,6 +23,7 @@ public class MetalDetector extends Thread {
         codaTuristiPericolosi = new Coda<>();
         codaTuristiBuoni = new Coda<>();
         impiegato = new ImpiegatoControlliPartenze(null,null, codaTuristiPericolosi, ListaOggetti.getOggettiPericolosi(), rand.nextInt(0, 1000));
+        impiegato.start();
     }
 
    public void run() {

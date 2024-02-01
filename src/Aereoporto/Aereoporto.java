@@ -32,10 +32,10 @@ public class Aereoporto {
         zonaCheckIn = new ZonaCheckIn(nastroTrasportatore,viaggi);
         zonaControlli = new ZonaControlli();
 
-        zonaControlliBagagliStiva = new ZonaControlliBagagliStiva(nastroTrasportatore, lista_aerei);
+        zonaControlliBagagliStiva = new ZonaControlliBagagliStiva(nastroTrasportatore, lista_aerei, turistiPericolosi);
         zonaNegozi = new ZonaNegozi();
         zonaPartenze = new ZonaPartenze(viaggi, turistiPericolosi);
-        zonaEntrata = new ZonaEntrata(lista_aerei, zonaCheckIn, zonaControlli, zonaNegozi, zonaPartenze);
+        zonaEntrata = new ZonaEntrata(viaggi, zonaCheckIn, zonaControlli, zonaNegozi, zonaPartenze);
         //zonaArrivi = new ZonaArrivi();
         configuraZone();
     }

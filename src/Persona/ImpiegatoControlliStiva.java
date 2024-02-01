@@ -18,7 +18,7 @@ public class ImpiegatoControlliStiva extends Thread{
         this.oggettiProibiti = oggettiProibiti;
         this.listaDiAerei = listaDiAerei;
         this.turistiPericolosi = turistiPericolosi;
-        setName(id+"");
+        setName(id + "");
     }
 
     public void run(){
@@ -64,7 +64,7 @@ public class ImpiegatoControlliStiva extends Thread{
                     }
 
                     aGiusto.Get_Stiva().Aggiungi_Bagaglio_Stiva(bSicuro);
-                    System.out.println("Il bagaglio " + bSicuro.getEtichetta().getIdRiconoscimentoBagaglio() + " è stato caricato sull'aereo " + aGiusto.Get_ID());
+                    System.out.println("Il bagaglio di " + bSicuro.getProprietario().getName() + " è stato caricato sull'aereo " + aGiusto.Get_ID());
                 }
                 else
                 {

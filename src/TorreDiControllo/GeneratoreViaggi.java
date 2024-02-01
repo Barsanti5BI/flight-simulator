@@ -45,23 +45,23 @@ public class GeneratoreViaggi {
 
     public Viaggio GeneraViaggioInUscita(Aereo a, Pilota p, int nGate)
     {
-        return new Viaggio(destinazioni[random.nextInt(destinazioni.length)], a, p, true, nGate);
+        return new Viaggio(destinazioni[random.nextInt(destinazioni.length)], a, p,  nGate);
     }
 
     public Viaggio GeneraViatggioInEntrata(Aereo a, Pilota p, int nGate)
     {
-        return new Viaggio("da " + destinazioni[random.nextInt(destinazioni.length)], a, p, false, nGate);
+        return new Viaggio("da " + destinazioni[random.nextInt(destinazioni.length)], a, p, nGate);
     }
 
     public Viaggio GeneraViaggioRandom()
     {
         if(random.nextBoolean())
         {
-            return new Viaggio(destinazioni[random.nextInt(destinazioni.length)], aerei[random.nextInt(aerei.length)], piloti[random.nextInt(piloti.length)], random.nextBoolean(), random.nextInt(numGate));
+            return new Viaggio(destinazioni[random.nextInt(destinazioni.length)], aerei[random.nextInt(aerei.length)], piloti[random.nextInt(piloti.length)], random.nextInt(numGate));
         }
         else
         {
-            return new Viaggio("da " + destinazioni[random.nextInt(destinazioni.length)], aerei[random.nextInt(aerei.length)], piloti[random.nextInt(piloti.length)], random.nextBoolean(), random.nextInt(numGate));
+            return new Viaggio("da " + destinazioni[random.nextInt(destinazioni.length)], aerei[random.nextInt(aerei.length)], piloti[random.nextInt(piloti.length)], random.nextInt(numGate));
         }
     }
 }

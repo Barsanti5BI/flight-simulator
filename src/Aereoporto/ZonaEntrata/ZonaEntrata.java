@@ -8,6 +8,7 @@ import Aereoporto.ZonaControlli.ZonaControlli;
 import Aereoporto.ZonaNegozi.ZonaNegozi;
 import Aereoporto.ZonaPartenze.ZonaPartenze;
 import Persona.*;
+import TorreDiControllo.Viaggio;
 import Utils.Coda;
 
 import java.time.LocalDate;
@@ -17,21 +18,23 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class ZonaEntrata extends ZonaAeroporto {
     private Coda<Turista> codaTuristi;
+    private ArrayList<Viaggio> viaggi;
 
     // qui entrano i turisti generati
-    public ZonaEntrata(ArrayList<Aereo> lista_aer,ZonaCheckIn zonaCheckIn,ZonaControlli zonaControlli, ZonaNegozi zonaNegozi, ZonaPartenze zonaPartenze) {
+    public ZonaEntrata(ArrayList<Viaggio> viaggi, ZonaCheckIn zonaCheckIn, ZonaControlli zonaControlli, ZonaNegozi zonaNegozi, ZonaPartenze zonaPartenze) {
+        this.viaggi = viaggi;
         codaTuristi = generaTuristi(zonaCheckIn,zonaControlli,zonaNegozi,zonaPartenze);
     }
 
     public Coda<Turista> generaTuristi(ZonaCheckIn zonaCheckIn, ZonaControlli zonaControlli, ZonaNegozi zonaNegozi, ZonaPartenze zonaPartenze) {
         Coda<Turista> coda = new Coda<>();
 
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 2; i++) {
 
             ArrayList<Oggetto> listOggetti = generaListaOggetti(0, 6);
-            listOggetti.add(new Oggetto("Righello"));
-            Bagaglio bagaglio = generaBagagli();
-            Turista turista = new Turista(generaDocumenti(i), bagaglio, null, listOggetti, Random_Id_Aereo(),zonaCheckIn,zonaControlli,zonaNegozi,zonaPartenze);
+            Viaggio viaggio = randomViaggio();
+            Bagaglio bagaglio = generaBagagli(viaggio);
+            Turista turista = new Turista(generaDocumenti(i), bagaglio, null, listOggetti, viaggio,zonaCheckIn,zonaControlli,zonaNegozi,zonaPartenze);
             bagaglio.setTurista(turista);
             coda.push(turista);
             turista.start();
@@ -39,13 +42,12 @@ public class ZonaEntrata extends ZonaAeroporto {
         return coda;
     }
 
-    public int Random_Id_Aereo(){
-        return 0;
-        //Random rand = new Random();
-        //return lista_aerei.get((int)(Math.random()*lista_aerei.size())).Get_ID();
+    public Viaggio randomViaggio(){
+        Random rand = new Random();
+        return viaggi.get((int)(Math.random()*viaggi.size()));
     }
 
-    private Bagaglio generaBagagli() {
+    private Bagaglio generaBagagli(Viaggio viaggio) {
 
         boolean daStiva = false;
 
@@ -60,10 +62,8 @@ public class ZonaEntrata extends ZonaAeroporto {
         int profondita = rand.nextInt(0, 10);
 
         String misure = lunghezza + "-" + altezza + "-" + profondita;
-        var a = generaListaOggetti(0,6);
-        a.add(new Oggetto("Righello"));
 
-        Bagaglio bagaglio = new Bagaglio(true, peso, misure, new Etichetta(0,"test"), a);
+        Bagaglio bagaglio = new Bagaglio(daStiva, peso, misure, null, generaListaOggetti(0,6));
         return bagaglio;
     }
 
@@ -113,8 +113,8 @@ public class ZonaEntrata extends ZonaAeroporto {
         listIndirizzo.add("Via Bologna");
 
         String tipoDocumento = listTipoDocumento.get(rand.nextInt(0, listTipoDocumento.size()));
-        String nome = listNome.get(rand.nextInt(0, listNome.size())) + numId;
-        String cognome = listCognome.get(rand.nextInt(0, listCognome.size())) + numId;
+        String nome = listNome.get(rand.nextInt(0, listNome.size())) + " " + numId;
+        String cognome = listCognome.get(rand.nextInt(0, listCognome.size()));
         LocalDate dataNascita = generaDataNascita();
         String sesso = listSesso.get(rand.nextInt(0, listSesso.size()));
         String nazionalita = listNazionalita.get(rand.nextInt(0, listNazionalita.size()));
@@ -158,4 +158,7 @@ public class ZonaEntrata extends ZonaAeroporto {
 
         return listOggetti;
     }
+
+    // generator of etichette
+
 }
