@@ -43,6 +43,7 @@ public class Entrata extends Thread{
                     {
                         salitoant.push(ft);
                         //Thread.sleep(1);
+
                     }
                    /* Thread.sleep(100);
                     Thread.sleep(10);*/
@@ -54,6 +55,7 @@ public class Entrata extends Thread{
                     {
                         salitopost.push(ft);
                         //Thread.sleep(1);
+
                     }
                     /*Thread.sleep(100);
                     Thread.sleep(10);*/

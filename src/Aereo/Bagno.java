@@ -6,14 +6,22 @@ import java.util.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-
-
 public class Bagno extends Thread{
     private  Coda<F_Turista> c;
     private  Coda<F_Turista> finio;
     private Lock l;
     private F_Turista t;
-
+    public void run()
+    {
+        //quando pos<1->posizione < 85 fa andare in bagno
+        while(pos!=1)
+        {
+            for (int i = 0 ; i<c.size();i++)
+            {
+                Bisogno(i);
+            }
+        }
+    }
 
     //Turista in coda entra in bagno
     public void DareBagno(Coda<F_Turista> a)
@@ -78,17 +86,7 @@ public class Bagno extends Thread{
     {
      pos=1;
     }
-    public void run()
-    {
-        //quando pos<1->posizione < 85 fa andare in bagno
-        while(pos!=1)
-        {
-            for (int i = 0 ; i<c.size();i++)
-            {
-                Bisogno(i);
-            }
-        }
-    }
+
 }
 
 

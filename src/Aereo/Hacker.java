@@ -1,12 +1,14 @@
 package Aereo;
+
 import java.time.ZonedDateTime;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Random;
 
 public class Hacker extends Thread{ //Feature Borsato Marco
     private ScatolaNera sn;
     private HashMap<ZonedDateTime,String> logPosRubati;
-    private HashMap<ZonedDateTime,String> logComRubati;
+    private HashMap<ZonedDateTime, LinkedList<String>> logComRubati;
     private Random r;
     private boolean hackerato;
     Hacker(ScatolaNera sn){
@@ -27,14 +29,19 @@ public class Hacker extends Thread{ //Feature Borsato Marco
                         logPosRubati.put(key,logtemp.get(key));
                         sn.Get_Log_Posizione().replace(key,"///CANCELLATO///");
                     }
-                    logtemp = sn.Get_Log_Comunicazioni();
-                    for ( ZonedDateTime key : sn.Get_Log_Comunicazioni().keySet() ) {
-                        logComRubati.put(key,logtemp.get(key));
-                        sn.Get_Log_Comunicazioni().replace(key,"///CANCELLATO///");
+                    HashMap<ZonedDateTime,LinkedList<String>> logtemp1 = sn.Get_Log_StatiTurbine();
+                    LinkedList<String> cancellati = new LinkedList<String>();
+                    for(int i = 0;i<4;i++){
+                        cancellati.add("///CANCELLATO///");
+                    }
+                    for ( ZonedDateTime key : sn.Get_Log_StatiTurbine().keySet() ) {
+                        logComRubati.put(key,logtemp1.get(key));
+
+                        sn.Get_Log_StatiTurbine().replace(key,cancellati);
                     }
                     System.out.println("HACKERATI GODO EZ");
                 }
-                this.sleep(500);
+                Thread.sleep(500);
             }
         }catch (Exception ex){
 
