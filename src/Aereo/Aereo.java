@@ -94,7 +94,7 @@ public class Aereo extends  Thread {
                         System.out.println("(AE)   L'aereo " + this.Get_ID() + " è partito!");
                         aereo_partito = true;
                     }
-                    if(stampa_dati_aereo % 10 == 0){
+                    if(stampa_dati_aereo % 5 == 0){
                         System.out.println("(AE)   Posizione aereo " + this.Get_ID() + " = " + this.Get_Posizione() +".");
                         System.out.println("(AE)   Posizione attuale = " + this.Get_AP_Attuale()+".");
                         System.out.println("(AE)   Destinazione = " + this.Get_AP_Destinazione()+".");

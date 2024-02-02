@@ -49,7 +49,7 @@ public class Uscita extends Thread{
                 while(!uscentiPost.isEmpty()){
                     usciti.push(uscentiPost.pop());
                 }
-                System.out.println("(US) "+ usciti.size());
+                //System.out.println("(US) "+ usciti.size());
                 System.out.println("(US) I Turisti sono usciti.");
                 aereo_arrivato = false;
                 this.sleep(100);

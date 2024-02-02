@@ -55,7 +55,7 @@ public class Gate extends Thread{
             try {
                 while(!GateAperto){
                     sleep(7000);
-                    System.out.println("(GT) Gate " + this.Get_Id() + " aspetta.....");
+                    //System.out.println("(GT) Gate " + this.Get_Id() + " aspetta.....");
                 }
                 //entra solo se è arrivato un aereo con i passeggeri
 
