@@ -7,7 +7,6 @@ public class Entrata extends Thread{
     private Coda<F_Turista> salitoant;
     private Coda<F_Turista> salitopost;
     int i=0;
-    private int timer;
     private TheBackrooms tb;
 
 
@@ -94,7 +93,7 @@ public class Entrata extends Thread{
         {
             System.out.print("(en)    Passeggero ");System.out.print(t.Get_id());System.out.println(" è finito nel livello "+ka+" dei Backrooms");
             b=true;
-            tb.DareMortu(t);
+            tb.DareMorto(t);
         }
         return b;
     }
