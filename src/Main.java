@@ -127,6 +127,7 @@ public class Main {
       lista_torre_controllo.get(1).start();
 
 
+
       //Creare Aerei
       //Creare Turisti con i controllo già fatti al gate
       //2 possibilità per trasporto Gate -> Aereo

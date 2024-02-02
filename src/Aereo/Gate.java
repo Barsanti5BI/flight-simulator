@@ -76,6 +76,7 @@ public class Gate extends Thread{
                     }
                     aereo.Set_Stato_Stiva(false);
                     aereo.Set_Stato_Turisti(false);
+                    aereo.Get_Scatola_Nera().EstraiLogs();
                     System.exit(0);
                 }
 

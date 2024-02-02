@@ -72,6 +72,10 @@ public class Aereo extends  Thread {
         maltempo = false;
         einvolo = false;
 
+        //Feature Borsato Marco
+        Hacker h = new Hacker(scatolaNera);
+        h.start();
+
         this.start();
     }
 
@@ -166,6 +170,7 @@ public class Aereo extends  Thread {
             System.out.println("         non identificato e potenzialmente pericoloso, siete pregati di mantenere la calma. ");
             System.out.println("         Grazie per l'attenzione e grazie di aver scelto  ITT Barsanti Airlines, ");
             System.out.println("         tutto il personale di volo vi augura Buona Fortuna!");
+            scatolaNera.EstraiLogs();
             System.exit(0);
         }
         else if(serbatoio.Get_CarburanteTerminato()){
@@ -177,6 +182,7 @@ public class Aereo extends  Thread {
                 System.out.println("(PILOTI) Prepararsi all'impatto!");
                 this.sleep(1000);
                 System.out.println("L'aereo è precipitato!");
+                scatolaNera.EstraiLogs();
                 System.exit(0);
             }catch (Exception e){}
         }
