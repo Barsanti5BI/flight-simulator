@@ -1,9 +1,13 @@
 package Aereo;
-
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.Random;
 
 public class F_Turista {
+
     private int id;
+
+    public Lock ded;
     private int posto_riga;
     private int posto_colonna;
     private String id_aereo;
@@ -19,6 +23,8 @@ public class F_Turista {
         this.posto_riga = p_rig;
         this.prioritario = prioritario;
         this.destinazione = destinazione;
+        this.ded= new ReentrantLock();
+
     }
 
     public Bagaglio Get_Bag(){
@@ -31,4 +37,5 @@ public class F_Turista {
     public boolean Get_Prioritario(){return prioritario;}
     public String Get_Destinazione(){return destinazione;}
     public void Set_Bagaglio(Bagaglio b){this.bagaglio = bagaglio;}
+
 }

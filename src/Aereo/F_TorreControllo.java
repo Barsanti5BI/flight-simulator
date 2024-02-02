@@ -1,10 +1,7 @@
 package Aereo;
 import  Utils.Coda;
 import javax.management.DynamicMBean;
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
 
 public class F_TorreControllo extends Thread{
     private String nomeAeroporto;

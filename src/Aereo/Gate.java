@@ -69,7 +69,10 @@ public class Gate extends Thread{
                                 t.Set_Bagaglio(b);
                             }
                         }
-                        System.out.println("(GT) Il turista " + t.Get_id() + " è arrivato a destinazione.");
+                    }
+                    if (aereo.Get_Uscita().GetUsciti().isEmpty()){
+                        System.out.println("(GT) Sono usciti tutti i turisti dal gate " + nomeGate);
+                        sleep(1000);
                     }
                     aereo.Set_Stato_Stiva(false);
                     aereo.Set_Stato_Turisti(false);
@@ -104,22 +107,26 @@ public class Gate extends Thread{
                         EffettuaControllo(t);
                     }
                     if(codaPrioritaria.isEmpty()){
-                        System.out.println("(GT) Sono entrati tutti i turisti della coda prioritaria");
+                        System.out.println("(GT) Sono entrati tutti i turisti della coda prioritaria nel gate " + nomeGate);
+                        sleep(1000);
                     }
                     while (!codaNormale.isEmpty()) { //dopo la coda normale
                         F_Turista t = codaNormale.pop();
                         EffettuaControllo(t);
                     }
                     if(codaNormale.isEmpty()){
-                        System.out.println("(GT) Sono entrati tutti i turisti della coda normale");
+                        System.out.println("(GT) Sono entrati tutti i turisti della coda normale nel gate " + nomeGate );
+                        sleep(1000);
                         if(!TerminatiIControlli){
                             TerminatiIControlli = true;
                             GateAperto = false;
                             aereo.Get_Entrata().DareEntranti(codaEntrata);
-                            System.out.println("(GT) i turisti stanno entrandonel aereo");
+                            //System.out.println("(GT) i turisti stanno entrando nell'aereo");
+                            //sleep(1000);
                             aereo.Get_Entrata().start();
                             aereo.Set_Stato_gate(true);
                             System.out.println("(GT) Il gate " + nomeGate + " si è chiuso.");
+                            sleep(1000);
                         }
                         //GateAperto = false;
                     }
