@@ -57,7 +57,6 @@ public class Gate extends Thread{
                     sleep(7000);
                     System.out.println("(GT) Gate " + this.Get_Id() + " aspetta.....");
                 }
-                //System.out.println("(GT) sono uscito!");
                 //entra solo se è arrivato un aereo con i passeggeri
 
                 if(!aereo.Get_Uscita().GetUsciti().isEmpty()){  //ciclo che fa uscire dall'aereo i turisti
@@ -109,7 +108,7 @@ public class Gate extends Thread{
                     }
                     if(codaPrioritaria.isEmpty()){
                         System.out.println("(GT) Sono entrati tutti i turisti della coda prioritaria nel gate " + nomeGate);
-                        //sleep(1000);
+                        sleep(1000);
                     }
                     while (!codaNormale.isEmpty()) { //dopo la coda normale
                         F_Turista t = codaNormale.pop();
@@ -117,31 +116,24 @@ public class Gate extends Thread{
                     }
                     if(codaNormale.isEmpty()){
                         System.out.println("(GT) Sono entrati tutti i turisti della coda normale nel gate " + nomeGate );
-                        //sleep(1000);
+                        sleep(1000);
                         if(!TerminatiIControlli){
                             TerminatiIControlli = true;
                             GateAperto = false;
                             aereo.Get_Entrata().DareEntranti(codaEntrata);
-                            //System.out.println("(GT) i turisti stanno entrando nell'aereo");
-                            //sleep(1000);
                             aereo.Get_Entrata().start();
                             aereo.Set_Stato_gate(true);
                             System.out.println("(GT) Il gate " + nomeGate + " si è chiuso.");
-                            //sleep(1000);
+                            sleep(1000);
                         }
-                        //GateAperto = false;
                     }
                     this.aereo.Set_Stato_Stiva(true);
-                  //  System.out.println("!!!! stiva true");
-                    // TerminatiIControlli verrà impostato su true dal TimerTask
                 }
-                //aereo = null;
 
             }catch(InterruptedException ex){
                 System.out.println(ex.getMessage());
             }
 
-            //GateAperto=false;
             try{
                 this.sleep(2000);
             }catch (Exception e){}
@@ -168,7 +160,7 @@ public class Gate extends Thread{
             System.out.println(ex.getMessage());
         }
     }
-    public void startTimer() {
+    /*public void startTimer() {
         timer = new Timer();
         timerTask = new TimerTask() {
            //secondi countdown
@@ -191,7 +183,7 @@ public class Gate extends Thread{
             }
         };
         timer.schedule(timerTask, 5000);
-    }
+    }*/
 
 
     public void Imbarca_Bagaglio(Aereo a, F_Turista f){

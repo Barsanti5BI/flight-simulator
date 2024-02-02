@@ -96,17 +96,17 @@ public class TheBackrooms extends Thread{
         int k= r.nextInt(10);
         Coda<String> deathmsg = new Coda<String>();
         deathmsg.push( "     stato mangiato da un entity ");
-        deathmsg.push(   "     annegato");
+        deathmsg.push(   "     stato annegato");
         deathmsg.push(   "     esploso");
-        deathmsg.push(   "    morto  attacco cardiaco");
+        deathmsg.push(   "    morto di attacco cardiaco");
         deathmsg.push(  "     arrosto");
         deathmsg.push( "     diventato uno di noi");
         deathmsg.push(  "     diventato una mummia");
-        deathmsg.push(  "     stato fulminanto");
+        deathmsg.push(  "     stato fulminato");
         deathmsg.push(  "     impalato");
         deathmsg.push(  "    morto di colpo di frutta che non puoi nominare");
 
-        System.out.print("(tb)    ");  System.out.print(t.Get_id());System.out.print(" è ");System.out.println( deathmsg.GetAtPos(k));
+        System.out.print("(tb)  Il turista " + t.Get_id() + "è " + deathmsg.GetAtPos(k));
 
 
 
