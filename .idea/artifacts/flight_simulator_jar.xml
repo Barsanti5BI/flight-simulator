@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="flight-simulator:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/flight_simulator_jar</output-path>
+    <root id="archive" name="flight-simulator.jar">
+      <element id="module-output" name="flight-simulator" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jetbrains/annotations/24.0.0/annotations-24.0.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
