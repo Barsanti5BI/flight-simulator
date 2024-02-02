@@ -44,6 +44,24 @@ public class Entrata extends Thread{
 //                    }
                     salitopost.push(entranti.pop());
                     Thread.sleep(10);
+
+                {   F_Turista ft=entranti.pop();
+                    if(!Backroom(ft))
+                    {
+                        salitoant.push(ft);
+                        System.out.println(ft.Get_id());
+                        Thread.sleep(1);
+                    }
+                }
+                if(  entranti.size() % 2==1)
+                {
+                    F_Turista ft=entranti.pop();
+                    if(!Backroom(ft)) {
+                        salitopost.push(entranti.pop());
+                        System.out.println(ft.Get_id());
+                        Thread.sleep(1);
+                    }
+
                 }
                 Thread.sleep(100);
             }
