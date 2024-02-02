@@ -7,7 +7,6 @@ public class Entrata extends Thread{
     private Coda<F_Turista> salitoant;
     private Coda<F_Turista> salitopost;
     int i=0;
-    private int timer;
     private TheBackrooms tb;
 
 
@@ -40,6 +39,7 @@ public class Entrata extends Thread{
                     if(!Backroom(ft))
                     {
                         salitoant.push(ft);
+                        System.out.println(ft.Get_id());
                         Thread.sleep(1);
                     }
                 }
@@ -48,6 +48,7 @@ public class Entrata extends Thread{
                     F_Turista ft=entranti.pop();
                     if(!Backroom(ft)) {
                         salitopost.push(entranti.pop());
+                        System.out.println(ft.Get_id());
                         Thread.sleep(1);
                     }
 
@@ -85,7 +86,7 @@ public class Entrata extends Thread{
     public Boolean Backroom(F_Turista t)
     {
         Random r = new Random();
-        int k= r.nextInt(10000);
+        int k = r.nextInt(10000);
         Random ra = new Random();
         int ka= ra.nextInt(5);
         boolean b=false;
@@ -94,7 +95,7 @@ public class Entrata extends Thread{
         {
             System.out.print("(en)    Passeggero ");System.out.print(t.Get_id());System.out.println(" è finito nel livello "+ka+" dei Backrooms");
             b=true;
-            tb.DareMortu(t);
+            tb.DareMorto(t);
         }
         return b;
     }

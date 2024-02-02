@@ -7,7 +7,7 @@ public class F_Turista {
 
     private int id;
 
-    public Lock ded;
+    public Lock dead;
     private int posto_riga;
     private int posto_colonna;
     private String id_aereo;
@@ -23,7 +23,7 @@ public class F_Turista {
         this.posto_riga = p_rig;
         this.prioritario = prioritario;
         this.destinazione = destinazione;
-        this.ded= new ReentrantLock();
+        this.dead= new ReentrantLock();
 
     }
 

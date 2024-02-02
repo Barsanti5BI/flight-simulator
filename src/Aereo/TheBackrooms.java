@@ -9,37 +9,24 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class TheBackrooms extends Thread{
-    private Coda<F_Turista> deadmeat;
-
-
-    // mangiato da un entity
-    // annegato
-    //
-
+    private Coda<F_Turista> codaMorti;
 
     public void DareMorti(Coda<F_Turista> e)
     {
         while (e.size()>0){
-
             F_Turista a = e.pop();
-            deadmeat.push(a);
+            codaMorti.push(a);
         }
-
-
     }
-    public void DareMortu(F_Turista e)
+    public void DareMorto(F_Turista e)
     {
-
-        deadmeat.push(e);
-
-
-
+        codaMorti.push(e);
     }
 
     public TheBackrooms()
     {
 
-        deadmeat=new Coda<F_Turista>();
+        codaMorti=new Coda<F_Turista>();
 
 
     }
@@ -53,15 +40,15 @@ public class TheBackrooms extends Thread{
         if(k<5)
         {
 
-            deadmeat.push(t);
+            codaMorti.push(t);
         }
         else {
 
-            DYTD(t);
+            Morte(t);
         }
 
     }
-    private void Backing(F_Turista t)
+    private void Incontro(F_Turista t)
     {
         //incontro
 
@@ -71,44 +58,44 @@ public class TheBackrooms extends Thread{
 
             if (k < 14) {
                 Random ra = new Random();
-                int ka = ra.nextInt(deadmeat.size());
+                int ka = ra.nextInt(codaMorti.size());
 
                 try {
-                    deadmeat.GetAtPos(ka).ded.lock();
+                    codaMorti.GetAtPos(ka).dead.lock();
                     Random kda = new Random();
                     int ratio = kda.nextInt(400);
                     if (ratio < 100) {
-                        System.out.print("(tb)   " ); System.out.print(t.Get_id()); System.out.print(" has been slain by " ); System.out.println( deadmeat.GetAtPos(ka).Get_id());
-                        deadmeat.GetAtPos(ka).ded.unlock();
+                        System.out.print("(tb)   " ); System.out.print(t.Get_id()); System.out.print(" è stato ucciso da " ); System.out.println( codaMorti.GetAtPos(ka).Get_id());
+                        codaMorti.GetAtPos(ka).dead.unlock();
                     } else if (ratio < 200) {
-                        System.out.print("(tb)   " );  System.out.print(t.Get_id()); System.out.print( " has commit unalive with " ); System.out.println( deadmeat.GetAtPos(ka).Get_id());
-                        deadmeat.Eliminated(ka);
+                        System.out.print("(tb)   " );  System.out.print(t.Get_id()); System.out.print( " si sono doppi suicidati con " ); System.out.println(codaMorti.GetAtPos(ka).Get_id());
+                        codaMorti.Eliminated(ka);
                     } else if (ratio < 300) {
-                        System.out.print("(tb)   " ); System.out.print(t.Get_id()); System.out.print( " has  slain  "  );System.out.println( deadmeat.GetAtPos(ka).Get_id());
-                        deadmeat.Eliminated(ka);
-                        deadmeat.push(t);
+                        System.out.print("(tb)   " ); System.out.print(t.Get_id()); System.out.print( " ha ucciso "  );System.out.println( codaMorti.GetAtPos(ka).Get_id());
+                        codaMorti.Eliminated(ka);
+                        codaMorti.push(t);
                     } else {
-                        System.out.print("(tb)   " );System.out.print(t.Get_id());  System.out.print( " has become friends with " ); System.out.println( deadmeat.GetAtPos(ka).Get_id());
-                        deadmeat.GetAtPos(ka).ded.unlock();
-                        deadmeat.push(t);
+                        System.out.print("(tb)   " );System.out.print(t.Get_id());  System.out.print( " è diventato amico di " ); System.out.println( codaMorti.GetAtPos(ka).Get_id());
+                        codaMorti.GetAtPos(ka).dead.unlock();
+                        codaMorti.push(t);
                     }
 
                 } catch (Exception e) {
                 }
                 ;
             } else {
-                deadmeat.push(t);
+                codaMorti.push(t);
             }
         } catch (Exception e){}
     }
-
-    private void DYTD(F_Turista t)
+//metodi di morte
+    private void Morte(F_Turista t)
     {
 
         Random r = new Random();
         int k= r.nextInt(10);
         Coda<String> deathmsg = new Coda<String>();
-        deathmsg.push( " stato mangiato da un entity ");
+        deathmsg.push( "     stato mangiato da un entity ");
         deathmsg.push(   "     annegato");
         deathmsg.push(   "     esploso");
         deathmsg.push(   "    morto  attacco cardiaco");
@@ -127,22 +114,22 @@ public class TheBackrooms extends Thread{
     public void run()
     {
         try {
-            while (deadmeat.size()==0)
+            while (codaMorti.size()==0)
             {
                 Thread.sleep(1000);
             }
 
-            while (deadmeat.size()>0)
+            while (codaMorti.size()>0)
             {
-                F_Turista t=deadmeat.pop();
+                F_Turista t=codaMorti.pop();
                 Random r = new Random();
                 int k= r.nextInt(2);
-                if(deadmeat.size()==0)
+                if(codaMorti.size()==0)
                 {
                     sopravive(t);
                 }
                 else if(k==0){
-                    Backing(t);
+                    Incontro(t);
 
                 }
                 else{

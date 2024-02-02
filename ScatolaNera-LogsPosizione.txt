@@ -1,0 +1,8 @@
+Data E Ora: 2024-02-02T17:55:52.585295900+01:00[Europe/Rome] Posizione Registrata: 0.0
+Data E Ora: 2024-02-02T17:55:54.447226900+01:00[Europe/Rome] Posizione Registrata: 0.0
+Data E Ora: 2024-02-02T17:55:29.802229700+01:00[Europe/Rome] Posizione Registrata: 0
+Data E Ora: 2024-02-02T17:55:55.068084900+01:00[Europe/Rome] Posizione Registrata: 0.0
+Data E Ora: 2024-02-02T17:55:53.827252300+01:00[Europe/Rome] Posizione Registrata: 0.0
+Data E Ora: 2024-02-02T17:55:51.964216600+01:00[Europe/Rome] Posizione Registrata: 0.0
+Data E Ora: 2024-02-02T17:55:51.346741500+01:00[Europe/Rome] Posizione Registrata: 0.0
+Data E Ora: 2024-02-02T17:55:53.205951600+01:00[Europe/Rome] Posizione Registrata: 0.0
