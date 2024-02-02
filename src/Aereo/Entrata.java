@@ -34,7 +34,6 @@ public class Entrata extends Thread{
             }
             System.out.println("(EN)   I Turisti sono entrati nell'aereo.");
         } catch (Exception e) {}
-    }
 
     // prende la coda di persone in entrata
     public void DareEntranti(Coda<F_Turista> e)
@@ -62,7 +61,9 @@ public class Entrata extends Thread{
 
         if( k==1 )
         {
-            System.out.print("(en)    Passeggero ");System.out.print(t.Get_id());System.out.println(" è finito nel livello "+ka+" dei Backrooms");
+            System.out.print("(en)    Passeggero ");
+            System.out.print(t.Get_id());
+            System.out.println(" è finito nel livello "+ka+" dei Backrooms");
             b=true;
             tb.DareMorto(t);
         }

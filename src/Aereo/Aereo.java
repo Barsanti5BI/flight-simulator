@@ -98,7 +98,8 @@ public class Aereo extends  Thread {
                         System.out.println("(AE)    Posizione aereo " + this.Get_ID() + " = " + this.Get_Posizione() + ".");
                         System.out.println("(AE)    Posizione attuale = " + this.Get_AP_Attuale() + ".");
                         System.out.println("(AE)    Destinazione = " + this.Get_AP_Destinazione() + ".");
-                    }
+
+
                     //Feature Riccardo Pettenuzzo
                     if (alieni.Get_Aereo()) {
                         break;

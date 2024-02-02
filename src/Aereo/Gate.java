@@ -40,7 +40,7 @@ public class Gate extends Thread{
             try {
                 while(!GateAperto){
                     sleep(7000);
-                    System.out.println("(GT) Gate " + this.Get_Id() + " aspetta.....");
+                    //System.out.println("(GT) Gate " + this.Get_Id() + " aspetta.....");
                 }
 
                 //condizione per cui l'aereo è arrivato e l'uscita fa uscire i turisti dall'aereo e poi li fa uscire definitivamente
@@ -87,6 +87,7 @@ public class Gate extends Thread{
                     }
                     if(codaPrioritaria.isEmpty()){
                         System.out.println("(GT) Sono entrati tutti i turisti della coda prioritaria nel gate " + nomeGate);
+                        sleep(1000);
                     }
                     while (!codaNormale.isEmpty()) { //dopo la coda normale
                         F_Turista t = codaNormale.pop();
@@ -94,6 +95,7 @@ public class Gate extends Thread{
                     }
                     if(codaNormale.isEmpty()){
                         System.out.println("(GT) Sono entrati tutti i turisti della coda normale nel gate " + nomeGate );
+                        sleep(1000);
                         if(!TerminatiIControlli){
                             TerminatiIControlli = true;
                             GateAperto = false;
@@ -101,6 +103,7 @@ public class Gate extends Thread{
                             aereo.Get_Entrata().start();
                             aereo.Set_Stato_gate(true);
                             System.out.println("(GT) Il gate " + nomeGate + " si è chiuso.");
+                            sleep(1000);
                         }
                     }
                     this.aereo.Set_Stato_Stiva(true);
