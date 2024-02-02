@@ -55,6 +55,9 @@ public class Turbina extends Thread{
         funzionante = true;
         System.out.println("(TRB)  Turbina " + id + " dell'aereo " + a.Get_ID() + " è in funzione.");
     }
+    public String Get_Stato_Thread(){
+        return "" + this.getState();
+    }
     public double Get_Stato_Riparazione(){
         return this.percRiparazione;
     }
