@@ -29,21 +29,22 @@ public class Entrata extends Thread{
     {
         try{//&& timer>0
             while(!entranti.isEmpty() ) {
-                System.out.println("(EN) " + entranti.size());
-                System.out.println("(EN)  I Turisti stanno entrando...");
+               // System.out.println("(EN) mancano " + entranti.size());
+                //System.out.println("(EN)  I Turisti stanno entrando...");
                 if( entranti.size() % 2==0)
                 {
                     salitoant.push(entranti.pop());
-                    Thread.sleep(10);
+                    //Thread.sleep(10);
                 }
                 if(  entranti.size() % 2==1)
                 {
                     salitopost.push(entranti.pop());
-                    Thread.sleep(10);
+                    //Thread.sleep(10);
                 }
-                this.sleep(10);
+                //this.sleep(10);
             }
-            System.out.println("(EN)    I Turisti sono entrati.");
+            System.out.println("(EN)    Sono entrati tutti i turisti sono entrati nell'aereo.");
+            sleep(1000);
         }
         catch (Exception e){};
     }
