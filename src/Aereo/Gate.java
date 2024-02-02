@@ -109,7 +109,7 @@ public class Gate extends Thread{
                     }
                     if(codaPrioritaria.isEmpty()){
                         System.out.println("(GT) Sono entrati tutti i turisti della coda prioritaria nel gate " + nomeGate);
-                        sleep(1000);
+                        //sleep(1000);
                     }
                     while (!codaNormale.isEmpty()) { //dopo la coda normale
                         F_Turista t = codaNormale.pop();
@@ -117,7 +117,7 @@ public class Gate extends Thread{
                     }
                     if(codaNormale.isEmpty()){
                         System.out.println("(GT) Sono entrati tutti i turisti della coda normale nel gate " + nomeGate );
-                        sleep(1000);
+                        //sleep(1000);
                         if(!TerminatiIControlli){
                             TerminatiIControlli = true;
                             GateAperto = false;
@@ -127,7 +127,7 @@ public class Gate extends Thread{
                             aereo.Get_Entrata().start();
                             aereo.Set_Stato_gate(true);
                             System.out.println("(GT) Il gate " + nomeGate + " si è chiuso.");
-                            sleep(1000);
+                            //sleep(1000);
                         }
                         //GateAperto = false;
                     }

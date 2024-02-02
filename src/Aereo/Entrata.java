@@ -9,8 +9,6 @@ public class Entrata extends Thread{
     int i=0;
     private TheBackrooms tb;
 
-
-
     public Entrata()
     {
         entranti=new Coda<F_Turista>();
@@ -18,43 +16,38 @@ public class Entrata extends Thread{
         salitopost=new Coda<F_Turista>();
         i=entranti.size();
         tb=new TheBackrooms();
-
     }
-  /*  public void TakeTime(int timer)
-     {
-         this.timer=timer;
-     }
-*/
-    //divide in 2 file
 
     public void run()
     {
-        tb.start();
-        try{//&& timer>0
+        //tb.start();
+        try{
             while(!entranti.isEmpty() ) {
-               // System.out.println("(EN) mancano " + entranti.size());
+                //System.out.println("(EN) mancano " + entranti.size());
                 //System.out.println("(EN)  I Turisti stanno entrando...");
                 if( entranti.size() % 2==0)
-                {   F_Turista ft=entranti.pop();
-                    if(!Backroom(ft))
-                    {
-                        salitoant.push(ft);
-                        Thread.sleep(1);
-                    }
+                {
+                    salitoant.push(entranti.pop());
+                    Thread.sleep(10);
+//                    F_Turista ft = entranti.pop();
+//                    if(!Backroom(ft))
+//                    {
+//                        salitoant.push(ft);
+//                        Thread.sleep(100);
+//                    }
                 }
                 if(  entranti.size() % 2==1)
                 {
-                    F_Turista ft=entranti.pop();
-                    if(!Backroom(ft)) {
-                        salitopost.push(entranti.pop());
-                        Thread.sleep(1);
-                    }
-
+//                    F_Turista ft=entranti.pop();
+//                    if(!Backroom(ft)) {
+//
+//                    }
+                    salitopost.push(entranti.pop());
+                    Thread.sleep(10);
                 }
-                //this.sleep(10);
+                Thread.sleep(100);
             }
             System.out.println("(EN)    Sono entrati tutti i turisti sono entrati nell'aereo.");
-            sleep(1000);
         }
         catch (Exception e){};
     }
