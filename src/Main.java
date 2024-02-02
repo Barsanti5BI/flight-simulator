@@ -36,7 +36,6 @@ public class Main {
 
       //Creazione lista di Turisti
       LinkedList<F_Turista> lista_turisti = new LinkedList<F_Turista>();
-      int k = 0;
       int id_tur = 0;
       for(Aereo a : list_aerei){
          String dest = aereoporti.get(1);
@@ -53,7 +52,6 @@ public class Main {
                id_tur++;
             }
          }
-         k++;
       }
       System.out.println("(MAIN)   Turisti Creati.");
 
