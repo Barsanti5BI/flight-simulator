@@ -1,0 +1,14 @@
+Data E Ora: 2024-02-02T20:37:08.546705400+01:00[Europe/Rome] Stati Registrati:  | Turbina N: 1 Stato Registrato: TIMED_WAITING | Turbina N: 2 Stato Registrato: TIMED_WAITING | Turbina N: 3 Stato Registrato: TIMED_WAITING | Turbina N: 4 Stato Registrato: TIMED_WAITING | 
+
+Data E Ora: 2024-02-02T20:37:05.447121800+01:00[Europe/Rome] Stati Registrati:  | Turbina N: 1 Stato Registrato: TIMED_WAITING | Turbina N: 2 Stato Registrato: TIMED_WAITING | Turbina N: 3 Stato Registrato: TIMED_WAITING | Turbina N: 4 Stato Registrato: TIMED_WAITING | 
+
+Data E Ora: 2024-02-02T20:37:07.300636800+01:00[Europe/Rome] Stati Registrati:  | Turbina N: 1 Stato Registrato: TIMED_WAITING | Turbina N: 2 Stato Registrato: TIMED_WAITING | Turbina N: 3 Stato Registrato: TIMED_WAITING | Turbina N: 4 Stato Registrato: TIMED_WAITING | 
+
+Data E Ora: 2024-02-02T20:37:07.924905100+01:00[Europe/Rome] Stati Registrati:  | Turbina N: 1 Stato Registrato: TIMED_WAITING | Turbina N: 2 Stato Registrato: TIMED_WAITING | Turbina N: 3 Stato Registrato: TIMED_WAITING | Turbina N: 4 Stato Registrato: TIMED_WAITING | 
+
+Data E Ora: 2024-02-02T20:37:06.066245300+01:00[Europe/Rome] Stati Registrati:  | Turbina N: 1 Stato Registrato: TIMED_WAITING | Turbina N: 2 Stato Registrato: TIMED_WAITING | Turbina N: 3 Stato Registrato: TIMED_WAITING | Turbina N: 4 Stato Registrato: TIMED_WAITING | 
+
+Data E Ora: 2024-02-02T20:37:09.165115800+01:00[Europe/Rome] Stati Registrati:  | Turbina N: 1 Stato Registrato: TIMED_WAITING | Turbina N: 2 Stato Registrato: TIMED_WAITING | Turbina N: 3 Stato Registrato: TIMED_WAITING | Turbina N: 4 Stato Registrato: TIMED_WAITING | 
+
+Data E Ora: 2024-02-02T20:37:06.681948300+01:00[Europe/Rome] Stati Registrati:  | Turbina N: 1 Stato Registrato: TIMED_WAITING | Turbina N: 2 Stato Registrato: TIMED_WAITING | Turbina N: 3 Stato Registrato: TIMED_WAITING | Turbina N: 4 Stato Registrato: TIMED_WAITING | 
+

@@ -26,10 +26,9 @@ public class Uscita extends Thread{
         try{
             while(true){
                 while(!aereo_arrivato){
-                    this.sleep(10);
+                    this.sleep(100);
                 }
                 Riempi_Usciti();
-                System.out.println("(US) I Turisti stanno uscendo...");
                 while(aereo_arrivato && uscenti.size() > 0)
                 {
                     if (uscenti.size() % 2==0)
@@ -49,8 +48,6 @@ public class Uscita extends Thread{
                 while(!uscentiPost.isEmpty()){
                     usciti.push(uscentiPost.pop());
                 }
-                System.out.println("(US) "+ usciti.size());
-                System.out.println("(US) I Turisti sono usciti.");
                 aereo_arrivato = false;
                 this.sleep(100);
             }

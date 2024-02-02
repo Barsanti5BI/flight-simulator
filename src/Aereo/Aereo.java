@@ -82,22 +82,22 @@ public class Aereo extends  Thread {
         while (ap_destinazione != ap_attuale && !serbatoio.Get_CarburanteTerminato()) {
             if (aereo_pronto && gateTerminato) {
                 try {
-                    if (!alieni_partiti){
+                    if (!aereo_partito) {
+                        if (sciopero() && !sciopero_piloti) {
+                            this.sleep(8000);
+                            sciopero_piloti = true;
+                        }
+                        System.out.println("(AE)    L'aereo " + this.Get_ID() + " è partito!");
+                        aereo_partito = true;
+                    }
+                    if (!alieni_partiti) {
                         alieni.start();
                         alieni_partiti = true;
                     }
-                    if(!aereo_partito){
-                        if (sciopero() && !sciopero_piloti) {
-                            this.sleep(5000);
-                            sciopero_piloti = true;
-                        }
-                        System.out.println("(AE)   L'aereo " + this.Get_ID() + " è partito!");
-                        aereo_partito = true;
-                    }
-                    if(stampa_dati_aereo % 10 == 0){
-                        System.out.println("(AE)   Posizione aereo " + this.Get_ID() + " = " + this.Get_Posizione() +".");
-                        System.out.println("(AE)   Posizione attuale = " + this.Get_AP_Attuale()+".");
-                        System.out.println("(AE)   Destinazione = " + this.Get_AP_Destinazione()+".");
+                    if (stampa_dati_aereo % 10 == 0) {
+                        System.out.println("(AE)    Posizione aereo " + this.Get_ID() + " = " + this.Get_Posizione() + ".");
+                        System.out.println("(AE)    Posizione attuale = " + this.Get_AP_Attuale() + ".");
+                        System.out.println("(AE)    Destinazione = " + this.Get_AP_Destinazione() + ".");
                     }
                     //Feature Riccardo Pettenuzzo
                     if (alieni.Get_Aereo()) {
@@ -105,13 +105,12 @@ public class Aereo extends  Thread {
                     }
 
                     //parte del movimento dell'aereo
-                    if(rnd.nextInt(1, 20) == 15){
+                    if (rnd.nextInt(1, 20) == 15) {
                         boolean stato_attuale = maltempo;
                         CambiaStatoMaltempo();
-                        if(stato_attuale){
+                        if (stato_attuale) {
                             System.out.println("(PILOTI) Gentili passeggeri dell'aereo " + this.Get_ID() + " siamo usciti dalla zona di turbolenza.");
-                        }
-                        else{
+                        } else {
                             System.out.println("(PILOTI) Gentili passeggeri dell'aereo " + this.Get_ID() + " siamo entrati dalla zona di turbolenza.");
                         }
 
@@ -150,15 +149,16 @@ public class Aereo extends  Thread {
                     }
                     while (bagnoretro.finito().size() > 0) {
                         Imbarca(bagnoretro.finito());
-                    }*/
+                    }
+                }*/
+
                     this.sleep(2000);
                     stampa_dati_aereo++;
-                }
-                catch (Exception e){}
+                }catch (Exception e) {}
             }
             else{
                 try {
-                    System.out.println("(AE)   E' in corso la preparazione dell'aereo " + this.Get_ID() + ".");
+                    System.out.println("(AE)    E' in corso la preparazione dell'aereo " + this.Get_ID() + ".");
                     this.sleep(5000);
                 }catch (Exception e){}
             }
@@ -190,8 +190,8 @@ public class Aereo extends  Thread {
             }catch (Exception e){}
         }
         else{
-            Atterra();
             System.out.println("(PILOTI)   L'aereo " + this.Get_ID() + " è atterrato!");
+            Atterra();
             Get_Uscita().Set_Stato_Uscita(true);
             try {
                 this.sleep(3000);
@@ -242,13 +242,13 @@ public class Aereo extends  Thread {
         }
         turbine_funzionanti = true;
         scatolaNera.Ricarica();
-        System.out.println("(AE)   Le turbine dell'aereo " + this.Get_ID() + " sono state riparate.");
+        System.out.println("(AE)    Le turbine dell'aereo " + this.Get_ID() + " sono state riparate.");
     }
 
     public void Rifornisci_Aereo() {
         serbatoio.riempi();
         serbatoio_pieno = true;
-        System.out.println("(AE)   Il serbatoio " + this.Get_ID() + " è stato riempito.");
+        System.out.println("(AE)    Il serbatoio " + this.Get_ID() + " è stato riempito.");
     }
 
     public void Atterra() {
@@ -338,19 +338,21 @@ public class Aereo extends  Thread {
     }
 
     public void Imbarca_Passeggieri() {
-        System.out.println("(AE)   Saliti Davanti Size = " + entrata.GetsalitiDavanti().size());
-        System.out.println("(AE)   Saliti Dietro Size = " + entrata.GetsalitiDietro().size());
+        System.out.println("(AE)    Numero Turisti Saliti Davanti " + entrata.GetsalitiDavanti().size());
+        System.out.println("(AE)    Numero Turisti Saliti Dietro  " + entrata.GetsalitiDietro().size());
         Imbarca(entrata.GetsalitiDavanti());
         Imbarca(entrata.GetsalitiDietro());
         turisti_imbarcati = true;
     }
 
     public void Imbarca(Coda<F_Turista> c) {
+        int n_turisti = 0;
         while(c.size() > 0) {
             F_Turista t = c.pop();
             matricePostiAereo[t.Get_posto_colonna()][t.Get_posto_riga()] = t;
+            n_turisti++;
         }
-        System.out.println("(AE)   I Turisti sono saliti nell'aereo " + this.Get_ID() + " in direzione " + this.Get_AP_Destinazione() + ".");
+        System.out.println("(AE)    " + n_turisti + " sono saliti nell'aereo " + this.Get_ID() + " in direzione " + this.Get_AP_Destinazione() + ".");
     }
 
     public Coda<F_Turista> FaiScendere() {
@@ -364,7 +366,7 @@ public class Aereo extends  Thread {
 
             }
         }
-        System.out.println("(AE)   I Turisti sono quasi scesi dall'aereo " + this.Get_ID() + " in direzione " + this.Get_AP_Destinazione() + ".");
+        System.out.println("(AE)    I Turisti sono quasi scesi dall'aereo " + this.Get_ID() + " in direzione " + this.Get_AP_Destinazione() + ".");
         turisti_imbarcati = false;
         return coda;
 
@@ -375,12 +377,6 @@ public class Aereo extends  Thread {
     }
     public Uscita Get_Uscita() {
         return uscita;
-    }
-    public F_Turista[][] Get_Posti_Aereo() {
-        return this.matricePostiAereo;
-    }
-    public void Set_Gate(Gate gate) {
-        this.gate = gate;
     }
     public Stiva Get_Stiva() {
         return this.stiva;
@@ -393,9 +389,6 @@ public class Aereo extends  Thread {
     }
     public String Get_AP_Attuale() {
         return this.ap_attuale;
-    }
-    public Gate Get_Gate() {
-        return this.gate;
     }
     public ScatolaNera Get_Scatola_Nera() {
         return this.scatolaNera;

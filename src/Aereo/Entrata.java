@@ -18,56 +18,22 @@ public class Entrata extends Thread{
         tb=new TheBackrooms();
     }
 
-    public void run()
-    {
-        //tb.start();
-        try{
-            while(!entranti.isEmpty() ) {
-                //System.out.println("(EN) mancano " + entranti.size());
-                //System.out.println("(EN)  I Turisti stanno entrando...");
-                if( entranti.size() % 2==0)
-                {
+    public void run() {
+        try {
+            System.out.println("(EN)   I Turisti stanno entrando nell'aereo.");
+            while (!entranti.isEmpty()) {
+                if (entranti.size() % 2 == 0) {
                     salitoant.push(entranti.pop());
                     Thread.sleep(10);
-//                    F_Turista ft = entranti.pop();
-//                    if(!Backroom(ft))
-//                    {
-//                        salitoant.push(ft);
-//                        Thread.sleep(100);
-//                    }
                 }
-                if(  entranti.size() % 2==1)
-                {
-//                    F_Turista ft=entranti.pop();
-//                    if(!Backroom(ft)) {
-//
-//                    }
+                if (entranti.size() % 2 == 1) {
                     salitopost.push(entranti.pop());
                     Thread.sleep(10);
-
-                {   F_Turista ft=entranti.pop();
-                    if(!Backroom(ft))
-                    {
-                        salitoant.push(ft);
-                        System.out.println(ft.Get_id());
-                        Thread.sleep(1);
-                    }
                 }
-                if(  entranti.size() % 2==1)
-                {
-                    F_Turista ft=entranti.pop();
-                    if(!Backroom(ft)) {
-                        salitopost.push(entranti.pop());
-                        System.out.println(ft.Get_id());
-                        Thread.sleep(1);
-                    }
 
-                }
-                Thread.sleep(100);
             }
-            System.out.println("(EN)    Sono entrati tutti i turisti sono entrati nell'aereo.");
-        }
-        catch (Exception e){};
+            System.out.println("(EN)   I Turisti sono entrati nell'aereo.");
+        } catch (Exception e) {}
     }
 
     // prende la coda di persone in entrata
@@ -80,14 +46,8 @@ public class Entrata extends Thread{
     }
 
     public Coda<F_Turista> GetsalitiDavanti() {return  salitoant;}
-    public Coda<F_Turista> GetsalitiDietro()
-    {
-        return  salitopost;
-    }
-    public int Getnperson()
-    {
-        return i;
-    }
+    public Coda<F_Turista> GetsalitiDietro() {return  salitopost;}
+    public int Getnperson() {return i;}
     public int GetNpersonedavanti(){return salitoant.size();}
     public int GetNpersoneDietro(){ return salitopost.size();}
     public Coda<F_Turista> GetEntranti(){ return entranti;}

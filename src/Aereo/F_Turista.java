@@ -6,7 +6,6 @@ import java.util.Random;
 public class F_Turista {
 
     private int id;
-
     public Lock dead;
     private int posto_riga;
     private int posto_colonna;

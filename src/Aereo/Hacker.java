@@ -39,7 +39,7 @@ public class Hacker extends Thread{ //Feature Borsato Marco
 
                         sn.Get_Log_StatiTurbine().replace(key,cancellati);
                     }
-                    System.out.println("HACKERATI GODO EZ");
+                    System.out.println("(HACKER)    HACKERATI GODO EZ");
                 }
                 Thread.sleep(500);
             }
