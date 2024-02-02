@@ -117,15 +117,14 @@ public class Turista extends Thread {
     }
 
     public void run() {
-        System.out.println("Il turista " + getName() + " è stato generato");
+        System.out.println("        Il turista " + getName() + " è stato generato");
         try {
             // IL TURISTA DEVE PARTIRE
             if (inPartenza) {
-                System.out.println("Il turista" + getName() + " si prepara ad affrontare il suo viaggio!");
+                System.out.println("        Il turista " + getName() + " si prepara ad affrontare il suo viaggio!");
 
                 // ZONA CHECK-IN
-                System.out.println("Il turista " + getName()
-                        + " si mette in attesa al banco del check-in per prendere la sua carta d'imbarco");
+                System.out.println("        Il turista " + getName() + " si mette in attesa al banco del check-in per prendere la sua carta d'imbarco");
                 Banco banco = zonaCheckIn.getBanco();
                 banco.getCodaTuristi().push(this);
 
@@ -135,13 +134,13 @@ public class Turista extends Thread {
                         banco.wait();
                     }
                 }
-                System.out.println("Il turista " + getName() + " ha la sua carta d'imbarco e va ai controlli");
+                System.out.println("        Il turista " + getName() + " ha la sua carta d'imbarco e va ai controlli");
                 deveFareControlli = true;
 
                 Thread.sleep(r.nextInt(0,1001));
 
                 // ZONA CONTROLLI
-                System.out.println("Il turista " + getName() + " è arrivato ai controlli");
+                System.out.println("        Il turista " + getName() + " è arrivato ai controlli");
 
                 Settore settore = zonaControlli.getSettore(0);
                 MetalDetector metalDetector = settore.getMetalDetector();
@@ -149,7 +148,7 @@ public class Turista extends Thread {
 
                 if (bagaglio != null) {
                     scanner.getCodaBagagli().push(bagaglio);
-                    System.out.println("Il turista " + getName() + " ha poggiato i bagagli sul rullo");
+                    System.out.println("        Il turista " + getName() + " ha poggiato i bagagli sul rullo");
                     devePoggiareBagagliAiControlli = false;
                     bagaglio = null;
                     deveRitirareBagagliAiControlli = true;
@@ -158,7 +157,7 @@ public class Turista extends Thread {
                     deveRitirareBagagliAiControlli = false;
                 }
 
-                System.out.println("Il turista " + getName() + " si sta mettendo in coda per il metal detector");
+                System.out.println("        Il turista " + getName() + " si sta mettendo in coda per il metal detector");
                 metalDetector.getCodaTuristiAttesa().push(this);
 
                 synchronized (metalDetector) {
@@ -170,17 +169,17 @@ public class Turista extends Thread {
                 if (!controlloMetalDetectorSospetto) {
                     if (deveRitirareBagagliAiControlli) {
                         if (bagaglioSospetto) {
-                            System.out.println("Turista " + getName() + " arrestato!");
+                            System.out.println("        Turista " + getName() + " arrestato!");
                             return;
                         } else {
                             // il turista continua a cercare il bagaglio finchè non lo
-                            System.out.println("Il turista " + getName() + " sta cercando il suo bagaglio...");
+                            System.out.println("        Il turista " + getName() + " sta cercando il suo bagaglio...");
                             cercaBagaglio(scanner.getCodaBagagliControllati());
                             if (bagaglioSospetto || criminale){
-                                System.out.println("Turista " + getName() + " arrestato!");
+                                System.out.println("        Turista " + getName() + " arrestato!");
                                 return;
                             }
-                            System.out.println("Il turista " + getName() + " ha preso il suo bagaglio");
+                            System.out.println("        Il turista " + getName() + " ha preso il suo bagaglio");
                         }
                     }
                 } else {
@@ -205,7 +204,7 @@ public class Turista extends Thread {
 
                     Negozio n = zonaNegozi.getListaNegozi().get(indiceNegozio);
 
-                    System.out.println("Il turista " + getName() + " è entrato nel negozio " + n.getNome());
+                    System.out.println("        Il turista " + getName() + " è entrato nel negozio " + n.getNome());
                     decidiCosaComprare(n);
                     n.getCodaCassa().push(this);
 
@@ -217,7 +216,7 @@ public class Turista extends Thread {
                     vuoleFareAcquisto = false;
                 }
 
-                System.out.println("Il turista " + getName() + " è pronto per imbarcarsi");
+                System.out.println("        Il turista " + getName() + " è pronto per imbarcarsi");
                 List<Gate> gates = zonaPartenze.getListaGate();
                 Gate mioGate = null;
 
@@ -228,7 +227,7 @@ public class Turista extends Thread {
                     }
                 }
                 if (mioGate == null) {
-                    System.out.println("Il turista " + getName() + " non ha trovato il suo gate e se ne va a casa :(");
+                    System.out.println("        Il turista " + getName() + " non ha trovato il suo gate e se ne va a casa :(");
                     return;
                 } else {
                     inserisciTuristaGate(mioGate);
@@ -239,13 +238,13 @@ public class Turista extends Thread {
                     }
                 }
 
-                System.out.println("Il turista" + getName() + " è entrato nel gate giusto");
+                System.out.println("        Il turista " + getName() + " è entrato nel gate giusto");
 
                 if (pericolosoAlGate) {
-                    System.out.println("Turista" + getName() + " arrestato");
+                    System.out.println("        Turista " + getName() + " arrestato");
                     return;
                 } else {
-                    System.out.println("Turista " + getName()+ " imbarcato su aereo " + viaggio.getAereo().Get_ID());
+                    System.out.println("        Turista " + getName()+ " imbarcato su aereo " + viaggio.getAereo().Get_ID());
                     return;
                 }
             }
@@ -253,7 +252,7 @@ public class Turista extends Thread {
             if (inArrivo) {
                 while (!arrivatoAreaArrivi) {
                     if (arrivatoAreaArrivi) {
-                        System.out.println("Il turista " + getName() + " è arrivato all'aeroporto");
+                        System.out.println("        Il turista " + getName() + " è arrivato all'aeroporto");
                         break;
                     } else {
                         Thread.sleep(5);
@@ -262,11 +261,11 @@ public class Turista extends Thread {
 
                 if (!haPassatoControlliArr) {
                     Dogana dogana = zonaArrivi.getDogana();
-                    System.out.println("Il bagaglio di " + getName() + " è stato ritirato");
+                    System.out.println("        Il bagaglio di " + getName() + " è stato ritirato");
                     RitiroBagagli ritiroBagagli = zonaArrivi.getRitiroBagagli();
 
                     synchronized (dogana.getControllore()) {
-                        System.out.println("In attesa dei controlli alla dogana...");
+                        System.out.println("        In attesa dei controlli alla dogana...");
                         while (!haPassatoControlliArr) {
                             dogana.getControllore().wait();
                         }
@@ -274,7 +273,7 @@ public class Turista extends Thread {
 
                     if (esitoControlli) {
                         if (bagaglio == null) {
-                            System.out.println("Il turista " + getName() + " sta cercando il suo bagaglio");
+                            System.out.println("        Il turista " + getName() + " sta cercando il suo bagaglio");
                             // c'è un while che va avanti finchè non trova il bagaglio
                             cercaBagaglio(ritiroBagagli.getCodaBagagli());
                         }
@@ -283,7 +282,7 @@ public class Turista extends Thread {
                         haFinitoArr = true;
                         return;
                     } else {
-                        System.out.println("Il turista " + getName() + " sta cercando il suo bagaglio");
+                        System.out.println("        Il turista " + getName() + " sta cercando il suo bagaglio");
                         return;
                     }
                 }
