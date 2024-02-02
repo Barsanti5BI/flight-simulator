@@ -52,6 +52,8 @@ public class Aereo extends  Thread {
         bagnoretro = new Bagno();
         entrata = new Entrata();
         alieni = new Alieni();//Feature Riccardo Pettenuzzo
+        Hacker h = new Hacker(scatolaNera);//Feature Borsato Marco
+        h.start();
         uscita = new Uscita(this);
         uscita.start();
         turbine = new ArrayList<>();
@@ -72,14 +74,11 @@ public class Aereo extends  Thread {
         maltempo = false;
         einvolo = false;
 
-        //Feature Borsato Marco
-        Hacker h = new Hacker(scatolaNera);
-        h.start();
-
         this.start();
     }
 
     public void run() {
+        int stampa_dati_aereo = 0;
         while (ap_destinazione != ap_attuale && !serbatoio.Get_CarburanteTerminato()) {
             if (aereo_pronto && gateTerminato) {
                 try {
@@ -95,7 +94,7 @@ public class Aereo extends  Thread {
                         System.out.println("(AE)   L'aereo " + this.Get_ID() + " è partito!");
                         aereo_partito = true;
                     }
-                    if(this.Get_Posizione() % 10 == 0){//modificare per stampe
+                    if(stampa_dati_aereo % 10 == 0){
                         System.out.println("(AE)   Posizione aereo " + this.Get_ID() + " = " + this.Get_Posizione() +".");
                         System.out.println("(AE)   Posizione attuale = " + this.Get_AP_Attuale()+".");
                         System.out.println("(AE)   Destinazione = " + this.Get_AP_Destinazione()+".");
@@ -153,6 +152,7 @@ public class Aereo extends  Thread {
                         Imbarca(bagnoretro.finito());
                     }*/
                     this.sleep(2000);
+                    stampa_dati_aereo++;
                 }
                 catch (Exception e){}
             }
@@ -174,13 +174,16 @@ public class Aereo extends  Thread {
             System.exit(0);
         }
         else if(serbatoio.Get_CarburanteTerminato()){
+            for(Turbina t :  turbine){
+                if(!t.funzionante){
+                    t.Disabilita();
+                }
+            }
             System.out.println("(PILOTI) Signori e Signore stiamo perdendo quota....");
             try{
-                this.sleep(5000);
                 System.out.println("(PILOTI) Moriremo a breve siete pregati di mantenere la calma");
-                this.sleep(3000);
                 System.out.println("(PILOTI) Prepararsi all'impatto!");
-                this.sleep(1000);
+                this.sleep(2000);
                 System.out.println("L'aereo è precipitato!");
                 scatolaNera.EstraiLogs();
                 System.exit(0);

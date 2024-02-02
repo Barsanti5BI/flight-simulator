@@ -33,7 +33,6 @@ public class ScatolaNera extends Thread{
                 String pos = logPosizione.get(ultimaPosizione);
                 Thread.sleep(500);
                 InserisciPosizione();
-                System.out.println("Dentro Ciclo");
                 if(pos.equals(logPosizione.get(ultimaPosizione))){
                     nAllerte++;
                 }else{
@@ -45,10 +44,7 @@ public class ScatolaNera extends Thread{
                 this.sleep(100);
             }
             EstraiLogs();
-        }catch(Exception ex){
-            System.out.println("CIAOO");
-
-        }
+        }catch(Exception ex){}
     }
 
 

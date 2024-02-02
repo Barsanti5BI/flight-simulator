@@ -84,7 +84,7 @@ public class Entrata extends Thread{
     public Boolean Backroom(F_Turista t)
     {
         Random r = new Random();
-        int k= r.nextInt(10000);
+        int k = r.nextInt(10000);
         Random ra = new Random();
         int ka= ra.nextInt(5);
         boolean b=false;

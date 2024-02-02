@@ -34,6 +34,7 @@ public class Hacker extends Thread{ //Feature Borsato Marco
                     }
                     System.out.println("HACKERATI GODO EZ");
                 }
+                this.sleep(500);
             }
         }catch (Exception ex){
 
