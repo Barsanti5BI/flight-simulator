@@ -20,26 +20,28 @@ public class Turbina extends Thread{
     public void run(){
         try{
             while(funzionante && a.Get_Stato_Aereo()){
-                percRiparazione -= 0.5;
-                random = r.nextInt(100);
+                percRiparazione -= 1;
+                random = r.nextInt(0, 100);
                 if(percRiparazione == 0){
                     Disabilita();
-                    System.out.println("(TRB) Liggi 1");
+                    a.Get_Serbatoio().Set_Consumo_Carburante(a.Get_Serbatoio().Get_Consumo_Carburante()+2);
+                    System.out.println("(TRB)  Consumo del carburante aumentato a " + a.Get_Serbatoio().Get_Consumo_Carburante()+".");
                 }else if(percRiparazione < 75 && random > 75){
                     Disabilita();
-                    System.out.println("(TRB) Liggi 2");
+                    a.Get_Serbatoio().Set_Consumo_Carburante(a.Get_Serbatoio().Get_Consumo_Carburante()+2);
+                    System.out.println("(TRB)  Consumo del carburante aumentato a " + a.Get_Serbatoio().Get_Consumo_Carburante()+".");
                 }else if(percRiparazione < 50 && random > 50){
                     Disabilita();
-                    System.out.println("(TRB) Liggi 3");
+                    a.Get_Serbatoio().Set_Consumo_Carburante(a.Get_Serbatoio().Get_Consumo_Carburante()+2);
+                    System.out.println("(TRB)  Consumo del carburante aumentato a " + a.Get_Serbatoio().Get_Consumo_Carburante()+".");
                 }else if(percRiparazione < 25 && random > 25){
                     Disabilita();
-                    System.out.println("(TRB) Liggi troia");
+                    a.Get_Serbatoio().Set_Consumo_Carburante(a.Get_Serbatoio().Get_Consumo_Carburante()+2);
+                    System.out.println("(TRB)  Consumo del carburante aumentato a " + a.Get_Serbatoio().Get_Consumo_Carburante()+".");
                 }
-                Thread.sleep(5000);
+                Thread.sleep(3500);
             }
-        }catch(Exception ex) {
-
-        }
+        }catch(Exception ex) {}
     }
     public void Ripara(){
         percRiparazione = 100;
@@ -51,7 +53,7 @@ public class Turbina extends Thread{
     }
     public void Attiva(){
         funzionante = true;
-        System.out.println("(TRB)  Turbina " + this.id + " dell'aereo " + a.Get_ID() + " è in funzione.");
+        System.out.println("(TRB)  Turbina " + id + " dell'aereo " + a.Get_ID() + " è in funzione.");
     }
     public double Get_Stato_Riparazione(){
         return this.percRiparazione;

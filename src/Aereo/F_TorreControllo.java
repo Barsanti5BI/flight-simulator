@@ -45,7 +45,7 @@ public class F_TorreControllo extends Thread{
             if(g.Get_Gate_Aperto()){
             ;
             if(g.Get_Aereo().Prepara_Aereo()){
-                while(g.Get_Aereo().Get_Posizione() <100){
+                while(g.Get_Aereo().Get_Posizione() < 100){
                     try{
                         sleep(10);;
                     }catch (Exception e){ }

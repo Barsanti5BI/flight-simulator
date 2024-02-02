@@ -30,7 +30,7 @@ public class ScatolaNera extends Thread{
             while(percBatteria > 0 && a.Get_Stato_Aereo()){
                 if(pericolo){
                     percBatteria -= 0.5;
-                    System.out.println("ALLARME - BEEEP - BEEEP !");
+                    System.out.println("(SN)  ALLARME - BEEEP - BEEEP !");
                     Thread.sleep(1000);
                 }else{
                     String pos = logPosizione.get(ultimaPosizione);
@@ -45,6 +45,7 @@ public class ScatolaNera extends Thread{
                         Attiva();
                     }
                 }
+                this.sleep(100);
             }
         }catch(Exception ex){
 

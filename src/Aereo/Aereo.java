@@ -1,15 +1,16 @@
 package Aereo;
 
 import Utils.Coda;
-
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Aereo extends  Thread {
+    //Caratteristiche Aereo
     private String id;
     private String ap_destinazione;
     private String ap_attuale;
-    private int posizione;
+    private double posizione;
+    //Oggetti dell'aereo
     private Gate gate;
     private Bagno bagnidavanti;
     private Bagno bagnoretro;
@@ -18,47 +19,46 @@ public class Aereo extends  Thread {
     private Stiva stiva;
     private Serbatoio serbatoio;
     private Alieni alieni;
+    private Uscita uscita;
+    private Entrata entrata;
+    private F_Turista[][] matricePostiAereo;
+    private Random rnd;
+    //Variabili di controllo
     private boolean einvolo;
     private boolean maltempo;
-    private Random r;
-    private F_Turista[][] matricePostiAereo;
-    private int nPosti;
-    private Entrata entrata;
-    private Uscita uscita;
     private boolean serbatoio_pieno;
     private boolean turisti_imbarcati;
     private boolean stiva_piena;
     private boolean turbine_funzionanti;
     private boolean aereo_pronto;
     private boolean gateTerminato;
-    private Random rnd;
+    private  boolean aereo_partito;
+    private  boolean alieni_partiti;
+    private  boolean sciopero_piloti;
 
     public Aereo(String Id, String ap_att) {
-        rnd = new Random();
-
+        //caratteristiche
         this.id = Id;
-        maltempo = false;
-
-        //aereoporti
         ap_destinazione = "";
         ap_attuale = ap_att;
 
         //componenti aereo
+        rnd = new Random();
+        matricePostiAereo = new F_Turista[4][10];
         serbatoio = new Serbatoio();
         stiva = new Stiva(this);
         scatolaNera = new ScatolaNera(this);
-        turbine = new ArrayList<Turbina>();
         bagnidavanti = new Bagno();
         bagnoretro = new Bagno();
         entrata = new Entrata();
+        alieni = new Alieni();//Feature Riccardo Pettenuzzo
         uscita = new Uscita(this);
         uscita.start();
+        turbine = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             Turbina n = new Turbina(this, i);
             turbine.add(n);
         }
-        matricePostiAereo = new F_Turista[4][10];
-        nPosti = 40;
 
         //condizioni partenza
         stiva_piena = false;
@@ -66,20 +66,16 @@ public class Aereo extends  Thread {
         turisti_imbarcati = false;
         serbatoio_pieno = false;
         aereo_pronto = false;
-
+        alieni_partiti = false;
+        aereo_partito = false;
+        sciopero_piloti = false;
+        maltempo = false;
         einvolo = false;
-
-        //Feature Riccardo Pettenuzzo
-        alieni = new Alieni();
-
 
         this.start();
     }
 
     public void run() {
-        boolean alieni_partiti = false;
-        boolean aereo_partito = false;
-        boolean sciopero_piloti = false;
         while (ap_destinazione != ap_attuale && !serbatoio.Get_CarburanteTerminato()) {
             if (aereo_pronto && gateTerminato) {
                 try {
@@ -95,7 +91,7 @@ public class Aereo extends  Thread {
                         System.out.println("(AE)   L'aereo " + this.Get_ID() + " è partito!");
                         aereo_partito = true;
                     }
-                    if(this.Get_Posizione() % 10 == 0){
+                    if(this.Get_Posizione() % 10 == 0){//modificare per stampe
                         System.out.println("(AE)   Posizione aereo " + this.Get_ID() + " = " + this.Get_Posizione() +".");
                         System.out.println("(AE)   Posizione attuale = " + this.Get_AP_Attuale()+".");
                         System.out.println("(AE)   Destinazione = " + this.Get_AP_Destinazione()+".");
@@ -104,13 +100,23 @@ public class Aereo extends  Thread {
                     if (alieni.Get_Aereo()) {
                         break;
                     }
-                    this.sleep(1000);
 
                     //parte del movimento dell'aereo
+                    if(rnd.nextInt(1, 20) == 15){
+                        boolean stato_attuale = maltempo;
+                        CambiaStatoMaltempo();
+                        if(stato_attuale){
+                            System.out.println("(PILOTI) Gentili passeggeri dell'aereo " + this.Get_ID() + " siamo usciti dalla zona di turbolenza.");
+                        }
+                        else{
+                            System.out.println("(PILOTI) Gentili passeggeri dell'aereo " + this.Get_ID() + " siamo entrati dalla zona di turbolenza.");
+                        }
+
+                    }
                     if (maltempo) {
-                        posizione += 1;
+                        posizione += 0.5;
                     } else {
-                        posizione += 2;
+                        posizione += 2.5;
                     }
                     serbatoio.consuma_carburante();
 
@@ -142,6 +148,7 @@ public class Aereo extends  Thread {
                     while (bagnoretro.finito().size() > 0) {
                         Imbarca(bagnoretro.finito());
                     }*/
+                    this.sleep(2000);
                 }
                 catch (Exception e){}
             }
@@ -155,8 +162,9 @@ public class Aereo extends  Thread {
         if(alieni.Get_Aereo()){
             System.out.println("(PILOTI) Signori e Signore siamo desolati, sfortunatamente oggi non ci sarà ");
             System.out.println("         possibile raggiungere la destinazione " + this.Get_AP_Destinazione() + " ");
-            System.out.println("         poichè l'aereo " + this.Get_ID() + " è stato intercettato da un velivolo ");
-            System.out.println("         non identificato. Grazie per l'attenzione e grazie di aver scelto  ITT Barsanti Airlines, ");
+            System.out.println("         poichè l'aereo " + this.Get_ID() + " è stato intercettato da un velivolo alieno ");
+            System.out.println("         non identificato e potenzialmente pericoloso, siete pregati di mantenere la calma. ");
+            System.out.println("         Grazie per l'attenzione e grazie di aver scelto  ITT Barsanti Airlines, ");
             System.out.println("         tutto il personale di volo vi augura Buona Fortuna!");
             System.exit(0);
         }
@@ -241,6 +249,11 @@ public class Aereo extends  Thread {
         }
         turbine_funzionanti = false;
         serbatoio_pieno = false;
+        alieni_partiti = false;
+        sciopero_piloti = false;
+        aereo_partito = false;
+        maltempo = false;
+        posizione = 0;
     }
 
     //Metodo di Controllo che controlla lo stato delle turbine e nel caso 3 o più turbine siano
@@ -265,8 +278,7 @@ public class Aereo extends  Thread {
 
     //Feature Alessio Campagnaro
     public boolean sciopero() {
-        Random r = new Random();
-        int i = r.nextInt(1, 7);
+        int i = rnd.nextInt(1, 7);
         if (i == 5) {
             System.out.println("(PILOTI)   I piloti stanno scioperando...");
             return true;
@@ -277,13 +289,12 @@ public class Aereo extends  Thread {
 
     public Coda<F_Turista> Givebagno() {
         Coda<F_Turista> coda = new Coda<F_Turista>();
-        Random random = new Random();
 
-        int rr = random.nextInt() * entrata.Getnperson();
+        int rr = rnd.nextInt() * entrata.Getnperson();
         while (rr > 0) {
 
-            int c = random.nextInt() * matricePostiAereo.length;
-            int r = random.nextInt() * matricePostiAereo[0].length;
+            int c = rnd.nextInt() * matricePostiAereo.length;
+            int r = rnd.nextInt() * matricePostiAereo[0].length;
 
             if (matricePostiAereo[c][r] != null) {
                 rr = 0;
@@ -318,25 +329,18 @@ public class Aereo extends  Thread {
     }
 
     public void Imbarca_Passeggieri() {
-        System.out.println("(AE) Saliti Davanti Size = " + entrata.GetsalitiDavanti().size());
-        System.out.println("(AE) Saliti Dietro Size = " + entrata.GetsalitiDietro().size());
+        System.out.println("(AE)   Saliti Davanti Size = " + entrata.GetsalitiDavanti().size());
+        System.out.println("(AE)   Saliti Dietro Size = " + entrata.GetsalitiDietro().size());
         Imbarca(entrata.GetsalitiDavanti());
         Imbarca(entrata.GetsalitiDietro());
         turisti_imbarcati = true;
     }
 
     public void Imbarca(Coda<F_Turista> c) {
-        int liggi = 0;
         while(c.size() > 0) {
             F_Turista t = c.pop();
             matricePostiAereo[t.Get_posto_colonna()][t.Get_posto_riga()] = t;
-//            System.out.println("(AE) Turista " + t.Get_id() + " ha preso posto nell'aereo " + this.Get_ID()+".");
-//            try{
-//                this.sleep(10);
-//            }catch (Exception e){}
-            liggi++;
         }
-        System.out.println("(AE) Numero turisti entrati nell'aereo = " + liggi +".");
         System.out.println("(AE)   I Turisti sono saliti nell'aereo " + this.Get_ID() + " in direzione " + this.Get_AP_Destinazione() + ".");
     }
 
@@ -346,16 +350,11 @@ public class Aereo extends  Thread {
             for (int r = 0; r < 10; r++) {
                 if (matricePostiAereo[c][r] != null) {
                     coda.push(matricePostiAereo[c][r]);
-//                    System.out.println("Turista " + matricePostiAereo[c][r].Get_id() + " è quasi uscito dall'aereo " + this.Get_ID()+".");
                     matricePostiAereo[c][r] = null;
-//                    try{
-//                        this.sleep(10);
-//                    }catch (Exception e){}
                 }
 
             }
         }
-        System.out.println("(AE) Numero turisti quasi scesi = " + coda.size()+".");
         System.out.println("(AE)   I Turisti sono quasi scesi dall'aereo " + this.Get_ID() + " in direzione " + this.Get_AP_Destinazione() + ".");
         turisti_imbarcati = false;
         return coda;
@@ -398,7 +397,7 @@ public class Aereo extends  Thread {
     public String Get_ID() {
         return this.id;
     }
-    public int Get_Posizione() {
+    public double Get_Posizione() {
         return this.posizione;
     }
     public boolean Get_Stato_Aereo() {
@@ -408,10 +407,8 @@ public class Aereo extends  Thread {
         this.stiva_piena = stato;
     }
     public void Set_Stato_gate(boolean stato){this.gateTerminato = stato;}
-
     public void SetPosizione(){
         ap_attuale = ap_destinazione;}
-
     public void Set_AP_Destinazione(String destinazione){
         this.ap_destinazione = destinazione;
     }
