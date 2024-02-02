@@ -34,29 +34,36 @@ public class Entrata extends Thread{
             while(!entranti.isEmpty() ) {
                // System.out.println("(EN) mancano " + entranti.size());
                 //System.out.println("(EN)  I Turisti stanno entrando...");
+                System.out.println("entrati nel metodo" + entranti.size());
                 if( entranti.size() % 2==0)
-                {   F_Turista ft=entranti.pop();
+                {
+                    //salitoant.push(entranti.pop());
+                    F_Turista ft=entranti.pop();
                     if(!Backroom(ft))
                     {
                         salitoant.push(ft);
-                        Thread.sleep(1);
+                        //Thread.sleep(1);
                     }
+                   /* Thread.sleep(100);
+                    Thread.sleep(10);*/
                 }
                 if(  entranti.size() % 2==1)
                 {
                     F_Turista ft=entranti.pop();
-                    if(!Backroom(ft)) {
-                        salitopost.push(entranti.pop());
-                        Thread.sleep(1);
+                    if(!Backroom(ft))
+                    {
+                        salitopost.push(ft);
+                        //Thread.sleep(1);
                     }
-
+                    /*Thread.sleep(100);
+                    Thread.sleep(10);*/
                 }
                 //this.sleep(10);
             }
             System.out.println("(EN)    Sono entrati tutti i turisti sono entrati nell'aereo.");
             sleep(1000);
         }
-        catch (Exception e){};
+        catch (Exception e){System.out.println("aaaa");};
     }
 
     // prende la coda di persone in entrata
@@ -66,6 +73,7 @@ public class Entrata extends Thread{
             F_Turista a = e.pop();
             entranti.push(a);
         }
+        System.out.println("entranti" + entranti.size());
     }
 
     public Coda<F_Turista> GetsalitiDavanti() {return  salitoant;}
@@ -91,7 +99,9 @@ public class Entrata extends Thread{
 
         if( k==1 )
         {
-            System.out.print("(en)    Passeggero ");System.out.print(t.Get_id());System.out.println(" è finito nel livello "+ka+" dei Backrooms");
+            System.out.print("(en)    Passeggero ");
+            System.out.print(t.Get_id());
+            System.out.println(" è finito nel livello "+ka+" dei Backrooms");
             b=true;
             tb.DareMorto(t);
         }
