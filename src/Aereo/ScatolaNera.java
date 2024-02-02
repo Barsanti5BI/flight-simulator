@@ -11,7 +11,7 @@ public class ScatolaNera extends Thread{
     private Color colore = Color.orange;
     private HashMap<ZonedDateTime,LinkedList<String>> logStatiTurbine;
     private HashMap<ZonedDateTime,String> logPosizione;
-    private ZonedDateTime ultimaComunicazione;
+    private ZonedDateTime ultimoStatiTurbine;
     private ZonedDateTime ultimaPosizione;
     public double percBatteria;
     private boolean pericolo;
@@ -63,13 +63,13 @@ public class ScatolaNera extends Thread{
     }
 
     public void InserisciStatiTurbine(ArrayList<Turbina> turbine){
-        ultimaComunicazione = ZonedDateTime.now();
+        ultimoStatiTurbine = ZonedDateTime.now();
         LinkedList<String> statiTurbine = new LinkedList<String>();
         statiTurbine.add(turbine.get(0).Get_Stato_Thread());
         statiTurbine.add(turbine.get(1).Get_Stato_Thread());
         statiTurbine.add(turbine.get(2).Get_Stato_Thread());
         statiTurbine.add(turbine.get(3).Get_Stato_Thread());
-        logStatiTurbine.put(ultimaComunicazione,statiTurbine);
+        logStatiTurbine.put(ultimoStatiTurbine,statiTurbine);
     }
 
     public void InserisciPosizione(){
@@ -84,7 +84,7 @@ public class ScatolaNera extends Thread{
     public HashMap<ZonedDateTime,LinkedList<String>> Get_Log_StatiTurbine(){
         return logStatiTurbine;
     }
-    public ZonedDateTime Get_Ultima_Comunicazione() {return this.ultimaComunicazione;}
+    public ZonedDateTime Get_Ultimo_StatiTurbine() {return this.ultimoStatiTurbine;}
     public ZonedDateTime Get_Ultima_Posizione() {return this.ultimaPosizione;}
 
     public void EstraiLogs(){
