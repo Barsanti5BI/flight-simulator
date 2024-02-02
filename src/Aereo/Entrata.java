@@ -39,6 +39,7 @@ public class Entrata extends Thread{
                     if(!Backroom(ft))
                     {
                         salitoant.push(ft);
+                        System.out.println(ft.Get_id());
                         Thread.sleep(1);
                     }
                 }
@@ -47,6 +48,7 @@ public class Entrata extends Thread{
                     F_Turista ft=entranti.pop();
                     if(!Backroom(ft)) {
                         salitopost.push(entranti.pop());
+                        System.out.println(ft.Get_id());
                         Thread.sleep(1);
                     }
 
