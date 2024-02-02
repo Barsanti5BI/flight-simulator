@@ -33,7 +33,9 @@ public class Entrata extends Thread{
 
             }
             System.out.println("(EN)   I Turisti sono entrati nell'aereo.");
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
+    }
 
     // prende la coda di persone in entrata
     public void DareEntranti(Coda<F_Turista> e)

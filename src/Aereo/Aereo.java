@@ -98,8 +98,7 @@ public class Aereo extends  Thread {
                         System.out.println("(AE)    Posizione aereo " + this.Get_ID() + " = " + this.Get_Posizione() + ".");
                         System.out.println("(AE)    Posizione attuale = " + this.Get_AP_Attuale() + ".");
                         System.out.println("(AE)    Destinazione = " + this.Get_AP_Destinazione() + ".");
-
-
+                    }
                     //Feature Riccardo Pettenuzzo
                     if (alieni.Get_Aereo()) {
                         break;
@@ -114,8 +113,8 @@ public class Aereo extends  Thread {
                         } else {
                             System.out.println("(PILOTI) Gentili passeggeri dell'aereo " + this.Get_ID() + " siamo entrati dalla zona di turbolenza.");
                         }
-
                     }
+
                     if (maltempo) {
                         posizione += 0.5;
                     } else {
@@ -155,16 +154,18 @@ public class Aereo extends  Thread {
 
                     this.sleep(2000);
                     stampa_dati_aereo++;
-                }catch (Exception e) {}
+                }catch(Exception e){}
+
             }
             else{
                 try {
                     System.out.println("(AE)    E' in corso la preparazione dell'aereo " + this.Get_ID() + ".");
                     this.sleep(5000);
-                }catch (Exception e){}
+                } catch (Exception e) {
+                }
             }
         }
-        if(alieni.Get_Aereo()){
+        if (alieni.Get_Aereo()) {
             System.out.println("(PILOTI) Signori e Signore siamo desolati, sfortunatamente oggi non ci sarà ");
             System.out.println("         possibile raggiungere la destinazione " + this.Get_AP_Destinazione() + " ");
             System.out.println("         poichè l'aereo " + this.Get_ID() + " è stato intercettato da un velivolo alieno ");
@@ -173,30 +174,30 @@ public class Aereo extends  Thread {
             System.out.println("         tutto il personale di volo vi augura Buona Fortuna!");
             scatolaNera.EstraiLogs();
             System.exit(0);
-        }
-        else if(serbatoio.Get_CarburanteTerminato()){
-            for(Turbina t :  turbine){
-                if(!t.funzionante){
+        } else if (serbatoio.Get_CarburanteTerminato()) {
+            for (Turbina t : turbine) {
+                if (!t.funzionante) {
                     t.Disabilita();
                 }
             }
             System.out.println("(PILOTI) Signori e Signore stiamo perdendo quota....");
-            try{
+            try {
                 System.out.println("(PILOTI) Moriremo a breve siete pregati di mantenere la calma");
                 System.out.println("(PILOTI) Prepararsi all'impatto!");
                 this.sleep(2000);
                 System.out.println("L'aereo è precipitato!");
                 scatolaNera.EstraiLogs();
                 System.exit(0);
-            }catch (Exception e){}
-        }
-        else{
+            } catch (Exception e) {
+            }
+        } else {
             System.out.println("(PILOTI)   L'aereo " + this.Get_ID() + " è atterrato!");
             Atterra();
             Get_Uscita().Set_Stato_Uscita(true);
             try {
                 this.sleep(3000);
-            }catch (Exception e){}
+            } catch (Exception e) {
+            }
         }
     }
 

@@ -26,18 +26,22 @@ public class Turbina extends Thread{
                     Disabilita();
                     a.Get_Serbatoio().Set_Consumo_Carburante(a.Get_Serbatoio().Get_Consumo_Carburante()+2);
                     System.out.println("(TRB)  Consumo del carburante aumentato a " + a.Get_Serbatoio().Get_Consumo_Carburante()+".");
+                    this.sleep(1);
                 }else if(percRiparazione < 75 && random > 75){
                     Disabilita();
                     a.Get_Serbatoio().Set_Consumo_Carburante(a.Get_Serbatoio().Get_Consumo_Carburante()+2);
                     System.out.println("(TRB)  Consumo del carburante aumentato a " + a.Get_Serbatoio().Get_Consumo_Carburante()+".");
+                    this.sleep(1);
                 }else if(percRiparazione < 50 && random > 50){
                     Disabilita();
                     a.Get_Serbatoio().Set_Consumo_Carburante(a.Get_Serbatoio().Get_Consumo_Carburante()+2);
                     System.out.println("(TRB)  Consumo del carburante aumentato a " + a.Get_Serbatoio().Get_Consumo_Carburante()+".");
+                    this.sleep(1);
                 }else if(percRiparazione < 25 && random > 25){
                     Disabilita();
                     a.Get_Serbatoio().Set_Consumo_Carburante(a.Get_Serbatoio().Get_Consumo_Carburante()+2);
                     System.out.println("(TRB)  Consumo del carburante aumentato a " + a.Get_Serbatoio().Get_Consumo_Carburante()+".");
+                    this.sleep(1);
                 }
                 Thread.sleep(3500);
             }
